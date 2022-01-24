@@ -1,4 +1,4 @@
-import { NavigationStack } from './app/navigation/stack';
+import { NavigationStack } from 'navigation/stack';
 import React from 'react';
 
 const App = () => {

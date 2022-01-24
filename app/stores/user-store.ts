@@ -1,7 +1,7 @@
 import { User } from 'models';
 import { types } from 'mobx-state-tree';
 
-export const userStore = types
+export const UserStore = types
   .model('UserStore', {
     user: User,
   })
@@ -13,7 +13,7 @@ export const userStore = types
   })
   .create({
     user: {
-      name: 'Hoa',
+      name: 'Võ Xuân Hòa',
       age: 20,
     },
   });
