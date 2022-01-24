@@ -20,5 +20,3 @@ export const TextContainer = () => {};
 - Folder and filename "-" between:
 
 navigation/screen-names
-
-- Components file:

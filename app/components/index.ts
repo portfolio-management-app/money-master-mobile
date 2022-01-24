@@ -1,3 +1,4 @@
-import { TextContainer } from './text-container/TextContainer';
-import { PlatformView } from './platform-view/PlatformView';
-export { PlatformView, TextContainer };
+import { Loading } from './loading';
+import { TextContainer } from './text-container';
+import { PlatformView } from './platform-view';
+export { PlatformView, TextContainer, Loading };
