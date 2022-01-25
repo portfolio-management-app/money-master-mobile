@@ -1,4 +1,4 @@
 export const imageSource = {
-  banner: require('./greeting.jpg'),
-  appIcon: require('./app-icon.png'),
+  banner: require('./source/greeting.jpg'),
+  appIcon: require('./source/app-icon.png'),
 };

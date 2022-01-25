@@ -1,10 +1,10 @@
 import React from 'react';
 import { View } from 'react-native';
 import { Observer } from 'mobx-react-lite';
+import { Button, Icon } from 'react-native-elements';
 import { PlatformView } from 'components';
 import { NavigationHeader } from 'navigation/header';
 import { colorScheme, styleProvider } from 'styles';
-import { Button, Icon } from 'react-native-elements';
 import { LocaleStore } from 'stores/ui-store';
 
 export const Login = () => {

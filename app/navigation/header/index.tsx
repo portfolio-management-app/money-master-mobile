@@ -6,7 +6,7 @@ import { useNavigation } from '@react-navigation/native';
 
 interface IProps {
   title?: string;
-  rightIcon?: any;
+  rightIcon?: never;
 }
 
 export const NavigationHeader = ({ title, rightIcon }: IProps) => {
@@ -21,7 +21,7 @@ export const NavigationHeader = ({ title, rightIcon }: IProps) => {
           name="chevron-left"
           type="entypo"
           size={30}
-          tvParallaxProperties={undefined}
+          tvParallaxProperties={{}}
         ></Icon>
         <TextContainer type="h4">{title ? title : ''}</TextContainer>
       </TouchableOpacity>
