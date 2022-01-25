@@ -6,6 +6,12 @@ export const styleProvider = StyleSheet.create({
     backgroundColor: colorScheme.white,
     flex: 1,
   },
+  button: {
+    borderRadius: 20,
+    width: '100%',
+    paddingVertical: 5,
+    borderWidth: 1,
+  },
 });
 
 export const fontProvider = {

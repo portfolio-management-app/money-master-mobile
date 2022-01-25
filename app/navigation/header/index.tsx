@@ -1,8 +1,8 @@
 import React from 'react';
 import { StyleSheet, TouchableOpacity } from 'react-native';
-import { PlatformView, TextContainer } from 'components';
 import { Icon } from 'react-native-elements';
 import { useNavigation } from '@react-navigation/native';
+import { PlatformView, TextContainer } from 'components';
 
 interface IProps {
   title?: string;
@@ -14,7 +14,7 @@ export const NavigationHeader = ({ title, rightIcon }: IProps) => {
   return (
     <PlatformView style={styles.headerContainer}>
       <TouchableOpacity
-        style={styles.headerContainer}
+        style={styles.leftButton}
         onPress={() => navigation.goBack()}
       >
         <Icon
@@ -23,8 +23,12 @@ export const NavigationHeader = ({ title, rightIcon }: IProps) => {
           size={30}
           tvParallaxProperties={{}}
         ></Icon>
-        <TextContainer type="h4">{title ? title : ''}</TextContainer>
       </TouchableOpacity>
+
+      <TextContainer style={{ fontWeight: 'bold' }} type="h4">
+        {title ? title : ''}
+      </TextContainer>
+      {rightIcon && rightIcon}
     </PlatformView>
   );
 };
@@ -33,5 +37,18 @@ const styles = StyleSheet.create({
   headerContainer: {
     flexDirection: 'row',
     alignItems: 'center',
+    justifyContent: 'center',
+    position: 'relative',
+    paddingVertical: 10,
+  },
+  leftButton: {
+    position: 'absolute',
+    top: 10,
+    left: 0,
+    width: 30,
+    height: 30,
+    borderRadius: 50,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 });

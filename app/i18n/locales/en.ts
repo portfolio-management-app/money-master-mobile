@@ -1,12 +1,25 @@
 export const en = {
   greetingPage: {
-    login: 'Login',
-    register: 'Register',
+    login: 'SIGN IN',
+    register: 'SIGN UP',
     intro: 'Portfolio management app',
   },
   loginPage: {
-    google: 'Login with Google',
-    facebook: 'Login with Facebook',
-    twitter: 'Login with Twitter',
+    google: 'SIGN IN WITH GOOGLE',
+    facebook: 'SIGN IN WITH FACEBOOK',
+    header: 'Sign In',
+    placeHolder: {
+      email: 'Email',
+      password: 'Password',
+    },
+  },
+  registerPage: {
+    google: 'SIGN UP WITH GOOGLE',
+    facebook: 'SIGN UP WITH FACEBOOK',
+    header: 'Sign Up',
+    placeHolder: {
+      email: 'Email',
+      password: 'Password',
+    },
   },
 };

@@ -9,8 +9,9 @@ import { LocaleStore } from 'stores/ui-store';
 import { googleSignIn, googleSignOut } from 'services/google-auth';
 import { facebookLogin, getProfile } from 'services/facebook-auth';
 
-export const Login = () => {
+export const Register = () => {
   const [isLoading, setIsLoading] = React.useState(false);
+
   const googleSignInPress = async () => {
     const result = await googleSignIn();
     if (result) {
@@ -36,11 +37,11 @@ export const Login = () => {
           const { locale } = LocaleStore;
           return (
             <View style={styles.form}>
-              <NavigationHeader title={locale.loginPage.header} />
+              <NavigationHeader title={locale.registerPage.header} />
               <View style={styles.inputContainer}>
                 <Input
                   autoCompleteType={true}
-                  placeholder={locale.loginPage.placeHolder.email}
+                  placeholder={locale.registerPage.placeHolder.email}
                   leftIcon={{
                     type: 'material-community',
                     name: 'email',
@@ -49,16 +50,16 @@ export const Login = () => {
                 <Input
                   secureTextEntry={true}
                   autoCompleteType={true}
-                  placeholder={locale.loginPage.placeHolder.password}
+                  placeholder={locale.registerPage.placeHolder.password}
                   leftIcon={{
                     type: 'material-community',
                     name: 'onepassword',
                   }}
                 />
                 <Button
-                  containerStyle={[styleProvider.button, styles.loginButton]}
-                  type="clear"
-                  title={locale.greetingPage.login}
+                  containerStyle={[styleProvider.button, styles.registerButton]}
+                  type="solid"
+                  title={locale.greetingPage.register}
                 ></Button>
               </View>
               <View style={styles.textContainer}>
@@ -66,7 +67,6 @@ export const Login = () => {
                   OR
                 </TextContainer>
               </View>
-
               <View style={styles.buttonContainer}>
                 <Button
                   type="clear"
@@ -77,7 +77,7 @@ export const Login = () => {
                   }}
                   onPress={() => googleSignInPress()}
                   containerStyle={[styleProvider.button, styles.googleButton]}
-                  title={locale.loginPage.google}
+                  title={locale.registerPage.google}
                   titleStyle={{ color: colorScheme.white }}
                 ></Button>
                 <Button
@@ -105,8 +105,9 @@ const styles = StyleSheet.create({
   form: {
     paddingHorizontal: 20,
   },
-  loginButton: {
+  registerButton: {
     borderColor: colorScheme.theme,
+    backgroundColor: colorScheme.theme,
   },
   googleButton: {
     borderColor: colorScheme.red500,

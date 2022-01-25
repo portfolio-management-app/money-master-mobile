@@ -5,7 +5,7 @@ import { Observer } from 'mobx-react-lite';
 import { useNavigation } from '@react-navigation/native';
 import { imageSource } from 'assets/images';
 import { PlatformView, TextContainer } from 'components';
-import { colorScheme, dimensionProvider } from 'styles';
+import { colorScheme, dimensionProvider, styleProvider } from 'styles';
 import { LocaleStore } from 'stores/ui-store';
 import { screenName } from 'navigation/screen-names';
 
@@ -30,15 +30,21 @@ export const Start = () => {
               </TextContainer>
               <View style={styles.buttonContainer}>
                 <Button
-                  onPress={() => navigation.navigate(screenName.login as never)}
-                  containerStyle={[styles.button, styles.loginButton]}
+                  onPress={() =>
+                    navigation.navigate(screenName.register as never)
+                  }
+                  containerStyle={[styleProvider.button, styles.loginButton]}
                   type="solid"
-                  title={locale.greetingPage.login}
+                  title={locale.greetingPage.register}
                 ></Button>
                 <Button
-                  containerStyle={[styles.button]}
+                  onPress={() => navigation.navigate(screenName.login as never)}
+                  containerStyle={[
+                    styleProvider.button,
+                    { borderColor: colorScheme.theme },
+                  ]}
                   type="clear"
-                  title={locale.greetingPage.register}
+                  title={locale.greetingPage.login}
                 ></Button>
               </View>
             </>
@@ -54,6 +60,7 @@ const styles = StyleSheet.create({
     backgroundColor: colorScheme.white,
     flex: 1,
     alignItems: 'center',
+    paddingTop: 10,
   },
   iconContainer: {
     flexDirection: 'row',
@@ -77,15 +84,10 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     marginTop: 20,
   },
-  button: {
-    borderRadius: 20,
-    width: '100%',
-    paddingVertical: 5,
-    borderColor: colorScheme.theme,
-    borderWidth: 1,
-  },
+
   loginButton: {
     backgroundColor: colorScheme.theme,
     marginVertical: 20,
+    borderColor: colorScheme.theme,
   },
 });

@@ -1,12 +1,11 @@
 export const vn = {
   greetingPage: {
-    login: 'Đăng nhập',
-    register: 'Đăng ký',
+    login: 'ĐĂNG NHẬP',
+    register: 'ĐĂNG KÝ',
     intro: 'Ứng  dụng quản lý tài sản cá nhận',
   },
   loginPage: {
-    google: 'Đăng nhập với Google',
-    facebook: 'Đăng nhập với Facebook',
-    twitter: 'Đăng nhập với Twitter',
+    google: 'ĐĂNG KÝ VỚI GOOGLE',
+    facebook: 'ĐĂNG KÝ VỚI FACEBOOK',
   },
 };
