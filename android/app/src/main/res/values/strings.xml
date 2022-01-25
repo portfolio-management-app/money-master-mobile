@@ -1,5 +1,7 @@
 <resources>
+    <string name="facebook_app_id">471127711259114</string> 
+    <string name="facebook_client_token">2d594349b9c972f929854066fef6f81e</string>
     <string name="app_name">moneymastermobile</string>
     <string name="appCenterCrashes_whenToSendCrashes" moduleConfig="true" translatable="false">DO_NOT_ASK_JAVASCRIPT</string>
-<string name="appCenterAnalytics_whenToEnableAnalytics" moduleConfig="true" translatable="false">ALWAYS_SEND</string>
+    <string name="appCenterAnalytics_whenToEnableAnalytics" moduleConfig="true" translatable="false">ALWAYS_SEND</string>
 </resources>
