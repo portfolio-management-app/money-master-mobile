@@ -1,3 +1,4 @@
-import { Authentication } from './authentication';
+import { Login } from './authentication/login';
+import { Start } from './start';
 import { Home } from './home';
-export { Home, Authentication };
+export { Home, Login, Start };

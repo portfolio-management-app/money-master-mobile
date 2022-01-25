@@ -2,7 +2,7 @@ import * as React from 'react';
 import { StatusBar } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { Authentication, Home } from 'screens';
+import { Login, Home, Start } from 'screens';
 import { screenName } from 'navigation/screen-names';
 import { colorScheme } from 'styles';
 
@@ -17,10 +17,11 @@ export const NavigationStack = () => {
       />
       <Stack.Navigator
         screenOptions={{ headerShown: false }}
-        initialRouteName={screenName.home}
+        initialRouteName={screenName.start}
       >
+        <Stack.Screen name={screenName.start} component={Start} />
         <Stack.Screen name={screenName.home} component={Home} />
-        <Stack.Screen name={screenName.login} component={Authentication} />
+        <Stack.Screen name={screenName.login} component={Login} />
       </Stack.Navigator>
     </NavigationContainer>
   );
