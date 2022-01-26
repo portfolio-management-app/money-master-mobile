@@ -6,31 +6,27 @@ import { Loading, PlatformView, TextContainer } from 'components';
 import { NavigationHeader } from 'navigation/header';
 import { colorScheme, styleProvider } from 'styles';
 import { LocaleStore } from 'stores/ui-store';
-import { googleSignIn, googleSignOut } from 'services/google-auth';
-import { facebookLogin, getProfile } from 'services/facebook-auth';
+import { useAuthentication, useSocialLogin } from 'hooks/authen';
 
 export const Login = () => {
-  const [isLoading, setIsLoading] = React.useState(false);
-  const googleSignInPress = async () => {
-    const result = await googleSignIn();
-    if (result) {
-      await googleSignOut();
-    }
+  const [setEmail, setPassword, error, submit] = useAuthentication();
+
+  const [loading, handleFaceBookLogin, handleGoogleLogin] = useSocialLogin();
+
+  const handleEmailChange = (value: string) => {
+    setEmail(value);
   };
 
-  const facebookLoginPress = async () => {
-    setIsLoading(true);
-    const result = await facebookLogin();
-    if (result) {
-      const user = await getProfile();
-      console.log(user);
-    }
-    setIsLoading(false);
+  const handlePasswordChange = (value: string) => {
+    setPassword(value);
+  };
+  const onLogin = async () => {
+    const res = await submit('login');
   };
 
   return (
     <PlatformView style={styleProvider.body}>
-      <Loading show={isLoading} />
+      <Loading show={loading} />
       <Observer>
         {() => {
           const { locale } = LocaleStore;
@@ -45,6 +41,8 @@ export const Login = () => {
                     type: 'material-community',
                     name: 'email',
                   }}
+                  onChangeText={handleEmailChange}
+                  errorMessage={error.emailMessage}
                 />
                 <Input
                   secureTextEntry={true}
@@ -54,13 +52,16 @@ export const Login = () => {
                     type: 'material-community',
                     name: 'onepassword',
                   }}
+                  onChangeText={handlePasswordChange}
+                  errorMessage={error.passwordMessage}
                 />
-                <Button
-                  containerStyle={[styleProvider.button, styles.loginButton]}
-                  type="clear"
-                  title={locale.greetingPage.login}
-                ></Button>
               </View>
+              <Button
+                containerStyle={[styleProvider.button, styles.loginButton]}
+                type="clear"
+                onPress={onLogin}
+                title={locale.greetingPage.login}
+              ></Button>
               <View style={styles.textContainer}>
                 <TextContainer style={{ color: colorScheme.theme }}>
                   OR
@@ -75,13 +76,13 @@ export const Login = () => {
                     name: 'googleplus',
                     color: colorScheme.white,
                   }}
-                  onPress={() => googleSignInPress()}
+                  onPress={handleGoogleLogin}
                   containerStyle={[styleProvider.button, styles.googleButton]}
                   title={locale.loginPage.google}
                   titleStyle={{ color: colorScheme.white }}
                 ></Button>
                 <Button
-                  onPress={() => facebookLoginPress()}
+                  onPress={handleFaceBookLogin}
                   type="clear"
                   icon={{
                     type: 'fontawesome',
@@ -107,6 +108,7 @@ const styles = StyleSheet.create({
   },
   loginButton: {
     borderColor: colorScheme.theme,
+    marginTop: 20,
   },
   googleButton: {
     borderColor: colorScheme.red500,

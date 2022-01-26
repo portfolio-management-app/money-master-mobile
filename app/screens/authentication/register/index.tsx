@@ -6,32 +6,28 @@ import { Loading, PlatformView, TextContainer } from 'components';
 import { NavigationHeader } from 'navigation/header';
 import { colorScheme, styleProvider } from 'styles';
 import { LocaleStore } from 'stores/ui-store';
-import { googleSignIn, googleSignOut } from 'services/google-auth';
-import { facebookLogin, getProfile } from 'services/facebook-auth';
+import { useAuthentication, useSocialLogin } from 'hooks/authen';
 
 export const Register = () => {
-  const [isLoading, setIsLoading] = React.useState(false);
+  const [setEmail, setPassword, error, submit] = useAuthentication();
 
-  const googleSignInPress = async () => {
-    const result = await googleSignIn();
-    if (result) {
-      await googleSignOut();
-    }
+  const [loading, handleFaceBookLogin, handleGoogleLogin] = useSocialLogin();
+
+  const handleEmailChange = (value: string) => {
+    setEmail(value);
   };
 
-  const facebookLoginPress = async () => {
-    setIsLoading(true);
-    const result = await facebookLogin();
-    if (result) {
-      const user = await getProfile();
-      console.log(user);
-    }
-    setIsLoading(false);
+  const handlePasswordChange = (value: string) => {
+    setPassword(value);
+  };
+
+  const onRegister = async () => {
+    const res = await submit('register');
   };
 
   return (
     <PlatformView style={styleProvider.body}>
-      <Loading show={isLoading} />
+      <Loading show={loading} />
       <Observer>
         {() => {
           const { locale } = LocaleStore;
@@ -40,14 +36,17 @@ export const Register = () => {
               <NavigationHeader title={locale.registerPage.header} />
               <View style={styles.inputContainer}>
                 <Input
+                  onChangeText={handleEmailChange}
                   autoCompleteType={true}
                   placeholder={locale.registerPage.placeHolder.email}
                   leftIcon={{
                     type: 'material-community',
                     name: 'email',
                   }}
+                  errorMessage={error.emailMessage}
                 />
                 <Input
+                  onChangeText={handlePasswordChange}
                   secureTextEntry={true}
                   autoCompleteType={true}
                   placeholder={locale.registerPage.placeHolder.password}
@@ -55,13 +54,15 @@ export const Register = () => {
                     type: 'material-community',
                     name: 'onepassword',
                   }}
+                  errorMessage={error.passwordMessage}
                 />
-                <Button
-                  containerStyle={[styleProvider.button, styles.registerButton]}
-                  type="solid"
-                  title={locale.greetingPage.register}
-                ></Button>
               </View>
+              <Button
+                containerStyle={[styleProvider.button, styles.registerButton]}
+                type="solid"
+                onPress={onRegister}
+                title={locale.greetingPage.register}
+              ></Button>
               <View style={styles.textContainer}>
                 <TextContainer style={{ color: colorScheme.theme }}>
                   OR
@@ -75,13 +76,13 @@ export const Register = () => {
                     name: 'googleplus',
                     color: colorScheme.white,
                   }}
-                  onPress={() => googleSignInPress()}
+                  onPress={handleGoogleLogin}
                   containerStyle={[styleProvider.button, styles.googleButton]}
                   title={locale.registerPage.google}
                   titleStyle={{ color: colorScheme.white }}
                 ></Button>
                 <Button
-                  onPress={() => facebookLoginPress()}
+                  onPress={handleFaceBookLogin}
                   type="clear"
                   icon={{
                     type: 'fontawesome',
@@ -89,7 +90,7 @@ export const Register = () => {
                     color: colorScheme.white,
                   }}
                   containerStyle={[styleProvider.button, styles.facebookButton]}
-                  title={locale.loginPage.facebook}
+                  title={locale.registerPage.facebook}
                   titleStyle={{ color: colorScheme.white }}
                 ></Button>
               </View>
@@ -108,6 +109,7 @@ const styles = StyleSheet.create({
   registerButton: {
     borderColor: colorScheme.theme,
     backgroundColor: colorScheme.theme,
+    marginTop: 20,
   },
   googleButton: {
     borderColor: colorScheme.red500,

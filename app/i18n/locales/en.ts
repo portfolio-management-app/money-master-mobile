@@ -22,4 +22,9 @@ export const en = {
       password: 'Password',
     },
   },
+  authenError: {
+    email: 'Invalid email',
+    password:
+      'Password contains at least 8 character and have both number and character',
+  },
 };
