@@ -1,4 +1,5 @@
 export const en = {
+  lang: 'en',
   greetingPage: {
     login: 'SIGN IN',
     register: 'SIGN UP',

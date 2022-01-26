@@ -1,5 +1,6 @@
+import { storage, langKey } from 'services/storage';
 import { i18n, LocaleType } from 'i18n';
-import { types } from 'mobx-state-tree';
+import { flow, types } from 'mobx-state-tree';
 
 export const LocaleStore = types
   .model('LocaleStore', {
@@ -14,12 +15,28 @@ export const LocaleStore = types
   .actions((self) => {
     const changeLocale = (locale: LocaleType) => {
       self.currentLocale = locale;
+      storage
+        .save({ key: langKey, data: i18n[locale] })
+        .then(() => console.log('Changed locale store'))
+        .catch((error) => console.log(error));
     };
-    return { changeLocale };
+
+    const initLocale = flow(function* () {
+      try {
+        const storageLocale = yield storage.load({ key: langKey });
+        self.currentLocale = storageLocale.lang;
+      } catch (error: any) {
+        console.log(error.name);
+      }
+    });
+    return { changeLocale, initLocale };
   })
+
   .create({
     source: {
       en: i18n['en'],
       vn: i18n['vn'],
     },
   });
+
+LocaleStore.initLocale();

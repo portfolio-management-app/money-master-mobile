@@ -7,11 +7,15 @@ import { NavigationHeader } from 'navigation/header';
 import { colorScheme, styleProvider } from 'styles';
 import { LocaleStore } from 'stores/ui-store';
 import { useAuthentication, useSocialLogin } from 'hooks/authen';
+import { useNavigation } from '@react-navigation/native';
+import { screenName } from 'navigation/screen-names';
 
 export const Login = () => {
   const [setEmail, setPassword, error, submit] = useAuthentication();
 
   const [loading, handleFaceBookLogin, handleGoogleLogin] = useSocialLogin();
+
+  const navigation = useNavigation();
 
   const handleEmailChange = (value: string) => {
     setEmail(value);
@@ -22,6 +26,7 @@ export const Login = () => {
   };
   const onLogin = async () => {
     const res = await submit('login');
+    navigation.navigate(screenName.home as never);
   };
 
   return (
