@@ -7,7 +7,7 @@ import { NavigationHeader } from 'navigation/header';
 import { colorScheme, iconProvider, styleProvider } from 'styles';
 import { LocaleStore } from 'stores/ui-store';
 import { useAuthentication, useSocialLogin } from 'hooks/authen';
-import { useNavigation } from '@react-navigation/native';
+import { CommonActions, useNavigation } from '@react-navigation/native';
 import { screenName } from 'navigation/screen-names';
 
 export const Login = () => {
@@ -26,7 +26,12 @@ export const Login = () => {
   };
   const onLogin = async () => {
     const res = await submit('login');
-    navigation.navigate(screenName.home as never);
+    navigation.dispatch(
+      CommonActions.reset({
+        index: 0,
+        routes: [{ name: screenName.home }],
+      })
+    );
   };
 
   return (
