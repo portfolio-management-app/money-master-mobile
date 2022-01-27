@@ -35,4 +35,10 @@ export const en = {
     header: 'Reset password',
     send: 'SEND',
   },
+  bottomTab: {
+    transaction: 'Transaction',
+    category: 'Category',
+    report: 'Report',
+    account: 'Account',
+  },
 };
