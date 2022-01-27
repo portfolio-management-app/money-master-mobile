@@ -44,7 +44,7 @@ const styles = StyleSheet.create({
   leftButton: {
     position: 'absolute',
     top: 10,
-    left: 0,
+    left: 10,
     width: 30,
     height: 30,
     borderRadius: 50,

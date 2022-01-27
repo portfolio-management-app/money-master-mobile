@@ -3,7 +3,7 @@ import axios, { AxiosRequestHeaders } from 'axios';
 import { BASE_URL, TOKEN_KEY } from 'config';
 
 class HttpRequest {
-  token: string | null = null;
+  token: string = '';
 
   constructor() {
     const init = async () => {
@@ -13,8 +13,12 @@ class HttpRequest {
   }
 
   private async getBearToken() {
-    const res = await storage.load({ key: TOKEN_KEY });
-    this.token = `Bearer ${res}`;
+    try {
+      const res = await storage.load({ key: TOKEN_KEY });
+      this.token = `Bearer ${res}`;
+    } catch (error: any) {
+      console.log(error);
+    }
   }
 
   async sendGet(url: string, token?: string) {

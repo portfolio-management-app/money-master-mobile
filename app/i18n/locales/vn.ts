@@ -8,23 +8,31 @@ export const vn = {
   loginPage: {
     google: 'ĐĂNG NHẬP VỚI GOOGLE',
     facebook: 'ĐĂNG NHẬP VỚI FACEBOOK',
-    header: 'Đăng Nhập',
+    header: 'Đăng nhập',
     placeHolder: {
       email: 'Email',
       password: 'Mật khẩu',
     },
+    forgetPassword: 'Quên mật khẩu ?',
+    signUpLink: 'Không có tài khoản ?',
   },
   registerPage: {
     google: 'ĐĂNG KÍ VỚI GOOGLE',
     facebook: 'ĐĂNG KÍ VỚI FACEBOOK',
-    header: 'Đăng Ký',
+    header: 'Đăng ký',
     placeHolder: {
       email: 'Email',
       password: 'Mật khẩu',
     },
+    signInLink: 'Đã có tài khoản ?',
   },
   authenError: {
     email: 'Email không hợp lệ',
     password: 'Mật khẩu phải chứa ít nhất 8 kí tự bao gồm cả số và chữ cái',
+  },
+
+  forgetPasswordPage: {
+    header: 'Đặt lại mật khẩu',
+    send: 'GỬI',
   },
 };

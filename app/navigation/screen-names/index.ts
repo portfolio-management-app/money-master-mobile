@@ -4,4 +4,5 @@ export const screenName = {
   setting: 'Setting',
   login: 'Login',
   register: 'Register',
+  forgetPassword: 'ForgetPassword',
 };

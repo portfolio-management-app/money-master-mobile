@@ -1,10 +1,10 @@
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, TouchableOpacity, View } from 'react-native';
 import { Observer } from 'mobx-react-lite';
 import { Button, Input } from 'react-native-elements';
 import { Loading, PlatformView, TextContainer } from 'components';
 import { NavigationHeader } from 'navigation/header';
-import { colorScheme, styleProvider } from 'styles';
+import { colorScheme, iconProvider, styleProvider } from 'styles';
 import { LocaleStore } from 'stores/ui-store';
 import { useAuthentication, useSocialLogin } from 'hooks/authen';
 import { useNavigation } from '@react-navigation/native';
@@ -36,70 +36,104 @@ export const Login = () => {
         {() => {
           const { locale } = LocaleStore;
           return (
-            <View style={styles.form}>
+            <>
               <NavigationHeader title={locale.loginPage.header} />
-              <View style={styles.inputContainer}>
-                <Input
-                  autoCompleteType={true}
-                  placeholder={locale.loginPage.placeHolder.email}
-                  leftIcon={{
-                    type: 'material-community',
-                    name: 'email',
-                  }}
-                  onChangeText={handleEmailChange}
-                  errorMessage={error.emailMessage}
-                />
-                <Input
-                  secureTextEntry={true}
-                  autoCompleteType={true}
-                  placeholder={locale.loginPage.placeHolder.password}
-                  leftIcon={{
-                    type: 'material-community',
-                    name: 'onepassword',
-                  }}
-                  onChangeText={handlePasswordChange}
-                  errorMessage={error.passwordMessage}
-                />
-              </View>
-              <Button
-                containerStyle={[styleProvider.button, styles.loginButton]}
-                type="clear"
-                onPress={onLogin}
-                title={locale.greetingPage.login}
-              ></Button>
-              <View style={styles.textContainer}>
-                <TextContainer style={{ color: colorScheme.theme }}>
-                  OR
-                </TextContainer>
-              </View>
+              <View style={styles.form}>
+                <View style={styles.inputContainer}>
+                  <Input
+                    autoCompleteType={true}
+                    placeholder={locale.loginPage.placeHolder.email}
+                    leftIcon={{
+                      type: iconProvider.fontisto,
+                      name: 'email',
+                      color: colorScheme.gray600,
+                    }}
+                    onChangeText={handleEmailChange}
+                    errorMessage={error.emailMessage}
+                  />
+                  <Input
+                    secureTextEntry={true}
+                    autoCompleteType={true}
+                    placeholder={locale.loginPage.placeHolder.password}
+                    leftIcon={{
+                      type: iconProvider.simpleLineIcon,
+                      name: 'lock',
+                      color: colorScheme.gray600,
+                    }}
+                    onChangeText={handlePasswordChange}
+                    errorMessage={error.passwordMessage}
+                  />
+                  <View style={styles.forgetContainer}>
+                    <TouchableOpacity
+                      onPress={() =>
+                        navigation.navigate(screenName.forgetPassword as never)
+                      }
+                    >
+                      <TextContainer
+                        style={{ color: colorScheme.theme }}
+                        type="small"
+                      >
+                        {locale.loginPage.forgetPassword}
+                      </TextContainer>
+                    </TouchableOpacity>
+                  </View>
+                </View>
+                <Button
+                  containerStyle={[styleProvider.button, styles.loginButton]}
+                  type="clear"
+                  onPress={onLogin}
+                  title={locale.greetingPage.login}
+                ></Button>
+                <View style={styles.textContainer}>
+                  <TextContainer style={{ color: colorScheme.theme }}>
+                    OR
+                  </TextContainer>
+                </View>
 
-              <View style={styles.buttonContainer}>
-                <Button
-                  type="clear"
-                  icon={{
-                    type: 'antdesign',
-                    name: 'googleplus',
-                    color: colorScheme.white,
-                  }}
-                  onPress={handleGoogleLogin}
-                  containerStyle={[styleProvider.button, styles.googleButton]}
-                  title={locale.loginPage.google}
-                  titleStyle={{ color: colorScheme.white }}
-                ></Button>
-                <Button
-                  onPress={handleFaceBookLogin}
-                  type="clear"
-                  icon={{
-                    type: 'fontawesome',
-                    name: 'facebook',
-                    color: colorScheme.white,
-                  }}
-                  containerStyle={[styleProvider.button, styles.facebookButton]}
-                  title={locale.loginPage.facebook}
-                  titleStyle={{ color: colorScheme.white }}
-                ></Button>
+                <View style={styles.buttonContainer}>
+                  <Button
+                    type="clear"
+                    icon={{
+                      type: 'antdesign',
+                      name: 'googleplus',
+                      color: colorScheme.white,
+                    }}
+                    onPress={handleGoogleLogin}
+                    containerStyle={[styleProvider.button, styles.googleButton]}
+                    title={locale.loginPage.google}
+                    titleStyle={{ color: colorScheme.white }}
+                  ></Button>
+                  <Button
+                    onPress={handleFaceBookLogin}
+                    type="clear"
+                    icon={{
+                      type: 'fontawesome',
+                      name: 'facebook',
+                      color: colorScheme.white,
+                    }}
+                    containerStyle={[
+                      styleProvider.button,
+                      styles.facebookButton,
+                    ]}
+                    title={locale.loginPage.facebook}
+                    titleStyle={{ color: colorScheme.white }}
+                  ></Button>
+
+                  <View style={styles.signInLinkContainer}>
+                    <TextContainer>{locale.loginPage.signUpLink}</TextContainer>
+                    <TouchableOpacity
+                      onPress={() =>
+                        navigation.navigate(screenName.register as never)
+                      }
+                    >
+                      <TextContainer style={styles.signInLink}>
+                        {locale.registerPage.header}
+                      </TextContainer>
+                    </TouchableOpacity>
+                  </View>
+                </View>
               </View>
-            </View>
+            </>
           );
         }}
       </Observer>
@@ -107,13 +141,27 @@ export const Login = () => {
   );
 };
 
-const styles = StyleSheet.create({
+export const styles = StyleSheet.create({
   form: {
     paddingHorizontal: 20,
+  },
+  signInLinkContainer: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    marginTop: 20,
+  },
+  signInLink: {
+    color: colorScheme.theme,
+    marginLeft: 5,
   },
   loginButton: {
     borderColor: colorScheme.theme,
     marginTop: 20,
+  },
+  forgetContainer: {
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+    marginRight: 10,
   },
   googleButton: {
     borderColor: colorScheme.red500,

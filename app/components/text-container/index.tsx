@@ -3,7 +3,7 @@ import { StyleSheet, Text, TextProps } from 'react-native';
 import { colorScheme, fontProvider } from 'styles';
 
 interface IProps extends TextProps {
-  type?: 'h1' | 'h2' | 'h3' | 'h4';
+  type?: 'h1' | 'h2' | 'h3' | 'h4' | 'small';
 }
 
 export const TextContainer = (props: IProps) => {
@@ -28,6 +28,8 @@ const getFontSize = (type?: IProps['type']) => {
       return 20;
     case 'h4':
       return 18;
+    case 'small':
+      return 14;
     default:
       return 16;
   }

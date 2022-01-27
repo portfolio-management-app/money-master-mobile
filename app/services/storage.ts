@@ -1,6 +1,7 @@
 import Storage from 'react-native-storage';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { i18n } from 'i18n';
+
+export const langKey = 'LANG';
 
 export const storage = new Storage({
   // maximum capacity, default 1000 key-ids
@@ -25,8 +26,6 @@ export const storage = new Storage({
   },
 });
 
-export const langKey = 'LANG';
-
 storage
   .load({ key: langKey })
   .then((value) => {
@@ -37,7 +36,7 @@ storage
     switch (error.name) {
       case 'NotFoundError':
         storage
-          .save({ key: langKey, data: i18n['en'] })
+          .save({ key: langKey, data: 'en' })
           .then(() => console.log('Saved lang'))
           .catch((error) => console.log(error));
         break;

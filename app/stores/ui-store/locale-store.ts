@@ -16,7 +16,7 @@ export const LocaleStore = types
     const changeLocale = (locale: LocaleType) => {
       self.currentLocale = locale;
       storage
-        .save({ key: langKey, data: i18n[locale] })
+        .save({ key: langKey, data: locale })
         .then(() => console.log('Changed locale store'))
         .catch((error) => console.log(error));
     };
@@ -24,7 +24,7 @@ export const LocaleStore = types
     const initLocale = flow(function* () {
       try {
         const storageLocale = yield storage.load({ key: langKey });
-        self.currentLocale = storageLocale.lang;
+        self.currentLocale = storageLocale;
       } catch (error: any) {
         console.log(error.name);
       }
