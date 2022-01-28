@@ -19,7 +19,7 @@ export const HomeBottomTab = () => {
         headerShown: false,
         tabBarShowLabel: false,
         tabBarHideOnKeyboard: true,
-        tabBarStyle: { height: 80 },
+        tabBarStyle: { height: 60 },
       }}
     >
       <Tab.Screen

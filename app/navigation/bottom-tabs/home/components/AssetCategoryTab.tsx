@@ -15,7 +15,7 @@ export const AssetCategoryTab = ({ focused }: IProps) => {
       <Icon
         name="list"
         tvParallaxProperties={{}}
-        size={30}
+        size={25}
         type={iconProvider.feather}
         color={focused ? colorScheme.theme : colorScheme.gray600}
       ></Icon>
@@ -27,7 +27,7 @@ export const AssetCategoryTab = ({ focused }: IProps) => {
               style={{
                 color: focused ? colorScheme.theme : colorScheme.gray600,
               }}
-              type="small"
+              type="extra-small"
             >
               {locale.bottomTab.category}
             </TextContainer>

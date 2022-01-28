@@ -15,7 +15,7 @@ export const ReportTab = ({ focused }: IProps) => {
       <Icon
         name="pie-chart"
         tvParallaxProperties={{}}
-        size={30}
+        size={25}
         type={iconProvider.feather}
         color={focused ? colorScheme.theme : colorScheme.gray600}
       ></Icon>
@@ -27,7 +27,7 @@ export const ReportTab = ({ focused }: IProps) => {
               style={{
                 color: focused ? colorScheme.theme : colorScheme.gray600,
               }}
-              type="small"
+              type="extra-small"
             >
               {locale.bottomTab.report}
             </TextContainer>

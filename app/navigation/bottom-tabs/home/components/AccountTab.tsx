@@ -15,7 +15,7 @@ export const AccountTab = ({ focused }: IProps) => {
       <Icon
         name="account-circle-outline"
         tvParallaxProperties={{}}
-        size={30}
+        size={25}
         type={iconProvider.materialCommunity}
         color={focused ? colorScheme.theme : colorScheme.gray600}
       ></Icon>
@@ -27,7 +27,7 @@ export const AccountTab = ({ focused }: IProps) => {
               style={{
                 color: focused ? colorScheme.theme : colorScheme.gray600,
               }}
-              type="small"
+              type="extra-small"
             >
               {locale.bottomTab.account}
             </TextContainer>

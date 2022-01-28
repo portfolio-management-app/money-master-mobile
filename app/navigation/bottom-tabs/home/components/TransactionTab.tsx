@@ -15,7 +15,7 @@ export const TransactionTab = ({ focused }: IProps) => {
       <Icon
         name="wallet-outline"
         tvParallaxProperties={{}}
-        size={30}
+        size={25}
         type={iconProvider.ionicon}
         color={focused ? colorScheme.theme : colorScheme.gray600}
       ></Icon>
@@ -27,7 +27,7 @@ export const TransactionTab = ({ focused }: IProps) => {
               style={{
                 color: focused ? colorScheme.theme : colorScheme.gray600,
               }}
-              type="small"
+              type="extra-small"
             >
               {locale.bottomTab.transaction}
             </TextContainer>
