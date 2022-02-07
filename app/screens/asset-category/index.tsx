@@ -5,9 +5,9 @@ import { i18n } from 'i18n';
 import { Observer } from 'mobx-react-lite';
 import { screenName } from 'navigation/screen-names';
 import React from 'react';
-import { StyleSheet, Image } from 'react-native';
+import { StyleSheet, Image, View } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
-import { Button, Card, View } from 'react-native-ui-lib';
+import { Button, Card } from 'react-native-ui-lib';
 import { LocaleStore } from 'stores/ui-store';
 import { colorScheme, styleProvider } from 'styles';
 
