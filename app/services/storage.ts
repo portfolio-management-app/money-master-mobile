@@ -13,7 +13,7 @@ export const storage = new Storage({
 
   // expire time, default: 1 day (1000 * 3600 * 24 milliseconds).
   // can be null, which means never expire.
-  defaultExpires: 1000 * 3600 * 24,
+  defaultExpires: null,
 
   // cache data in the memory. default is true.
   enableCache: true,
@@ -41,7 +41,11 @@ storage
           .catch((error) => console.log(error));
         break;
       case 'ExpiredError':
-        // TODO
+        storage
+          .save({ key: langKey, data: 'en' })
+          .then(() => console.log('Saved lang'))
+          .catch((error) => console.log(error));
+        break;
         break;
     }
   });

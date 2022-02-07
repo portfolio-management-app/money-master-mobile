@@ -5,7 +5,7 @@ import { flow, types } from 'mobx-state-tree';
 export const LocaleStore = types
   .model('LocaleStore', {
     source: types.map(types.frozen()),
-    currentLocale: 'en',
+    currentLocale: types.union(types.literal('en'), types.literal('vn')),
   })
   .views((self) => ({
     get locale() {
@@ -37,6 +37,7 @@ export const LocaleStore = types
       en: i18n['en'],
       vn: i18n['vn'],
     },
+    currentLocale: 'en',
   });
 
 LocaleStore.initLocale();

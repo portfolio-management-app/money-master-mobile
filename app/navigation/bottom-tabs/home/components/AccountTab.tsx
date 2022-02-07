@@ -13,11 +13,11 @@ export const AccountTab = ({ focused }: IProps) => {
   return (
     <View>
       <Icon
-        name="account-circle-outline"
+        name="account"
         tvParallaxProperties={{}}
         size={25}
         type={iconProvider.materialCommunity}
-        color={focused ? colorScheme.theme : colorScheme.gray600}
+        color={focused ? colorScheme.theme : colorScheme.gray400}
       ></Icon>
       <Observer>
         {() => {
@@ -25,9 +25,9 @@ export const AccountTab = ({ focused }: IProps) => {
           return (
             <TextContainer
               style={{
-                color: focused ? colorScheme.theme : colorScheme.gray600,
+                color: focused ? colorScheme.theme : colorScheme.gray400,
               }}
-              type="extra-small"
+              type="xxx-small"
             >
               {locale.bottomTab.account}
             </TextContainer>

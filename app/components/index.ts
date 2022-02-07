@@ -1,4 +1,12 @@
+import { FloatingButton } from './floating-button';
+import { FocusAwareStatusBar } from './tab-status-bar';
 import { Loading } from './loading';
 import { TextContainer } from './text-container';
 import { PlatformView } from './platform-view';
-export { PlatformView, TextContainer, Loading };
+export {
+  PlatformView,
+  TextContainer,
+  Loading,
+  FocusAwareStatusBar,
+  FloatingButton,
+};

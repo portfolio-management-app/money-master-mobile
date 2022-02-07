@@ -6,4 +6,9 @@ export const colorScheme = {
   red500: '#FA0606',
   blue300: '#08459A',
   gray600: '#5E5656',
+  gray400: '#ABABAB',
+  bg: '#FCFBFC',
+  blue200: '#166CED',
+  blue400: '#4ba9c8',
+  purple600: '#D41789',
 };

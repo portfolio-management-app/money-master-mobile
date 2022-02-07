@@ -35,4 +35,24 @@ export const vn = {
     header: 'Đặt lại mật khẩu',
     send: 'GỬI',
   },
+  bottomTab: {
+    transaction: 'Transaction',
+    category: 'Category',
+    report: 'Report',
+    account: 'Account',
+  },
+  portfolioCategory: {
+    header: 'Portfolio category',
+    headerContent: 'Management your assets',
+    nonInterest: 'Non interest-bearing assets',
+    interest: 'Interest-bearing assets',
+    total: 'Total',
+    seeReport: 'See report',
+  },
+  nonInterestAssets: {
+    coin: 'Coin',
+    stock: 'Stock',
+    gold: 'Gold',
+  },
+  interestAssets: {},
 };

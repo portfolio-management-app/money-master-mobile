@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Image, View } from 'react-native';
+import { StyleSheet, Image, View, StatusBar } from 'react-native';
 import { Button } from 'react-native-elements';
 import { Observer } from 'mobx-react-lite';
 import { useNavigation } from '@react-navigation/native';
@@ -28,6 +28,10 @@ export const Start = () => {
               <TextContainer style={{ fontWeight: 'bold' }} type="h4">
                 {locale.greetingPage.intro}
               </TextContainer>
+              <StatusBar
+                backgroundColor={colorScheme.bg}
+                barStyle={'dark-content'}
+              />
               <View style={styles.buttonContainer}>
                 <Button
                   onPress={() =>

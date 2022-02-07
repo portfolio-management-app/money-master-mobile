@@ -8,6 +8,7 @@ import {
   ReportTab,
   TransactionTab,
 } from './components';
+import { colorScheme } from 'styles';
 
 const Tab = createBottomTabNavigator();
 
@@ -19,7 +20,11 @@ export const HomeBottomTab = () => {
         headerShown: false,
         tabBarShowLabel: false,
         tabBarHideOnKeyboard: true,
-        tabBarStyle: { height: 60 },
+        tabBarStyle: {
+          height: 60,
+          backgroundColor: colorScheme.white,
+          borderTopWidth: 0,
+        },
       }}
     >
       <Tab.Screen

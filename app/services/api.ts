@@ -17,7 +17,7 @@ class HttpRequest {
       const res = await storage.load({ key: TOKEN_KEY });
       this.token = `Bearer ${res}`;
     } catch (error: any) {
-      console.log(error);
+      this.token = '';
     }
   }
 
@@ -35,6 +35,11 @@ class HttpRequest {
 
   async sendPost(url: string, body: any, token?: string) {
     try {
+      console.log(
+        `${BASE_URL}${url}`,
+        JSON.stringify(body),
+        this.getHeader(token)
+      );
       const response = await axios.post(
         `${BASE_URL}${url}`,
         JSON.stringify(body),
@@ -44,6 +49,7 @@ class HttpRequest {
       );
       return response.data;
     } catch (error) {
+      console.log(error);
       return null;
     }
   }

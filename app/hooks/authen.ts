@@ -1,8 +1,13 @@
 import { googleSignIn } from 'services/google-auth';
-import { facebookLogin, getProfile } from 'services/facebook-auth';
+import {
+  facebookLogin,
+  getProfile,
+  getAccessToken,
+} from 'services/facebook-auth';
 import { LocaleStore } from 'stores/ui-store';
 import { useCallback, useEffect, useState } from 'react';
 import { validateEmail, validatePassword } from 'utils/validator';
+import { UserStore } from 'stores/data-store';
 
 export const useAuthentication = () => {
   const [email, setEmail] = useState<string>('');
@@ -54,11 +59,12 @@ export const useAuthentication = () => {
       });
     }
 
-    if (error.emailError && error.passwordError) {
+    if (!error.emailError && !error.passwordError) {
       if (type === 'login') {
         //Login
       } else {
-        //Register
+        console.log('call');
+        UserStore.register(email, password);
       }
     }
   };
@@ -73,7 +79,8 @@ export const useSocialLogin = () => {
     setIsLoading(true);
     await facebookLogin();
     const profile = await getProfile();
-    console.log(profile);
+    const accessToken = await getAccessToken();
+    console.log(profile, accessToken);
     setIsLoading(false);
   }, []);
 

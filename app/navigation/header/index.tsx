@@ -1,8 +1,9 @@
 import React from 'react';
 import { StyleSheet, TouchableOpacity } from 'react-native';
-import { Icon } from 'react-native-elements';
+import { colors, Icon } from 'react-native-elements';
 import { useNavigation } from '@react-navigation/native';
 import { PlatformView, TextContainer } from 'components';
+import { colorScheme } from 'styles';
 
 interface IProps {
   title?: string;
@@ -22,6 +23,7 @@ export const NavigationHeader = ({ title, rightIcon }: IProps) => {
           type="entypo"
           size={30}
           tvParallaxProperties={{}}
+          color={colorScheme.gray600}
         ></Icon>
       </TouchableOpacity>
 

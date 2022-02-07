@@ -9,13 +9,17 @@ import {
   iconProvider,
   styleProvider,
 } from 'styles';
-import { StyleSheet, View } from 'react-native';
+import { StatusBar, StyleSheet, View } from 'react-native';
 import { Button, Image, Input } from 'react-native-elements';
 import { imageSource } from 'assets/images';
 
 export const ForgetPassword = () => {
   return (
     <PlatformView style={styleProvider.body}>
+      <StatusBar
+        backgroundColor={colorScheme.white}
+        barStyle={'dark-content'}
+      />
       <Observer>
         {() => {
           const { locale } = LocaleStore;

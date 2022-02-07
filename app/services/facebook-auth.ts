@@ -1,5 +1,10 @@
 import { FacebookAppID } from 'config';
-import { Settings, LoginManager, Profile } from 'react-native-fbsdk-next';
+import {
+  Settings,
+  LoginManager,
+  Profile,
+  AccessToken,
+} from 'react-native-fbsdk-next';
 Settings.setAppID(FacebookAppID);
 
 export const facebookLogin = async () => {
@@ -17,9 +22,16 @@ export const facebookLogin = async () => {
 
 export const getProfile = async () => {
   const res = await Profile.getCurrentProfile();
+
   return res;
 };
 
 export const facebookSignOut = () => {
   LoginManager.logOut();
+};
+
+export const getAccessToken = async () => {
+  const token = await AccessToken.getCurrentAccessToken();
+
+  return token;
 };

@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, TouchableOpacity, View } from 'react-native';
+import { StatusBar, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { Observer } from 'mobx-react-lite';
 import { Button, Input } from 'react-native-elements';
 import { Loading, PlatformView, TextContainer } from 'components';
@@ -28,10 +28,15 @@ export const Register = () => {
 
   const onRegister = async () => {
     const res = await submit('register');
+    console.log(res);
   };
 
   return (
     <PlatformView style={styleProvider.body}>
+      <StatusBar
+        backgroundColor={colorScheme.white}
+        barStyle={'dark-content'}
+      />
       <Loading show={loading} />
       <Observer>
         {() => {

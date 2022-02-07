@@ -1,20 +1,22 @@
-import * as React from 'react';
-import { StatusBar } from 'react-native';
+import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { Login, Home, Start, Register, ForgetPassword } from 'screens';
+import {
+  Login,
+  Home,
+  Start,
+  Register,
+  ForgetPassword,
+  InterestAssets,
+  NonInterestAssets,
+} from 'screens';
 import { screenName } from 'navigation/screen-names';
-import { colorScheme } from 'styles';
 
 const Stack = createNativeStackNavigator();
 
 export const NavigationStack = () => {
   return (
     <NavigationContainer>
-      <StatusBar
-        backgroundColor={colorScheme.white}
-        barStyle={'dark-content'}
-      />
       <Stack.Navigator
         screenOptions={{ headerShown: false }}
         initialRouteName={screenName.start}
@@ -26,6 +28,14 @@ export const NavigationStack = () => {
         <Stack.Screen
           name={screenName.forgetPassword}
           component={ForgetPassword}
+        />
+        <Stack.Screen
+          name={screenName.interestAssets}
+          component={InterestAssets}
+        />
+        <Stack.Screen
+          name={screenName.nonInterestAssets}
+          component={NonInterestAssets}
         />
       </Stack.Navigator>
     </NavigationContainer>

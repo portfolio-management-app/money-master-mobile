@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, TouchableOpacity, View } from 'react-native';
+import { StatusBar, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { Observer } from 'mobx-react-lite';
 import { Button, Input } from 'react-native-elements';
 import { Loading, PlatformView, TextContainer } from 'components';
@@ -36,6 +36,7 @@ export const Login = () => {
 
   return (
     <PlatformView style={styleProvider.body}>
+      <StatusBar backgroundColor={colorScheme.bg} barStyle={'dark-content'} />
       <Loading show={loading} />
       <Observer>
         {() => {

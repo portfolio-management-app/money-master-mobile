@@ -13,11 +13,11 @@ export const TransactionTab = ({ focused }: IProps) => {
   return (
     <View>
       <Icon
-        name="wallet-outline"
+        name="wallet"
         tvParallaxProperties={{}}
         size={25}
-        type={iconProvider.ionicon}
-        color={focused ? colorScheme.theme : colorScheme.gray600}
+        type={iconProvider.entypo}
+        color={focused ? colorScheme.theme : colorScheme.gray400}
       ></Icon>
       <Observer>
         {() => {
@@ -25,9 +25,9 @@ export const TransactionTab = ({ focused }: IProps) => {
           return (
             <TextContainer
               style={{
-                color: focused ? colorScheme.theme : colorScheme.gray600,
+                color: focused ? colorScheme.theme : colorScheme.gray400,
               }}
-              type="extra-small"
+              type="xxx-small"
             >
               {locale.bottomTab.transaction}
             </TextContainer>

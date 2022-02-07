@@ -3,6 +3,7 @@ import {
   fontProvider,
   dimensionProvider,
   iconProvider,
+
 } from './style-provider';
 import { colorScheme } from './color-scheme';
 export {
@@ -11,4 +12,5 @@ export {
   fontProvider,
   dimensionProvider,
   iconProvider,
+
 };

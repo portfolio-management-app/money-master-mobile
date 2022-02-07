@@ -8,4 +8,6 @@ export const screenName = {
   account: 'Account',
   report: 'Report',
   category: 'Category',
+  interestAssets: 'Interest Assets',
+  nonInterestAssets: 'Non Interest Assets',
 };

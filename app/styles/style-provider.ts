@@ -3,7 +3,7 @@ import { Dimensions, StyleSheet } from 'react-native';
 
 export const styleProvider = StyleSheet.create({
   body: {
-    backgroundColor: colorScheme.white,
+    backgroundColor: colorScheme.bg,
     flex: 1,
   },
   button: {

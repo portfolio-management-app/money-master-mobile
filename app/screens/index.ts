@@ -1,3 +1,4 @@
+import { NonInterestAssets } from './non-interest-assets';
 import { Account } from './account';
 import { ForgetPassword } from './authentication/forget-password';
 import { Register } from './authentication/register';
@@ -7,6 +8,7 @@ import { Home } from './home';
 import { Report } from './report';
 import { Transaction } from './transaction';
 import { AssetCategory } from './asset-category';
+import { InterestAssets } from './interest-assets';
 export {
   Home,
   Login,
@@ -17,4 +19,6 @@ export {
   Report,
   Transaction,
   AssetCategory,
+  NonInterestAssets,
+  InterestAssets,
 };
