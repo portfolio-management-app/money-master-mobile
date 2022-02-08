@@ -1,16 +1,17 @@
-import { PlatformView, TextContainer } from 'components';
+import { PlatformView } from 'components';
 import React from 'react';
 import { StatusBar } from 'react-native';
-import { colorScheme } from 'styles';
+import { colorScheme, styleProvider } from 'styles';
+import { LanguageSetting } from './components';
 
 export const Account = () => {
   return (
-    <PlatformView>
+    <PlatformView style={styleProvider.body}>
       <StatusBar
         backgroundColor={colorScheme.white}
         barStyle={'dark-content'}
       />
-      <TextContainer>Setting</TextContainer>
+      <LanguageSetting />
     </PlatformView>
   );
 };

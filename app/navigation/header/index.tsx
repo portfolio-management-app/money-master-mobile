@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, TouchableOpacity } from 'react-native';
-import { colors, Icon } from 'react-native-elements';
+import { Icon } from 'react-native-elements';
 import { useNavigation } from '@react-navigation/native';
 import { PlatformView, TextContainer } from 'components';
 import { colorScheme } from 'styles';
@@ -42,6 +42,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     position: 'relative',
     paddingVertical: 10,
+    backgroundColor: colorScheme.white,
+    paddingBottom: 20,
   },
   leftButton: {
     position: 'absolute',

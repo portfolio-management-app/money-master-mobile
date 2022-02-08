@@ -1,7 +1,7 @@
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { screenName } from 'navigation/screen-names';
-import { Account, AssetCategory, Report, Transaction } from 'screens';
+import { Account, AssetCategory, Report, Wallet } from 'screens';
 import {
   AccountTab,
   AssetCategoryTab,
@@ -34,7 +34,7 @@ export const HomeBottomTab = () => {
           },
         }}
         name={screenName.transaction}
-        component={Transaction}
+        component={Wallet}
       />
       <Tab.Screen
         options={{

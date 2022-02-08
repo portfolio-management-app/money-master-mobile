@@ -30,6 +30,7 @@ export const AssetCategory = () => {
       <Observer>
         {() => {
           const { currentLocale } = LocaleStore;
+          const content = i18n[currentLocale].portfolioCategory;
           return (
             <>
               <LinearGradient
@@ -37,7 +38,7 @@ export const AssetCategory = () => {
                 colors={[
                   colorScheme.theme,
                   colorScheme.blue200,
-                  colorScheme.blue400,
+                  colorScheme.pink700,
                 ]}
               >
                 <View>
@@ -46,7 +47,7 @@ export const AssetCategory = () => {
                       style={{ color: colorScheme.white, fontWeight: 'bold' }}
                       type="h1"
                     >
-                      {i18n[currentLocale].portfolioCategory.header}
+                      {content.header}
                     </TextContainer>
                     <Image
                       style={styles.treasure}
@@ -54,11 +55,23 @@ export const AssetCategory = () => {
                     />
                   </View>
 
-                  <TextContainer
-                    style={{ color: colorScheme.white, fontWeight: 'bold' }}
-                  >
-                    {i18n[currentLocale].portfolioCategory.headerContent}
+                  <TextContainer style={{ color: colorScheme.white }}>
+                    {content.headerContent}
                   </TextContainer>
+                  <View style={{ marginTop: 30 }}>
+                    <TextContainer style={{ color: colorScheme.white }}>
+                      Your price
+                    </TextContainer>
+                    <TextContainer
+                      type="h1"
+                      style={{
+                        color: colorScheme.white,
+                        fontWeight: 'bold',
+                      }}
+                    >
+                      $100.000
+                    </TextContainer>
+                  </View>
                 </View>
               </LinearGradient>
               <View style={styles.cardContainer}>
@@ -67,39 +80,49 @@ export const AssetCategory = () => {
                   style={styles.card}
                   enableBlur
                 >
-                  <Image source={imageSource.tablet} />
-                  <TextContainer style={{ fontWeight: 'bold', marginLeft: 20 }}>
-                    {i18n[currentLocale].portfolioCategory.interest}
-                  </TextContainer>
+                  <Image style={styles.image} source={imageSource.tablet} />
+                  <View style={{ marginLeft: 20 }}>
+                    <TextContainer style={{ fontWeight: 'bold' }}>
+                      {content.interest}
+                    </TextContainer>
+                    <TextContainer type="small">
+                      {content.interest}
+                    </TextContainer>
+                  </View>
                 </Card>
                 <Card
                   onPress={gotoNonInterestAssets}
                   style={styles.card}
                   enableBlur
                 >
-                  <Image source={imageSource.growthGraph} />
-                  <TextContainer style={{ fontWeight: 'bold', marginLeft: 20 }}>
-                    {i18n[currentLocale].portfolioCategory.nonInterest}
-                  </TextContainer>
-                </Card>
-                <View>
-                  <View style={{ flexDirection: 'row', marginBottom: 10 }}>
-                    <TextContainer>
-                      {i18n[currentLocale].portfolioCategory.total}:
+                  <Image
+                    style={styles.image}
+                    source={imageSource.growthGraph}
+                  />
+                  <View style={{ marginLeft: 20 }}>
+                    <TextContainer style={{ fontWeight: 'bold' }}>
+                      {content.nonInterest}
                     </TextContainer>
-                    <TextContainer style={{ color: colorScheme.red500 }}>
-                      10000 $
+                    <TextContainer type="small">
+                      {content.nonInterest}
                     </TextContainer>
                   </View>
-
-                  <Button
-                    enableShadow
-                    iconOnRight
-                    iconSource={imageSource.carbonReport}
-                    style={styles.reportBtn}
-                    label={i18n[currentLocale].portfolioCategory.seeReport}
-                  />
-                </View>
+                </Card>
+                <Card
+                  onPress={gotoNonInterestAssets}
+                  style={styles.card}
+                  enableBlur
+                >
+                  <Image style={styles.image} source={imageSource.building} />
+                  <View style={{ marginLeft: 20 }}>
+                    <TextContainer style={{ fontWeight: 'bold' }}>
+                      {content.realProperty}
+                    </TextContainer>
+                    <TextContainer type="small">
+                      {content.realProperty}
+                    </TextContainer>
+                  </View>
+                </Card>
               </View>
             </>
           );
@@ -110,8 +133,12 @@ export const AssetCategory = () => {
 };
 
 const styles = StyleSheet.create({
+  image: {
+    width: 50,
+    height: 50,
+  },
   header: {
-    height: 300,
+    height: 350,
     width: '100%',
     paddingHorizontal: 30,
     justifyContent: 'flex-end',
@@ -135,6 +162,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginBottom: 10,
     borderRadius: 20,
+    borderColor: colorScheme.gray400,
+    borderWidth: 0.5,
   },
   reportBtn: {
     backgroundColor: colorScheme.purple600,

@@ -24,63 +24,105 @@ export const NonInterestAssets = () => {
       <Observer>
         {() => {
           const { currentLocale } = LocaleStore;
+          const content = i18n[currentLocale].nonInterestAssets;
           const defaultAssets = [
             {
-              title: i18n[currentLocale].nonInterestAssets.coin,
+              title: content.coin,
               icon: imageSource.bitcoin,
             },
             {
-              title: i18n[currentLocale].nonInterestAssets.stock,
+              title: content.stock,
               icon: imageSource.chartLine,
             },
             {
-              title: i18n[currentLocale].nonInterestAssets.gold,
+              title: content.gold,
               icon: imageSource.gold,
             },
+            {
+              title: 'New asset',
+              icon: imageSource.defaultAsset,
+            },
+            {
+              title: 'New asset',
+              icon: imageSource.defaultAsset,
+            },
+            {
+              title: 'New asset',
+              icon: imageSource.defaultAsset,
+            },
+            {
+              title: 'New asset',
+              icon: imageSource.defaultAsset,
+            },
+            {
+              title: 'New asset',
+              icon: imageSource.defaultAsset,
+            },
+            {
+              title: 'New asset',
+              icon: imageSource.defaultAsset,
+            },
+            {
+              title: 'New asset',
+              icon: imageSource.defaultAsset,
+            },
+            {
+              title: 'New asset',
+              icon: imageSource.defaultAsset,
+            },
+            {
+              title: 'New asset',
+              icon: imageSource.defaultAsset,
+            },
           ];
-          console.log(defaultAssets);
 
           return (
             <>
               <NavigationHeader
                 title={i18n[currentLocale].portfolioCategory.nonInterest}
               />
-              <ScrollView style={{ paddingHorizontal: 10, marginTop: 20 }}>
-                {defaultAssets.map((asset) => (
-                  <Card style={styles.card} enableShadow key={asset.title}>
-                    <View
-                      style={{ flexDirection: 'row', alignItems: 'center' }}
-                    >
-                      <Image source={asset.icon} />
+              <ScrollView>
+                <View style={styles.cardContainer}>
+                  {defaultAssets.map((asset, idx) => (
+                    <Card style={styles.card} enableShadow key={idx}>
+                      <View
+                        style={{ flexDirection: 'row', alignItems: 'center' }}
+                      >
+                        <Image style={styles.image} source={asset.icon} />
+                        <View style={styles.textContainer}>
+                          <TextContainer
+                            type="h4"
+                            style={{ fontWeight: 'bold' }}
+                          >
+                            {asset.title}
+                          </TextContainer>
+                          <TextContainer type="small">
+                            {asset.title}
+                          </TextContainer>
+                        </View>
+                      </View>
                       <View style={styles.textContainer}>
-                        <TextContainer type="h4" style={{ fontWeight: 'bold' }}>
-                          {asset.title}
-                        </TextContainer>
-                        <TextContainer type="small">
-                          {asset.title}
+                        <TextContainer type="small">Market cap</TextContainer>
+                        <TextContainer
+                          style={{ color: colorScheme.red500 }}
+                          type="small"
+                        >
+                          1000$
                         </TextContainer>
                       </View>
-                    </View>
-                    <View style={styles.textContainer}>
-                      <TextContainer type="small">Market cap</TextContainer>
-                      <TextContainer
-                        style={{ color: colorScheme.red500 }}
-                        type="small"
-                      >
-                        1000$
-                      </TextContainer>
-                    </View>
-                  </Card>
-                ))}
+                    </Card>
+                  ))}
+                </View>
               </ScrollView>
             </>
           );
         }}
       </Observer>
-      <FloatingButton onPress={toggle}>
+      <FloatingButton size={60} onPress={toggle}>
         <Icon
           tvParallaxProperties={{}}
           name="add"
+          size={30}
           type={iconProvider.ionicon}
           color={colorScheme.white}
         />
@@ -90,7 +132,7 @@ export const NonInterestAssets = () => {
   );
 };
 
-const styles = StyleSheet.create({
+export const styles = StyleSheet.create({
   card: {
     padding: 20,
     borderRadius: 20,
@@ -104,5 +146,13 @@ const styles = StyleSheet.create({
   textContainer: {
     justifyContent: 'space-between',
     marginLeft: 15,
+  },
+  image: {
+    width: 30,
+    height: 30,
+  },
+  cardContainer: {
+    paddingHorizontal: 20,
+    paddingBottom: 50,
   },
 });

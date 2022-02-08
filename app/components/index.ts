@@ -1,3 +1,5 @@
+import { BaseButton } from './button';
+import { DatePicker } from './date-picker';
 import { FloatingButton } from './floating-button';
 import { FocusAwareStatusBar } from './tab-status-bar';
 import { Loading } from './loading';
@@ -9,4 +11,6 @@ export {
   Loading,
   FocusAwareStatusBar,
   FloatingButton,
+  DatePicker,
+  BaseButton,
 };

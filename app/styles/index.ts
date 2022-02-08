@@ -3,7 +3,7 @@ import {
   fontProvider,
   dimensionProvider,
   iconProvider,
-
+  assetModalStyle,
 } from './style-provider';
 import { colorScheme } from './color-scheme';
 export {
@@ -12,5 +12,5 @@ export {
   fontProvider,
   dimensionProvider,
   iconProvider,
-
+  assetModalStyle,
 };

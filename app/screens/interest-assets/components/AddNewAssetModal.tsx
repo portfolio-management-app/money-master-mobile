@@ -2,15 +2,16 @@ import React from 'react';
 import { BottomSheet } from 'react-native-elements';
 import { Incubator, View } from 'react-native-ui-lib';
 import {
-  assetModalStyle,
   colorScheme,
   fontProvider,
   styleProvider,
+  assetModalStyle,
 } from 'styles';
 import { Observer } from 'mobx-react-lite';
 import { LocaleStore } from 'stores/ui-store';
 import { i18n } from 'i18n';
 import { BaseButton, DatePicker, TextContainer } from 'components';
+import { RadioPicker } from './RadioPicker';
 
 interface IProps {
   show: boolean;
@@ -26,7 +27,7 @@ export const AddNewAssetModal = ({ show, onHide }: IProps) => {
       <Observer>
         {() => {
           const { currentLocale } = LocaleStore;
-          const content = i18n[currentLocale].nonInterestAssets.addModel;
+          const content = i18n[currentLocale].interestAssets.addModel;
           return (
             <View style={assetModalStyle.modal}>
               <TextContainer style={assetModalStyle.header}>
@@ -39,6 +40,18 @@ export const AddNewAssetModal = ({ show, onHide }: IProps) => {
               <Incubator.TextField
                 style={styleProvider.textField}
                 placeholder={content.asset}
+              />
+              <Incubator.TextField
+                style={styleProvider.textField}
+                placeholder={content.interestRate}
+              />
+              <Incubator.TextField
+                style={styleProvider.textField}
+                placeholder={content.interestValue}
+              />
+              <RadioPicker
+                title={content.interestType}
+                values={[content.week, content.month, content.year]}
               />
               <DatePicker label={content.startDate} />
               <View style={assetModalStyle.buttonContainer}>

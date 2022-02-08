@@ -9,4 +9,7 @@ export const imageSource = {
   bitcoin: require('./source/logos_bitcoin.png'),
   gold: require('./source/gold.png'),
   chartLine: require('./source/cil_chart-line.png'),
+  bank: require('./source/bank.png'),
+  defaultAsset: require('./source/asset-management.png'),
+  building: require('./source/building.png'),
 };

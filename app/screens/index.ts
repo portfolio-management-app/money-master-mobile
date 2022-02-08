@@ -6,7 +6,7 @@ import { Login } from './authentication/login';
 import { Start } from './start';
 import { Home } from './home';
 import { Report } from './report';
-import { Transaction } from './transaction';
+import { Wallet } from './wallet';
 import { AssetCategory } from './asset-category';
 import { InterestAssets } from './interest-assets';
 export {
@@ -17,7 +17,7 @@ export {
   ForgetPassword,
   Account,
   Report,
-  Transaction,
+  Wallet,
   AssetCategory,
   NonInterestAssets,
   InterestAssets,

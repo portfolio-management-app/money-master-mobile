@@ -21,7 +21,7 @@ export const TextContainer = (props: IProps) => {
 const getFontSize = (type?: IProps['type']) => {
   switch (type) {
     case 'h1':
-      return 24;
+      return 28;
     case 'h2':
       return 22;
     case 'h3':
