@@ -1,15 +1,19 @@
 import { useNavigation } from '@react-navigation/native';
-import { imageSource } from 'assets/images';
-import { FocusAwareStatusBar, PlatformView, TextContainer } from 'components';
-import { i18n } from 'i18n';
-import { Observer } from 'mobx-react-lite';
-import { screenName } from 'navigation/screen-names';
 import React from 'react';
 import { StyleSheet, Image, View } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
-import { Button, Card } from 'react-native-ui-lib';
-import { LocaleStore } from 'stores/ui-store';
-import { colorScheme, styleProvider } from 'styles';
+import { Card } from 'react-native-ui-lib';
+import { Observer } from 'mobx-react-lite';
+import { screenName } from 'navigation/screen-names';
+import { LocaleStore } from 'shared/stores';
+import { i18n } from 'i18n';
+import { colorScheme, styleProvider } from 'shared/styles';
+import { imageSource } from 'assets/images';
+import {
+  FocusAwareStatusBar,
+  PlatformView,
+  TextContainer,
+} from 'shared/components';
 
 export const AssetCategory = () => {
   const navigation = useNavigation();

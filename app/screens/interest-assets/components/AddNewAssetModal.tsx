@@ -6,11 +6,11 @@ import {
   fontProvider,
   styleProvider,
   assetModalStyle,
-} from 'styles';
+} from 'shared/styles';
 import { Observer } from 'mobx-react-lite';
-import { LocaleStore } from 'stores/ui-store';
+import { LocaleStore } from 'shared/stores';
 import { i18n } from 'i18n';
-import { BaseButton, DatePicker, TextContainer } from 'components';
+import { BaseButton, DatePicker, TextContainer } from 'shared/components';
 import { RadioPicker } from './RadioPicker';
 
 interface IProps {

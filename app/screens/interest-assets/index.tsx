@@ -1,5 +1,5 @@
 import { imageSource } from 'assets/images';
-import { FloatingButton, PlatformView, TextContainer } from 'components';
+import { FloatingButton, PlatformView, TextContainer } from 'shared/components';
 import { i18n } from 'i18n';
 import { Observer } from 'mobx-react-lite';
 import { NavigationHeader } from 'navigation/header';
@@ -9,8 +9,8 @@ import { Icon } from 'react-native-elements';
 import { ScrollView } from 'react-native-gesture-handler';
 import { Card } from 'react-native-ui-lib';
 import { styles } from 'screens/non-interest-assets';
-import { LocaleStore } from 'stores/ui-store';
-import { colorScheme, iconProvider, styleProvider } from 'styles';
+import { LocaleStore } from 'shared/stores';
+import { colorScheme, iconProvider, styleProvider } from 'shared/styles';
 import { AddNewAssetModal } from './components';
 
 export const InterestAssets = () => {

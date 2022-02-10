@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, Text, TextProps } from 'react-native';
-import { colorScheme, fontProvider } from 'styles';
+import { colorScheme, fontProvider } from 'shared/styles';
 
 interface IProps extends TextProps {
   type?: 'h1' | 'h2' | 'h3' | 'h4' | 'small' | 'extra-small' | 'xxx-small';

@@ -1,8 +1,8 @@
 import React from 'react';
 import { BallIndicator } from 'react-native-indicators';
 import { StyleSheet } from 'react-native';
-import { PlatformView } from 'components';
-import { colorScheme } from 'styles';
+import { PlatformView } from 'shared/components';
+import { colorScheme } from 'shared/styles';
 
 interface IProps {
   show: boolean;

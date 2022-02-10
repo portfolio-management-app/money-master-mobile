@@ -30,6 +30,16 @@ export const en = {
     email: 'Invalid email',
     password:
       'Password contains at least 8 character and have both number and character',
+    register: {
+      existedEmail: 'Email existed',
+    },
+    login: {
+      credentialFailed: 'Credential failed',
+      notExist: 'Email not exist',
+    },
+  },
+  httpError: {
+    default: 'An error occur',
   },
   forgetPasswordPage: {
     header: 'Reset password',

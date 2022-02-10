@@ -1,7 +1,7 @@
 import { observer } from 'mobx-react-lite';
 import React, { useEffect } from 'react';
 import { RadioButton, RadioGroup } from 'react-native-ui-lib';
-import { LocaleStore } from 'stores/ui-store';
+import { LocaleStore } from 'shared/stores';
 
 export const LanguageSetting = observer(() => {
   const value = React.useMemo(() => {

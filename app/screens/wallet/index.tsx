@@ -1,4 +1,4 @@
-import { PlatformView, TextContainer } from 'components';
+import { PlatformView, TextContainer } from 'shared/components';
 import React from 'react';
 import { StatusBar, StyleSheet, View } from 'react-native';
 import { Icon } from 'react-native-elements';
@@ -7,7 +7,7 @@ import {
   dimensionProvider,
   iconProvider,
   styleProvider,
-} from 'styles';
+} from 'shared/styles';
 import { parseToString } from 'utils/date';
 import { LineChart } from 'react-native-chart-kit';
 

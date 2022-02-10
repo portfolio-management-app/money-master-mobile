@@ -1,7 +1,7 @@
-import { PlatformView, TextContainer } from 'components';
+import { PlatformView, TextContainer } from 'shared/components';
 import React from 'react';
 import { StatusBar } from 'react-native';
-import { colorScheme } from 'styles';
+import { colorScheme } from 'shared/styles';
 
 export const Report = () => {
   return (

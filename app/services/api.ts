@@ -1,26 +1,8 @@
-import { storage } from './storage';
 import axios, { AxiosRequestHeaders } from 'axios';
-import { BASE_URL, TOKEN_KEY } from 'config';
+import { BASE_URL } from 'config';
+import { HttpError } from 'errors/base';
 
 class HttpRequest {
-  token: string = '';
-
-  constructor() {
-    const init = async () => {
-      await this.getBearToken();
-    };
-    init();
-  }
-
-  private async getBearToken() {
-    try {
-      const res = await storage.load({ key: TOKEN_KEY });
-      this.token = `Bearer ${res}`;
-    } catch (error: any) {
-      this.token = '';
-    }
-  }
-
   async sendGet(url: string, token?: string) {
     try {
       const response = await axios.get(`${BASE_URL}${url}`, {
@@ -28,18 +10,14 @@ class HttpRequest {
       });
 
       return response.data;
-    } catch (error) {
-      return null;
+    } catch (error: any) {
+      console.log(error);
+      return new HttpError(error.response);
     }
   }
 
   async sendPost(url: string, body: any, token?: string) {
     try {
-      console.log(
-        `${BASE_URL}${url}`,
-        JSON.stringify(body),
-        this.getHeader(token)
-      );
       const response = await axios.post(
         `${BASE_URL}${url}`,
         JSON.stringify(body),
@@ -48,9 +26,9 @@ class HttpRequest {
         }
       );
       return response.data;
-    } catch (error) {
-      console.log(error);
-      return null;
+    } catch (error: any) {
+      console.log('----call error', error);
+      return new HttpError(error.response);
     }
   }
 
@@ -64,9 +42,9 @@ class HttpRequest {
         }
       );
       return response.data;
-    } catch (error) {
+    } catch (error: any) {
       console.log(error);
-      return null;
+      return new HttpError(error.response);
     }
   }
 
@@ -75,10 +53,10 @@ class HttpRequest {
       const response = await axios.delete(`${BASE_URL}${url}`, {
         headers: this.getHeader(token),
       });
-
       return response.data;
-    } catch (error) {
-      return null;
+    } catch (error: any) {
+      console.log(error);
+      return new HttpError(error.response);
     }
   }
 
@@ -111,7 +89,7 @@ class HttpRequest {
       return response.data;
     } catch (error: any) {
       console.log(error);
-      return null;
+      return new HttpError(error.response);
     }
   }
 }

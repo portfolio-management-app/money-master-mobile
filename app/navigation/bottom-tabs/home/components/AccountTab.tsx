@@ -1,10 +1,10 @@
-import { TextContainer } from 'components';
+import { TextContainer } from 'shared/components';
 import { Observer } from 'mobx-react-lite';
 import React from 'react';
 import { View } from 'react-native';
 import { Icon } from 'react-native-elements';
-import { LocaleStore } from 'stores/ui-store';
-import { colorScheme, iconProvider } from 'styles';
+import { LocaleStore } from 'shared/stores';
+import { colorScheme, iconProvider } from 'shared/styles';
 
 interface IProps {
   focused: boolean;

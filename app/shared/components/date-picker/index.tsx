@@ -1,10 +1,10 @@
 import React from 'react';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { StyleSheet, View, TouchableOpacity } from 'react-native';
-import { iconProvider, styleProvider } from 'styles';
+import { iconProvider, styleProvider } from 'shared/styles';
 import { parseToString } from 'utils/date';
 import { Icon } from 'react-native-elements';
-import { TextContainer } from 'components';
+import { TextContainer } from 'shared/components';
 
 interface IProps {
   label: string;

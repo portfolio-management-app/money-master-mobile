@@ -8,7 +8,7 @@ import {
   ReportTab,
   TransactionTab,
 } from './components';
-import { colorScheme } from 'styles';
+import { colorScheme } from 'shared/styles';
 
 const Tab = createBottomTabNavigator();
 

@@ -2,16 +2,22 @@ import React from 'react';
 import { StatusBar, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { Observer } from 'mobx-react-lite';
 import { Button, Input } from 'react-native-elements';
-import { Loading, PlatformView, TextContainer } from 'components';
+import { Loading, PlatformView, TextContainer } from 'shared/components';
 import { NavigationHeader } from 'navigation/header';
-import { colorScheme, iconProvider, styleProvider } from 'styles';
-import { LocaleStore } from 'stores/ui-store';
-import { useAuthentication, useSocialLogin } from 'hooks/authen';
+import { colorScheme, iconProvider, styleProvider } from 'shared/styles';
+import { LocaleStore } from 'shared/stores';
 import { CommonActions, useNavigation } from '@react-navigation/native';
 import { screenName } from 'navigation/screen-names';
+import { HttpRequestResponse } from 'shared/types';
+import { ErrorBounder } from './components';
+import { useAuthentication, useSocialLogin } from '../hooks';
 
 export const Login = () => {
-  const [setEmail, setPassword, error, submit] = useAuthentication();
+  const [isLoading, setEmail, setPassword, error, submit] = useAuthentication();
+  const [apiResponse, setApiResponse] = React.useState<HttpRequestResponse>({
+    isError: false,
+    response: null,
+  });
 
   const [loading, handleFaceBookLogin, handleGoogleLogin] = useSocialLogin();
 
@@ -26,18 +32,29 @@ export const Login = () => {
   };
   const onLogin = async () => {
     const res = await submit('login');
-    navigation.dispatch(
-      CommonActions.reset({
-        index: 0,
-        routes: [{ name: screenName.home }],
-      })
-    );
+    console.log('___LOGIN______', res);
+    if (res) {
+      if (res.isError)
+        setApiResponse({ isError: true, response: res.response });
+      else
+        navigation.dispatch(
+          CommonActions.reset({
+            index: 0,
+            routes: [{ name: screenName.home }],
+          })
+        );
+    }
   };
 
   return (
     <PlatformView style={styleProvider.body}>
       <StatusBar backgroundColor={colorScheme.bg} barStyle={'dark-content'} />
-      <Loading show={loading} />
+      <Loading show={loading || isLoading} />
+      <ErrorBounder
+        onClose={() => setApiResponse({ isError: false, response: null })}
+        show={apiResponse.isError}
+        res={apiResponse.response}
+      />
       <Observer>
         {() => {
           const { locale } = LocaleStore;

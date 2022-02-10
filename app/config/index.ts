@@ -3,6 +3,10 @@ export const GoogleClientID =
 
 export const FacebookAppID = '283259500459094';
 
-export const BASE_URL = 'http://localhost:8000';
+let url: string = '';
 
-export const TOKEN_KEY = 'jkfhsajfucggbeqw';
+if (__DEV__) {
+  url = 'http://localhost:5000';
+}
+
+export const BASE_URL = url;

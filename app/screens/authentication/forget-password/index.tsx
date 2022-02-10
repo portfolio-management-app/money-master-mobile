@@ -1,16 +1,16 @@
 import React from 'react';
-import { PlatformView } from 'components';
 import { Observer } from 'mobx-react-lite';
+import { StatusBar, StyleSheet, View } from 'react-native';
+import { Button, Image, Input } from 'react-native-elements';
 import { NavigationHeader } from 'navigation/header';
-import { LocaleStore } from 'stores/ui-store';
+import { PlatformView } from 'shared/components';
+import { LocaleStore } from 'shared/stores';
 import {
   colorScheme,
   dimensionProvider,
   iconProvider,
   styleProvider,
-} from 'styles';
-import { StatusBar, StyleSheet, View } from 'react-native';
-import { Button, Image, Input } from 'react-native-elements';
+} from 'shared/styles';
 import { imageSource } from 'assets/images';
 
 export const ForgetPassword = () => {

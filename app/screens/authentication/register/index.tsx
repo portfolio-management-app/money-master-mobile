@@ -1,18 +1,25 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { StatusBar, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { Observer } from 'mobx-react-lite';
 import { Button, Input } from 'react-native-elements';
-import { Loading, PlatformView, TextContainer } from 'components';
-import { NavigationHeader } from 'navigation/header';
-import { colorScheme, iconProvider, styleProvider } from 'styles';
-import { LocaleStore } from 'stores/ui-store';
-import { useAuthentication, useSocialLogin } from 'hooks/authen';
-import { styles } from '../login';
-import { useNavigation } from '@react-navigation/native';
+import { CommonActions, useNavigation } from '@react-navigation/native';
 import { screenName } from 'navigation/screen-names';
+import { Loading, PlatformView, TextContainer } from 'shared/components';
+import { NavigationHeader } from 'navigation/header';
+import { colorScheme, iconProvider, styleProvider } from 'shared/styles';
+import { LocaleStore } from 'shared/stores';
+import { HttpRequestResponse } from 'shared/types';
+import { useAuthentication, useSocialLogin } from '../hooks';
+import { styles } from '../login';
+import { ErrorBounder } from './components';
 
 export const Register = () => {
-  const [setEmail, setPassword, error, submit] = useAuthentication();
+  const [isLoading, setEmail, setPassword, error, submit] = useAuthentication();
+
+  const [apiResponse, setApiResponse] = useState<HttpRequestResponse>({
+    isError: false,
+    response: null,
+  });
 
   const [loading, handleFaceBookLogin, handleGoogleLogin] = useSocialLogin();
 
@@ -28,7 +35,17 @@ export const Register = () => {
 
   const onRegister = async () => {
     const res = await submit('register');
-    console.log(res);
+    if (res) {
+      if (res.isError)
+        setApiResponse({ isError: res.isError, response: res.response });
+      else
+        navigation.dispatch(
+          CommonActions.reset({
+            index: 0,
+            routes: [{ name: screenName.home }],
+          })
+        );
+    }
   };
 
   return (
@@ -37,7 +54,12 @@ export const Register = () => {
         backgroundColor={colorScheme.white}
         barStyle={'dark-content'}
       />
-      <Loading show={loading} />
+      <Loading show={loading || isLoading} />
+      <ErrorBounder
+        onClose={() => setApiResponse({ isError: false, response: null })}
+        show={apiResponse.isError}
+        res={apiResponse.response}
+      />
       <Observer>
         {() => {
           const { locale } = LocaleStore;

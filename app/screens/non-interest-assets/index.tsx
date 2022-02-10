@@ -1,9 +1,9 @@
 import React from 'react';
-import { FloatingButton, PlatformView, TextContainer } from 'components';
-import { colorScheme, iconProvider, styleProvider } from 'styles';
+import { FloatingButton, PlatformView, TextContainer } from 'shared/components';
+import { colorScheme, iconProvider, styleProvider } from 'shared/styles';
 import { NavigationHeader } from 'navigation/header';
 import { Observer } from 'mobx-react-lite';
-import { LocaleStore } from 'stores/ui-store';
+import { LocaleStore } from 'shared/stores';
 import { i18n } from 'i18n';
 import { imageSource } from 'assets/images';
 import { Card, Image, View } from 'react-native-ui-lib';

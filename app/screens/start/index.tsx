@@ -1,30 +1,53 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { StyleSheet, Image, View, StatusBar } from 'react-native';
 import { Button } from 'react-native-elements';
-import { Observer } from 'mobx-react-lite';
-import { useNavigation } from '@react-navigation/native';
+import { observer } from 'mobx-react-lite';
+import { CommonActions, useNavigation } from '@react-navigation/native';
 import { imageSource } from 'assets/images';
-import { PlatformView, TextContainer } from 'components';
-import { colorScheme, dimensionProvider, styleProvider } from 'styles';
-import { LocaleStore } from 'stores/ui-store';
+import { PlatformView, TextContainer } from 'shared/components';
+import { colorScheme, dimensionProvider, styleProvider } from 'shared/styles';
+import { LocaleStore, UserStore } from 'shared/stores';
 import { screenName } from 'navigation/screen-names';
 
-export const Start = () => {
+export const Start = observer(() => {
   const navigation = useNavigation();
+
+  const { locale } = LocaleStore;
+  const { pendingAuthen, user } = UserStore;
+  useEffect(() => {
+    if (!pendingAuthen) {
+      if (user.isLoggedIn) {
+        navigation.dispatch(
+          CommonActions.reset({
+            index: 0,
+            routes: [{ name: screenName.home }],
+          })
+        );
+      }
+    }
+  }, [pendingAuthen, user]);
   return (
-    <PlatformView style={styles.container}>
-      <View style={styles.iconContainer}>
-        <Image style={styles.appIcon} source={imageSource.appIcon}></Image>
-        <TextContainer style={{ marginLeft: 10 }}>Money Master</TextContainer>
-      </View>
+    <>
+      {pendingAuthen ? (
+        <PlatformView style={styles.container}>
+          <TextContainer>Pending</TextContainer>
+        </PlatformView>
+      ) : (
+        <>
+          {!user.isLoggedIn ? (
+            <PlatformView style={styles.container}>
+              <View style={styles.iconContainer}>
+                <Image
+                  style={styles.appIcon}
+                  source={imageSource.appIcon}
+                ></Image>
+                <TextContainer style={{ marginLeft: 10 }}>
+                  Money Master
+                </TextContainer>
+              </View>
 
-      <Image style={styles.image} source={imageSource.banner}></Image>
+              <Image style={styles.image} source={imageSource.banner}></Image>
 
-      <Observer>
-        {() => {
-          const { locale } = LocaleStore;
-          return (
-            <>
               <TextContainer style={{ fontWeight: 'bold' }} type="h4">
                 {locale.greetingPage.intro}
               </TextContainer>
@@ -51,13 +74,15 @@ export const Start = () => {
                   title={locale.greetingPage.login}
                 ></Button>
               </View>
-            </>
-          );
-        }}
-      </Observer>
-    </PlatformView>
+            </PlatformView>
+          ) : (
+            <PlatformView style={styleProvider.body}></PlatformView>
+          )}
+        </>
+      )}
+    </>
   );
-};
+});
 
 const styles = StyleSheet.create({
   container: {

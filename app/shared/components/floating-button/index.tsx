@@ -1,6 +1,6 @@
 import React from 'react';
 import { TouchableOpacity, ViewStyle } from 'react-native';
-import { colorScheme } from 'styles';
+import { colorScheme } from 'shared/styles';
 
 interface IProps {
   placement?: 'bottom-left' | 'bottom-right' | 'top-left' | 'top-right';

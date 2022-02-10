@@ -1,7 +1,10 @@
+import { UserStore } from 'shared/stores';
 import Storage from 'react-native-storage';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-export const langKey = 'LANG';
+export const LANG_KEY = 'LANG';
+
+export const TOKEN_KEY = 'jkfhsajfucggbeqw';
 
 export const storage = new Storage({
   // maximum capacity, default 1000 key-ids
@@ -27,7 +30,7 @@ export const storage = new Storage({
 });
 
 storage
-  .load({ key: langKey })
+  .load({ key: LANG_KEY })
   .then((value) => {
     console.log('Loaded lang', value);
   })
@@ -36,16 +39,36 @@ storage
     switch (error.name) {
       case 'NotFoundError':
         storage
-          .save({ key: langKey, data: 'en' })
+          .save({ key: LANG_KEY, data: 'en' })
           .then(() => console.log('Saved lang'))
           .catch((error) => console.log(error));
         break;
       case 'ExpiredError':
         storage
-          .save({ key: langKey, data: 'en' })
+          .save({ key: LANG_KEY, data: 'en' })
           .then(() => console.log('Saved lang'))
           .catch((error) => console.log(error));
         break;
+    }
+  });
+
+storage
+  .load({ key: TOKEN_KEY })
+  .then((value) => {
+    console.log('Loaded token', value);
+    UserStore.initUser(value);
+  })
+  .catch((error) => {
+    UserStore.initUser(null);
+    console.warn(error.message);
+    switch (error.name) {
+      case 'NotFoundError':
+        console.log('NOT FOUND TOKEN');
+        //TODO
+        break;
+      case 'ExpiredError':
+        console.log('TOKEN EXPIRED');
+        //TODO
         break;
     }
   });

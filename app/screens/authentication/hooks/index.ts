@@ -4,12 +4,13 @@ import {
   getProfile,
   getAccessToken,
 } from 'services/facebook-auth';
-import { LocaleStore } from 'stores/ui-store';
+import { LocaleStore } from 'shared/stores';
 import { useCallback, useEffect, useState } from 'react';
 import { validateEmail, validatePassword } from 'utils/validator';
-import { UserStore } from 'stores/data-store';
+import { UserStore } from 'shared/stores/data-store';
 
 export const useAuthentication = () => {
+  const [loading, setLoading] = useState(false);
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [error, setError] = useState({
@@ -61,15 +62,20 @@ export const useAuthentication = () => {
 
     if (!error.emailError && !error.passwordError) {
       if (type === 'login') {
-        //Login
+        setLoading(true);
+        const res = await UserStore.login(email, password);
+        setLoading(false);
+        return res;
       } else {
-        console.log('call');
-        UserStore.register(email, password);
+        setLoading(true);
+        const res = await UserStore.register(email, password);
+        setLoading(false);
+        return res;
       }
     }
   };
 
-  return [setEmail, setPassword, error, submit] as const;
+  return [loading, setEmail, setPassword, error, submit] as const;
 };
 
 export const useSocialLogin = () => {

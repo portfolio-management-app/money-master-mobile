@@ -2,8 +2,8 @@ import React from 'react';
 import { StyleSheet, TouchableOpacity } from 'react-native';
 import { Icon } from 'react-native-elements';
 import { useNavigation } from '@react-navigation/native';
-import { PlatformView, TextContainer } from 'components';
-import { colorScheme } from 'styles';
+import { PlatformView, TextContainer } from 'shared/components';
+import { colorScheme } from 'shared/styles';
 
 interface IProps {
   title?: string;

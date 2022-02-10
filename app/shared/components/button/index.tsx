@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button, ButtonProps } from 'react-native-ui-lib';
-import { fontProvider } from 'styles';
+import { fontProvider } from 'shared/styles';
 
 export const BaseButton = (props: ButtonProps) => {
   return (

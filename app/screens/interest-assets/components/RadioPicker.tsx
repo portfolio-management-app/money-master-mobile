@@ -1,8 +1,8 @@
-import { TextContainer } from 'components';
+import { TextContainer } from 'shared/components';
 import React from 'react';
 import { StyleSheet } from 'react-native';
 import { RadioButton, RadioGroup } from 'react-native-ui-lib';
-import { colorScheme, fontProvider } from 'styles';
+import { colorScheme, fontProvider } from 'shared/styles';
 
 interface IProps {
   values: string[];
