@@ -54,10 +54,11 @@ export const en = {
   portfolioCategory: {
     header: 'Portfolio category',
     headerContent: 'Management your assets',
-    nonInterest: 'Non interest bearing assets',
+    nonInterest: 'Volatility assets',
     interest: 'Interest bearing assets',
-    realProperty: 'Real property',
-    total: 'Total price',
+    realProperty: 'Real estate property',
+    total: 'Sum quantity',
+    cash: 'Cash',
     seeReport: 'See report',
   },
   nonInterestAssets: {

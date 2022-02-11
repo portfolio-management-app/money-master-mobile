@@ -8,7 +8,9 @@ import {
   Register,
   ForgetPassword,
   InterestAssets,
-  NonInterestAssets,
+  VolatilityAssets,
+  CastAssets,
+  RealEstateAssets,
 } from 'screens';
 import { screenName } from 'navigation/screen-names';
 
@@ -34,9 +36,14 @@ export const NavigationStack = () => {
           component={InterestAssets}
         />
         <Stack.Screen
-          name={screenName.nonInterestAssets}
-          component={NonInterestAssets}
+          name={screenName.volatilityAssets}
+          component={VolatilityAssets}
         />
+        <Stack.Screen
+          name={screenName.realEstateAssets}
+          component={RealEstateAssets}
+        />
+        <Stack.Screen name={screenName.cashAssets} component={CastAssets} />
       </Stack.Navigator>
     </NavigationContainer>
   );

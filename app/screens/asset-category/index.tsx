@@ -14,6 +14,7 @@ import {
   PlatformView,
   TextContainer,
 } from 'shared/components';
+import { ScrollView } from 'react-native-gesture-handler';
 
 export const AssetCategory = () => {
   const navigation = useNavigation();
@@ -23,7 +24,14 @@ export const AssetCategory = () => {
   };
 
   const gotoNonInterestAssets = () => {
-    navigation.navigate(screenName.nonInterestAssets as never);
+    navigation.navigate(screenName.volatilityAssets as never);
+  };
+
+  const gotoRealEstateAssets = () => {
+    navigation.navigate(screenName.realEstateAssets as never);
+  };
+  const gotoCashEstateAssets = () => {
+    navigation.navigate(screenName.cashAssets as never);
   };
   return (
     <PlatformView style={styleProvider.body}>
@@ -39,11 +47,7 @@ export const AssetCategory = () => {
             <>
               <LinearGradient
                 style={styles.header}
-                colors={[
-                  colorScheme.theme,
-                  colorScheme.blue200,
-                  colorScheme.pink700,
-                ]}
+                colors={[colorScheme.theme, colorScheme.purple600]}
               >
                 <View>
                   <View style={styles.headerContainer}>
@@ -64,7 +68,7 @@ export const AssetCategory = () => {
                   </TextContainer>
                   <View style={{ marginTop: 30 }}>
                     <TextContainer style={{ color: colorScheme.white }}>
-                      Your price
+                      {content.total}
                     </TextContainer>
                     <TextContainer
                       type="h1"
@@ -78,56 +82,71 @@ export const AssetCategory = () => {
                   </View>
                 </View>
               </LinearGradient>
-              <View style={styles.cardContainer}>
-                <Card
-                  onPress={gotoInterestAssets}
-                  style={styles.card}
-                  enableBlur
-                >
-                  <Image style={styles.image} source={imageSource.tablet} />
-                  <View style={{ marginLeft: 20 }}>
-                    <TextContainer style={{ fontWeight: 'bold' }}>
-                      {content.interest}
-                    </TextContainer>
-                    <TextContainer type="small">
-                      {content.interest}
-                    </TextContainer>
-                  </View>
-                </Card>
-                <Card
-                  onPress={gotoNonInterestAssets}
-                  style={styles.card}
-                  enableBlur
-                >
-                  <Image
-                    style={styles.image}
-                    source={imageSource.growthGraph}
-                  />
-                  <View style={{ marginLeft: 20 }}>
-                    <TextContainer style={{ fontWeight: 'bold' }}>
-                      {content.nonInterest}
-                    </TextContainer>
-                    <TextContainer type="small">
-                      {content.nonInterest}
-                    </TextContainer>
-                  </View>
-                </Card>
-                <Card
-                  onPress={gotoNonInterestAssets}
-                  style={styles.card}
-                  enableBlur
-                >
-                  <Image style={styles.image} source={imageSource.building} />
-                  <View style={{ marginLeft: 20 }}>
-                    <TextContainer style={{ fontWeight: 'bold' }}>
-                      {content.realProperty}
-                    </TextContainer>
-                    <TextContainer type="small">
-                      {content.realProperty}
-                    </TextContainer>
-                  </View>
-                </Card>
-              </View>
+              <ScrollView>
+                <View style={styles.cardContainer}>
+                  <Card
+                    onPress={gotoInterestAssets}
+                    style={styles.card}
+                    enableBlur
+                  >
+                    <Image
+                      style={styles.image}
+                      source={imageSource.growthGraph}
+                    />
+                    <View style={{ marginLeft: 20 }}>
+                      <TextContainer style={{ fontWeight: 'bold' }}>
+                        {content.interest}
+                      </TextContainer>
+                      <TextContainer type="small">
+                        {content.interest}
+                      </TextContainer>
+                    </View>
+                  </Card>
+                  <Card
+                    onPress={gotoNonInterestAssets}
+                    style={styles.card}
+                    enableBlur
+                  >
+                    <Image style={styles.image} source={imageSource.barChart} />
+                    <View style={{ marginLeft: 20 }}>
+                      <TextContainer style={{ fontWeight: 'bold' }}>
+                        {content.nonInterest}
+                      </TextContainer>
+                      <TextContainer type="small">
+                        {content.nonInterest}
+                      </TextContainer>
+                    </View>
+                  </Card>
+                  <Card
+                    onPress={gotoRealEstateAssets}
+                    style={styles.card}
+                    enableBlur
+                  >
+                    <Image style={styles.image} source={imageSource.building} />
+                    <View style={{ marginLeft: 20 }}>
+                      <TextContainer style={{ fontWeight: 'bold' }}>
+                        {content.realProperty}
+                      </TextContainer>
+                      <TextContainer type="small">
+                        {content.realProperty}
+                      </TextContainer>
+                    </View>
+                  </Card>
+                  <Card
+                    onPress={gotoCashEstateAssets}
+                    style={styles.card}
+                    enableBlur
+                  >
+                    <Image style={styles.image} source={imageSource.cash} />
+                    <View style={{ marginLeft: 20 }}>
+                      <TextContainer style={{ fontWeight: 'bold' }}>
+                        {content.cash}
+                      </TextContainer>
+                      <TextContainer type="small">{content.cash}</TextContainer>
+                    </View>
+                  </Card>
+                </View>
+              </ScrollView>
             </>
           );
         }}
@@ -142,11 +161,11 @@ const styles = StyleSheet.create({
     height: 50,
   },
   header: {
-    height: 350,
+    height: 300,
     width: '100%',
     paddingHorizontal: 30,
     justifyContent: 'flex-end',
-    paddingBottom: 100,
+    paddingBottom: 50,
   },
   treasure: {
     width: 50,
@@ -166,8 +185,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginBottom: 10,
     borderRadius: 20,
-    borderColor: colorScheme.gray400,
-    borderWidth: 0.5,
   },
   reportBtn: {
     backgroundColor: colorScheme.purple600,

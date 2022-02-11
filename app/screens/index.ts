@@ -1,4 +1,6 @@
-import { NonInterestAssets } from './non-interest-assets';
+import { RealEstateAssets } from './asset-category/real-estate-assets ';
+import { CastAssets } from './asset-category/cash-assets';
+import { VolatilityAssets } from './asset-category/volatility-assets';
 import { Account } from './account';
 import { ForgetPassword } from './authentication/forget-password';
 import { Register } from './authentication/register';
@@ -8,7 +10,7 @@ import { Home } from './home';
 import { Report } from './report';
 import { Wallet } from './wallet';
 import { AssetCategory } from './asset-category';
-import { InterestAssets } from './interest-assets';
+import { InterestAssets } from './asset-category/interest-assets';
 export {
   Home,
   Login,
@@ -19,6 +21,8 @@ export {
   Report,
   Wallet,
   AssetCategory,
-  NonInterestAssets,
+  VolatilityAssets,
   InterestAssets,
+  CastAssets,
+  RealEstateAssets,
 };

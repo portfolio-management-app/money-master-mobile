@@ -1,19 +1,18 @@
-import { imageSource } from 'assets/images';
-import { FloatingButton, PlatformView, TextContainer } from 'shared/components';
-import { i18n } from 'i18n';
-import { Observer } from 'mobx-react-lite';
-import { NavigationHeader } from 'navigation/header';
 import React from 'react';
-import { Image, View } from 'react-native';
-import { Icon } from 'react-native-elements';
-import { ScrollView } from 'react-native-gesture-handler';
-import { Card } from 'react-native-ui-lib';
-import { styles } from 'screens/non-interest-assets';
-import { LocaleStore } from 'shared/stores';
+import { FloatingButton, PlatformView, TextContainer } from 'shared/components';
 import { colorScheme, iconProvider, styleProvider } from 'shared/styles';
+import { NavigationHeader } from 'navigation/header';
+import { Observer } from 'mobx-react-lite';
+import { LocaleStore } from 'shared/stores';
+import { i18n } from 'i18n';
+import { imageSource } from 'assets/images';
+import { Card, Image, View } from 'react-native-ui-lib';
+import { StyleSheet } from 'react-native';
+import { ScrollView } from 'react-native-gesture-handler';
+import { Icon } from 'react-native-elements';
 import { AddNewAssetModal } from './components';
 
-export const InterestAssets = () => {
+export const VolatilityAssets = () => {
   const [showSheet, setShowSheet] = React.useState(false);
 
   const toggle = () => {
@@ -25,10 +24,19 @@ export const InterestAssets = () => {
       <Observer>
         {() => {
           const { currentLocale } = LocaleStore;
+          const content = i18n[currentLocale].nonInterestAssets;
           const defaultAssets = [
             {
-              title: i18n[currentLocale].interestAssets.bank,
-              icon: imageSource.bank,
+              title: content.coin,
+              icon: imageSource.bitcoin,
+            },
+            {
+              title: content.stock,
+              icon: imageSource.chartLine,
+            },
+            {
+              title: content.gold,
+              icon: imageSource.gold,
             },
             {
               title: 'New asset',
@@ -71,7 +79,7 @@ export const InterestAssets = () => {
           return (
             <>
               <NavigationHeader
-                title={i18n[currentLocale].portfolioCategory.interest}
+                title={i18n[currentLocale].portfolioCategory.nonInterest}
               />
               <ScrollView>
                 <View style={styles.cardContainer}>
@@ -123,3 +131,26 @@ export const InterestAssets = () => {
     </PlatformView>
   );
 };
+
+export const styles = StyleSheet.create({
+  card: {
+    padding: 20,
+    borderRadius: 20,
+    marginTop: 10,
+    justifyContent: 'space-between',
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  textContainer: {
+    justifyContent: 'space-between',
+    marginLeft: 15,
+  },
+  image: {
+    width: 30,
+    height: 30,
+  },
+  cardContainer: {
+    paddingHorizontal: 20,
+    paddingBottom: 50,
+  },
+});

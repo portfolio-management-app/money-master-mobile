@@ -9,5 +9,7 @@ export const screenName = {
   report: 'Report',
   category: 'Category',
   interestAssets: 'Interest Assets',
-  nonInterestAssets: 'Non Interest Assets',
+  volatilityAssets: 'Volatility Assets',
+  cashAssets: 'Cash Assets',
+  realEstateAssets: 'Real Estate Assets',
 };
