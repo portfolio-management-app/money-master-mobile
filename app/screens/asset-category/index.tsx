@@ -161,11 +161,7 @@ const styles = StyleSheet.create({
     height: 50,
   },
   header: {
-    height: 300,
-    width: '100%',
-    paddingHorizontal: 30,
-    justifyContent: 'flex-end',
-    paddingBottom: 50,
+    padding: 30,
   },
   treasure: {
     width: 50,

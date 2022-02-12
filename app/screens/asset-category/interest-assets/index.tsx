@@ -1,5 +1,10 @@
 import { imageSource } from 'assets/images';
-import { FloatingButton, PlatformView, TextContainer } from 'shared/components';
+import {
+  CreateAssetModal,
+  FloatingButton,
+  PlatformView,
+  TextContainer,
+} from 'shared/components';
 import { i18n } from 'i18n';
 import { Observer } from 'mobx-react-lite';
 import { NavigationHeader } from 'navigation/header';
@@ -7,11 +12,9 @@ import React from 'react';
 import { Image, View } from 'react-native';
 import { Icon } from 'react-native-elements';
 import { ScrollView } from 'react-native-gesture-handler';
-import { Card } from 'react-native-ui-lib';
-import { styles } from 'screens/asset-category/volatility-assets';
+import { Card, Incubator } from 'react-native-ui-lib';
 import { LocaleStore } from 'shared/stores';
 import { colorScheme, iconProvider, styleProvider } from 'shared/styles';
-import { AddNewAssetModal } from './components';
 
 export const InterestAssets = () => {
   const [showSheet, setShowSheet] = React.useState(false);
@@ -25,6 +28,7 @@ export const InterestAssets = () => {
       <Observer>
         {() => {
           const { currentLocale } = LocaleStore;
+          const modalContent = i18n[currentLocale].interestAssets.addModel;
           const defaultAssets = [
             {
               title: i18n[currentLocale].interestAssets.bank,
@@ -74,14 +78,21 @@ export const InterestAssets = () => {
                 title={i18n[currentLocale].portfolioCategory.interest}
               />
               <ScrollView>
-                <View style={styles.cardContainer}>
+                <View style={styleProvider.assetCardContainer}>
                   {defaultAssets.map((asset, idx) => (
-                    <Card style={styles.card} enableShadow key={idx}>
+                    <Card
+                      style={styleProvider.assetCard}
+                      enableShadow
+                      key={idx}
+                    >
                       <View
                         style={{ flexDirection: 'row', alignItems: 'center' }}
                       >
-                        <Image style={styles.image} source={asset.icon} />
-                        <View style={styles.textContainer}>
+                        <Image
+                          style={styleProvider.assetImage}
+                          source={asset.icon}
+                        />
+                        <View style={styleProvider.assetTextContainer}>
                           <TextContainer
                             type="h4"
                             style={{ fontWeight: 'bold' }}
@@ -93,7 +104,7 @@ export const InterestAssets = () => {
                           </TextContainer>
                         </View>
                       </View>
-                      <View style={styles.textContainer}>
+                      <View style={styleProvider.assetTextContainer}>
                         <TextContainer type="small">Market cap</TextContainer>
                         <TextContainer
                           style={{ color: colorScheme.red500 }}
@@ -106,6 +117,38 @@ export const InterestAssets = () => {
                   ))}
                 </View>
               </ScrollView>
+              <CreateAssetModal
+                modalLabel={modalContent.header}
+                confirmText={modalContent.add}
+                cancelText={modalContent.cancel}
+                hasDatePicker
+                datePickerLabel={modalContent.startDate}
+                hasRadioGroup
+                radioValue={[
+                  modalContent.week,
+                  modalContent.year,
+                  modalContent.month,
+                ]}
+                radioLabel={modalContent.interestType}
+                renderInputs={() => (
+                  <>
+                    <Incubator.TextField
+                      style={styleProvider.textField}
+                      placeholder={modalContent.name}
+                    />
+                    <Incubator.TextField
+                      style={styleProvider.textField}
+                      placeholder={modalContent.asset}
+                    />
+                    <Incubator.TextField
+                      style={styleProvider.textField}
+                      placeholder={modalContent.interestValue}
+                    />
+                  </>
+                )}
+                show={showSheet}
+                onHide={toggle}
+              />
             </>
           );
         }}
@@ -119,7 +162,6 @@ export const InterestAssets = () => {
           color={colorScheme.white}
         />
       </FloatingButton>
-      <AddNewAssetModal show={showSheet} onHide={toggle} />
     </PlatformView>
   );
 };

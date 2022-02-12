@@ -12,4 +12,5 @@ export const screenName = {
   volatilityAssets: 'Volatility Assets',
   cashAssets: 'Cash Assets',
   realEstateAssets: 'Real Estate Assets',
+  coin: 'Coin',
 };

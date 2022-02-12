@@ -1,3 +1,4 @@
+import { Coin } from './asset-category/volatility-assets/coin';
 import { RealEstateAssets } from './asset-category/real-estate-assets ';
 import { CastAssets } from './asset-category/cash-assets';
 import { VolatilityAssets } from './asset-category/volatility-assets';
@@ -25,4 +26,5 @@ export {
   InterestAssets,
   CastAssets,
   RealEstateAssets,
+  Coin,
 };

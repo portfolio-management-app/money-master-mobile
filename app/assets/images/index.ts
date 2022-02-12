@@ -14,4 +14,5 @@ export const imageSource = {
   building: require('./source/building.png'),
   barChart: require('./source/bar-chart.png'),
   cash: require('./source/money.png'),
+  ethereum: require('./source/ethereum.png'),
 };

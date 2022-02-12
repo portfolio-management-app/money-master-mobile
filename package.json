@@ -49,6 +49,7 @@
     "@babel/core": "^7.12.9",
     "@babel/runtime": "^7.12.5",
     "@types/jest": "^26.0.23",
+    "@types/react": "17.0.39",
     "@types/react-native": "^0.66.4",
     "@types/react-test-renderer": "^17.0.1",
     "@typescript-eslint/eslint-plugin": "^5.10.0",

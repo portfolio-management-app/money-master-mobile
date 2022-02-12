@@ -7,12 +7,21 @@ import { colorScheme, fontProvider } from 'shared/styles';
 interface IProps {
   values: string[];
   title: string;
+  onChange?: (value: string) => void;
 }
 
-export const RadioPicker = ({ values, title }: IProps) => {
+export const RadioPicker = ({ values, title, onChange }: IProps) => {
   return (
-    <RadioGroup style={styles.radio} initialValue={values[0]}>
-      <TextContainer type="small">{title}</TextContainer>
+    <RadioGroup
+      onValueChange={(value: string) => {
+        if (onChange) onChange(value);
+      }}
+      style={styles.radio}
+      initialValue={values[0]}
+    >
+      <TextContainer style={{ fontWeight: '800' }} type="small">
+        {title}
+      </TextContainer>
       {values.map((value) => (
         <RadioButton
           labelStyle={{ marginRight: 10, fontFamily: fontProvider.openSans }}

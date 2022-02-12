@@ -11,5 +11,6 @@ export const colorScheme = {
   blue200: '#166CED',
   blue400: '#4ba9c8',
   purple600: '#9F3BDB',
+  purple700: '#5327B2',
   pink700: '#FA0EC7',
 };

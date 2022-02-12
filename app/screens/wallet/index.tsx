@@ -72,7 +72,6 @@ export const Wallet = () => {
         bezier
         style={{
           marginVertical: 8,
-          borderRadius: 16,
         }}
       />
     </PlatformView>

@@ -32,6 +32,7 @@ export const styleProvider = StyleSheet.create({
     backgroundColor: colorScheme.bg,
     flex: 1,
   },
+
   button: {
     borderRadius: 20,
     width: '100%',
@@ -45,6 +46,14 @@ export const styleProvider = StyleSheet.create({
   centerVertical: {
     alignItems: 'center',
   },
+  assetImage: {
+    height: 30,
+    width: 30,
+  },
+  assetTextContainer: {
+    justifyContent: 'space-between',
+    marginLeft: 15,
+  },
 
   centerHorizontal: {
     flexDirection: 'row',
@@ -54,39 +63,19 @@ export const styleProvider = StyleSheet.create({
     borderBottomWidth: 1,
     borderColor: colorScheme.gray400,
     paddingBottom: 4,
-    marginBottom: 40,
+    marginBottom: 35,
     fontFamily: fontProvider.openSans,
   },
-});
-
-export const assetModalStyle = StyleSheet.create({
-  addNewButton: {
+  assetCard: {
+    padding: 20,
     borderRadius: 20,
-    backgroundColor: colorScheme.theme,
-    marginRight: 20,
-    paddingHorizontal: 50,
-  },
-  cancelButton: {
-    borderRadius: 20,
-    backgroundColor: colorScheme.red500,
-    paddingHorizontal: 50,
-  },
-  buttonContainer: {
+    marginTop: 10,
+    justifyContent: 'space-between',
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'center',
   },
-  modal: {
-    backgroundColor: colorScheme.white,
-    borderTopLeftRadius: 20,
-    borderTopRightRadius: 20,
-    justifyContent: 'flex-end',
-    paddingHorizontal: 40,
-    paddingVertical: 20,
-  },
-  header: {
-    textAlign: 'center',
-    marginBottom: 40,
-    fontWeight: 'bold',
+  assetCardContainer: {
+    paddingHorizontal: 10,
+    paddingBottom: 50,
   },
 });

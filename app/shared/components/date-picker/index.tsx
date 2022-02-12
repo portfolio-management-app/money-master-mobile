@@ -31,7 +31,10 @@ export const DatePicker = ({ label }: IProps) => {
   return (
     <View>
       <TouchableOpacity onPress={toggle} style={[styleProvider.textField]}>
-        <TextContainer style={{ marginBottom: 10 }} type="small">
+        <TextContainer
+          style={{ marginBottom: 10, fontWeight: '800' }}
+          type="small"
+        >
           {label}
         </TextContainer>
         <View style={styles.datePicker}>

@@ -8,10 +8,8 @@ import { Image, View } from 'react-native';
 import { Icon } from 'react-native-elements';
 import { ScrollView } from 'react-native-gesture-handler';
 import { Card } from 'react-native-ui-lib';
-import { styles } from 'screens/asset-category/volatility-assets';
 import { LocaleStore } from 'shared/stores';
 import { colorScheme, iconProvider, styleProvider } from 'shared/styles';
-import { AddNewAssetModal } from '../volatility-assets/components';
 
 export const RealEstateAssets = () => {
   const [showSheet, setShowSheet] = React.useState(false);
@@ -38,14 +36,21 @@ export const RealEstateAssets = () => {
                 title={i18n[currentLocale].portfolioCategory.realProperty}
               />
               <ScrollView>
-                <View style={styles.cardContainer}>
+                <View style={styleProvider.assetCardContainer}>
                   {defaultAssets.map((asset, idx) => (
-                    <Card style={styles.card} enableShadow key={idx}>
+                    <Card
+                      style={styleProvider.assetCard}
+                      enableShadow
+                      key={idx}
+                    >
                       <View
                         style={{ flexDirection: 'row', alignItems: 'center' }}
                       >
-                        <Image style={styles.image} source={asset.icon} />
-                        <View style={styles.textContainer}>
+                        <Image
+                          style={styleProvider.assetImage}
+                          source={asset.icon}
+                        />
+                        <View style={styleProvider.assetTextContainer}>
                           <TextContainer
                             type="h4"
                             style={{ fontWeight: 'bold' }}
@@ -57,7 +62,7 @@ export const RealEstateAssets = () => {
                           </TextContainer>
                         </View>
                       </View>
-                      <View style={styles.textContainer}>
+                      <View style={styleProvider.assetTextContainer}>
                         <TextContainer type="small">Market cap</TextContainer>
                         <TextContainer
                           style={{ color: colorScheme.red500 }}
@@ -83,7 +88,6 @@ export const RealEstateAssets = () => {
           color={colorScheme.white}
         />
       </FloatingButton>
-      <AddNewAssetModal show={showSheet} onHide={toggle} />
     </PlatformView>
   );
 };
