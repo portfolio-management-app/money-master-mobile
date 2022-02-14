@@ -9,7 +9,6 @@ import { colorScheme, dimensionProvider, styleProvider } from 'shared/styles';
 import { LocaleStore, UserStore } from 'shared/stores';
 import { screenName } from 'navigation/screen-names';
 import { WaveIndicator } from 'react-native-indicators';
-import { storage, TOKEN_KEY } from 'services/storage';
 
 export const Start = observer(() => {
   const navigation = useNavigation();
