@@ -25,6 +25,27 @@ export const Start = observer(() => {
           })
         );
       }
+    } else {
+      storage
+        .load({ key: TOKEN_KEY })
+        .then((value) => {
+          console.log('Loaded token', value);
+          UserStore.initUser(value);
+        })
+        .catch((error) => {
+          UserStore.initUser(null);
+          console.warn(error.message);
+          switch (error.name) {
+            case 'NotFoundError':
+              console.log('NOT FOUND TOKEN');
+              //TODO
+              break;
+            case 'ExpiredError':
+              console.log('TOKEN EXPIRED');
+              //TODO
+              break;
+          }
+        });
     }
   }, [pendingAuthen, user]);
   return (
