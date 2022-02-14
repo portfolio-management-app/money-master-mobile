@@ -63,8 +63,11 @@ export const styleProvider = StyleSheet.create({
     borderBottomWidth: 1,
     borderColor: colorScheme.gray400,
     paddingBottom: 4,
-    marginBottom: 35,
+    marginBottom: 5,
     fontFamily: fontProvider.openSans,
+  },
+  textFieldContainer: {
+    marginBottom: 10,
   },
   assetCard: {
     padding: 20,

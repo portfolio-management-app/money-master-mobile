@@ -89,6 +89,10 @@ export const en = {
       week: 'Week',
       month: 'Month',
       year: 'Year',
+      errors: {
+        mustBeANumber: 'Value must be a number',
+        requiredFiled: 'Field is required',
+      },
     },
   },
 };

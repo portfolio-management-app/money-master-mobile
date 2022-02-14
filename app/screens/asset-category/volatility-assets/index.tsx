@@ -24,7 +24,6 @@ export const VolatilityAssets = () => {
         {() => {
           const { currentLocale } = LocaleStore;
           const content = i18n[currentLocale].nonInterestAssets;
-          const modalContent = content.addModel;
           const defaultAssets = [
             {
               title: content.coin,

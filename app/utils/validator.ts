@@ -29,20 +29,28 @@ const passwordOption: Options<string> = [
 
 export type PasswordValidateResult = 'Too weak' | 'Weak' | 'Medium' | 'Strong';
 
-export const validateEmail = (email: string): boolean => {
-  const result = String(email)
-    .toLowerCase()
-    .match(
-      /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-    );
-  return result !== null;
-};
-
-export const validatePassword = (password: string) => {
-  const result = passwordStrength(password, passwordOption);
-  const value: PasswordValidateResult = result.value as PasswordValidateResult;
-  return {
-    value: value,
-    contains: result.contains,
-  };
-};
+export class Validator {
+  static validateEmail(email: string): boolean {
+    const result = String(email)
+      .toLowerCase()
+      .match(
+        /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+      );
+    return result !== null;
+  }
+  static validatePassword(password: string) {
+    const result = passwordStrength(password, passwordOption);
+    const value: PasswordValidateResult =
+      result.value as PasswordValidateResult;
+    return {
+      value: value,
+      contains: result.contains,
+    };
+  }
+  static validateNumber(num: any) {
+    return !isNaN(num * 1);
+  }
+  static validateStringEmpty(s: string) {
+    return s.trim() !== '';
+  }
+}

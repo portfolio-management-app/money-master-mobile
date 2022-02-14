@@ -1,7 +1,12 @@
 import React from 'react';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { StyleSheet, View, TouchableOpacity } from 'react-native';
-import { iconProvider, styleProvider } from 'shared/styles';
+import {
+  colorScheme,
+  fontProvider,
+  iconProvider,
+  styleProvider,
+} from 'shared/styles';
 import { parseToString } from 'utils/date';
 import { Icon } from 'react-native-elements';
 import { TextContainer } from 'shared/components';
@@ -9,9 +14,11 @@ import { TextContainer } from 'shared/components';
 interface IProps {
   label: string;
   onChange?: (date: Date) => void;
+  maxDate?: Date;
+  minDate?: Date;
 }
 
-export const DatePicker = ({ label }: IProps) => {
+export const DatePicker = ({ label, onChange, minDate, maxDate }: IProps) => {
   const [date, setDate] = React.useState(new Date());
   const [dateString, setDateString] = React.useState(
     parseToString(new Date(), false)
@@ -22,15 +29,20 @@ export const DatePicker = ({ label }: IProps) => {
     setShowDatePicker(!showDatePicker);
   };
 
-  const onChange = (event: Event, selectedDate: Date | undefined) => {
-    const currentDate = selectedDate || date;
-    setDate(currentDate);
-    setShowDatePicker(false);
-    setDateString(parseToString(currentDate, false));
-  };
+  const onDateChange = React.useCallback(
+    (event: Event, selectedDate: Date | undefined) => {
+      const currentDate = selectedDate || date;
+      if (onChange) {
+        onChange(currentDate);
+      }
+      setDate(currentDate);
+      setDateString(parseToString(currentDate, false));
+    },
+    [onChange]
+  );
   return (
     <View>
-      <TouchableOpacity onPress={toggle} style={[styleProvider.textField]}>
+      <TouchableOpacity onPress={toggle} style={styles.datePickerButton}>
         <TextContainer
           style={{ marginBottom: 10, fontWeight: '800' }}
           type="small"
@@ -54,9 +66,13 @@ export const DatePicker = ({ label }: IProps) => {
           mode="date"
           is24Hour={true}
           display="default"
-          onChange={onChange}
-          maximumDate={new Date()}
-          minimumDate={new Date(2000, 1, 1)}
+          onChange={(event: Event, date: Date | undefined) => {
+            toggle();
+            onDateChange(event, date);
+          }}
+          onTouchCancel={toggle}
+          maximumDate={maxDate ? maxDate : new Date()}
+          minimumDate={minDate ? minDate : new Date(2000, 1, 1)}
         />
       )}
     </View>
@@ -68,5 +84,12 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
+  },
+  datePickerButton: {
+    borderBottomWidth: 1,
+    borderColor: colorScheme.gray400,
+    paddingBottom: 4,
+    marginBottom: 20,
+    fontFamily: fontProvider.openSans,
   },
 });

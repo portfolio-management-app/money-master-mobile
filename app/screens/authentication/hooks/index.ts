@@ -6,7 +6,7 @@ import {
 } from 'services/facebook-auth';
 import { LocaleStore } from 'shared/stores';
 import { useCallback, useEffect, useState } from 'react';
-import { validateEmail, validatePassword } from 'utils/validator';
+import { Validator } from 'utils/validator';
 import { UserStore } from 'shared/stores/data-store';
 
 export const useAuthentication = () => {
@@ -22,7 +22,7 @@ export const useAuthentication = () => {
   const { locale } = LocaleStore;
 
   useEffect(() => {
-    const result = validatePassword(password);
+    const result = Validator.validatePassword(password);
 
     if (result.value === 'Medium' || result.value === 'Strong') {
       setError({
@@ -34,21 +34,21 @@ export const useAuthentication = () => {
   }, [password]);
 
   useEffect(() => {
-    const result = validateEmail(email);
+    const result = Validator.validateEmail(email);
     if (result) {
       setError({ ...error, emailError: false, emailMessage: '' });
     }
   }, [email]);
 
   const submit = async (type: 'login' | 'register') => {
-    if (!validateEmail(email)) {
+    if (!Validator.validateEmail(email)) {
       setError({
         ...error,
         emailError: true,
         emailMessage: locale.authenError.email,
       });
     }
-    const result = validatePassword(password).value;
+    const result = Validator.validatePassword(password).value;
     if (result === 'Too weak' || result === 'Weak') {
       //Merge state
       setError((prev) => {
@@ -73,6 +73,7 @@ export const useAuthentication = () => {
         return res;
       }
     }
+    return null;
   };
 
   return [loading, setEmail, setPassword, error, submit] as const;

@@ -16,18 +16,23 @@ interface IProps {
   radioLabel?: string;
   modalLabel: string;
   datePickerLabel?: string;
+  datePickerMinDate?: Date;
+  datePickerMaxDate?: Date;
+  disableCreate?: boolean;
   onRadioChange?: (value: string) => void;
   onDateChange?: (date: Date) => void;
   renderInputs: () => JSX.Element;
   show: boolean;
   confirmText: string;
   cancelText: string;
-  onHide: () => void;
+  onClose: () => void;
+  onCreate: () => void;
 }
 export class CreateAssetModal extends React.Component<IProps> {
   onDatePickerChange(date: Date) {
     const { onDateChange } = this.props;
     if (onDateChange) {
+      console.log();
       onDateChange(date);
     }
   }
@@ -40,12 +45,19 @@ export class CreateAssetModal extends React.Component<IProps> {
   }
 
   renderDatePicker() {
-    const { hasDatePicker, datePickerLabel = '' } = this.props;
+    const {
+      hasDatePicker,
+      datePickerLabel = '',
+      datePickerMaxDate,
+      datePickerMinDate,
+    } = this.props;
     if (hasDatePicker === true)
       return (
         <DatePicker
           label={datePickerLabel}
-          onChange={this.onDatePickerChange}
+          maxDate={datePickerMaxDate}
+          minDate={datePickerMinDate}
+          onChange={(date: Date) => this.onDatePickerChange(date)}
         />
       );
     else return <></>;
@@ -56,7 +68,7 @@ export class CreateAssetModal extends React.Component<IProps> {
     if (hasRadioGroup === true)
       return (
         <RadioPicker
-          onChange={this.onRadioPickerChange}
+          onChange={(value: string) => this.onRadioPickerChange(value)}
           title={radioLabel}
           values={radioValue}
         />
@@ -78,14 +90,16 @@ export class CreateAssetModal extends React.Component<IProps> {
           {this.renderDatePicker()}
           <View style={styles.buttonContainer}>
             <BaseButton
+              disabled={this.props.disableCreate}
+              textDisabled={this.props.disableCreate}
               style={styles.addNewButton}
-              onPress={this.props.onHide}
+              onPress={() => this.props.onCreate()}
               label={this.props.confirmText}
             />
             <BaseButton
               labelStyle={{ fontFamily: fontProvider.openSans }}
               style={styles.cancelButton}
-              onPress={this.props.onHide}
+              onPress={() => this.props.onClose()}
               label={this.props.cancelText}
             />
           </View>

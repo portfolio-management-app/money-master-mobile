@@ -15,12 +15,32 @@ import { ScrollView } from 'react-native-gesture-handler';
 import { Card, Incubator } from 'react-native-ui-lib';
 import { LocaleStore } from 'shared/stores';
 import { colorScheme, iconProvider, styleProvider } from 'shared/styles';
+import { useCreateNewCategory } from './hooks';
+import { Validator } from 'utils/validator';
 
 export const InterestAssets = () => {
   const [showSheet, setShowSheet] = React.useState(false);
+  const {
+    setAssetName,
+    setCurrentAsset,
+    setInterestRate,
+    setInterestValue,
+    setInterestType,
+    setStartDate,
+    submit,
+    cleanUp,
+  } = useCreateNewCategory();
 
   const toggle = () => {
+    cleanUp();
     setShowSheet(!showSheet);
+  };
+
+  const onCreate = () => {
+    const res = submit();
+    if (res) {
+      toggle();
+    }
   };
 
   return (
@@ -126,28 +146,59 @@ export const InterestAssets = () => {
                 hasRadioGroup
                 radioValue={[
                   modalContent.week,
-                  modalContent.year,
                   modalContent.month,
+                  modalContent.year,
                 ]}
                 radioLabel={modalContent.interestType}
+                onRadioChange={setInterestType}
+                onDateChange={setStartDate}
                 renderInputs={() => (
                   <>
                     <Incubator.TextField
                       style={styleProvider.textField}
+                      containerStyle={styleProvider.textFieldContainer}
                       placeholder={modalContent.name}
+                      onChangeText={setAssetName}
+                      enableErrors
+                      validateOnBlur
+                      validationMessage={modalContent.errors.requiredFiled}
+                      validate={'required'}
                     />
                     <Incubator.TextField
                       style={styleProvider.textField}
+                      containerStyle={styleProvider.textFieldContainer}
                       placeholder={modalContent.asset}
+                      onChangeText={setCurrentAsset}
+                      enableErrors
+                      validateOnBlur
+                      validationMessage={modalContent.errors.mustBeANumber}
+                      validate={Validator.validateNumber}
                     />
                     <Incubator.TextField
                       style={styleProvider.textField}
+                      containerStyle={styleProvider.textFieldContainer}
+                      placeholder={modalContent.interestRate}
+                      onChangeText={setInterestRate}
+                      enableErrors
+                      validateOnBlur
+                      validationMessage={modalContent.errors.mustBeANumber}
+                      validate={Validator.validateNumber}
+                    />
+                    <Incubator.TextField
+                      style={styleProvider.textField}
+                      containerStyle={styleProvider.textFieldContainer}
                       placeholder={modalContent.interestValue}
+                      onChangeText={setInterestValue}
+                      enableErrors
+                      validateOnBlur
+                      validationMessage={modalContent.errors.mustBeANumber}
+                      validate={Validator.validateNumber}
                     />
                   </>
                 )}
                 show={showSheet}
-                onHide={toggle}
+                onClose={toggle}
+                onCreate={onCreate}
               />
             </>
           );

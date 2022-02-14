@@ -86,6 +86,10 @@ export const vn = {
       week: 'Tuần',
       month: 'Tháng',
       year: 'Năm',
+      errors: {
+        mustBeANumber: 'Value must be a number',
+        requiredFiled: 'Field is required',
+      },
     },
   },
   httpError: {
