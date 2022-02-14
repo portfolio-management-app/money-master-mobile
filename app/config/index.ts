@@ -6,7 +6,7 @@ export const FacebookAppID = '283259500459094';
 let url: string = '';
 
 if (__DEV__) {
-  url = 'http://localhost:5000';
+  url = '';
 }
 
 export const BASE_URL = url;
