@@ -92,6 +92,7 @@ export const en = {
       errors: {
         mustBeANumber: 'Value must be a number and greater than 0',
         requiredFiled: 'Field is required',
+        mustBeInteger:'Interest value must be an integer',
         lessThan100: 'Interest rate must be less than or equal 100',
       },
     },

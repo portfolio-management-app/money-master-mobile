@@ -36,7 +36,7 @@ export const InterestAssets = () => {
   };
 
   return (
-    <PlatformView style={styleProvider.body}>
+    <PlatformView style={styleProvider.bgBody}>
       <FocusAwareStatusBar backgroundColor={colorScheme.white} />
 
       <Observer>
