@@ -37,6 +37,7 @@ export const UserStore = types
         yield storage.save({ key: TOKEN_KEY, data: res.token });
         self.user.email = res.email;
         self.user.isLoggedIn = true;
+        self.user.token = `Bearer ${res.token}`;
         console.log('Saved token');
         return { isError: false, response: res };
       }
@@ -63,18 +64,25 @@ export const UserStore = types
         yield storage.save({ key: TOKEN_KEY, data: res.token });
         self.user.email = res.email;
         self.user.isLoggedIn = true;
+        self.user.token = `Bearer ${res.token}`;
         console.log('Saved token');
         return { isError: false, response: res };
       }
     });
 
-    const initUser = (token: string | null) => {
+    const initUser = flow(function* (token: string | null) {
       if (token) {
-        self.user.token = token;
-        self.user.isLoggedIn = true;
+        const res = yield httpRequest.sendGet('/user/me', `Bearer ${token}`);
+        if (res instanceof HttpError) {
+          self.pendingAuthen = false;
+        } else {
+          self.pendingAuthen = false;
+          self.user.email = res.email;
+          self.user.isLoggedIn = true;
+          self.user.token = `Bearer ${token}`;
+        }
       }
-      self.pendingAuthen = false;
-    };
+    });
 
     const logout = () => {
       self.user.email = '';
@@ -92,13 +100,3 @@ export const UserStore = types
       token: '',
     },
   });
-
-/* "data": {
-		"user": {
-			"id": "US17eccaf6e81",
-			"email": "hoa@gmail.com",
-			"password": "$2b$10$o2g6LiP0LY5zD600XNHN5OLU6Vl4FDyna0xgtLur1wmT3jOwYw9qS",
-			"createdAt": "2022-02-06T01:39:16.225Z",
-			"updatedAt": "2022-02-06T01:39:16.225Z"
-		},
-		"accessToken":  */

@@ -1,30 +1,18 @@
 import React from 'react';
-import {
-  CreateAssetModal,
-  FloatingButton,
-  PlatformView,
-  TextContainer,
-} from 'shared/components';
-import { colorScheme, iconProvider, styleProvider } from 'shared/styles';
+import { PlatformView, TextContainer } from 'shared/components';
+import { colorScheme, styleProvider } from 'shared/styles';
 import { NavigationHeader } from 'navigation/header';
 import { Observer } from 'mobx-react-lite';
 import { LocaleStore } from 'shared/stores';
 import { i18n } from 'i18n';
 import { imageSource } from 'assets/images';
-import { Card, Image, Incubator, View } from 'react-native-ui-lib';
-import { StyleSheet } from 'react-native';
+import { Card, Image, View } from 'react-native-ui-lib';
 import { ScrollView } from 'react-native-gesture-handler';
-import { Icon } from 'react-native-elements';
 import { screenName } from 'navigation/screen-names';
 import { useNavigation } from '@react-navigation/native';
 
 export const VolatilityAssets = () => {
-  const [showSheet, setShowSheet] = React.useState(false);
   const navigation = useNavigation();
-
-  const toggle = () => {
-    setShowSheet(!showSheet);
-  };
 
   const gotoAsset = (screenName: string) => {
     navigation.navigate(screenName as never);
@@ -146,40 +134,10 @@ export const VolatilityAssets = () => {
                   ))}
                 </View>
               </ScrollView>
-              <CreateAssetModal
-                modalLabel={modalContent.header}
-                confirmText={modalContent.add}
-                cancelText={modalContent.cancel}
-                hasDatePicker
-                datePickerLabel={modalContent.startDate}
-                renderInputs={() => (
-                  <>
-                    <Incubator.TextField
-                      style={styleProvider.textField}
-                      placeholder={modalContent.name}
-                    />
-                    <Incubator.TextField
-                      style={styleProvider.textField}
-                      placeholder={modalContent.asset}
-                    />
-                  </>
-                )}
-                show={showSheet}
-                onHide={toggle}
-              />
             </>
           );
         }}
       </Observer>
-      <FloatingButton size={60} onPress={toggle}>
-        <Icon
-          tvParallaxProperties={{}}
-          name="add"
-          size={30}
-          type={iconProvider.ionicon}
-          color={colorScheme.white}
-        />
-      </FloatingButton>
     </PlatformView>
   );
 };
