@@ -11,6 +11,7 @@ import { screenName } from 'navigation/screen-names';
 import { HttpRequestResponse } from 'shared/types';
 import { ErrorBounder } from './components';
 import { useAuthentication, useSocialLogin } from '../hooks';
+import { log } from 'services/log-service';
 
 export const Login = () => {
   const [isLoading, setEmail, setPassword, error, submit] = useAuthentication();
@@ -32,7 +33,7 @@ export const Login = () => {
   };
   const onLogin = async () => {
     const res = await submit('login');
-    console.log('___LOGIN______', res);
+    log('__LOGIN_', res);
     if (res) {
       if (res.isError)
         setApiResponse({ isError: true, response: res.response });

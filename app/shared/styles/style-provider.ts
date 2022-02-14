@@ -29,6 +29,10 @@ export const iconProvider = {
 
 export const styleProvider = StyleSheet.create({
   body: {
+    backgroundColor: colorScheme.white,
+    flex: 1,
+  },
+  bgBody: {
     backgroundColor: colorScheme.bg,
     flex: 1,
   },
@@ -59,16 +63,7 @@ export const styleProvider = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
   },
-  textField: {
-    borderColor: colorScheme.gray400,
-    borderBottomWidth: 0.5,
-    fontFamily: fontProvider.openSans,
-    fontSize: 14,
-    padding: 0,
-  },
-  textFieldContainer: {
-    marginBottom: 10,
-  },
+
   assetCard: {
     padding: 20,
     borderRadius: 20,

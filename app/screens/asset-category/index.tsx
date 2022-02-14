@@ -34,7 +34,7 @@ export const AssetCategory = () => {
     navigation.navigate(screenName.cashAssets as never);
   };
   return (
-    <PlatformView style={styleProvider.body}>
+    <PlatformView style={styleProvider.bgBody}>
       <FocusAwareStatusBar
         backgroundColor={colorScheme.theme}
         barStyle={'light-content'}

@@ -8,6 +8,8 @@ import { PlatformView, TextContainer } from 'shared/components';
 import { colorScheme, dimensionProvider, styleProvider } from 'shared/styles';
 import { LocaleStore, UserStore } from 'shared/stores';
 import { screenName } from 'navigation/screen-names';
+import { WaveIndicator } from 'react-native-indicators';
+import { storage, TOKEN_KEY } from 'services/storage';
 
 export const Start = observer(() => {
   const navigation = useNavigation();
@@ -24,13 +26,35 @@ export const Start = observer(() => {
           })
         );
       }
+    } else {
+      storage
+        .load({ key: TOKEN_KEY })
+        .then((value) => {
+          console.log('Loaded token', value);
+          UserStore.initUser(value);
+        })
+        .catch((error) => {
+          UserStore.initUser(null);
+          console.warn(error.message);
+          switch (error.name) {
+            case 'NotFoundError':
+              console.log('NOT FOUND TOKEN');
+              //TODO
+              break;
+            case 'ExpiredError':
+              console.log('TOKEN EXPIRED');
+              //TODO
+              break;
+          }
+        });
     }
   }, [pendingAuthen, user]);
   return (
     <>
+      <StatusBar backgroundColor={colorScheme.white} barStyle="dark-content" />
       {pendingAuthen ? (
         <PlatformView style={styles.container}>
-          <TextContainer>Pending</TextContainer>
+          <WaveIndicator size={80} color={colorScheme.theme} />
         </PlatformView>
       ) : (
         <>
@@ -76,7 +100,9 @@ export const Start = observer(() => {
               </View>
             </PlatformView>
           ) : (
-            <PlatformView style={styleProvider.body}></PlatformView>
+            <PlatformView style={styleProvider.body}>
+              <WaveIndicator size={80} color={colorScheme.theme} />
+            </PlatformView>
           )}
         </>
       )}

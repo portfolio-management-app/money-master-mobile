@@ -14,7 +14,10 @@ import { LineChart } from 'react-native-chart-kit';
 export const Wallet = () => {
   return (
     <PlatformView style={styleProvider.body}>
-      <StatusBar backgroundColor={colorScheme.bg} barStyle={'dark-content'} />
+      <StatusBar
+        backgroundColor={colorScheme.white}
+        barStyle={'dark-content'}
+      />
       <View style={styles.header}>
         <View>
           <TextContainer type="h1" style={{ fontWeight: 'bold' }}>
