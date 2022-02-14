@@ -1,3 +1,5 @@
+/* eslint-disable no-global-assign */
+/* eslint-disable no-undef */
 import { NavigationStack } from 'navigation/stack';
 import React from 'react';
 

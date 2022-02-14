@@ -21,6 +21,8 @@
   },
   "plugins": ["react", "@typescript-eslint"],
   "rules": {
-    "react/jsx-uses-react": "error"
+    "react/jsx-uses-react": "error",
+    "@typescript-eslint/no-explicit-any": "off",
+    "@typescript-eslint/no-inferrable-types": "off"
   }
 }

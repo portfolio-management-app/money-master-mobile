@@ -1,59 +1,121 @@
-import React from 'react';
-import { StyleSheet, Image, View } from 'react-native';
+import React, { useEffect } from 'react';
+import { StyleSheet, Image, View, StatusBar } from 'react-native';
 import { Button } from 'react-native-elements';
-import { Observer } from 'mobx-react-lite';
-import { useNavigation } from '@react-navigation/native';
+import { observer } from 'mobx-react-lite';
+import { CommonActions, useNavigation } from '@react-navigation/native';
 import { imageSource } from 'assets/images';
-import { PlatformView, TextContainer } from 'components';
-import { colorScheme, dimensionProvider } from 'styles';
-import { LocaleStore } from 'stores/ui-store';
+import { PlatformView, TextContainer } from 'shared/components';
+import { colorScheme, dimensionProvider, styleProvider } from 'shared/styles';
+import { LocaleStore, UserStore } from 'shared/stores';
 import { screenName } from 'navigation/screen-names';
+import { WaveIndicator } from 'react-native-indicators';
+import { storage, TOKEN_KEY } from 'services/storage';
 
-export const Start = () => {
+export const Start = observer(() => {
   const navigation = useNavigation();
+
+  const { locale } = LocaleStore;
+  const { pendingAuthen, user } = UserStore;
+  useEffect(() => {
+    if (!pendingAuthen) {
+      if (user.isLoggedIn) {
+        navigation.dispatch(
+          CommonActions.reset({
+            index: 0,
+            routes: [{ name: screenName.home }],
+          })
+        );
+      }
+    } else {
+      storage
+        .load({ key: TOKEN_KEY })
+        .then((value) => {
+          console.log('Loaded token', value);
+          UserStore.initUser(value);
+        })
+        .catch((error) => {
+          UserStore.initUser(null);
+          console.warn(error.message);
+          switch (error.name) {
+            case 'NotFoundError':
+              console.log('NOT FOUND TOKEN');
+              //TODO
+              break;
+            case 'ExpiredError':
+              console.log('TOKEN EXPIRED');
+              //TODO
+              break;
+          }
+        });
+    }
+  }, [pendingAuthen, user]);
   return (
-    <PlatformView style={styles.container}>
-      <View style={styles.iconContainer}>
-        <Image style={styles.appIcon} source={imageSource.appIcon}></Image>
-        <TextContainer style={{ marginLeft: 10 }}>Money Master</TextContainer>
-      </View>
+    <>
+      <StatusBar backgroundColor={colorScheme.white} barStyle="dark-content" />
+      {pendingAuthen ? (
+        <PlatformView style={styles.container}>
+          <WaveIndicator size={80} color={colorScheme.theme} />
+        </PlatformView>
+      ) : (
+        <>
+          {!user.isLoggedIn ? (
+            <PlatformView style={styles.container}>
+              <View style={styles.iconContainer}>
+                <Image
+                  style={styles.appIcon}
+                  source={imageSource.appIcon}
+                ></Image>
+                <TextContainer style={{ marginLeft: 10 }}>
+                  Money Master
+                </TextContainer>
+              </View>
 
-      <Image style={styles.image} source={imageSource.banner}></Image>
+              <Image style={styles.image} source={imageSource.banner}></Image>
 
-      <Observer>
-        {() => {
-          const { locale } = LocaleStore;
-          return (
-            <>
               <TextContainer style={{ fontWeight: 'bold' }} type="h4">
                 {locale.greetingPage.intro}
               </TextContainer>
+              <StatusBar
+                backgroundColor={colorScheme.bg}
+                barStyle={'dark-content'}
+              />
               <View style={styles.buttonContainer}>
                 <Button
-                  onPress={() => navigation.navigate(screenName.login as never)}
-                  containerStyle={[styles.button, styles.loginButton]}
+                  onPress={() =>
+                    navigation.navigate(screenName.register as never)
+                  }
+                  containerStyle={[styleProvider.button, styles.loginButton]}
                   type="solid"
-                  title={locale.greetingPage.login}
-                ></Button>
-                <Button
-                  containerStyle={[styles.button]}
-                  type="clear"
                   title={locale.greetingPage.register}
                 ></Button>
+                <Button
+                  onPress={() => navigation.navigate(screenName.login as never)}
+                  containerStyle={[
+                    styleProvider.button,
+                    { borderColor: colorScheme.theme },
+                  ]}
+                  type="clear"
+                  title={locale.greetingPage.login}
+                ></Button>
               </View>
-            </>
-          );
-        }}
-      </Observer>
-    </PlatformView>
+            </PlatformView>
+          ) : (
+            <PlatformView style={styleProvider.body}>
+              <WaveIndicator size={80} color={colorScheme.theme} />
+            </PlatformView>
+          )}
+        </>
+      )}
+    </>
   );
-};
+});
 
 const styles = StyleSheet.create({
   container: {
     backgroundColor: colorScheme.white,
     flex: 1,
     alignItems: 'center',
+    paddingTop: 10,
   },
   iconContainer: {
     flexDirection: 'row',
@@ -77,15 +139,10 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     marginTop: 20,
   },
-  button: {
-    borderRadius: 20,
-    width: '100%',
-    paddingVertical: 5,
-    borderColor: colorScheme.theme,
-    borderWidth: 1,
-  },
+
   loginButton: {
     backgroundColor: colorScheme.theme,
     marginVertical: 20,
+    borderColor: colorScheme.theme,
   },
 });
