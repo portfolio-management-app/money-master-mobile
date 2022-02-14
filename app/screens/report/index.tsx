@@ -6,7 +6,10 @@ import { colorScheme } from 'shared/styles';
 export const Report = () => {
   return (
     <PlatformView>
-      <StatusBar backgroundColor={colorScheme.bg} barStyle={'dark-content'} />
+      <StatusBar
+        backgroundColor={colorScheme.white}
+        barStyle={'dark-content'}
+      />
       <TextContainer>Report</TextContainer>
     </PlatformView>
   );

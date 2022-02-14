@@ -48,9 +48,15 @@ export class Validator {
     };
   }
   static validateNumber(num: any) {
+    num.trim();
+    if (num === '') return false;
     return !isNaN(num * 1);
   }
   static validateStringEmpty(s: string) {
     return s.trim() !== '';
+  }
+
+  static validatePositiveNumber(num: any) {
+    return Validator.validateNumber(num) && num * 1 > 0;
   }
 }

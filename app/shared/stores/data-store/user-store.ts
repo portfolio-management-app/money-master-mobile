@@ -81,6 +81,8 @@ export const UserStore = types
           self.user.isLoggedIn = true;
           self.user.token = `Bearer ${token}`;
         }
+      } else {
+        self.pendingAuthen = false;
       }
     });
 

@@ -19,9 +19,7 @@ export const RadioPicker = ({ values, title, onChange }: IProps) => {
       style={styles.radio}
       initialValue={values[0]}
     >
-      <TextContainer style={{ fontWeight: '800' }} type="small">
-        {title}
-      </TextContainer>
+      <TextContainer type="small">{title}</TextContainer>
       {values.map((value) => (
         <RadioButton
           labelStyle={{ marginRight: 10, fontFamily: fontProvider.openSans }}
@@ -37,5 +35,10 @@ export const RadioPicker = ({ values, title, onChange }: IProps) => {
 };
 
 const styles = StyleSheet.create({
-  radio: { flexDirection: 'row', marginBottom: 20, alignItems: 'center' },
+  radio: {
+    flexDirection: 'row',
+    marginBottom: 20,
+    alignItems: 'center',
+    marginHorizontal: 10,
+  },
 });

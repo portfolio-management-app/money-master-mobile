@@ -1,12 +1,7 @@
 import React from 'react';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { StyleSheet, View, TouchableOpacity } from 'react-native';
-import {
-  colorScheme,
-  fontProvider,
-  iconProvider,
-  styleProvider,
-} from 'shared/styles';
+import { colorScheme, fontProvider, iconProvider } from 'shared/styles';
 import { parseToString } from 'utils/date';
 import { Icon } from 'react-native-elements';
 import { TextContainer } from 'shared/components';
@@ -43,10 +38,7 @@ export const DatePicker = ({ label, onChange, minDate, maxDate }: IProps) => {
   return (
     <View>
       <TouchableOpacity onPress={toggle} style={styles.datePickerButton}>
-        <TextContainer
-          style={{ marginBottom: 10, fontWeight: '800' }}
-          type="small"
-        >
+        <TextContainer style={{ marginBottom: 10 }} type="small">
           {label}
         </TextContainer>
         <View style={styles.datePicker}>
@@ -86,10 +78,11 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   datePickerButton: {
-    borderBottomWidth: 1,
+    borderBottomWidth: 0.5,
     borderColor: colorScheme.gray400,
     paddingBottom: 4,
     marginBottom: 20,
     fontFamily: fontProvider.openSans,
+    marginHorizontal: 10,
   },
 });

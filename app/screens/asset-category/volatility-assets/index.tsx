@@ -40,51 +40,6 @@ export const VolatilityAssets = () => {
               icon: imageSource.gold,
               screenName: screenName.coin,
             },
-            {
-              title: 'New asset',
-              icon: imageSource.defaultAsset,
-              screenName: screenName.coin,
-            },
-            {
-              title: 'New asset',
-              icon: imageSource.defaultAsset,
-              screenName: screenName.coin,
-            },
-            {
-              title: 'New asset',
-              icon: imageSource.defaultAsset,
-              screenName: screenName.coin,
-            },
-            {
-              title: 'New asset',
-              icon: imageSource.defaultAsset,
-              screenName: screenName.coin,
-            },
-            {
-              title: 'New asset',
-              icon: imageSource.defaultAsset,
-              screenName: screenName.coin,
-            },
-            {
-              title: 'New asset',
-              icon: imageSource.defaultAsset,
-              screenName: screenName.coin,
-            },
-            {
-              title: 'New asset',
-              icon: imageSource.defaultAsset,
-              screenName: screenName.coin,
-            },
-            {
-              title: 'New asset',
-              icon: imageSource.defaultAsset,
-              screenName: screenName.coin,
-            },
-            {
-              title: 'New asset',
-              icon: imageSource.defaultAsset,
-              screenName: screenName.coin,
-            },
           ];
 
           return (

@@ -1,3 +1,4 @@
+import { TextField } from './textfield';
 import { RadioPicker } from './radio-picker';
 import { CreateAssetModal } from './create-asset-modal';
 import { BaseButton } from './button';
@@ -20,4 +21,5 @@ export {
   ErrorDialog,
   CreateAssetModal,
   RadioPicker,
+  TextField,
 };

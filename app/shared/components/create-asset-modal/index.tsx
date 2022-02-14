@@ -131,7 +131,7 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
     justifyContent: 'flex-end',
-    paddingHorizontal: 40,
+    paddingHorizontal: 20,
     paddingVertical: 20,
   },
   header: {

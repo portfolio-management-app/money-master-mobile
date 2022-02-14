@@ -90,8 +90,9 @@ export const en = {
       month: 'Month',
       year: 'Year',
       errors: {
-        mustBeANumber: 'Value must be a number',
+        mustBeANumber: 'Value must be a number and greater than 0',
         requiredFiled: 'Field is required',
+        lessThan100: 'Interest rate must be less than or equal 100',
       },
     },
   },

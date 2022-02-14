@@ -60,11 +60,11 @@ export const styleProvider = StyleSheet.create({
     alignItems: 'center',
   },
   textField: {
-    borderBottomWidth: 1,
     borderColor: colorScheme.gray400,
-    paddingBottom: 4,
-    marginBottom: 5,
+    borderBottomWidth: 0.5,
     fontFamily: fontProvider.openSans,
+    fontSize: 14,
+    padding: 0,
   },
   textFieldContainer: {
     marginBottom: 10,
