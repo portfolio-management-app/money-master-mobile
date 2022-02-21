@@ -1,7 +1,12 @@
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
-import { BottomSheet } from 'react-native-elements';
-import { colorScheme, fontProvider } from 'shared/styles';
+import { StyleSheet, TouchableOpacity, View } from 'react-native';
+import { BottomSheet, Icon } from 'react-native-elements';
+import {
+  colorScheme,
+  dimensionProvider,
+  fontProvider,
+  iconProvider,
+} from 'shared/styles';
 import {
   BaseButton,
   DatePicker,
@@ -12,6 +17,7 @@ import {
 interface IProps {
   hasDatePicker?: boolean;
   hasRadioGroup?: boolean;
+  createOnHeader?: boolean;
   radioValue?: Array<string>;
   radioLabel?: string;
   modalLabel: string;
@@ -75,6 +81,7 @@ export class CreateAssetModal extends React.Component<IProps> {
       );
     else return <></>;
   }
+
   render() {
     return (
       <BottomSheet
@@ -82,27 +89,27 @@ export class CreateAssetModal extends React.Component<IProps> {
         isVisible={this.props.show}
       >
         <View style={styles.modal}>
-          <TextContainer style={styles.header}>
-            {this.props.modalLabel}
-          </TextContainer>
+          <View style={styles.modalHeader}>
+            <Icon
+              onPress={() => this.props.onClose()}
+              name="close"
+              size={30}
+              type={iconProvider.ionicon}
+              tvParallaxProperties={{}}
+            />
+            <TextContainer style={styles.header}>
+              {this.props.modalLabel}
+            </TextContainer>
+            <TouchableOpacity onPress={() => this.props.onCreate()}>
+              <TextContainer style={{ color: colorScheme.theme }}>
+                {this.props.confirmText}
+              </TextContainer>
+            </TouchableOpacity>
+          </View>
+
           {this.props.renderInputs()}
           {this.renderRadioGroup()}
           {this.renderDatePicker()}
-          <View style={styles.buttonContainer}>
-            <BaseButton
-              disabled={this.props.disableCreate}
-              textDisabled={this.props.disableCreate}
-              style={styles.addNewButton}
-              onPress={() => this.props.onCreate()}
-              label={this.props.confirmText}
-            />
-            <BaseButton
-              labelStyle={{ fontFamily: fontProvider.openSans }}
-              style={styles.cancelButton}
-              onPress={() => this.props.onClose()}
-              label={this.props.cancelText}
-            />
-          </View>
         </View>
       </BottomSheet>
     );
@@ -116,6 +123,10 @@ const styles = StyleSheet.create({
     marginRight: 20,
     paddingHorizontal: 50,
   },
+  modalHeader: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
   cancelButton: {
     borderRadius: 20,
     backgroundColor: colorScheme.red500,
@@ -128,11 +139,9 @@ const styles = StyleSheet.create({
   },
   modal: {
     backgroundColor: colorScheme.white,
-    borderTopLeftRadius: 20,
-    borderTopRightRadius: 20,
-    justifyContent: 'flex-end',
     paddingHorizontal: 20,
     paddingVertical: 20,
+    height: '100%',
   },
   header: {
     textAlign: 'center',

@@ -10,7 +10,7 @@ export const imageSource = {
   gold: require('./source/gold.png'),
   chartLine: require('./source/cil_chart-line.png'),
   bank: require('./source/bank.png'),
-  defaultAsset: require('./source/asset-management.png'),
+  defaultAsset: require('./source/net-worth.png'),
   building: require('./source/building.png'),
   barChart: require('./source/bar-chart.png'),
   cash: require('./source/money.png'),

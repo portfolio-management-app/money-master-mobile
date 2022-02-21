@@ -15,7 +15,9 @@ export const Account = () => {
         backgroundColor={colorScheme.white}
         barStyle={'dark-content'}
       />
-      <TextContainer>{UserStore.user.email}</TextContainer>
+      <TextContainer>
+        {UserStore.user.email} {UserStore.user.token}
+      </TextContainer>
       <LanguageSetting />
       <BaseButton
         label="Logout"

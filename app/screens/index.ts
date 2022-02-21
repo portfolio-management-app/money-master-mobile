@@ -1,3 +1,6 @@
+import { AssetDetail } from './asset-category/interest-assets/screens/custom/detail';
+import { CustomCategory } from './asset-category/interest-assets/screens/custom';
+import { Bank } from './asset-category/interest-assets/screens/bank';
 import { Coin } from './asset-category/volatility-assets/coin';
 import { RealEstateAssets } from './asset-category/real-estate-assets ';
 import { CastAssets } from './asset-category/cash-assets';
@@ -27,4 +30,7 @@ export {
   CastAssets,
   RealEstateAssets,
   Coin,
+  Bank,
+  CustomCategory,
+  AssetDetail,
 };

@@ -13,4 +13,7 @@ export const screenName = {
   cashAssets: 'Cash Assets',
   realEstateAssets: 'Real Estate Assets',
   coin: 'Coin',
+  bank: 'Bank',
+  customCategory: 'Custom Category',
+  assetDetail: 'Asset Detail',
 };

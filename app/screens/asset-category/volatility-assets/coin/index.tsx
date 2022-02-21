@@ -20,7 +20,7 @@ export const Coin = () => {
     },
   ];
   return (
-    <PlatformView style={styleProvider.body}>
+    <PlatformView style={styleProvider.bgBody}>
       <NavigationHeader title="Coin" />
       <LinearGradient
         style={styles.header}

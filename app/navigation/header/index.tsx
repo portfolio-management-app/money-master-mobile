@@ -8,12 +8,25 @@ import { colorScheme } from 'shared/styles';
 interface IProps {
   title?: string;
   rightIcon?: never;
+  headerStyle?: 'light' | 'dark';
+  bgColor?: string;
 }
 
-export const NavigationHeader = ({ title, rightIcon }: IProps) => {
+export const NavigationHeader = ({
+  title,
+  rightIcon,
+  headerStyle = 'dark',
+  bgColor = colorScheme.white,
+}: IProps) => {
   const navigation = useNavigation();
+  let iconColor = colorScheme.black200;
+  if (headerStyle === 'light') {
+    iconColor = colorScheme.white;
+  }
   return (
-    <PlatformView style={styles.headerContainer}>
+    <PlatformView
+      style={[styles.headerContainer, { backgroundColor: bgColor }]}
+    >
       <TouchableOpacity
         style={styles.leftButton}
         onPress={() => navigation.goBack()}
@@ -23,11 +36,11 @@ export const NavigationHeader = ({ title, rightIcon }: IProps) => {
           type="entypo"
           size={30}
           tvParallaxProperties={{}}
-          color={colorScheme.gray600}
+          color={iconColor}
         ></Icon>
       </TouchableOpacity>
 
-      <TextContainer style={{ fontWeight: 'bold' }} type="h4">
+      <TextContainer style={{ fontWeight: 'bold', color: iconColor }} type="h4">
         {title ? title : ''}
       </TextContainer>
       {rightIcon && rightIcon}
@@ -42,7 +55,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     position: 'relative',
     paddingVertical: 10,
-    backgroundColor: colorScheme.white,
     paddingBottom: 20,
   },
   leftButton: {

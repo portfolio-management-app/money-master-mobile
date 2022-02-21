@@ -1,3 +1,6 @@
+import { ScrollTabView } from './scroll-tab-view/index';
+import { SearchPicker } from './search-picker';
+import { FullModal } from './full-modal';
 import { TextField } from './textfield';
 import { RadioPicker } from './radio-picker';
 import { CreateAssetModal } from './create-asset-modal';
@@ -22,4 +25,7 @@ export {
   CreateAssetModal,
   RadioPicker,
   TextField,
+  FullModal,
+  SearchPicker,
+  ScrollTabView,
 };

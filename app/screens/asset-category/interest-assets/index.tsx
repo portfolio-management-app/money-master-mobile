@@ -3,6 +3,7 @@ import {
   CreateAssetModal,
   FloatingButton,
   FocusAwareStatusBar,
+  Loading,
   PlatformView,
   TextContainer,
   TextField,
@@ -11,29 +12,47 @@ import { i18n } from 'i18n';
 import { Observer } from 'mobx-react-lite';
 import { NavigationHeader } from 'navigation/header';
 import React from 'react';
-import { Image, View } from 'react-native';
-import { Icon } from 'react-native-elements';
+import { useNavigation } from '@react-navigation/native';
+import { screenName } from 'navigation/screen-names';
+import { RefreshControl, View } from 'react-native';
+import { Button, Icon, ListItem } from 'react-native-elements';
 import { ScrollView } from 'react-native-gesture-handler';
-import { Card } from 'react-native-ui-lib';
 import { LocaleStore } from 'shared/stores';
 import { colorScheme, iconProvider, styleProvider } from 'shared/styles';
 import { Formik } from 'formik';
 import { validateSchema } from './validator';
+import { CategoryStore } from './store';
 
 export const InterestAssets = () => {
   const [showSheet, setShowSheet] = React.useState(false);
-  const [interestType, setInterestType] = React.useState('Week');
-  const [startDate, setStartDate] = React.useState(new Date());
+
+  const navigation = useNavigation();
 
   const toggle = () => {
-    reset();
     setShowSheet(!showSheet);
   };
 
-  const reset = () => {
-    setInterestType('Week');
-    setStartDate(new Date());
+  const gotoAssetCategoryScreen = (name: string, id: number) => {
+    switch (name) {
+      case 'Bank':
+        {
+          navigation.navigate(screenName.bank as never);
+        }
+        break;
+      default:
+        {
+          navigation.navigate(
+            screenName.customCategory as never,
+            { id: id, name: name } as never
+          );
+        }
+        break;
+    }
   };
+
+  React.useEffect(() => {
+    CategoryStore.getCategoryList();
+  }, []);
 
   return (
     <PlatformView style={styleProvider.bgBody}>
@@ -42,7 +61,12 @@ export const InterestAssets = () => {
       <Observer>
         {() => {
           const { currentLocale } = LocaleStore;
+
+          const { categoryList, loading, createCategory, getCategoryList } =
+            CategoryStore;
+
           const modalContent = i18n[currentLocale].interestAssets.addModel;
+
           const defaultAssets = [
             {
               title: i18n[currentLocale].interestAssets.bank,
@@ -56,60 +80,116 @@ export const InterestAssets = () => {
                 title={i18n[currentLocale].portfolioCategory.interest}
               />
 
-              <ScrollView>
+              <ScrollView
+                refreshControl={
+                  <RefreshControl
+                    onRefresh={() => getCategoryList()}
+                    refreshing={loading}
+                  />
+                }
+              >
                 <View style={styleProvider.assetCardContainer}>
-                  {defaultAssets.map((asset, idx) => (
-                    <Card
-                      style={styleProvider.assetCard}
-                      enableShadow
-                      key={idx}
-                    >
-                      <View
-                        style={{ flexDirection: 'row', alignItems: 'center' }}
-                      >
-                        <Image
-                          style={styleProvider.assetImage}
-                          source={asset.icon}
+                  {/* {defaultAssets.map((asset, idx) => (
+                    <ListItem.Swipeable
+                      bottomDivider
+                      key={asset.title}
+                      leftContent={
+                        <Button
+                          title="Info"
+                          icon={{ name: 'info', color: 'white' }}
+                          buttonStyle={{ minHeight: '100%' }}
                         />
-                        <View style={styleProvider.assetTextContainer}>
-                          <TextContainer
-                            type="h4"
-                            style={{ fontWeight: 'bold' }}
-                          >
-                            {asset.title}
-                          </TextContainer>
-                          <TextContainer type="small">
-                            {asset.title}
-                          </TextContainer>
-                        </View>
-                      </View>
-                      <View style={styleProvider.assetTextContainer}>
-                        <TextContainer type="small">Market cap</TextContainer>
-                        <TextContainer
-                          style={{ color: colorScheme.red500 }}
-                          type="small"
+                      }
+                    >
+                      <ListItem.Content key={idx}>
+                        <View
+                          style={{
+                            flexDirection: 'row',
+                            alignItems: 'center',
+                          }}
                         >
-                          1000$
-                        </TextContainer>
-                      </View>
-                    </Card>
+                          <Image
+                            style={styleProvider.assetImage}
+                            source={asset.icon}
+                          />
+                          <View style={styleProvider.assetTextContainer}>
+                            <TextContainer
+                              type="h4"
+                              style={{ fontWeight: 'bold' }}
+                            >
+                              {asset.title}
+                            </TextContainer>
+                            <TextContainer type="small">
+                              {asset.title}
+                            </TextContainer>
+                          </View>
+                        </View>
+                      </ListItem.Content>
+                    </ListItem.Swipeable>
+                  ))} */}
+
+                  {categoryList.map((category) => (
+                    <ListItem.Swipeable
+                      onPress={() =>
+                        gotoAssetCategoryScreen(category.name, category.id)
+                      }
+                      style={{ marginBottom: 5 }}
+                      bottomDivider
+                      key={category.id}
+                      rightContent={
+                        <Button
+                          title="Delete"
+                          icon={{ name: 'delete', color: 'white' }}
+                          buttonStyle={{
+                            backgroundColor: 'red',
+                            minHeight: '90%',
+                          }}
+                        />
+                      }
+                    >
+                      <ListItem.Content>
+                        <View
+                          style={{
+                            flexDirection: 'row',
+                            alignItems: 'center',
+                          }}
+                        >
+                          <Icon
+                            name="wallet"
+                            type={iconProvider.fontisto}
+                            color={colorScheme.theme}
+                            size={30}
+                            tvParallaxProperties={{}}
+                          />
+                          <View style={styleProvider.assetTextContainer}>
+                            <TextContainer
+                              type="h4"
+                              style={{ fontWeight: 'bold' }}
+                            >
+                              {category.name}
+                            </TextContainer>
+                            <TextContainer type="small">
+                              {category.name}
+                            </TextContainer>
+                          </View>
+                        </View>
+                      </ListItem.Content>
+                      <ListItem.Chevron tvParallaxProperties={{}} />
+                    </ListItem.Swipeable>
                   ))}
                 </View>
               </ScrollView>
               <Formik
                 initialValues={{
-                  assetName: '',
-                  currentAsset: '0',
-                  interestRate: '0',
-                  interestValue: '0',
+                  categoryName: '',
                 }}
                 validationSchema={validateSchema}
                 validateOnMount={true}
                 isInitialValid={false}
                 onSubmit={(values, { resetForm }) => {
-                  console.log(values, interestType, startDate);
-                  resetForm();
                   toggle();
+                  createCategory(values.categoryName);
+                  resetForm();
                 }}
               >
                 {({
@@ -124,56 +204,18 @@ export const InterestAssets = () => {
                   return (
                     <CreateAssetModal
                       disableCreate={!isValid}
-                      modalLabel={modalContent.header}
+                      modalLabel={modalContent.categoryHeader}
                       confirmText={modalContent.add}
                       cancelText={modalContent.cancel}
-                      hasDatePicker
-                      datePickerLabel={modalContent.startDate}
-                      hasRadioGroup
-                      radioValue={[
-                        modalContent.week,
-                        modalContent.month,
-                        modalContent.year,
-                      ]}
-                      radioLabel={modalContent.interestType}
-                      onRadioChange={setInterestType}
-                      onDateChange={setStartDate}
                       renderInputs={() => (
                         <>
                           <TextField
-                            onChangeText={handleChange('assetName')}
-                            onBlur={handleBlur('assetName')}
+                            onChangeText={handleChange('categoryName')}
+                            onBlur={handleBlur('categoryName')}
                             errorMessage={
-                              touched.assetName ? errors.assetName : ''
+                              touched.categoryName ? errors.categoryName : ''
                             }
-                            placeholder={modalContent.name}
-                          ></TextField>
-                          <TextField
-                            onChangeText={handleChange('currentAsset')}
-                            onBlur={handleBlur('currentAsset')}
-                            keyboardType="decimal-pad"
-                            placeholder={modalContent.asset}
-                            errorMessage={
-                              touched.currentAsset ? errors.currentAsset : ''
-                            }
-                          ></TextField>
-                          <TextField
-                            onChangeText={handleChange('interestRate')}
-                            onBlur={handleBlur('interestRate')}
-                            keyboardType="decimal-pad"
-                            placeholder={modalContent.interestRate}
-                            errorMessage={
-                              touched.interestRate ? errors.interestRate : ''
-                            }
-                          ></TextField>
-                          <TextField
-                            onChangeText={handleChange('interestValue')}
-                            onBlur={handleBlur('interestValue')}
-                            keyboardType="decimal-pad"
-                            placeholder={modalContent.interestValue}
-                            errorMessage={
-                              touched.interestValue ? errors.interestValue : ''
-                            }
+                            placeholder={modalContent.category}
                           ></TextField>
                         </>
                       )}
@@ -187,19 +229,19 @@ export const InterestAssets = () => {
                   );
                 }}
               </Formik>
+              <FloatingButton size={60} onPress={toggle}>
+                <Icon
+                  tvParallaxProperties={{}}
+                  name="add"
+                  size={30}
+                  type={iconProvider.ionicon}
+                  color={colorScheme.white}
+                />
+              </FloatingButton>
             </>
           );
         }}
       </Observer>
-      <FloatingButton size={60} onPress={toggle}>
-        <Icon
-          tvParallaxProperties={{}}
-          name="add"
-          size={30}
-          type={iconProvider.ionicon}
-          color={colorScheme.white}
-        />
-      </FloatingButton>
     </PlatformView>
   );
 };

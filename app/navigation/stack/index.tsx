@@ -12,6 +12,9 @@ import {
   CastAssets,
   RealEstateAssets,
   Coin,
+  Bank,
+  CustomCategory,
+  AssetDetail,
 } from 'screens';
 import { screenName } from 'navigation/screen-names';
 
@@ -46,6 +49,12 @@ export const NavigationStack = () => {
         />
         <Stack.Screen name={screenName.cashAssets} component={CastAssets} />
         <Stack.Screen name={screenName.coin} component={Coin} />
+        <Stack.Screen name={screenName.bank} component={Bank} />
+        <Stack.Screen
+          name={screenName.customCategory}
+          component={CustomCategory}
+        />
+        <Stack.Screen name={screenName.assetDetail} component={AssetDetail} />
       </Stack.Navigator>
     </NavigationContainer>
   );

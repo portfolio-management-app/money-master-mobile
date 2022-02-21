@@ -46,7 +46,7 @@ export const en = {
     send: 'SEND',
   },
   bottomTab: {
-    transaction: 'Your wallet',
+    transaction: 'Dashboard',
     category: 'Category',
     report: 'Report',
     account: 'Account',
@@ -78,11 +78,14 @@ export const en = {
     bank: 'Bank',
     addModel: {
       name: 'Asset name',
+      description: 'Description',
+      category: 'Category name',
       asset: 'Your current asset',
       startDate: 'Start date',
       add: 'Create',
       cancel: 'Cancel',
       header: 'Create new asset',
+      categoryHeader: 'Create new category',
       interestRate: 'Interest rate',
       interestValue: 'Interest value',
       interestType: 'Interest type: ',
@@ -92,7 +95,7 @@ export const en = {
       errors: {
         mustBeANumber: 'Value must be a number and greater than 0',
         requiredFiled: 'Field is required',
-        mustBeInteger:'Interest value must be an integer',
+        mustBeInteger: 'Interest value must be an integer',
         lessThan100: 'Interest rate must be less than or equal 100',
       },
     },

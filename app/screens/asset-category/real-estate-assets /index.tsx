@@ -19,7 +19,7 @@ export const RealEstateAssets = () => {
   };
 
   return (
-    <PlatformView style={styleProvider.body}>
+    <PlatformView style={styleProvider.bgBody}>
       <Observer>
         {() => {
           const { currentLocale } = LocaleStore;

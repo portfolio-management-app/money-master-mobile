@@ -51,8 +51,8 @@ export const styleProvider = StyleSheet.create({
     alignItems: 'center',
   },
   assetImage: {
-    height: 30,
-    width: 30,
+    height: 50,
+    width: 50,
   },
   assetTextContainer: {
     justifyContent: 'space-between',
@@ -75,5 +75,6 @@ export const styleProvider = StyleSheet.create({
   assetCardContainer: {
     paddingHorizontal: 10,
     paddingBottom: 50,
+    marginTop: 10,
   },
 });

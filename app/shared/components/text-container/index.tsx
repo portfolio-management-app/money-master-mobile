@@ -43,6 +43,6 @@ const styles = StyleSheet.create({
   text: {
     fontFamily: fontProvider.openSans,
     fontSize: 16,
-    color: colorScheme.gray600,
+    color: colorScheme.black200,
   },
 });

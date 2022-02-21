@@ -13,10 +13,10 @@ export const TransactionTab = ({ focused }: IProps) => {
   return (
     <View>
       <Icon
-        name="wallet"
+        name="dashboard"
         tvParallaxProperties={{}}
         size={25}
-        type={iconProvider.entypo}
+        type={iconProvider.material}
         color={focused ? colorScheme.theme : colorScheme.gray400}
       ></Icon>
       <Observer>
