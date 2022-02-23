@@ -1,8 +1,7 @@
 import React from 'react';
 import { StyleSheet, TouchableOpacity } from 'react-native';
-import { Icon } from 'react-native-elements';
 import { useNavigation } from '@react-navigation/native';
-import { PlatformView, TextContainer } from 'shared/components';
+import { Icon, PlatformView, TextContainer } from 'shared/components';
 import { colorScheme } from 'shared/styles';
 
 interface IProps {
@@ -15,12 +14,12 @@ interface IProps {
 export const NavigationHeader = ({
   title,
   rightIcon,
-  headerStyle = 'dark',
+  headerStyle = 'light',
   bgColor = colorScheme.white,
 }: IProps) => {
   const navigation = useNavigation();
   let iconColor = colorScheme.black200;
-  if (headerStyle === 'light') {
+  if (headerStyle === 'dark') {
     iconColor = colorScheme.white;
   }
   return (
@@ -31,13 +30,7 @@ export const NavigationHeader = ({
         style={styles.leftButton}
         onPress={() => navigation.goBack()}
       >
-        <Icon
-          name="chevron-left"
-          type="entypo"
-          size={30}
-          tvParallaxProperties={{}}
-          color={iconColor}
-        ></Icon>
+        <Icon.Entypo name="chevron-left" size={35} color={iconColor} />
       </TouchableOpacity>
 
       <TextContainer style={{ fontWeight: 'bold', color: iconColor }} type="h4">
@@ -52,19 +45,14 @@ const styles = StyleSheet.create({
   headerContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'center',
     position: 'relative',
-    paddingVertical: 10,
-    paddingBottom: 20,
+    paddingVertical: 5,
+    paddingBottom: 10,
+    paddingHorizontal: 10,
   },
   leftButton: {
-    position: 'absolute',
-    top: 10,
-    left: 10,
-    width: 30,
-    height: 30,
-    borderRadius: 50,
     alignItems: 'center',
     justifyContent: 'center',
+    marginRight: 20,
   },
 });

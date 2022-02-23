@@ -1,7 +1,7 @@
 import React from 'react';
 import { useWindowDimensions } from 'react-native';
 import { TabView, TabBar, SceneRendererProps } from 'react-native-tab-view';
-import { colorScheme, fontProvider } from 'shared/styles';
+import { colorScheme } from 'shared/styles';
 import { TextContainer } from '../text-container';
 
 interface IProps {

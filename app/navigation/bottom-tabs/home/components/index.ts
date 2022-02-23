@@ -1,6 +1,6 @@
-import { AssetCategoryTab } from './AssetCategoryTab';
+import { PortfolioTab } from './PortfolioTab';
 import { AccountTab } from './AccountTab';
-import { ReportTab } from './ReportTab';
-import { TransactionTab } from './TransactionTab';
+import { MarketCapTab } from './MarketCapTab';
+import { DashBoardTab } from './DashboardTab';
 
-export { TransactionTab, ReportTab, AccountTab, AssetCategoryTab };
+export { DashBoardTab, MarketCapTab, AccountTab, PortfolioTab };

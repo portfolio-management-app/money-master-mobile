@@ -1,12 +1,17 @@
 import React, { useState } from 'react';
-import { StatusBar, StyleSheet, TouchableOpacity, View } from 'react-native';
+import { StyleSheet, TouchableOpacity, View } from 'react-native';
 import { Observer } from 'mobx-react-lite';
-import { Button, Input } from 'react-native-elements';
 import { CommonActions, useNavigation } from '@react-navigation/native';
 import { screenName } from 'navigation/screen-names';
-import { Loading, PlatformView, TextContainer } from 'shared/components';
+import {
+  BaseButton,
+  CustomTextField,
+  Loading,
+  PlatformView,
+  TextContainer,
+} from 'shared/components';
 import { NavigationHeader } from 'navigation/header';
-import { colorScheme, iconProvider, styleProvider } from 'shared/styles';
+import { colorScheme, styleProvider } from 'shared/styles';
 import { LocaleStore } from 'shared/stores';
 import { HttpRequestResponse } from 'shared/types';
 import { useAuthentication, useSocialLogin } from '../hooks';
@@ -50,10 +55,6 @@ export const Register = () => {
 
   return (
     <PlatformView style={styleProvider.body}>
-      <StatusBar
-        backgroundColor={colorScheme.white}
-        barStyle={'dark-content'}
-      />
       <Loading show={loading || isLoading} />
       <ErrorBounder
         onClose={() => setApiResponse({ isError: false, response: null })}
@@ -68,72 +69,39 @@ export const Register = () => {
               <NavigationHeader title={locale.registerPage.header} />
               <View style={styles.form}>
                 <View style={styles.inputContainer}>
-                  <Input
+                  <CustomTextField
                     onChangeText={handleEmailChange}
-                    autoCompleteType={true}
-                    placeholder={locale.registerPage.placeHolder.email}
-                    leftIcon={{
-                      type: iconProvider.fontisto,
-                      name: 'email',
-                      color: colorScheme.gray600,
-                    }}
                     errorMessage={error.emailMessage}
+                    placeholder={locale.loginPage.placeHolder.email}
                   />
-                  <Input
+                  <CustomTextField
                     onChangeText={handlePasswordChange}
-                    secureTextEntry={true}
-                    autoCompleteType={true}
-                    placeholder={locale.registerPage.placeHolder.password}
-                    leftIcon={{
-                      type: iconProvider.simpleLineIcon,
-                      name: 'lock',
-                      color: colorScheme.gray600,
-                    }}
+                    secureText
                     errorMessage={error.passwordMessage}
+                    placeholder={locale.loginPage.placeHolder.password}
                   />
                 </View>
-                <Button
-                  containerStyle={[
-                    styleProvider.button,
-                    registerStyle.registerButton,
-                  ]}
-                  type="solid"
+                <BaseButton
+                  style={registerStyle.registerButton}
                   onPress={onRegister}
-                  title={locale.greetingPage.register}
-                ></Button>
+                  label={locale.greetingPage.register}
+                />
                 <View style={styles.textContainer}>
                   <TextContainer style={{ color: colorScheme.theme }}>
                     OR
                   </TextContainer>
                 </View>
                 <View style={styles.buttonContainer}>
-                  <Button
-                    type="clear"
-                    icon={{
-                      type: iconProvider.antDesign,
-                      name: 'googleplus',
-                      color: colorScheme.white,
-                    }}
+                  <BaseButton
+                    style={styles.googleButton}
+                    label={locale.loginPage.google}
                     onPress={handleGoogleLogin}
-                    containerStyle={[styleProvider.button, styles.googleButton]}
-                    title={locale.registerPage.google}
-                    titleStyle={{ color: colorScheme.white }}
-                  ></Button>
-                  <Button
+                  />
+                  <BaseButton
+                    style={styles.facebookButton}
                     onPress={handleFaceBookLogin}
-                    type="clear"
-                    icon={{
-                      type: 'fontawesome',
-                      name: 'facebook',
-                      color: colorScheme.white,
-                    }}
-                    containerStyle={[
-                      styleProvider.button,
-                      styles.facebookButton,
-                    ]}
-                    title={locale.registerPage.facebook}
-                    titleStyle={{ color: colorScheme.white }}
-                  ></Button>
+                    label={locale.loginPage.facebook}
+                  />
                   <View style={styles.signInLinkContainer}>
                     <TextContainer>
                       {locale.registerPage.signInLink}

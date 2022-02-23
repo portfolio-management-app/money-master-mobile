@@ -1,0 +1,17 @@
+import React from 'react';
+import { IconProps } from 'react-native-vector-icons/Icon';
+import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
+import EntypoIcon from 'react-native-vector-icons/Entypo';
+import MaterialCommunityIcon from 'react-native-vector-icons/MaterialCommunityIcons';
+
+export const Icon = {
+  Material: (props: IconProps) => {
+    return <MaterialIcon {...props} />;
+  },
+  Entypo: (props: IconProps) => {
+    return <EntypoIcon {...props} />;
+  },
+  MaterialCommunity: (props: IconProps) => {
+    return <MaterialCommunityIcon {...props} />;
+  },
+};

@@ -46,9 +46,9 @@ export const en = {
     send: 'SEND',
   },
   bottomTab: {
-    transaction: 'Dashboard',
-    category: 'Category',
-    report: 'Report',
+    dashboard: 'Dashboard',
+    portfolio: 'Portfolios',
+    marketCap: 'Market cap',
     account: 'Account',
   },
   portfolioCategory: {
@@ -87,7 +87,7 @@ export const en = {
       header: 'Create new asset',
       categoryHeader: 'Create new category',
       interestRate: 'Interest rate',
-      interestValue: 'Interest value',
+      interestValue: 'Interest range (month)',
       interestType: 'Interest type: ',
       week: 'Week',
       month: 'Month',

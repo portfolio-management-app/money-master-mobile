@@ -3,8 +3,7 @@ import DateTimePicker from '@react-native-community/datetimepicker';
 import { StyleSheet, View, TouchableOpacity } from 'react-native';
 import { colorScheme, fontProvider, iconProvider } from 'shared/styles';
 import { parseToString } from 'utils/date';
-import { Icon } from 'react-native-elements';
-import { TextContainer } from 'shared/components';
+import { Icon, TextContainer } from 'shared/components';
 
 interface IProps {
   label: string;
@@ -43,11 +42,7 @@ export const DatePicker = ({ label, onChange, minDate, maxDate }: IProps) => {
         </TextContainer>
         <View style={styles.datePicker}>
           <TextContainer type="small">{dateString}</TextContainer>
-          <Icon
-            name="calendar"
-            type={iconProvider.evilicon}
-            tvParallaxProperties={{}}
-          />
+          <Icon.FontAwesome name="calendar" />
         </View>
       </TouchableOpacity>
 
@@ -56,7 +51,7 @@ export const DatePicker = ({ label, onChange, minDate, maxDate }: IProps) => {
           testID="dateTimePicker"
           value={date}
           mode="date"
-          is24Hour={true}
+          is24Hour
           display="default"
           onChange={(event: Event, date: Date | undefined) => {
             toggle();

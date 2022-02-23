@@ -1,40 +1,59 @@
 import React from 'react';
-import { StyleSheet } from 'react-native';
-import { Input, InputProps } from 'react-native-elements';
-import { colorScheme, fontProvider } from 'shared/styles';
+import { StyleSheet, TextStyle, View, ViewStyle } from 'react-native';
+import { Incubator } from 'react-native-ui-lib';
+import { TextContainer } from 'shared/components';
+import { colorScheme } from 'shared/styles';
 
-export const TextField = (props: InputProps) => {
+interface IProps {
+  errorMessage?: string;
+  secureText?: boolean;
+  placeholder: string;
+  maxLength?: number;
+  onChangeText?: (value: string) => void;
+}
+
+export const CustomTextField = ({
+  errorMessage,
+  secureText,
+  onChangeText,
+  placeholder,
+  maxLength,
+}: IProps) => {
+  const { fieldStyle, labelStyle } = getStyles(errorMessage);
   return (
-    <Input
-      labelStyle={styles.label}
-      inputStyle={styles.textField}
-      containerStyle={styles.container}
-      inputContainerStyle={styles.textFieldContainer}
-      autoCompleteType={{}}
-      {...props}
-    />
+    <View>
+      <Incubator.TextField
+        text70BL
+        fieldStyle={fieldStyle}
+        secureTextEntry={secureText}
+        placeholder={placeholder}
+        floatingPlaceholder
+        onChangeText={onChangeText}
+        showCharCounter
+        floatOnFocus
+        floatingPlaceholderStyle={labelStyle}
+        maxLength={maxLength}
+      />
+      <TextContainer type="extra-small" style={styles.errorMessage}>
+        {errorMessage}
+      </TextContainer>
+    </View>
   );
 };
-const styles = StyleSheet.create({
-  textField: {
-    fontFamily: fontProvider.openSans,
-    fontSize: 14,
-    margin: 0,
-    padding: 0,
-  },
-  textFieldContainer: {
+
+const getStyles = (errorMessage?: string) => {
+  const fieldStyle: ViewStyle = {
     borderBottomWidth: 0.5,
-    padding: 0,
-    margin: 0,
-  },
-  container: {
-    margin: 0,
-    padding: 0,
-  },
-  label: {
-    fontFamily: fontProvider.openSans,
-    fontSize: 14,
-    fontWeight: '200',
-    color: colorScheme.gray600,
+  };
+  const labelStyle: TextStyle = {
+    fontSize: 16,
+  };
+
+  return { fieldStyle, labelStyle };
+};
+const styles = StyleSheet.create({
+  errorMessage: {
+    color: colorScheme.red500,
+    marginTop: 10,
   },
 });

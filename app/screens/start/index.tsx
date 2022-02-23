@@ -1,10 +1,9 @@
 import React, { useEffect } from 'react';
-import { StyleSheet, Image, View, StatusBar } from 'react-native';
-import { Button } from 'react-native-elements';
+import { StyleSheet, Image, View } from 'react-native';
 import { observer } from 'mobx-react-lite';
 import { CommonActions, useNavigation } from '@react-navigation/native';
 import { imageSource } from 'assets/images';
-import { PlatformView, TextContainer } from 'shared/components';
+import { BaseButton, PlatformView, TextContainer } from 'shared/components';
 import { colorScheme, dimensionProvider, styleProvider } from 'shared/styles';
 import { LocaleStore, UserStore } from 'shared/stores';
 import { screenName } from 'navigation/screen-names';
@@ -29,7 +28,6 @@ export const Start = observer(() => {
   }, [pendingAuthen, user]);
   return (
     <>
-      <StatusBar backgroundColor={colorScheme.white} barStyle="dark-content" />
       {pendingAuthen ? (
         <PlatformView style={styles.container}>
           <WaveIndicator size={80} color={colorScheme.theme} />
@@ -53,28 +51,21 @@ export const Start = observer(() => {
               <TextContainer style={{ fontWeight: 'bold' }} type="h4">
                 {locale.greetingPage.intro}
               </TextContainer>
-              <StatusBar
-                backgroundColor={colorScheme.bg}
-                barStyle={'dark-content'}
-              />
+
               <View style={styles.buttonContainer}>
-                <Button
+                <BaseButton
+                  style={styles.registerButton}
                   onPress={() =>
                     navigation.navigate(screenName.register as never)
                   }
-                  containerStyle={[styleProvider.button, styles.loginButton]}
-                  type="solid"
-                  title={locale.greetingPage.register}
-                ></Button>
-                <Button
+                  label={locale.greetingPage.register}
+                />
+                <BaseButton
+                  style={styles.loginButton}
+                  labelStyle={{ color: colorScheme.theme }}
                   onPress={() => navigation.navigate(screenName.login as never)}
-                  containerStyle={[
-                    styleProvider.button,
-                    { borderColor: colorScheme.theme },
-                  ]}
-                  type="clear"
-                  title={locale.greetingPage.login}
-                ></Button>
+                  label={locale.greetingPage.login}
+                />
               </View>
             </PlatformView>
           ) : (
@@ -111,16 +102,24 @@ const styles = StyleSheet.create({
     height: dimensionProvider.width + 50,
   },
   buttonContainer: {
-    width: '100%',
     paddingHorizontal: 20,
+    width: '100%',
     alignItems: 'center',
     justifyContent: 'center',
     marginTop: 20,
   },
 
-  loginButton: {
+  registerButton: {
     backgroundColor: colorScheme.theme,
     marginVertical: 20,
+    width: '100%',
+  },
+
+  loginButton: {
+    backgroundColor: colorScheme.white,
     borderColor: colorScheme.theme,
+    borderWidth: 1,
+    marginVertical: 20,
+    width: '100%',
   },
 });

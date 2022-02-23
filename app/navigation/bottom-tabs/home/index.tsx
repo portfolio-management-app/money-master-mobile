@@ -1,12 +1,12 @@
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { screenName } from 'navigation/screen-names';
-import { Account, AssetCategory, Report, Wallet } from 'screens';
+import { Account, DashBoard, MarketCap, Portfolios } from 'screens';
 import {
   AccountTab,
-  AssetCategoryTab,
-  ReportTab,
-  TransactionTab,
+  MarketCapTab,
+  PortfolioTab,
+  DashBoardTab,
 } from './components';
 import { colorScheme } from 'shared/styles';
 
@@ -15,7 +15,7 @@ const Tab = createBottomTabNavigator();
 export const HomeBottomTab = () => {
   return (
     <Tab.Navigator
-      initialRouteName={screenName.transaction}
+      initialRouteName={screenName.dashBoard}
       screenOptions={{
         headerShown: false,
         tabBarShowLabel: false,
@@ -30,29 +30,29 @@ export const HomeBottomTab = () => {
       <Tab.Screen
         options={{
           tabBarIcon: ({ focused }) => {
-            return <TransactionTab focused={focused} />;
+            return <DashBoardTab focused={focused} />;
           },
         }}
-        name={screenName.transaction}
-        component={Wallet}
+        name={screenName.dashBoard}
+        component={DashBoard}
       />
       <Tab.Screen
         options={{
           tabBarIcon: ({ focused }) => {
-            return <AssetCategoryTab focused={focused} />;
+            return <PortfolioTab focused={focused} />;
           },
         }}
-        name={screenName.category}
-        component={AssetCategory}
+        name={screenName.portfolio}
+        component={Portfolios}
       />
       <Tab.Screen
         options={{
           tabBarIcon: ({ focused }) => {
-            return <ReportTab focused={focused} />;
+            return <MarketCapTab focused={focused} />;
           },
         }}
-        name={screenName.report}
-        component={Report}
+        name={screenName.marketCap}
+        component={MarketCap}
       />
       <Tab.Screen
         options={{

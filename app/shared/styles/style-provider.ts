@@ -33,7 +33,7 @@ export const styleProvider = StyleSheet.create({
     flex: 1,
   },
   bgBody: {
-    backgroundColor: colorScheme.bg,
+    backgroundColor: colorScheme.white,
     flex: 1,
   },
 

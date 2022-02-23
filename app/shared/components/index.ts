@@ -1,9 +1,8 @@
+import { Icon } from './icon';
 import { ScrollTabView } from './scroll-tab-view/index';
 import { SearchPicker } from './search-picker';
-import { FullModal } from './full-modal';
-import { TextField } from './textfield';
+import { CustomTextField } from './textfield';
 import { RadioPicker } from './radio-picker';
-import { CreateAssetModal } from './create-asset-modal';
 import { BaseButton } from './button';
 import { DatePicker } from './date-picker';
 import { FloatingButton } from './floating-button';
@@ -22,10 +21,9 @@ export {
   DatePicker,
   BaseButton,
   ErrorDialog,
-  CreateAssetModal,
   RadioPicker,
-  TextField,
-  FullModal,
+  CustomTextField,
   SearchPicker,
   ScrollTabView,
+  Icon,
 };

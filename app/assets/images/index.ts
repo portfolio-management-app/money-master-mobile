@@ -15,4 +15,5 @@ export const imageSource = {
   barChart: require('./source/bar-chart.png'),
   cash: require('./source/money.png'),
   ethereum: require('./source/ethereum.png'),
+  noData: require('./source/no-data.png'),
 };

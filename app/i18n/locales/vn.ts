@@ -43,10 +43,10 @@ export const vn = {
     send: 'GỬI',
   },
   bottomTab: {
-    transaction: 'Ví của bạn',
-    category: 'Tài sản',
-    report: 'Báo cáo',
-    account: 'Tài khoản',
+    dashboard: 'Dashboard',
+    portfolio: 'Portfolios',
+    marketCap: 'Market cap',
+    account: 'Account',
   },
   portfolioCategory: {
     header: 'Các loại tài sản',

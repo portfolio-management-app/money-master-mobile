@@ -1,8 +1,8 @@
 import React from 'react';
 import { StyleSheet, TouchableOpacity, View } from 'react-native';
-import { Icon } from 'react-native-elements';
 import { Dialog, RadioButton, RadioGroup } from 'react-native-ui-lib';
-import { colorScheme, iconProvider } from 'shared/styles';
+import { colorScheme } from 'shared/styles';
+import { Icon } from '../icon';
 import { TextContainer } from '../text-container';
 
 interface IProps {
@@ -22,11 +22,7 @@ export const SearchPicker = ({ values, onChange, title }: IProps) => {
       </TextContainer>
       <TouchableOpacity onPress={() => setShow(!show)} style={styles.picker}>
         <TextContainer type="small">{val}</TextContainer>
-        <Icon
-          name="arrow-drop-down"
-          type={iconProvider.material}
-          tvParallaxProperties={{}}
-        />
+        <Icon.Material name="arrow-drop-down" />
       </TouchableOpacity>
       <Dialog useSafeArea bottom containerStyle={styles.dialog} visible={show}>
         <RadioGroup
@@ -67,6 +63,7 @@ const styles = StyleSheet.create({
     backgroundColor: colorScheme.white,
     borderRadius: 10,
     padding: 20,
+    marginBottom: 10,
   },
   radioBtn: {
     marginBottom: 10,
