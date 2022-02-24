@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { StyleSheet, Image, View } from 'react-native';
 import { observer } from 'mobx-react-lite';
 import { CommonActions, useNavigation } from '@react-navigation/native';
@@ -8,13 +8,14 @@ import { colorScheme, dimensionProvider, styleProvider } from 'shared/styles';
 import { LocaleStore, UserStore } from 'shared/stores';
 import { screenName } from 'navigation/screen-names';
 import { WaveIndicator } from 'react-native-indicators';
+import { storage, TOKEN_KEY } from 'services/storage';
 
 export const Start = observer(() => {
   const navigation = useNavigation();
 
   const { locale } = LocaleStore;
-  const { pendingAuthen, user } = UserStore;
-  useEffect(() => {
+  const { pendingAuthen, user, initUser } = UserStore;
+  React.useEffect(() => {
     if (!pendingAuthen) {
       if (user.isLoggedIn) {
         navigation.dispatch(
@@ -26,6 +27,11 @@ export const Start = observer(() => {
       }
     }
   }, [pendingAuthen, user]);
+
+  React.useEffect(() => {
+    const token = storage.getString(TOKEN_KEY);
+    initUser(token);
+  }, []);
   return (
     <>
       {pendingAuthen ? (

@@ -20,3 +20,25 @@ export const TextContainer = () => {};
 - Folder and filename "-" between:
 
 navigation/screen-names
+
+### Set up development environment
+
+- Install and setup [flipper](https://fbflipper.com)
+
+- Install ngrok
+
+  `sudo apt install ngrok`
+
+- Run the flowing command:
+
+  `ngrok http 5000 --host-header="localhost:5000" `
+
+- Open flipper
+
+- In RN directory run:
+
+  `yarn start`
+
+  `yarn android`
+
+- In config folder copy parse the https url generate by ngrok to **_url_**

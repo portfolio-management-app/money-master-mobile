@@ -34,7 +34,7 @@ export const UserStore = types
       if (res instanceof HttpError) {
         return { isError: true, response: res };
       } else {
-        yield storage.save({ key: TOKEN_KEY, data: res.token });
+        storage.set(TOKEN_KEY, res.token);
         self.user.email = res.email;
         self.user.isLoggedIn = true;
         self.user.token = `Bearer ${res.token}`;
@@ -61,7 +61,7 @@ export const UserStore = types
       if (res instanceof HttpError) {
         return { isError: true, response: res };
       } else {
-        yield storage.save({ key: TOKEN_KEY, data: res.token });
+        storage.set(TOKEN_KEY, res.token);
         self.user.email = res.email;
         self.user.isLoggedIn = true;
         self.user.token = `Bearer ${res.token}`;
@@ -70,7 +70,7 @@ export const UserStore = types
       }
     });
 
-    const initUser = flow(function* (token: string | null) {
+    const initUser = flow(function* (token?: string) {
       if (token) {
         const res = yield httpRequest.sendGet('/user/me', `Bearer ${token}`);
         if (res instanceof HttpError) {
@@ -89,9 +89,8 @@ export const UserStore = types
     const logout = () => {
       self.user.email = '';
       self.user.isLoggedIn = false;
-      storage
-        .remove({ key: TOKEN_KEY })
-        .then(() => console.log('removed token'));
+      storage.delete(TOKEN_KEY);
+      console.log('removed token');
     };
 
     return { register, logout, login, initUser };

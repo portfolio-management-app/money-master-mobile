@@ -2,13 +2,13 @@ import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { screenName } from 'navigation/screen-names';
 import { Account, DashBoard, MarketCap, Portfolios } from 'screens';
+import { colorScheme } from 'shared/styles';
 import {
   AccountTab,
   MarketCapTab,
   PortfolioTab,
   DashBoardTab,
 } from './components';
-import { colorScheme } from 'shared/styles';
 
 const Tab = createBottomTabNavigator();
 

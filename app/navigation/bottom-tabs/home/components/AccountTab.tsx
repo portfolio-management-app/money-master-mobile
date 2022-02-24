@@ -1,16 +1,16 @@
 import { Icon, TextContainer } from 'shared/components';
 import { Observer } from 'mobx-react-lite';
 import React from 'react';
-import { View } from 'react-native';
 import { LocaleStore } from 'shared/stores';
 import { colorScheme } from 'shared/styles';
+import { View } from 'react-native-ui-lib';
 
 interface IProps {
   focused: boolean;
 }
 export const AccountTab = ({ focused }: IProps) => {
   return (
-    <View>
+    <View center>
       <Icon.MaterialCommunity
         name="account"
         size={25}

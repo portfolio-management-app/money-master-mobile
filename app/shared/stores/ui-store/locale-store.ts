@@ -15,20 +15,15 @@ export const LocaleStore = types
   .actions((self) => {
     const changeLocale = (locale: LocaleType) => {
       self.currentLocale = locale;
-      storage
-        .save({ key: LANG_KEY, data: locale })
-        .then(() => console.log('Changed locale store'))
-        .catch((error) => console.log(error));
+      storage.set(LANG_KEY, locale);
     };
 
-    const initLocale = flow(function* () {
-      try {
-        const storageLocale = yield storage.load({ key: LANG_KEY });
+    const initLocale = () => {
+      const storageLocale: any = storage.getString(LANG_KEY);
+      if (storageLocale) {
         self.currentLocale = storageLocale;
-      } catch (error: any) {
-        console.log(error.name);
       }
-    });
+    };
     return { changeLocale, initLocale };
   })
 
