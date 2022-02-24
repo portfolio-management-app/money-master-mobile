@@ -9,7 +9,7 @@ export const vn = {
     google: 'ĐĂNG NHẬP VỚI GOOGLE',
     facebook: 'ĐĂNG NHẬP VỚI FACEBOOK',
     header: 'Đăng nhập',
-    register: 'Sign up',
+    register: 'Đăng kí',
     placeHolder: {
       email: 'Email',
       password: 'Mật khẩu',
@@ -21,7 +21,7 @@ export const vn = {
     google: 'ĐĂNG KÍ VỚI GOOGLE',
     facebook: 'ĐĂNG KÍ VỚI FACEBOOK',
     header: 'Đăng ký',
-    login: 'Sign in',
+    login: 'Đăng nhập',
     placeHolder: {
       email: 'Email',
       password: 'Mật khẩu',
@@ -32,11 +32,11 @@ export const vn = {
     email: 'Email không hợp lệ',
     password: 'Mật khẩu phải chứa ít nhất 8 kí tự bao gồm cả số và chữ cái',
     register: {
-      existedEmail: 'Email existed',
+      existedEmail: 'Email đã tồn tại',
     },
     login: {
-      credentialFailed: 'Credential failed',
-      notExist: 'Email not exist',
+      credentialFailed: 'Sai tên đăng nhập hoặc mật khẩu',
+      notExist: 'Email không tồn tại',
     },
   },
 
@@ -45,17 +45,18 @@ export const vn = {
     send: 'GỬI',
   },
   bottomTab: {
-    dashboard: 'Dashboard',
-    portfolio: 'Portfolios',
-    marketCap: 'Market cap',
-    account: 'Account',
+    dashboard: 'Trang chủ',
+    portfolio: 'Tài sản',
+    marketCap: 'Thị trường',
+    account: 'Tài khoản',
   },
   formErrors: {
     mustBeANumber: 'Value must be a number and greater than 0',
-    requiredFiled: 'Field is required',
-    mustBeInteger: 'Interest value must be an integer',
-    lessThan100: 'Interest rate must be less than or equal 100',
-    email: 'Email invalid',
-    password: 'Password must contain character and number, len > 8',
+    requiredFiled: 'Trường này không được trống',
+    email: 'Email không hợp lệ',
+    password: 'Mật khẩu từ 8-32 kí tự và chứa cả chữ cái và số',
+  },
+  searchBar: {
+    placeholder: 'Tìm kiến',
   },
 };

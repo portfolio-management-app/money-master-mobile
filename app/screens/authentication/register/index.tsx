@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import { StyleSheet, TouchableOpacity, View } from 'react-native';
-import { Observer } from 'mobx-react-lite';
+import { TouchableOpacity, View } from 'react-native';
 import { CommonActions, useNavigation } from '@react-navigation/native';
 import { screenName } from 'navigation/screen-names';
 import {
@@ -17,12 +16,12 @@ import { useSocialLogin } from '../hooks';
 import { styles } from '../login';
 import { ErrorBounder } from './components';
 import { i18n } from 'i18n';
-import { i18Key } from 'services/storage';
+import { localeKey } from 'services/storage';
 import { UserStore } from 'shared/stores';
 import { Formik } from 'formik';
 import { AuthenticationSchema } from '../validator';
 
-const localeData = i18n[i18Key].registerPage;
+const REGISTER_CONTENT = i18n[localeKey].registerPage;
 
 export const Register = () => {
   const [apiResponse, setApiResponse] = useState<HttpRequestResponse>({
@@ -61,7 +60,7 @@ export const Register = () => {
         res={apiResponse.response}
       />
 
-      <NavigationHeader title={localeData.header} />
+      <NavigationHeader title={REGISTER_CONTENT.header} />
       <View style={styles.form}>
         <View style={styles.inputContainer}>
           <Formik
@@ -78,19 +77,19 @@ export const Register = () => {
                     onBlur={handleBlur('email')}
                     onChangeText={handleChange('email')}
                     errorMessage={touched.email ? errors.email : ''}
-                    placeholder={localeData.placeHolder.email}
+                    placeholder={REGISTER_CONTENT.placeHolder.email}
                   />
                   <CustomTextField
                     onBlur={handleBlur('password')}
                     onChangeText={handleChange('password')}
                     secureText
                     errorMessage={touched.password ? errors.password : ''}
-                    placeholder={localeData.placeHolder.password}
+                    placeholder={REGISTER_CONTENT.placeHolder.password}
                   />
                   <BaseButton
                     onPress={handleSubmit}
                     labelStyle={{ color: colorScheme.theme }}
-                    label={localeData.header.toUpperCase()}
+                    label={REGISTER_CONTENT.header.toUpperCase()}
                     style={styles.loginButton}
                   />
                 </>
@@ -105,21 +104,21 @@ export const Register = () => {
         <View style={styles.buttonContainer}>
           <BaseButton
             style={styles.googleButton}
-            label={localeData.google}
+            label={REGISTER_CONTENT.google}
             onPress={handleGoogleLogin}
           />
           <BaseButton
             style={styles.facebookButton}
             onPress={handleFaceBookLogin}
-            label={localeData.facebook}
+            label={REGISTER_CONTENT.facebook}
           />
           <View style={styles.signInLinkContainer}>
-            <TextContainer>{localeData.signInLink}</TextContainer>
+            <TextContainer>{REGISTER_CONTENT.signInLink}</TextContainer>
             <TouchableOpacity
               onPress={() => navigation.navigate(screenName.login as never)}
             >
               <TextContainer color={colorScheme.theme}>
-                {localeData.login}
+                {REGISTER_CONTENT.login}
               </TextContainer>
             </TouchableOpacity>
           </View>
@@ -128,11 +127,3 @@ export const Register = () => {
     </PlatformView>
   );
 };
-
-const registerStyle = StyleSheet.create({
-  registerButton: {
-    borderColor: colorScheme.theme,
-    backgroundColor: colorScheme.theme,
-    marginTop: 20,
-  },
-});

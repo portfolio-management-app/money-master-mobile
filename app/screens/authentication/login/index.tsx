@@ -17,11 +17,11 @@ import { useSocialLogin } from '../hooks';
 import { Formik } from 'formik';
 import { log } from 'services/log-service';
 import { i18n } from 'i18n';
-import { i18Key } from 'services/storage';
+import { localeKey } from 'services/storage';
 import { AuthenticationSchema } from '../validator';
 import { UserStore } from 'shared/stores';
 
-const localeData = i18n[i18Key].loginPage;
+const LOGIN_CONTENT = i18n[localeKey].loginPage;
 
 export const Login = () => {
   const [apiResponse, setApiResponse] = React.useState<HttpRequestResponse>({
@@ -61,7 +61,7 @@ export const Login = () => {
         res={apiResponse.response}
       />
 
-      <NavigationHeader title={localeData.header} />
+      <NavigationHeader title={LOGIN_CONTENT.header} />
       <View style={styles.form}>
         <View style={styles.inputContainer}>
           <Formik
@@ -78,19 +78,19 @@ export const Login = () => {
                     onBlur={handleBlur('email')}
                     onChangeText={handleChange('email')}
                     errorMessage={touched.email ? errors.email : ''}
-                    placeholder={localeData.placeHolder.email}
+                    placeholder={LOGIN_CONTENT.placeHolder.email}
                   />
                   <CustomTextField
                     onBlur={handleBlur('password')}
                     onChangeText={handleChange('password')}
                     secureText
                     errorMessage={touched.password ? errors.password : ''}
-                    placeholder={localeData.placeHolder.password}
+                    placeholder={LOGIN_CONTENT.placeHolder.password}
                   />
                   <BaseButton
                     onPress={handleSubmit}
                     labelStyle={{ color: colorScheme.theme }}
-                    label={localeData.header.toUpperCase()}
+                    label={LOGIN_CONTENT.header.toUpperCase()}
                     style={styles.loginButton}
                   />
                 </>
@@ -105,7 +105,7 @@ export const Login = () => {
               }
             >
               <TextContainer color={colorScheme.theme} type="small">
-                {localeData.forgetPassword}
+                {LOGIN_CONTENT.forgetPassword}
               </TextContainer>
             </TouchableOpacity>
           </View>
@@ -118,22 +118,22 @@ export const Login = () => {
         <View style={styles.buttonContainer}>
           <BaseButton
             style={styles.googleButton}
-            label={localeData.google}
+            label={LOGIN_CONTENT.google}
             onPress={handleGoogleLogin}
           />
           <BaseButton
             style={styles.facebookButton}
             onPress={handleFaceBookLogin}
-            label={localeData.facebook}
+            label={LOGIN_CONTENT.facebook}
           />
 
           <View style={styles.signInLinkContainer}>
-            <TextContainer>{localeData.signUpLink}</TextContainer>
+            <TextContainer>{LOGIN_CONTENT.signUpLink}</TextContainer>
             <TouchableOpacity
               onPress={() => navigation.navigate(screenName.register as never)}
             >
               <TextContainer color={colorScheme.theme}>
-                {localeData.register}
+                {LOGIN_CONTENT.register}
               </TextContainer>
             </TouchableOpacity>
           </View>

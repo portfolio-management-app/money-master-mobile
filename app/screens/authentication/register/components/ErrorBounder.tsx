@@ -1,10 +1,10 @@
 import { i18n } from 'i18n';
 import React from 'react';
-import { i18Key } from 'services/storage';
+import { localeKey } from 'services/storage';
 import { ErrorDialog } from 'shared/components';
 import { ErrorBounderProps } from 'shared/types';
 
-const ErrorLocale = i18n[i18Key].authenError.register;
+const ErrorLocale = i18n[localeKey].authenError.register;
 
 export const ErrorBounder = ({ show, res, onClose }: ErrorBounderProps) => {
   const [message, setMessage] = React.useState('');

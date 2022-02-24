@@ -1,7 +1,7 @@
 import React from 'react';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { StyleSheet, View, TouchableOpacity } from 'react-native';
-import { colorScheme, fontProvider, iconProvider } from 'shared/styles';
+import { colorScheme, fontProvider } from 'shared/styles';
 import { parseToString } from 'utils/date';
 import { Icon, TextContainer } from 'shared/components';
 
@@ -32,7 +32,7 @@ export const DatePicker = ({ label, onChange, minDate, maxDate }: IProps) => {
       setDate(currentDate);
       setDateString(parseToString(currentDate, false));
     },
-    [onChange]
+    [onChange, date]
   );
   return (
     <View>

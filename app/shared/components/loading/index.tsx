@@ -1,5 +1,5 @@
 import React from 'react';
-import { BallIndicator } from 'react-native-indicators';
+import { WaveIndicator } from 'react-native-indicators';
 import { StyleSheet } from 'react-native';
 import { PlatformView } from 'shared/components';
 import { colorScheme } from 'shared/styles';
@@ -12,7 +12,7 @@ export const Loading = ({ show }: IProps) => {
   if (show)
     return (
       <PlatformView style={styles.loadingContainer}>
-        <BallIndicator color={colorScheme.white} />
+        <WaveIndicator color={colorScheme.white} />
       </PlatformView>
     );
   else return <></>;

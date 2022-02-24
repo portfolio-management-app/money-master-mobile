@@ -1,3 +1,4 @@
+import { i18n } from 'i18n';
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import {
@@ -8,23 +9,47 @@ import {
 } from 'react-native-popup-menu';
 
 import { Checkbox } from 'react-native-ui-lib';
+import { localeKey } from 'services/storage';
 import { Icon, SearchBar } from 'shared/components';
 import { colorScheme } from 'shared/styles';
 
+const SEARCH_BAR_CONTENT = i18n[localeKey].searchBar;
+
 interface IProps {
-  searchPlaceHolder?: string;
-  onFilter?: (sortType: string) => void;
+  onFilter?: (type: string) => void;
   onSearch?: (value: string) => void;
 }
 
-export const SearchFilterBar = ({
-  searchPlaceHolder,
-  onFilter,
-  onSearch,
-}: IProps) => {
+type FilterType = {
+  sortByDate: boolean;
+  sortByBalance: boolean;
+};
+
+export const SearchFilterBar = ({ onFilter, onSearch }: IProps) => {
+  const [filerValue, setFilterValue] = React.useState<FilterType>({
+    sortByDate: true,
+    sortByBalance: false,
+  });
+
+  const handleFilter = React.useCallback(
+    (type: 'date' | 'balance') => {
+      if (type === 'date') {
+        setFilterValue({ sortByBalance: false, sortByDate: true });
+        if (onFilter) onFilter('date');
+      } else {
+        setFilterValue({ sortByBalance: true, sortByDate: false });
+        if (onFilter) onFilter('balance');
+      }
+    },
+    [onFilter]
+  );
+
   return (
     <View style={styles.searchContainer}>
-      <SearchBar />
+      <SearchBar
+        onSearch={onSearch}
+        placeholder={SEARCH_BAR_CONTENT.placeholder}
+      />
       <Menu>
         <MenuTrigger>
           <Icon.Ioni size={30} name="filter" />
@@ -40,15 +65,18 @@ export const SearchFilterBar = ({
           <MenuOption>
             <Checkbox
               labelStyle={styles.checkBoxLabel}
-              value
+              value={filerValue.sortByDate}
               color={colorScheme.theme}
+              onPress={() => handleFilter('date')}
               label="Date"
             />
           </MenuOption>
           <MenuOption>
             <Checkbox
+              value={filerValue.sortByBalance}
               labelStyle={styles.checkBoxLabel}
               color={colorScheme.theme}
+              onPress={() => handleFilter('balance')}
               label="Balance"
             />
           </MenuOption>

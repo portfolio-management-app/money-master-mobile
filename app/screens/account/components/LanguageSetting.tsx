@@ -1,7 +1,7 @@
 import { observer } from 'mobx-react-lite';
 import React, { useEffect } from 'react';
 import { RadioButton, RadioGroup } from 'react-native-ui-lib';
-import { i18Key, LANG_KEY, storage } from 'services/storage';
+import { localeKey, LANG_KEY, storage } from 'services/storage';
 
 export const LanguageSetting = observer(() => {
   const value = React.useMemo(() => {
@@ -10,7 +10,7 @@ export const LanguageSetting = observer(() => {
   const [defaultValue, setDefaultValue] = React.useState('English');
 
   useEffect(() => {
-    if (i18Key === 'en') {
+    if (localeKey === 'en') {
       setDefaultValue('English');
     } else {
       setDefaultValue('Vietnamese');

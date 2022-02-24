@@ -4,19 +4,30 @@ import { Incubator, View } from 'react-native-ui-lib';
 import { colorScheme, dimensionProvider } from 'shared/styles';
 import { Icon } from '../icon';
 
-export const SearchBar = () => {
+interface IProps {
+  onSearch?: (value: string) => void;
+  placeholder: string;
+}
+
+export const SearchBar = ({ onSearch, placeholder }: IProps) => {
   const [search, setSearch] = React.useState('');
 
-  const updateSearch = (search: string) => {
-    setSearch(search);
-  };
+  const updateSearch = React.useCallback(
+    (search: string) => {
+      setSearch(search);
+      if (onSearch) onSearch(search);
+    },
+    [onSearch]
+  );
   return (
     <View style={styles.searchContainer}>
       <Icon.Feather name="search" size={25} />
       <Incubator.TextField
         text70BL
-        placeholder="Search"
+        value={search}
+        placeholder={placeholder}
         fieldStyle={styles.searchField}
+        onChangeText={updateSearch}
         selectionColor={colorScheme.theme}
       ></Incubator.TextField>
     </View>

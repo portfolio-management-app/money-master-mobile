@@ -2,7 +2,7 @@ import { Icon, TextContainer } from 'shared/components';
 import React from 'react';
 import { colorScheme } from 'shared/styles';
 import { View } from 'react-native-ui-lib';
-import { BottomTabLocale } from '../index';
+import { BOTTOM_TAB_CONTENT } from '../index';
 
 interface IProps {
   focused: boolean;
@@ -22,7 +22,7 @@ export const AccountTab = ({ focused }: IProps) => {
         }}
         type="xxx-small"
       >
-        {BottomTabLocale.account}
+        {BOTTOM_TAB_CONTENT.account}
       </TextContainer>
     </View>
   );

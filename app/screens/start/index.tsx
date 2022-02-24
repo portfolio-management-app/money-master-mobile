@@ -8,10 +8,10 @@ import { colorScheme, dimensionProvider, styleProvider } from 'shared/styles';
 import { UserStore } from 'shared/stores';
 import { screenName } from 'navigation/screen-names';
 import { WaveIndicator } from 'react-native-indicators';
-import { i18Key, storage, TOKEN_KEY } from 'services/storage';
+import { localeKey, storage, TOKEN_KEY } from 'services/storage';
 import { i18n } from 'i18n';
 
-const StartLocale = i18n[i18Key].greetingPage;
+const START_CONTENT = i18n[localeKey].greetingPage;
 
 export const Start = observer(() => {
   const navigation = useNavigation();
@@ -56,7 +56,7 @@ export const Start = observer(() => {
               <Image style={styles.image} source={imageSource.banner}></Image>
 
               <TextContainer style={{ fontWeight: 'bold' }} type="h4">
-                {StartLocale.intro}
+                {START_CONTENT.intro}
               </TextContainer>
 
               <View style={styles.buttonContainer}>
@@ -65,13 +65,13 @@ export const Start = observer(() => {
                   onPress={() =>
                     navigation.navigate(screenName.register as never)
                   }
-                  label={StartLocale.register}
+                  label={START_CONTENT.register}
                 />
                 <BaseButton
                   style={styles.loginButton}
                   labelStyle={{ color: colorScheme.theme }}
                   onPress={() => navigation.navigate(screenName.login as never)}
-                  label={StartLocale.login}
+                  label={START_CONTENT.login}
                 />
               </View>
             </PlatformView>

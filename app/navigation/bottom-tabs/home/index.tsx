@@ -10,9 +10,9 @@ import {
   DashBoardTab,
 } from './components';
 import { i18n } from 'i18n';
-import { i18Key } from 'services/storage';
+import { localeKey } from 'services/storage';
 
-export const BottomTabLocale = i18n[i18Key].bottomTab;
+export const BOTTOM_TAB_CONTENT = i18n[localeKey].bottomTab;
 
 const Tab = createBottomTabNavigator();
 

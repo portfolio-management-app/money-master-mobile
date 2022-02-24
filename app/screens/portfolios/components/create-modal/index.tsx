@@ -1,12 +1,6 @@
 import React from 'react';
-import { StyleSheet } from 'react-native';
-import { Modal, View } from 'react-native-ui-lib';
-import {
-  CreateModalHeader,
-  FloatingButton,
-  Icon,
-  TextContainer,
-} from 'shared/components';
+import { Modal } from 'react-native-ui-lib';
+import { CreateModalHeader, FloatingButton, Icon } from 'shared/components';
 import { colorScheme, styleProvider } from 'shared/styles';
 import { CreateForm } from './components';
 

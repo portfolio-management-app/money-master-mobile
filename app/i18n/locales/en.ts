@@ -61,4 +61,7 @@ export const en = {
     email: 'Email invalid',
     password: 'Password must contain character and number, len > 8',
   },
+  searchBar: {
+    placeholder: 'Search',
+  },
 };
