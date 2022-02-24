@@ -29,6 +29,10 @@ navigation/screen-names
 
   `sudo apt install ngrok`
 
+- Login and authen to [ngrok](https://ngrok.com)
+
+- Start BE server
+
 - Run the flowing command:
 
   `ngrok http 5000 --host-header="localhost:5000" `
