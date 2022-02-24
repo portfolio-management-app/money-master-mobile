@@ -5,15 +5,16 @@ import { CommonActions, useNavigation } from '@react-navigation/native';
 import { imageSource } from 'assets/images';
 import { BaseButton, PlatformView, TextContainer } from 'shared/components';
 import { colorScheme, dimensionProvider, styleProvider } from 'shared/styles';
-import { LocaleStore, UserStore } from 'shared/stores';
+import { UserStore } from 'shared/stores';
 import { screenName } from 'navigation/screen-names';
 import { WaveIndicator } from 'react-native-indicators';
-import { storage, TOKEN_KEY } from 'services/storage';
+import { i18Key, storage, TOKEN_KEY } from 'services/storage';
+import { i18n } from 'i18n';
+
+const StartLocale = i18n[i18Key].greetingPage;
 
 export const Start = observer(() => {
   const navigation = useNavigation();
-
-  const { locale } = LocaleStore;
   const { pendingAuthen, user, initUser } = UserStore;
   React.useEffect(() => {
     if (!pendingAuthen) {
@@ -26,12 +27,12 @@ export const Start = observer(() => {
         );
       }
     }
-  }, [pendingAuthen, user]);
+  }, [pendingAuthen, user, navigation]);
 
   React.useEffect(() => {
     const token = storage.getString(TOKEN_KEY);
     initUser(token);
-  }, []);
+  }, [initUser]);
   return (
     <>
       {pendingAuthen ? (
@@ -55,7 +56,7 @@ export const Start = observer(() => {
               <Image style={styles.image} source={imageSource.banner}></Image>
 
               <TextContainer style={{ fontWeight: 'bold' }} type="h4">
-                {locale.greetingPage.intro}
+                {StartLocale.intro}
               </TextContainer>
 
               <View style={styles.buttonContainer}>
@@ -64,13 +65,13 @@ export const Start = observer(() => {
                   onPress={() =>
                     navigation.navigate(screenName.register as never)
                   }
-                  label={locale.greetingPage.register}
+                  label={StartLocale.register}
                 />
                 <BaseButton
                   style={styles.loginButton}
                   labelStyle={{ color: colorScheme.theme }}
                   onPress={() => navigation.navigate(screenName.login as never)}
-                  label={locale.greetingPage.login}
+                  label={StartLocale.login}
                 />
               </View>
             </PlatformView>

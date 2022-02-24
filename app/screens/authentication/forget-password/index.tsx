@@ -1,31 +1,21 @@
 import React from 'react';
-import { Observer } from 'mobx-react-lite';
 import { Image, StyleSheet, View } from 'react-native';
 import { NavigationHeader } from 'navigation/header';
 import { PlatformView } from 'shared/components';
-import { LocaleStore } from 'shared/stores';
 import { colorScheme, dimensionProvider, styleProvider } from 'shared/styles';
 import { imageSource } from 'assets/images';
+import { i18n } from 'i18n';
+import { i18Key } from 'services/storage';
+
+const localeData = i18n[i18Key].forgetPasswordPage;
 
 export const ForgetPassword = () => {
   return (
     <PlatformView style={styleProvider.body}>
-      <Observer>
-        {() => {
-          const { locale } = LocaleStore;
-          return (
-            <>
-              <NavigationHeader title={locale.forgetPasswordPage.header} />
-              <View style={styles.container}>
-                <Image
-                  style={styles.image}
-                  source={imageSource.forgetPassword}
-                ></Image>
-              </View>
-            </>
-          );
-        }}
-      </Observer>
+      <NavigationHeader title={localeData.header} />
+      <View style={styles.container}>
+        <Image style={styles.image} source={imageSource.forgetPassword}></Image>
+      </View>
     </PlatformView>
   );
 };

@@ -14,6 +14,7 @@ const colors = {
   purple700: '#5327B2',
   pink700: '#FA0EC7',
   green200: '#88EA65',
+  gray100: '#EDF8FD',
 };
 
 export const colorScheme = colors;

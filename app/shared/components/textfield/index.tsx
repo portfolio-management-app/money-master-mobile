@@ -1,15 +1,16 @@
 import React from 'react';
-import { StyleSheet, TextStyle, View, ViewStyle } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { Incubator } from 'react-native-ui-lib';
 import { TextContainer } from 'shared/components';
-import { colorScheme } from 'shared/styles';
+import { colorScheme, fontProvider } from 'shared/styles';
 
 interface IProps {
   errorMessage?: string;
   secureText?: boolean;
   placeholder: string;
   maxLength?: number;
-  onChangeText?: (value: string) => void;
+  onChangeText?: (value: string) => void | void;
+  onBlur?: (e: any) => void | void;
 }
 
 export const CustomTextField = ({
@@ -18,42 +19,41 @@ export const CustomTextField = ({
   onChangeText,
   placeholder,
   maxLength,
+  onBlur,
 }: IProps) => {
-  const { fieldStyle, labelStyle } = getStyles(errorMessage);
   return (
     <View>
       <Incubator.TextField
+        onBlur={onBlur}
+        selectionColor={colorScheme.theme}
         text70BL
-        fieldStyle={fieldStyle}
+        fieldStyle={styles.field}
         secureTextEntry={secureText}
         placeholder={placeholder}
         floatingPlaceholder
         onChangeText={onChangeText}
         showCharCounter
         floatOnFocus
-        floatingPlaceholderStyle={labelStyle}
+        floatingPlaceholderStyle={styles.placeHolder}
         maxLength={maxLength}
       />
-      <TextContainer type="extra-small" style={styles.errorMessage}>
+      <TextContainer
+        type="extra-small"
+        style={{ marginVertical: 10 }}
+        color={colorScheme.red500}
+      >
         {errorMessage}
       </TextContainer>
     </View>
   );
 };
 
-const getStyles = (errorMessage?: string) => {
-  const fieldStyle: ViewStyle = {
-    borderBottomWidth: 0.5,
-  };
-  const labelStyle: TextStyle = {
-    fontSize: 16,
-  };
-
-  return { fieldStyle, labelStyle };
-};
 const styles = StyleSheet.create({
-  errorMessage: {
-    color: colorScheme.red500,
-    marginTop: 10,
+  field: {
+    borderBottomWidth: 0.5,
+  },
+  placeHolder: {
+    fontSize: 16,
+    fontFamily: fontProvider.openSans,
   },
 });

@@ -1,5 +1,8 @@
+import { CurrencyPicker } from './currency-picker';
+import { CreateModalHeader } from './create-modal-header';
+import { SearchBar } from './search-bar';
 import { Icon } from './icon';
-import { ScrollTabView } from './scroll-tab-view/index';
+import { ScrollTabView } from './scroll-tab-view';
 import { SearchPicker } from './search-picker';
 import { CustomTextField } from './textfield';
 import { RadioPicker } from './radio-picker';
@@ -26,4 +29,7 @@ export {
   SearchPicker,
   ScrollTabView,
   Icon,
+  SearchBar,
+  CreateModalHeader,
+  CurrencyPicker,
 };

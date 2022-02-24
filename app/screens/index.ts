@@ -1,3 +1,4 @@
+import { PortfolioDetail } from './portfolio-detail';
 import { DashBoard } from './dashboard';
 import { Portfolios } from './portfolios';
 import { MarketCap } from './market-cap';
@@ -18,4 +19,5 @@ export {
   MarketCap,
   DashBoard,
   Portfolios,
+  PortfolioDetail,
 };

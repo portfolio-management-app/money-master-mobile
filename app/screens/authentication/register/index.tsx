@@ -12,34 +12,33 @@ import {
 } from 'shared/components';
 import { NavigationHeader } from 'navigation/header';
 import { colorScheme, styleProvider } from 'shared/styles';
-import { LocaleStore } from 'shared/stores';
 import { HttpRequestResponse } from 'shared/types';
-import { useAuthentication, useSocialLogin } from '../hooks';
+import { useSocialLogin } from '../hooks';
 import { styles } from '../login';
 import { ErrorBounder } from './components';
+import { i18n } from 'i18n';
+import { i18Key } from 'services/storage';
+import { UserStore } from 'shared/stores';
+import { Formik } from 'formik';
+import { AuthenticationSchema } from '../validator';
+
+const localeData = i18n[i18Key].registerPage;
 
 export const Register = () => {
-  const [isLoading, setEmail, setPassword, error, submit] = useAuthentication();
-
   const [apiResponse, setApiResponse] = useState<HttpRequestResponse>({
     isError: false,
     response: null,
   });
 
-  const [loading, handleFaceBookLogin, handleGoogleLogin] = useSocialLogin();
+  const [loading, handleFaceBookLogin, handleGoogleLogin, setLoading] =
+    useSocialLogin();
 
   const navigation = useNavigation();
 
-  const handleEmailChange = (value: string) => {
-    setEmail(value);
-  };
-
-  const handlePasswordChange = (value: string) => {
-    setPassword(value);
-  };
-
-  const onRegister = async () => {
-    const res = await submit('register');
+  const onRegister = async (email: string, password: string) => {
+    setLoading(true);
+    const res = await UserStore.register(email, password);
+    setLoading(false);
     if (res) {
       if (res.isError)
         setApiResponse({ isError: res.isError, response: res.response });
@@ -55,73 +54,77 @@ export const Register = () => {
 
   return (
     <PlatformView style={styleProvider.body}>
-      <Loading show={loading || isLoading} />
+      <Loading show={loading} />
       <ErrorBounder
         onClose={() => setApiResponse({ isError: false, response: null })}
         show={apiResponse.isError}
         res={apiResponse.response}
       />
-      <Observer>
-        {() => {
-          const { locale } = LocaleStore;
-          return (
-            <>
-              <NavigationHeader title={locale.registerPage.header} />
-              <View style={styles.form}>
-                <View style={styles.inputContainer}>
+
+      <NavigationHeader title={localeData.header} />
+      <View style={styles.form}>
+        <View style={styles.inputContainer}>
+          <Formik
+            initialValues={{ email: '', password: '' }}
+            validationSchema={AuthenticationSchema}
+            onSubmit={(values) => {
+              onRegister(values.email, values.password);
+            }}
+          >
+            {({ errors, touched, handleChange, handleBlur, handleSubmit }) => {
+              return (
+                <>
                   <CustomTextField
-                    onChangeText={handleEmailChange}
-                    errorMessage={error.emailMessage}
-                    placeholder={locale.loginPage.placeHolder.email}
+                    onBlur={handleBlur('email')}
+                    onChangeText={handleChange('email')}
+                    errorMessage={touched.email ? errors.email : ''}
+                    placeholder={localeData.placeHolder.email}
                   />
                   <CustomTextField
-                    onChangeText={handlePasswordChange}
+                    onBlur={handleBlur('password')}
+                    onChangeText={handleChange('password')}
                     secureText
-                    errorMessage={error.passwordMessage}
-                    placeholder={locale.loginPage.placeHolder.password}
-                  />
-                </View>
-                <BaseButton
-                  style={registerStyle.registerButton}
-                  onPress={onRegister}
-                  label={locale.greetingPage.register}
-                />
-                <View style={styles.textContainer}>
-                  <TextContainer style={{ color: colorScheme.theme }}>
-                    OR
-                  </TextContainer>
-                </View>
-                <View style={styles.buttonContainer}>
-                  <BaseButton
-                    style={styles.googleButton}
-                    label={locale.loginPage.google}
-                    onPress={handleGoogleLogin}
+                    errorMessage={touched.password ? errors.password : ''}
+                    placeholder={localeData.placeHolder.password}
                   />
                   <BaseButton
-                    style={styles.facebookButton}
-                    onPress={handleFaceBookLogin}
-                    label={locale.loginPage.facebook}
+                    onPress={handleSubmit}
+                    labelStyle={{ color: colorScheme.theme }}
+                    label={localeData.header.toUpperCase()}
+                    style={styles.loginButton}
                   />
-                  <View style={styles.signInLinkContainer}>
-                    <TextContainer>
-                      {locale.registerPage.signInLink}
-                    </TextContainer>
-                    <TouchableOpacity
-                      onPress={() =>
-                        navigation.navigate(screenName.login as never)
-                      }
-                    >
-                      <TextContainer style={styles.signInLink}>
-                        {locale.loginPage.header}
-                      </TextContainer>
-                    </TouchableOpacity>
-                  </View>
-                </View>
-              </View>
-            </>
-          );
-        }}
-      </Observer>
+                </>
+              );
+            }}
+          </Formik>
+        </View>
+
+        <View style={styles.textContainer}>
+          <TextContainer color={colorScheme.theme}>OR</TextContainer>
+        </View>
+        <View style={styles.buttonContainer}>
+          <BaseButton
+            style={styles.googleButton}
+            label={localeData.google}
+            onPress={handleGoogleLogin}
+          />
+          <BaseButton
+            style={styles.facebookButton}
+            onPress={handleFaceBookLogin}
+            label={localeData.facebook}
+          />
+          <View style={styles.signInLinkContainer}>
+            <TextContainer>{localeData.signInLink}</TextContainer>
+            <TouchableOpacity
+              onPress={() => navigation.navigate(screenName.login as never)}
+            >
+              <TextContainer color={colorScheme.theme}>
+                {localeData.login}
+              </TextContainer>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </View>
     </PlatformView>
   );
 };
