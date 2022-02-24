@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
+import { KeyboardTypeOptions, StyleSheet, View } from 'react-native';
 import { Incubator } from 'react-native-ui-lib';
 import { TextContainer } from 'shared/components';
 import { colorScheme, fontProvider } from 'shared/styles';
@@ -9,6 +9,7 @@ interface IProps {
   secureText?: boolean;
   placeholder: string;
   maxLength?: number;
+  keyBoardType?: KeyboardTypeOptions;
   onChangeText?: (value: string) => void | void;
   onBlur?: (e: any) => void | void;
 }
@@ -20,11 +21,13 @@ export const CustomTextField = ({
   placeholder,
   maxLength,
   onBlur,
+  keyBoardType,
 }: IProps) => {
   return (
     <View>
       <Incubator.TextField
         onBlur={onBlur}
+        keyboardType={keyBoardType}
         selectionColor={colorScheme.theme}
         text70BL
         fieldStyle={styles.field}

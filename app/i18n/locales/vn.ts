@@ -59,4 +59,22 @@ export const vn = {
   searchBar: {
     placeholder: 'Tìm kiến',
   },
+  toastHeader: {
+    error: 'Error',
+    success: 'Success',
+    info: 'Info',
+    warning: 'Warning',
+  },
+  portfolioCreateModal: {
+    header: 'New portfolio',
+    create: 'Create',
+    name: 'Name',
+    balance: 'Initial balance',
+    selectCurrency: 'Selected currency',
+  },
+
+  currencyPicker: {
+    currency: 'Currency',
+    search: 'Search currency',
+  },
 };

@@ -12,7 +12,7 @@ export const Loading = ({ show }: IProps) => {
   if (show)
     return (
       <PlatformView style={styles.loadingContainer}>
-        <WaveIndicator color={colorScheme.white} />
+        <WaveIndicator color={colorScheme.theme} size={50} />
       </PlatformView>
     );
   else return <></>;

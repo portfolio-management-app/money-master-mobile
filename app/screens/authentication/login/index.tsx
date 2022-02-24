@@ -128,7 +128,7 @@ export const Login = () => {
           />
 
           <View style={styles.signInLinkContainer}>
-            <TextContainer>{LOGIN_CONTENT.signUpLink}</TextContainer>
+            <TextContainer>{LOGIN_CONTENT.signUpLink} </TextContainer>
             <TouchableOpacity
               onPress={() => navigation.navigate(screenName.register as never)}
             >

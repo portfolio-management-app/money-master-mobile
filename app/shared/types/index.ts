@@ -9,3 +9,5 @@ export type ErrorBounderProps = {
   res: HttpError | null;
   onClose: () => void;
 };
+
+export type Variant = 'error' | 'success' | 'warning' | 'info';

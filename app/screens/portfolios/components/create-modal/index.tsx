@@ -1,14 +1,22 @@
+import { i18n } from 'i18n';
 import React from 'react';
 import { Modal } from 'react-native-ui-lib';
-import { CreateModalHeader, FloatingButton, Icon } from 'shared/components';
+import { localeKey } from 'services/storage';
+import { FloatingButton, Icon } from 'shared/components';
 import { colorScheme, styleProvider } from 'shared/styles';
 import { CreateForm } from './components';
+
+export const SCREEN_CONTENT = i18n[localeKey].portfolioCreateModal;
 
 export const CreateModal = () => {
   const [showModal, setShowModal] = React.useState(false);
 
   const toggle = () => {
     setShowModal(!showModal);
+  };
+
+  const onCreate = (data: any) => {
+    console.log(data);
   };
   return (
     <>
@@ -20,9 +28,7 @@ export const CreateModal = () => {
         style={styleProvider.container}
         visible={showModal}
       >
-        <CreateModalHeader onClose={toggle} title="New portfolio" />
-
-        <CreateForm />
+        <CreateForm onSubmit={onCreate} onClose={toggle} />
       </Modal>
     </>
   );

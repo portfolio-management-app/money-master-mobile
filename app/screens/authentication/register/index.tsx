@@ -113,7 +113,7 @@ export const Register = () => {
             label={REGISTER_CONTENT.facebook}
           />
           <View style={styles.signInLinkContainer}>
-            <TextContainer>{REGISTER_CONTENT.signInLink}</TextContainer>
+            <TextContainer>{REGISTER_CONTENT.signInLink} </TextContainer>
             <TouchableOpacity
               onPress={() => navigation.navigate(screenName.login as never)}
             >

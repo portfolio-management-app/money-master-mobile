@@ -7,11 +7,17 @@ import { TextContainer } from '../text-container';
 
 interface IProps {
   title: string;
+  buttonLabel?: string;
   onClose?: () => void;
   onCreate?: () => void;
 }
 
-export const CreateModalHeader = ({ title, onClose, onCreate }: IProps) => {
+export const CreateModalHeader = ({
+  title,
+  onClose,
+  onCreate,
+  buttonLabel,
+}: IProps) => {
   return (
     <View style={styles.modal}>
       <Icon.Evil
@@ -22,7 +28,7 @@ export const CreateModalHeader = ({ title, onClose, onCreate }: IProps) => {
       />
       <TextContainer>{title}</TextContainer>
       <TouchableOpacity onPress={onCreate}>
-        <TextContainer color={colorScheme.theme}>Create</TextContainer>
+        <TextContainer color={colorScheme.theme}>{buttonLabel}</TextContainer>
       </TouchableOpacity>
     </View>
   );

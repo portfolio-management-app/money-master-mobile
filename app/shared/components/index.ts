@@ -1,3 +1,4 @@
+import { CustomToast } from './toast';
 import { CurrencyPicker } from './currency-picker';
 import { CreateModalHeader } from './create-modal-header';
 import { SearchBar } from './search-bar';
@@ -32,4 +33,5 @@ export {
   SearchBar,
   CreateModalHeader,
   CurrencyPicker,
+  CustomToast,
 };
