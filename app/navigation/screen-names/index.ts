@@ -9,4 +9,5 @@ export const screenName = {
   news: 'News',
   portfolio: 'Portfolio',
   marketCap: 'MarketCap',
+  portfolioDetail: 'PortfolioDetail',
 };

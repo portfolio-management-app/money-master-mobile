@@ -3,7 +3,7 @@ import React from 'react';
 import { StyleSheet } from 'react-native';
 import { Picker, PickerItemValue, View } from 'react-native-ui-lib';
 import { localeKey } from 'services/storage';
-import { colorScheme } from 'shared/styles';
+import { colorScheme, fontProvider } from 'shared/styles';
 import { Icon } from '../icon';
 import { TextContainer } from '../text-container';
 import { currencyList } from './constants';
@@ -13,10 +13,22 @@ const SCREEN_CONTENT = i18n[localeKey].currencyPicker;
 interface IProps {
   errorMessage?: string;
   onChange?: (value: string) => void | void;
+  bgColor?: string;
+  headerStyle?: 'light-content' | 'dark-content';
 }
 
-export const CurrencyPicker = ({ errorMessage, onChange }: IProps) => {
+const Component = ({
+  errorMessage,
+  onChange,
+  bgColor = colorScheme.white,
+  headerStyle = 'dark-content',
+}: IProps) => {
   const [selectedValue, setSelectedValue] = React.useState('');
+
+  const color = React.useMemo(() => {
+    if (headerStyle == 'light-content') return colorScheme.white;
+    return colorScheme.black200;
+  }, [headerStyle]);
 
   const handleChange = React.useCallback(
     (val: string) => {
@@ -32,7 +44,15 @@ export const CurrencyPicker = ({ errorMessage, onChange }: IProps) => {
         migrateTextField
         label={SCREEN_CONTENT.currency}
         placeholder={SCREEN_CONTENT.currency}
-        topBarProps={{ title: SCREEN_CONTENT.currency }}
+        topBarProps={{
+          title: SCREEN_CONTENT.currency,
+          containerStyle: { backgroundColor: bgColor, paddingHorizontal: 10 },
+          titleStyle: {
+            color: color,
+            fontFamily: fontProvider.openSans,
+          },
+          cancelButtonProps: { iconStyle: { tintColor: color } },
+        }}
         showSearch
         value={selectedValue}
         onChange={handleChange}
@@ -72,6 +92,8 @@ export const CurrencyPicker = ({ errorMessage, onChange }: IProps) => {
     </View>
   );
 };
+
+export const CurrencyPicker = React.memo(Component);
 
 const styles = StyleSheet.create({
   picker: {

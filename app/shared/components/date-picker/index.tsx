@@ -37,12 +37,10 @@ export const DatePicker = ({ label, onChange, minDate, maxDate }: IProps) => {
   return (
     <View>
       <TouchableOpacity onPress={toggle} style={styles.datePickerButton}>
-        <TextContainer style={{ marginBottom: 10 }} type="small">
-          {label}
-        </TextContainer>
+        <TextContainer style={{ marginBottom: 10 }}>{label}</TextContainer>
         <View style={styles.datePicker}>
-          <TextContainer type="small">{dateString}</TextContainer>
-          <Icon.FontAwesome name="calendar" />
+          <TextContainer>{dateString}</TextContainer>
+          <Icon.FontAwesome size={20} name="calendar" />
         </View>
       </TouchableOpacity>
 
@@ -78,6 +76,5 @@ const styles = StyleSheet.create({
     paddingBottom: 4,
     marginBottom: 20,
     fontFamily: fontProvider.openSans,
-    marginHorizontal: 10,
   },
 });

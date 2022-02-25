@@ -11,3 +11,8 @@ export type ErrorBounderProps = {
 };
 
 export type Variant = 'error' | 'success' | 'warning' | 'info';
+
+export type ScreenParams = {
+  name: string;
+  key: string;
+};

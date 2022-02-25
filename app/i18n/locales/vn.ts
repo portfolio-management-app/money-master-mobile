@@ -77,4 +77,31 @@ export const vn = {
     currency: 'Currency',
     search: 'Search currency',
   },
+  portfolioDetail: {
+    tabs: {
+      holding: 'Holdings',
+      brief: 'Brief',
+      report: 'Report',
+      note: 'Note',
+      payout: 'Payout',
+    },
+    assetPicker: {
+      title: 'Choose an asset type',
+      nft: 'NTF',
+      stock: 'Stock',
+      banking: 'Banking',
+      realEaster: 'Real easter',
+      other: 'Other',
+    },
+    createOtherModal: {
+      header: 'New portfolio',
+      create: 'Create',
+      name: 'Name',
+      balance: 'Initial balance',
+      selectCurrency: 'Selected currency',
+      rate: 'Interest rate(%)',
+      termRange: 'Term range (month)',
+      startDate: 'Start date',
+    },
+  },
 };

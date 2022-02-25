@@ -25,7 +25,7 @@ export const CreateModal = () => {
       </FloatingButton>
       <Modal
         onRequestClose={toggle}
-        animationType="slide"
+        animationType="fade"
         style={styleProvider.container}
         visible={showModal}
       >
