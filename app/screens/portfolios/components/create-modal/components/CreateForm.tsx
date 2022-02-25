@@ -1,6 +1,7 @@
+import { useNavigation } from '@react-navigation/native';
 import { Formik } from 'formik';
 import React from 'react';
-import { StyleSheet } from 'react-native';
+import { BackHandler, StyleSheet } from 'react-native';
 import { View } from 'react-native-ui-lib';
 import {
   CreateModalHeader,
@@ -16,6 +17,11 @@ interface IProps {
 }
 
 export const CreateForm = ({ onSubmit, onClose }: IProps) => {
+  const navigation = useNavigation();
+  BackHandler.addEventListener('hardwareBackPress', () => {
+    navigation.goBack();
+    return true;
+  });
   return (
     <Formik
       validationSchema={CreatePortfolioSchema}
@@ -23,7 +29,6 @@ export const CreateForm = ({ onSubmit, onClose }: IProps) => {
       onSubmit={(values) => onSubmit(values)}
     >
       {({ errors, touched, handleBlur, handleChange, handleSubmit }) => {
-        console.log(errors);
         return (
           <>
             <CreateModalHeader

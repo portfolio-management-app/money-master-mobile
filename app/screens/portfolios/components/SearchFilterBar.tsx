@@ -62,21 +62,19 @@ export const SearchFilterBar = ({ onFilter, onSearch }: IProps) => {
             },
           }}
         >
-          <MenuOption>
+          <MenuOption onSelect={() => handleFilter('date')}>
             <Checkbox
               labelStyle={styles.checkBoxLabel}
               value={filerValue.sortByDate}
               color={colorScheme.theme}
-              onPress={() => handleFilter('date')}
               label="Date"
             />
           </MenuOption>
-          <MenuOption>
+          <MenuOption onSelect={() => handleFilter('balance')}>
             <Checkbox
               value={filerValue.sortByBalance}
               labelStyle={styles.checkBoxLabel}
               color={colorScheme.theme}
-              onPress={() => handleFilter('balance')}
               label="Balance"
             />
           </MenuOption>

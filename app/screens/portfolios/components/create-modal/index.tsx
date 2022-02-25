@@ -24,6 +24,7 @@ export const CreateModal = () => {
         <Icon.Material color={colorScheme.white} size={25} name="add" />
       </FloatingButton>
       <Modal
+        onRequestClose={toggle}
         animationType="slide"
         style={styleProvider.container}
         visible={showModal}
