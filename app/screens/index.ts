@@ -1,3 +1,4 @@
+import { BankAssetDetail } from './bank-asset-detail';
 import { PortfolioDetail } from './portfolio-detail';
 import { DashBoard } from './dashboard';
 import { Portfolios } from './portfolios';
@@ -20,4 +21,5 @@ export {
   DashBoard,
   Portfolios,
   PortfolioDetail,
+  BankAssetDetail,
 };

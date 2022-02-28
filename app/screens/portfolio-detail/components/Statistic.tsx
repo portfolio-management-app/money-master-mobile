@@ -3,7 +3,7 @@ import { StyleSheet, View } from 'react-native';
 import { TextContainer } from 'shared/components';
 import { colorScheme } from 'shared/styles';
 
-export const Statistic = () => {
+const Component = () => {
   return (
     <View style={styles.container}>
       <TextContainer light bold type="h1">
@@ -26,7 +26,7 @@ const styles = StyleSheet.create({
     backgroundColor: colorScheme.theme,
     justifyContent: 'space-between',
     alignItems: 'center',
-    height: 110,
     paddingVertical: 10,
   },
 });
+export const Statistic = React.memo(Component);

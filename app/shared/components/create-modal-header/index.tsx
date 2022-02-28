@@ -42,7 +42,7 @@ export const CreateModalHeader = ({
           </TextContainer>
         </TouchableOpacity>
       ) : (
-        <TextContainer>{'     '}</TextContainer>
+        <TextContainer>{'         '}</TextContainer>
       )}
     </View>
   );

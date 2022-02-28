@@ -26,7 +26,7 @@ export const HomeBottomTab = () => {
         tabBarHideOnKeyboard: true,
         tabBarStyle: {
           height: 60,
-          backgroundColor: colorScheme.white,
+          backgroundColor: colorScheme.bg,
           borderTopWidth: 0,
         },
       }}

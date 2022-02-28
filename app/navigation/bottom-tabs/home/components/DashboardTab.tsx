@@ -13,12 +13,12 @@ export const DashBoardTab = ({ focused }: IProps) => {
       <Icon.Material
         name="dashboard"
         size={25}
-        color={focused ? colorScheme.theme : colorScheme.black200}
+        color={focused ? colorScheme.bottomTabSelected : colorScheme.black200}
       />
 
       <TextContainer
         style={{
-          color: focused ? colorScheme.theme : colorScheme.black200,
+          color: focused ? colorScheme.bottomTabSelected : colorScheme.black200,
         }}
         type="xxx-small"
       >

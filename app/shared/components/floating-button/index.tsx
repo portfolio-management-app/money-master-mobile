@@ -50,8 +50,8 @@ const getStyle = ({
   size,
 }: Partial<IProps>) => {
   const defaultColor = color ? color : colorScheme.theme;
-  const radius = borderRadius ? borderRadius : 50;
-  const defaultSize = size ? size : 50;
+  const radius = borderRadius ? borderRadius : 60;
+  const defaultSize = size ? size : 60;
   const margin = mg ? mg : 20;
 
   let style: ViewStyle = {

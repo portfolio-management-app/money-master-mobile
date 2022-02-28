@@ -13,12 +13,12 @@ export const AccountTab = ({ focused }: IProps) => {
       <Icon.MaterialCommunity
         name="account"
         size={25}
-        color={focused ? colorScheme.theme : colorScheme.black200}
+        color={focused ? colorScheme.bottomTabSelected : colorScheme.black200}
       ></Icon.MaterialCommunity>
 
       <TextContainer
         style={{
-          color: focused ? colorScheme.theme : colorScheme.black200,
+          color: focused ? colorScheme.bottomTabSelected : colorScheme.black200,
         }}
         type="xxx-small"
       >

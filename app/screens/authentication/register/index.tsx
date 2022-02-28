@@ -20,6 +20,7 @@ import { localeKey } from 'services/storage';
 import { UserStore } from 'shared/stores';
 import { Formik } from 'formik';
 import { AuthenticationSchema } from '../validator';
+import { imageSource } from 'assets/images';
 
 const REGISTER_CONTENT = i18n[localeKey].registerPage;
 
@@ -103,11 +104,15 @@ export const Register = () => {
         </View>
         <View style={styles.buttonContainer}>
           <BaseButton
+            iconSource={imageSource.google}
+            iconStyle={styleProvider.buttonIcon}
             style={styles.googleButton}
             label={REGISTER_CONTENT.google}
             onPress={handleGoogleLogin}
           />
           <BaseButton
+            iconStyle={styleProvider.buttonIcon}
+            iconSource={imageSource.facebook}
             style={styles.facebookButton}
             onPress={handleFaceBookLogin}
             label={REGISTER_CONTENT.facebook}

@@ -30,6 +30,17 @@ export const ITEMS = [
   },
   {
     id: 4,
+    label: PICKER_LABEL.cash,
+    icon: (
+      <Icon.FontAwesome5
+        size={SIZE - 5}
+        color={COLOR}
+        name="money-bill-wave-alt"
+      />
+    ),
+  },
+  {
+    id: 5,
     label: PICKER_LABEL.other,
     icon: <Icon.Material size={SIZE} color={COLOR} name="psychology" />,
   },

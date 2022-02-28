@@ -92,6 +92,7 @@ export const vn = {
       banking: 'Banking',
       realEaster: 'Real easter',
       other: 'Other',
+      cash: 'Cash',
     },
     createOtherModal: {
       header: 'New portfolio',

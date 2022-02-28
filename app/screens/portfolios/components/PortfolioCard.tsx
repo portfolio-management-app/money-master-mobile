@@ -35,7 +35,7 @@ export const PortfolioCard = ({ name, balance, increase, id }: IProps) => {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: colorScheme.gray100,
+    backgroundColor: colorScheme.blue100,
     borderRadius: 10,
     marginTop: 10,
     padding: 20,

@@ -9,17 +9,9 @@ import { Note } from './note';
 import { Payout } from './payout';
 import { Report } from './report';
 
-const renderScene = SceneMap({
-  holding: Holding,
-  brief: Brief,
-  note: Note,
-  payout: Payout,
-  report: Report,
-});
-
 const TAB_CONTENT = SCREEN_CONTENT.tabs;
 
-export const TabBarView = () => {
+const Component = () => {
   const [routes] = React.useState([
     { key: 'holding', title: TAB_CONTENT.holding },
     { key: 'brief', title: TAB_CONTENT.brief },
@@ -27,6 +19,13 @@ export const TabBarView = () => {
     { key: 'payout', title: TAB_CONTENT.payout },
     { key: 'note', title: TAB_CONTENT.note },
   ]);
+  const renderScene = SceneMap({
+    holding: Holding,
+    brief: Brief,
+    note: Note,
+    payout: Payout,
+    report: Report,
+  });
   return (
     <ScrollTabView
       enableScroll
@@ -38,3 +37,5 @@ export const TabBarView = () => {
     />
   );
 };
+
+export const TabBarView = React.memo(Component);

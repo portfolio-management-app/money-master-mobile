@@ -1,4 +1,4 @@
-import { yupParserNumber } from './../../../../utils/string';
+import { yupParserNumber } from 'utils/string';
 import { i18n } from 'i18n';
 import { localeKey } from 'services/storage';
 import * as Yup from 'yup';

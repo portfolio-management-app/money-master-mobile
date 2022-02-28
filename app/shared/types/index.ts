@@ -16,3 +16,7 @@ export type ScreenParams = {
   name: string;
   key: string;
 };
+
+export type OnScrollProps = {
+  onScroll: (e: any) => void;
+};

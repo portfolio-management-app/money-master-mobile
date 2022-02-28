@@ -8,6 +8,7 @@ import {
   Register,
   ForgetPassword,
   PortfolioDetail,
+  BankAssetDetail,
 } from 'screens';
 import { screenName } from 'navigation/screen-names';
 import { StatusBar } from 'react-native';
@@ -34,6 +35,10 @@ export const NavigationStack = () => {
         <Stack.Screen
           name={screenName.portfolioDetail}
           component={PortfolioDetail}
+        />
+        <Stack.Screen
+          name={screenName.bankAssetDetail}
+          component={BankAssetDetail}
         />
       </Stack.Navigator>
     </NavigationContainer>

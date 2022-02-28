@@ -1,5 +1,4 @@
 import { i18n } from 'i18n';
-import { LocaleStore } from 'shared/stores';
 import { AxiosResponse } from 'axios';
 
 export class HttpError {
@@ -21,6 +20,6 @@ export class HttpError {
   }
 
   getDefaultMessage() {
-    return i18n[LocaleStore.currentLocale].httpError.default;
+    return '';
   }
 }

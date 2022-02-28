@@ -22,7 +22,7 @@ const Component = ({ show, onClose }: IProps) => {
 
   const onItemPress = React.useCallback((id: number) => {
     switch (id) {
-      case 4:
+      case 5:
         setShowCreateOther(true);
     }
   }, []);

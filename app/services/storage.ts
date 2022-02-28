@@ -5,6 +5,8 @@ export const LANG_KEY = 'lang';
 
 export const TOKEN_KEY = 'ertscaUMfqacx';
 
+export const COLOR_KEY = 'colormode';
+
 export const storage = new MMKV();
 
 let key: LocaleType = 'en';

@@ -93,11 +93,12 @@ export const en = {
     },
     assetPicker: {
       title: 'Choose an asset type',
-      nft: 'NTF',
+      nft: 'Crypto currency',
       stock: 'Stock',
       banking: 'Banking',
       realEaster: 'Real easter',
       other: 'Other',
+      cash: 'Cash',
     },
     createOtherModal: {
       header: 'Other',

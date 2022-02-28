@@ -1,2 +1,3 @@
-import { UserStore } from './data-store';
-export { UserStore };
+import { ScrollStore } from './scroll-store';
+import { UserStore } from './user-store';
+export { UserStore, ScrollStore };

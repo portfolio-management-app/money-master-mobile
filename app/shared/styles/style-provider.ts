@@ -12,9 +12,8 @@ export const dimensionProvider = {
 
 export const styleProvider = StyleSheet.create({
   body: {
-    backgroundColor: colorScheme.white,
+    backgroundColor: colorScheme.bg,
     flex: 1,
-    position: 'relative',
   },
 
   centerVertical: {
@@ -32,5 +31,64 @@ export const styleProvider = StyleSheet.create({
 
   createModalHeader: {
     flexDirection: 'row',
+  },
+
+  buttonIcon: {
+    width: 30,
+    height: 30,
+  },
+
+  speedDialButton: {
+    width: 50,
+    height: 50,
+    borderRadius: 50,
+
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: colorScheme.theme,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
+    marginRight: 5,
+  },
+  speedDialTooltip: {
+    borderWidth: 1,
+    borderColor: colorScheme.theme,
+    backgroundColor: colorScheme.bg,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
+    marginRight: 10,
+
+    borderRadius: 10,
+    padding: 10,
+  },
+  speedDialWrapper: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginBottom: 20,
+  },
+  assetCard: {
+    borderBottomColor: colorScheme.gray100,
+    borderBottomWidth: 0.5,
+    paddingHorizontal: 10,
+    paddingVertical: 10,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  assetGroupName: {
+    marginLeft: 10,
+    marginTop: 10,
   },
 });
