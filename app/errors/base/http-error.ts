@@ -1,4 +1,3 @@
-import { i18n } from 'i18n';
 import { AxiosResponse } from 'axios';
 
 export class HttpError {

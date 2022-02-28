@@ -1,3 +1,4 @@
+import { GreetingLoading } from './loading/GreettingLoading';
 import { SpeedDial } from './speed-dial';
 import { CustomToast } from './toast';
 import { CurrencyPicker } from './currency-picker';
@@ -36,4 +37,5 @@ export {
   CurrencyPicker,
   CustomToast,
   SpeedDial,
+  GreetingLoading,
 };
