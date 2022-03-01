@@ -1,6 +1,11 @@
 import { tSTypeAliasDeclaration } from '@babel/types';
 import React from 'react';
-import { StyleSheet } from 'react-native';
+import {
+  SafeAreaView,
+  StatusBar,
+  StyleSheet,
+  TouchableWithoutFeedback,
+} from 'react-native';
 import Animated, {
   Easing,
   useAnimatedStyle,
@@ -31,17 +36,24 @@ export const SpeedDial = ({ renderItems }: IProps) => {
   });
 
   return (
-    <View style={styles.container}>
-      {isOpen && renderItems()}
-      <TouchableOpacity
-        onPress={() => setIsOpen(!isOpen)}
-        style={styles.button}
-      >
-        <Animated.View style={animatedStyles}>
-          <Icon.Ioni size={25} color={colorScheme.white} name="add" />
-        </Animated.View>
-      </TouchableOpacity>
-    </View>
+    <>
+      {isOpen && (
+        <TouchableWithoutFeedback onPress={() => setIsOpen(false)}>
+          <View style={styles.overlay} />
+        </TouchableWithoutFeedback>
+      )}
+      <View style={styles.container}>
+        {isOpen && renderItems()}
+        <TouchableOpacity
+          onPress={() => setIsOpen(!isOpen)}
+          style={styles.button}
+        >
+          <Animated.View style={animatedStyles}>
+            <Icon.Ioni size={25} color={colorScheme.white} name="add" />
+          </Animated.View>
+        </TouchableOpacity>
+      </View>
+    </>
   );
 };
 
@@ -68,8 +80,17 @@ const styles = StyleSheet.create({
     alignItems: 'flex-end',
     bottom: 20,
     right: 20,
+    zIndex: 100,
   },
-
+  overlay: {
+    position: 'absolute',
+    top: 0,
+    bottom: 0,
+    right: 0,
+    left: 0,
+    zIndex: 2,
+    backgroundColor: colorScheme.loading,
+  },
   view: {
     width: 50,
     height: 50,

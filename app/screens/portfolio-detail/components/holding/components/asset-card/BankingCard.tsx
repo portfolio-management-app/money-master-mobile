@@ -28,7 +28,7 @@ export const BankingCard = ({ id, name, description, value, rate }: IProps) => {
       <View>
         <TextContainer color={colorScheme.assetPrice}>${value}</TextContainer>
         {rate > 0 ? (
-          <TextContainer color={colorScheme.green200}>+{rate}</TextContainer>
+          <TextContainer color={colorScheme.green300}>+{rate}</TextContainer>
         ) : (
           <TextContainer color={colorScheme.red500}>{rate}</TextContainer>
         )}

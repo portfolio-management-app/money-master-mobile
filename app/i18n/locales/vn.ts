@@ -57,7 +57,7 @@ export const vn = {
     password: 'Mật khẩu từ 8-32 kí tự và chứa cả chữ cái và số',
   },
   searchBar: {
-    placeholder: 'Tìm kiến',
+    placeholder: 'Tìm kiếm',
   },
   toastHeader: {
     error: 'Error',
@@ -104,5 +104,18 @@ export const vn = {
       termRange: 'Term range (month)',
       startDate: 'Start date',
     },
+  },
+  assetDetail: {
+    headerBanking: 'Banking  information',
+    headerCrypto: 'Crypto  information',
+    headerStock: 'Stock information',
+    headerRealEaster: 'Real easter information',
+    headerOther: 'Asset information',
+    buy: 'Buy',
+    transfer: 'Transfer',
+    import: 'Import',
+    export: 'Export',
+    information: 'Information',
+    transaction: 'Transaction history',
   },
 };

@@ -27,7 +27,7 @@ export const PortfolioCard = ({ name, balance, increase, id }: IProps) => {
       <TextContainer>{name}</TextContainer>
       <TextContainer color={colorScheme.theme} style={styles.textContainer}>
         ${balance}{' '}
-        <TextContainer color={colorScheme.green200}>+${increase}</TextContainer>
+        <TextContainer color={colorScheme.green300}>+${increase}</TextContainer>
       </TextContainer>
     </TouchableOpacity>
   );

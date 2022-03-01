@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, TouchableOpacity } from 'react-native';
 import { TextContainer, Icon } from 'shared/components';
+import { ASSET_DETAIL_CONTENT } from 'shared/constants';
 import { styleProvider, colorScheme } from 'shared/styles';
 
 export const SpeedDialButtons = () => {
@@ -8,7 +9,31 @@ export const SpeedDialButtons = () => {
     <>
       <View style={styleProvider.speedDialWrapper}>
         <View style={styleProvider.speedDialTooltip}>
-          <TextContainer>Transfer</TextContainer>
+          <TextContainer>{ASSET_DETAIL_CONTENT.import}</TextContainer>
+        </View>
+        <TouchableOpacity style={styleProvider.speedDialButton}>
+          <Icon.MaterialCommunity
+            size={20}
+            color={colorScheme.white}
+            name="file-import"
+          />
+        </TouchableOpacity>
+      </View>
+      <View style={styleProvider.speedDialWrapper}>
+        <View style={styleProvider.speedDialTooltip}>
+          <TextContainer>{ASSET_DETAIL_CONTENT.export}</TextContainer>
+        </View>
+        <TouchableOpacity style={styleProvider.speedDialButton}>
+          <Icon.MaterialCommunity
+            size={20}
+            color={colorScheme.white}
+            name="file-export"
+          />
+        </TouchableOpacity>
+      </View>
+      <View style={styleProvider.speedDialWrapper}>
+        <View style={styleProvider.speedDialTooltip}>
+          <TextContainer>{ASSET_DETAIL_CONTENT.transfer}</TextContainer>
         </View>
         <TouchableOpacity style={styleProvider.speedDialButton}>
           <Icon.MaterialCommunity
@@ -20,7 +45,7 @@ export const SpeedDialButtons = () => {
       </View>
       <View style={styleProvider.speedDialWrapper}>
         <View style={styleProvider.speedDialTooltip}>
-          <TextContainer>Receive</TextContainer>
+          <TextContainer>{ASSET_DETAIL_CONTENT.buy}</TextContainer>
         </View>
         <TouchableOpacity style={styleProvider.speedDialButton}>
           <Icon.Material

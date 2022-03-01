@@ -111,4 +111,17 @@ export const en = {
       startDate: 'Start date',
     },
   },
+  assetDetail: {
+    headerBanking: 'Banking  information',
+    headerCrypto: 'Crypto  information',
+    headerStock: 'Stock information',
+    headerRealEaster: 'Real easter information',
+    headerOther: 'Asset information',
+    buy: 'Buy',
+    transfer: 'Transfer',
+    import: 'Import',
+    export: 'Export',
+    information: 'Information',
+    transaction: 'Transaction history',
+  },
 };

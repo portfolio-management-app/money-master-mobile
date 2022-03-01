@@ -39,6 +39,7 @@ export const AssetGroup = () => {
           >
             {GROUP_NAMES.cash}
           </TextContainer>
+
           {renderCashItems.map((item) => item)}
         </View>
         <View>

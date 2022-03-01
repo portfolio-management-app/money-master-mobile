@@ -1,3 +1,5 @@
+import { BottomSheet } from './bottom-sheet';
+import { AssetSectionHeader } from './asset-section-header';
 import { GreetingLoading } from './loading/GreettingLoading';
 import { SpeedDial } from './speed-dial';
 import { CustomToast } from './toast';
@@ -38,4 +40,6 @@ export {
   CustomToast,
   SpeedDial,
   GreetingLoading,
+  AssetSectionHeader,
+  BottomSheet,
 };
