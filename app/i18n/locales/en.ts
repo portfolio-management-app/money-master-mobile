@@ -62,7 +62,7 @@ export const en = {
     password: 'Password must contain character and number, len > 8',
   },
   searchBar: {
-    placeholder: 'Search',
+    placeholder: 'Search...',
   },
   toastHeader: {
     error: 'Error',

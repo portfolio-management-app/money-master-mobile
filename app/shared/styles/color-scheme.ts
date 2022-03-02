@@ -20,6 +20,7 @@ const colors = {
   green300: '#4d8c6b',
   gray100: '#E0E0E0',
   blue100: '#EDF8FD',
+
   warning: '#FF7B1B',
   bottomTabSelected: '#2D7CF3',
 };

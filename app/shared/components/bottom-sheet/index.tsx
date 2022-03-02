@@ -3,22 +3,31 @@ import RBSheet from 'react-native-raw-bottom-sheet';
 import { colorScheme } from 'shared/styles';
 
 interface IProps {
-  ref: any;
-  children: JSX.Element | undefined;
+  children: React.ReactNode;
+  open: boolean;
+  onClose: () => void;
 }
 
-export const BottomSheet = ({ ref, children }: IProps) => {
+export const BottomSheet = ({ children, open, onClose }: IProps) => {
+  const ref: any = React.useRef();
+
+  React.useEffect(() => {
+    if (open) ref?.current?.open();
+    else ref?.current?.close();
+  }, [open]);
   return (
     <RBSheet
-      closeOnPressMask
       ref={ref}
+      closeOnPressBack
+      closeOnPressMask
+      onClose={onClose}
       closeOnDragDown={true}
       customStyles={{
         wrapper: {
           backgroundColor: colorScheme.loading,
         },
         draggableIcon: {
-          backgroundColor: '#000',
+          backgroundColor: colorScheme.black200,
         },
       }}
     >

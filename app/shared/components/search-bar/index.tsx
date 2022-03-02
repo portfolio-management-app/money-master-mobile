@@ -1,15 +1,28 @@
 import React from 'react';
-import { StyleSheet } from 'react-native';
-import { Incubator, View } from 'react-native-ui-lib';
-import { colorScheme, dimensionProvider } from 'shared/styles';
+import { StyleSheet, TextInput } from 'react-native';
+import { View } from 'react-native-ui-lib';
+import { colorScheme } from 'shared/styles';
 import { Icon } from '../icon';
 
 interface IProps {
   onSearch?: (value: string) => void;
   placeholder: string;
+  placeHolderTextColor?: string;
+  borderColor?: string;
+  iconColor?: string;
+  selectionColor?: string;
+  textColor?: string;
 }
 
-export const SearchBar = ({ onSearch, placeholder }: IProps) => {
+export const SearchBar = ({
+  onSearch,
+  placeholder,
+  iconColor = colorScheme.black200,
+  placeHolderTextColor = colorScheme.gray400,
+  borderColor = colorScheme.gray400,
+  selectionColor = colorScheme.theme,
+  textColor = colorScheme.black200,
+}: IProps) => {
   const [search, setSearch] = React.useState('');
 
   const updateSearch = React.useCallback(
@@ -20,30 +33,37 @@ export const SearchBar = ({ onSearch, placeholder }: IProps) => {
     [onSearch]
   );
   return (
-    <View style={styles.searchContainer}>
-      <Icon.Feather name="search" size={25} />
-      <Incubator.TextField
-        text70BL
+    <View style={[styles.searchContainer, { borderColor: borderColor }]}>
+      <Icon.Feather
+        name="search"
+        size={25}
+        style={{ marginRight: 10 }}
+        color={iconColor}
+      />
+      <TextInput
         value={search}
         placeholder={placeholder}
-        fieldStyle={styles.searchField}
+        style={[styles.searchField, { color: textColor }]}
+        placeholderTextColor={placeHolderTextColor}
         onChangeText={updateSearch}
-        selectionColor={colorScheme.theme}
-      ></Incubator.TextField>
+        selectionColor={selectionColor}
+      />
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   searchField: {
-    borderBottomWidth: 0.5,
-    borderBottomColor: colorScheme.black200,
-    width: dimensionProvider.width - 150,
-    marginLeft: 10,
+    padding: 5,
+    fontSize: 16,
   },
   searchContainer: {
     paddingHorizontal: 10,
     flexDirection: 'row',
     alignItems: 'center',
+    width: '100%',
+    overflow: 'hidden',
+    borderWidth: 0.5,
+    borderRadius: 10,
   },
 });

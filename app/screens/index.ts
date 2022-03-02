@@ -1,14 +1,12 @@
-import { BankAssetDetail } from './bank-asset-detail';
+import { BankAssetDetail } from './asset-detail';
 import { PortfolioDetail } from './portfolio-detail';
 import { DashBoard } from './dashboard';
 import { Portfolios } from './portfolios';
 import { MarketCap } from './market-cap';
 import { Account } from './account';
-import { ForgetPassword } from './authentication/forget-password';
-import { Register } from './authentication/register';
-import { Login } from './authentication/login';
 import { Start } from './start';
 import { Home } from './home';
+import { ForgetPassword, Login, Register } from './authentication';
 
 export {
   Home,

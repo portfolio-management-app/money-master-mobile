@@ -1,14 +1,10 @@
 import React from 'react';
 import { Modal } from 'react-native-ui-lib';
 import { styleProvider } from 'shared/styles';
+import { ModalProps } from 'shared/types';
 import { CreateForm } from './components';
 
-interface IProps {
-  show: boolean;
-  onClose: () => void;
-}
-
-const Component = ({ show, onClose }: IProps) => {
+const Component = ({ show, onClose }: ModalProps) => {
   const onCreate = React.useCallback((data: any) => {
     console.log(data);
   }, []);

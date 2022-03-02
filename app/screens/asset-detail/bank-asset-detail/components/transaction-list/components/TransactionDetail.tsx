@@ -1,55 +1,30 @@
 import React from 'react';
 import { StyleSheet } from 'react-native';
-import { ExpandableSection, View } from 'react-native-ui-lib';
-import { AssetSectionHeader, Icon, TextContainer } from 'shared/components';
-import { ASSET_DETAIL_CONTENT } from 'shared/constants';
-import { colorScheme, styleProvider } from 'shared/styles';
-import { fakeData } from '../../fake-data';
+import { TouchableOpacity, View } from 'react-native-ui-lib';
+import { Icon, TextContainer } from 'shared/components';
+import { styleProvider, colorScheme } from 'shared/styles';
+
+interface IProps {
+  type: 'buy' | 'transfer';
+  amount: number;
+  receiver: string | null;
+  date: string;
+  onPress?: () => void;
+}
 
 const MARGIN = 10;
 
-export const TransactionList = () => {
-  const [open, setOpen] = React.useState(true);
-
-  return (
-    <>
-      <ExpandableSection
-        expanded={open}
-        onPress={() => setOpen(!open)}
-        sectionHeader={
-          <AssetSectionHeader
-            style={{
-              padding: 20,
-            }}
-            open={open}
-            title={ASSET_DETAIL_CONTENT.transaction}
-          />
-        }
-      >
-        {fakeData.transactions.map((item) => {
-          return getRenderItem(
-            item.type as any,
-            item.id,
-            item.amount,
-            item.receiver,
-            item.date
-          );
-        })}
-      </ExpandableSection>
-    </>
-  );
-};
-const getRenderItem = (
-  type: 'buy' | 'transfer',
-  key: number,
-  amount: number,
-  receiver: string | null,
-  date: string
-): JSX.Element => {
+export const TransactionDetail = ({
+  type,
+  amount,
+  receiver,
+  date,
+  onPress,
+}: IProps) => {
   switch (type) {
     case 'buy':
       return (
-        <View style={styles.transactionItem} key={key}>
+        <TouchableOpacity onPress={onPress} style={styles.transactionItem}>
           <TextContainer mb={MARGIN}>{date}</TextContainer>
           <View style={styles.info}>
             <View style={styleProvider.centerHorizontal}>
@@ -66,11 +41,11 @@ const getRenderItem = (
               +{amount}
             </TextContainer>
           </View>
-        </View>
+        </TouchableOpacity>
       );
     case 'transfer':
       return (
-        <View style={styles.transactionItem} key={key}>
+        <TouchableOpacity onPress={onPress} style={styles.transactionItem}>
           <TextContainer mb={MARGIN}>{date}</TextContainer>
           <View style={styles.info}>
             <View>
@@ -90,7 +65,7 @@ const getRenderItem = (
             </View>
             <TextContainer color={colorScheme.red500}>-{amount}</TextContainer>
           </View>
-        </View>
+        </TouchableOpacity>
       );
   }
 };

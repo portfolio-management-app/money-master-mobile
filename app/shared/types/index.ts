@@ -20,3 +20,8 @@ export type ScreenParams = {
 export type OnScrollProps = {
   onScroll: (e: any) => void;
 };
+
+export type ModalProps = {
+  show: boolean;
+  onClose: () => void;
+};

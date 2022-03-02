@@ -72,7 +72,7 @@ const styles = StyleSheet.create({
   },
   datePickerButton: {
     borderBottomWidth: 0.5,
-    borderColor: colorScheme.gray400,
+    borderColor: colorScheme.black200,
     paddingBottom: 4,
     marginBottom: 20,
     fontFamily: fontProvider.openSans,

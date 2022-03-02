@@ -16,6 +16,8 @@ const value: any = storage.getString(LANG_KEY);
 console.log('GOT LANG KEY', value);
 if (value) {
   key = value;
+} else {
+  storage.set(LANG_KEY, 'en');
 }
 
 export const localeKey = key;

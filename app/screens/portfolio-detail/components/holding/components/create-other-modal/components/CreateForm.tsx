@@ -26,7 +26,6 @@ const Component = ({ onSubmit, onClose }: IProps) => {
       onSubmit={(values) => onSubmit(values)}
     >
       {({ errors, touched, handleBlur, handleChange, handleSubmit }) => {
-        console.log(errors);
         return (
           <>
             <CreateModalHeader

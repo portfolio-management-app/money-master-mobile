@@ -5,6 +5,8 @@ import { SCREEN_CONTENT } from 'screens/portfolio-detail/constants';
 import { CreateModalHeader, TextContainer } from 'shared/components';
 import { colorScheme } from 'shared/styles';
 import { CreateOtherModal } from '../create-other-modal';
+import { CryptoModal } from '../crypto-modal';
+import { StockModal } from '../stock-modal';
 import { ITEMS } from './item';
 
 interface IProps {
@@ -12,18 +14,59 @@ interface IProps {
   onClose: () => void;
 }
 
+type ShowState = {
+  crypto: boolean;
+  stock: boolean;
+  banking: boolean;
+  cash: boolean;
+  realEaster: boolean;
+  other: boolean;
+};
+
 const PICKER_CONTENT = SCREEN_CONTENT.assetPicker;
 
 const Component = ({ show, onClose }: IProps) => {
-  const [showCreateOther, setShowCreateOther] = React.useState(false);
-  const toggle = () => {
-    setShowCreateOther(!setShowCreateOther);
-  };
+  const [showModal, setShowModal] = React.useState<ShowState>({
+    crypto: false,
+    cash: false,
+    other: false,
+    stock: false,
+    banking: false,
+    realEaster: false,
+  });
 
-  const onItemPress = React.useCallback((id: number) => {
+  const toggle = React.useCallback((id: number) => {
     switch (id) {
+      case 0:
+        setShowModal((prev) => {
+          return { ...prev, crypto: !prev.crypto };
+        });
+        break;
+      case 1:
+        setShowModal((prev) => {
+          return { ...prev, stock: !prev.stock };
+        });
+        break;
+      case 2:
+        setShowModal((prev) => {
+          return { ...prev, banking: !prev.banking };
+        });
+        break;
+      case 3:
+        setShowModal((prev) => {
+          return { ...prev, realEaster: !prev.realEaster };
+        });
+        break;
+      case 4:
+        setShowModal((prev) => {
+          return { ...prev, cash: !prev.cash };
+        });
+        break;
       case 5:
-        setShowCreateOther(true);
+        setShowModal((prev) => {
+          return { ...prev, other: !prev.other };
+        });
+        break;
     }
   }, []);
 
@@ -38,7 +81,7 @@ const Component = ({ show, onClose }: IProps) => {
       />
       {ITEMS.map((item) => (
         <TouchableOpacity
-          onPress={() => onItemPress(item.id)}
+          onPress={() => toggle(item.id)}
           style={styles.card}
           key={item.id}
         >
@@ -46,7 +89,9 @@ const Component = ({ show, onClose }: IProps) => {
           <TextContainer style={{ marginLeft: 20 }}>{item.label}</TextContainer>
         </TouchableOpacity>
       ))}
-      <CreateOtherModal show={showCreateOther} onClose={toggle} />
+      <CreateOtherModal show={showModal.other} onClose={() => toggle(5)} />
+      <CryptoModal show={showModal.crypto} onClose={() => toggle(0)} />
+      <StockModal show={showModal.stock} onClose={() => toggle(1)} />
     </Modal>
   );
 };

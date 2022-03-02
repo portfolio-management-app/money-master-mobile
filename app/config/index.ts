@@ -6,7 +6,7 @@ export const FacebookAppID = '283259500459094';
 let url: string = '';
 
 if (__DEV__) {
-  url = 'https://4a49-123-22-24-194.ngrok.io';
+  url = 'https://4b72-123-22-24-194.ngrok.io';
 }
 
 export const BASE_URL = url;
