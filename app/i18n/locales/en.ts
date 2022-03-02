@@ -110,6 +110,9 @@ export const en = {
       termRange: 'Term range (month)',
       startDate: 'Start date',
     },
+    bankingModal: {
+      name: 'Bank Name',
+    },
   },
   assetDetail: {
     headerBanking: 'Banking  information',
@@ -123,5 +126,6 @@ export const en = {
     export: 'Export',
     information: 'Information',
     transaction: 'Transaction history',
+    edit: 'Edit',
   },
 };

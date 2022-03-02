@@ -21,19 +21,19 @@ export const ITEMS = [
   {
     id: 2,
     label: PICKER_LABEL.banking,
-    icon: <Icon.FontAwesome size={SIZE} color={COLOR} name="bank" />,
+    icon: <Icon.FontAwesome size={SIZE - 5} color={COLOR} name="bank" />,
   },
   {
     id: 3,
     label: PICKER_LABEL.realEaster,
-    icon: <Icon.FontAwesome5 size={SIZE} color={COLOR} name="building" />,
+    icon: <Icon.FontAwesome5 size={SIZE - 5} color={COLOR} name="building" />,
   },
   {
     id: 4,
     label: PICKER_LABEL.cash,
     icon: (
       <Icon.FontAwesome5
-        size={SIZE - 5}
+        size={SIZE - 10}
         color={COLOR}
         name="money-bill-wave-alt"
       />

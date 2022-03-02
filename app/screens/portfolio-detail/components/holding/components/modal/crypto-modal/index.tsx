@@ -4,12 +4,12 @@ import { Modal, View } from 'react-native-ui-lib';
 import { SCREEN_CONTENT } from 'screens/portfolio-detail/constants';
 import { CreateModalHeader, SearchBar } from 'shared/components';
 import { SEARCH_BAR_CONTENT } from 'shared/constants';
-import { colorScheme, styleProvider } from 'shared/styles';
+import { colorScheme } from 'shared/styles';
 import { ModalProps } from 'shared/types';
 
 const HEADER = SCREEN_CONTENT.assetPicker;
 
-export const CryptoModal = ({ show, onClose }: ModalProps) => {
+const Component = ({ show, onClose }: ModalProps) => {
   return (
     <Modal onRequestClose={onClose} animationType="fade" visible={show}>
       <CreateModalHeader
@@ -32,6 +32,8 @@ export const CryptoModal = ({ show, onClose }: ModalProps) => {
     </Modal>
   );
 };
+
+export const CryptoModal = React.memo(Component);
 
 const styles = StyleSheet.create({
   searchBar: {

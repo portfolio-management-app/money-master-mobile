@@ -9,7 +9,7 @@ import { ModalProps } from 'shared/types';
 
 const HEADER = SCREEN_CONTENT.assetPicker;
 
-export const StockModal = ({ show, onClose }: ModalProps) => {
+const Component = ({ show, onClose }: ModalProps) => {
   return (
     <Modal onRequestClose={onClose} animationType="fade" visible={show}>
       <CreateModalHeader
@@ -32,6 +32,8 @@ export const StockModal = ({ show, onClose }: ModalProps) => {
     </Modal>
   );
 };
+
+export const StockModal = React.memo(Component);
 
 const styles = StyleSheet.create({
   searchBar: {

@@ -9,6 +9,18 @@ export const SpeedDialButtons = () => {
     <>
       <View style={styleProvider.speedDialWrapper}>
         <View style={styleProvider.speedDialTooltip}>
+          <TextContainer>{ASSET_DETAIL_CONTENT.edit}</TextContainer>
+        </View>
+        <TouchableOpacity style={styleProvider.speedDialButton}>
+          <Icon.MaterialCommunity
+            size={20}
+            color={colorScheme.white}
+            name="briefcase-edit"
+          />
+        </TouchableOpacity>
+      </View>
+      <View style={styleProvider.speedDialWrapper}>
+        <View style={styleProvider.speedDialTooltip}>
           <TextContainer>{ASSET_DETAIL_CONTENT.import}</TextContainer>
         </View>
         <TouchableOpacity style={styleProvider.speedDialButton}>

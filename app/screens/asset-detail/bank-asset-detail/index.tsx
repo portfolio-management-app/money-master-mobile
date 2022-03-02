@@ -15,9 +15,7 @@ export const BankAssetDetail = () => {
       <View style={styleProvider.container}>
         <Information />
       </View>
-
       <TransactionList />
-
       <SpeedDial renderItems={() => <SpeedDialButtons />} />
     </PlatformView>
   );

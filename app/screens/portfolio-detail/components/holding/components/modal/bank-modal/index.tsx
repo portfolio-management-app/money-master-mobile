@@ -20,4 +20,4 @@ const Component = ({ show, onClose }: ModalProps) => {
   );
 };
 
-export const CreateOtherModal = React.memo(Component);
+export const BankModal = React.memo(Component);

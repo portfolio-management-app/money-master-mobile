@@ -4,9 +4,13 @@ import { Modal, TouchableOpacity } from 'react-native-ui-lib';
 import { SCREEN_CONTENT } from 'screens/portfolio-detail/constants';
 import { CreateModalHeader, TextContainer } from 'shared/components';
 import { colorScheme } from 'shared/styles';
-import { CreateOtherModal } from '../create-other-modal';
-import { CryptoModal } from '../crypto-modal';
-import { StockModal } from '../stock-modal';
+import {
+  CashModal,
+  OtherModal,
+  BankModal,
+  StockModal,
+  CryptoModal,
+} from '../modal';
 import { ITEMS } from './item';
 
 interface IProps {
@@ -89,9 +93,12 @@ const Component = ({ show, onClose }: IProps) => {
           <TextContainer style={{ marginLeft: 20 }}>{item.label}</TextContainer>
         </TouchableOpacity>
       ))}
-      <CreateOtherModal show={showModal.other} onClose={() => toggle(5)} />
+
       <CryptoModal show={showModal.crypto} onClose={() => toggle(0)} />
       <StockModal show={showModal.stock} onClose={() => toggle(1)} />
+      <BankModal show={showModal.banking} onClose={() => toggle(2)} />
+      <CashModal show={showModal.cash} onClose={() => toggle(4)} />
+      <OtherModal show={showModal.other} onClose={() => toggle(5)} />
     </Modal>
   );
 };
