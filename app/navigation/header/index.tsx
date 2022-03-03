@@ -63,6 +63,6 @@ const styles = StyleSheet.create({
   leftButton: {
     alignItems: 'center',
     justifyContent: 'center',
-    marginRight: 20,
+    marginRight: 10,
   },
 });
