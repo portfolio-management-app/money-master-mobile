@@ -16,4 +16,6 @@ export const imageSource = {
   cash: require('./source/money.png'),
   ethereum: require('./source/ethereum.png'),
   noData: require('./source/no-data.png'),
+  google: require('./source/google.png'),
+  facebook: require('./source/facebook.png'),
 };

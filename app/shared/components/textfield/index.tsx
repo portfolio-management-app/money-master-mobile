@@ -54,6 +54,7 @@ export const CustomTextField = ({
 const styles = StyleSheet.create({
   field: {
     borderBottomWidth: 0.5,
+    paddingBottom: 5,
   },
   placeHolder: {
     fontSize: 16,

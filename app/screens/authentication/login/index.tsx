@@ -20,6 +20,7 @@ import { i18n } from 'i18n';
 import { localeKey } from 'services/storage';
 import { AuthenticationSchema } from '../validator';
 import { UserStore } from 'shared/stores';
+import { imageSource } from 'assets/images';
 
 const LOGIN_CONTENT = i18n[localeKey].loginPage;
 
@@ -117,11 +118,15 @@ export const Login = () => {
 
         <View style={styles.buttonContainer}>
           <BaseButton
+            iconSource={imageSource.google}
+            iconStyle={styleProvider.buttonIcon}
             style={styles.googleButton}
             label={LOGIN_CONTENT.google}
             onPress={handleGoogleLogin}
           />
           <BaseButton
+            iconSource={imageSource.facebook}
+            iconStyle={styleProvider.buttonIcon}
             style={styles.facebookButton}
             onPress={handleFaceBookLogin}
             label={LOGIN_CONTENT.facebook}

@@ -8,6 +8,7 @@ import FeatherIcon from 'react-native-vector-icons/Feather';
 import IoniIcon from 'react-native-vector-icons/Ionicons';
 import SimpleLineIcon from 'react-native-vector-icons/SimpleLineIcons';
 import EvilIcons from 'react-native-vector-icons/EvilIcons';
+import FontAwesomeIcon5 from 'react-native-vector-icons/FontAwesome5';
 
 export const Icon = {
   Material: (props: IconProps) => {
@@ -21,6 +22,9 @@ export const Icon = {
   },
   FontAwesome: (props: IconProps) => {
     return <FontAwesomeIcon {...props} />;
+  },
+  FontAwesome5: (props: IconProps) => {
+    return <FontAwesomeIcon5 {...props} />;
   },
   Feather: (props: IconProps) => {
     return <FeatherIcon {...props} />;

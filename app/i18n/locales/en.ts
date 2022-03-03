@@ -62,7 +62,7 @@ export const en = {
     password: 'Password must contain character and number, len > 8',
   },
   searchBar: {
-    placeholder: 'Search',
+    placeholder: 'Search...',
   },
   toastHeader: {
     error: 'Error',
@@ -92,5 +92,51 @@ export const en = {
     notification: 'Notification',
     share: 'Share this app',
     signOut: 'Sign out',
+  },
+
+  portfolioDetail: {
+    tabs: {
+      holding: 'Holdings',
+      brief: 'Brief',
+      report: 'Report',
+      note: 'Notes',
+      payout: 'Payout',
+    },
+    assetPicker: {
+      title: 'Choose an asset type',
+      nft: 'Crypto currency',
+      stock: 'Stock',
+      banking: 'Banking',
+      realEaster: 'Real easter',
+      other: 'Other',
+      cash: 'Cash',
+    },
+    createOtherModal: {
+      header: 'Other',
+      create: 'Create',
+      name: 'Name',
+      balance: 'Initial balance',
+      selectCurrency: 'Selected currency',
+      rate: 'Interest rate(%)',
+      termRange: 'Term range (month)',
+      startDate: 'Start date',
+    },
+    bankingModal: {
+      name: 'Bank Name',
+    },
+  },
+  assetDetail: {
+    headerBanking: 'Banking  information',
+    headerCrypto: 'Crypto  information',
+    headerStock: 'Stock information',
+    headerRealEaster: 'Real easter information',
+    headerOther: 'Asset information',
+    buy: 'Buy',
+    transfer: 'Transfer',
+    import: 'Import',
+    export: 'Export',
+    information: 'Information',
+    transaction: 'Transaction history',
+    edit: 'Edit',
   },
 };

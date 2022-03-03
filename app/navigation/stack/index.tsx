@@ -1,7 +1,15 @@
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { Login, Home, Start, Register, ForgetPassword } from 'screens';
+import {
+  Login,
+  Home,
+  Start,
+  Register,
+  ForgetPassword,
+  PortfolioDetail,
+  BankAssetDetail,
+} from 'screens';
 import { screenName } from 'navigation/screen-names';
 import { StatusBar } from 'react-native';
 import { colorScheme } from 'shared/styles';
@@ -23,6 +31,14 @@ export const NavigationStack = () => {
         <Stack.Screen
           name={screenName.forgetPassword}
           component={ForgetPassword}
+        />
+        <Stack.Screen
+          name={screenName.portfolioDetail}
+          component={PortfolioDetail}
+        />
+        <Stack.Screen
+          name={screenName.bankAssetDetail}
+          component={BankAssetDetail}
         />
       </Stack.Navigator>
     </NavigationContainer>

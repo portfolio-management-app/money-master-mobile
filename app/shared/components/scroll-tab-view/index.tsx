@@ -1,13 +1,14 @@
 import React from 'react';
-import { useWindowDimensions } from 'react-native';
+import { StyleProp, useWindowDimensions, ViewStyle } from 'react-native';
 import { TabView, TabBar, SceneRendererProps } from 'react-native-tab-view';
-import { colorScheme } from 'shared/styles';
 import { TextContainer } from '../text-container';
 
 interface IProps {
   barStyle?: 'light' | 'dark';
   enableScroll?: boolean;
   tabWidth?: number;
+  style?: StyleProp<ViewStyle>;
+  indicatorStyle?: StyleProp<ViewStyle>;
   routes: Array<{
     key: string;
     title: string;
@@ -24,6 +25,8 @@ export const ScrollTabView = ({
   tabWidth,
   renderScene,
   routes,
+  indicatorStyle,
+  style,
 }: IProps) => {
   const layout = useWindowDimensions();
 
@@ -39,12 +42,12 @@ export const ScrollTabView = ({
           tabStyle={{ width: tabWidth }}
           scrollEnabled={enableScroll}
           renderLabel={({ route, color }) => (
-            <TextContainer style={{ color: color }} type="small">
+            <TextContainer color={color} type="small">
               {route.title}
             </TextContainer>
           )}
-          indicatorStyle={{ backgroundColor: colorScheme.white }}
-          style={{ backgroundColor: colorScheme.theme }}
+          indicatorStyle={indicatorStyle}
+          style={style}
           {...props}
         />
       )}

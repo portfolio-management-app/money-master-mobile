@@ -11,7 +11,7 @@ import {
 import { Checkbox } from 'react-native-ui-lib';
 import { localeKey } from 'services/storage';
 import { Icon, SearchBar } from 'shared/components';
-import { colorScheme } from 'shared/styles';
+import { colorScheme, dimensionProvider } from 'shared/styles';
 
 const SEARCH_BAR_CONTENT = i18n[localeKey].searchBar;
 
@@ -52,7 +52,7 @@ export const SearchFilterBar = ({ onFilter, onSearch }: IProps) => {
       />
       <Menu>
         <MenuTrigger>
-          <Icon.Ioni size={30} name="filter" />
+          <Icon.Ioni size={30} style={{ marginLeft: 10 }} name="filter" />
         </MenuTrigger>
         <MenuOptions
           customStyles={{
@@ -88,6 +88,7 @@ const styles = StyleSheet.create({
   searchContainer: {
     paddingTop: 20,
     flexDirection: 'row',
+    width: dimensionProvider.width - 80,
   },
   checkBoxLabel: {
     fontSize: 18,

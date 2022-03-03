@@ -1,4 +1,8 @@
 import { HyperLink } from './hyper-link';
+import { BottomSheet } from './bottom-sheet';
+import { AssetSectionHeader } from './asset-section-header';
+import { GreetingLoading } from './loading/GreettingLoading';
+import { SpeedDial } from './speed-dial';
 import { CustomToast } from './toast';
 import { CurrencyPicker } from './currency-picker';
 import { CreateModalHeader } from './create-modal-header';
@@ -36,4 +40,8 @@ export {
   CurrencyPicker,
   CustomToast,
   HyperLink,
+  SpeedDial,
+  GreetingLoading,
+  AssetSectionHeader,
+  BottomSheet,
 };

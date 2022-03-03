@@ -7,7 +7,7 @@ export const PortfolioStore = types
   })
   .create({
     portfolioList: [
-      { name: 'Investment 1', dailyIncrease: 10.242, balance: 45.32426 },
-      { name: 'Investment 2', dailyIncrease: 4.345, balance: 121.2419 },
+      { id: 1, name: 'Investment 1', dailyIncrease: 10.242, balance: 45.32426 },
+      { id: 2, name: 'Investment 2', dailyIncrease: 4.345, balance: 121.2419 },
     ],
   });

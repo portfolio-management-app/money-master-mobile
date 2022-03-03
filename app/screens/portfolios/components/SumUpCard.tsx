@@ -13,7 +13,7 @@ export const SumUpCard = () => {
       </TextContainer>
       <TextContainer light type="small">
         Open P/L:{' '}
-        <TextContainer color={colorScheme.red500}>-$32.23</TextContainer>
+        <TextContainer color={colorScheme.warning}>-$32.23</TextContainer>
       </TextContainer>
       <TextContainer light type="small">
         Daily P/L:{' '}

@@ -25,7 +25,10 @@ export const CustomToast = ({
   onDismiss,
   variant = 'success',
 }: IProps) => {
-  const { style, toastHeader, icon } = getUI(variant);
+  const { style, toastHeader, icon } = React.useMemo(
+    () => getUI(variant),
+    [variant]
+  );
   return (
     <Incubator.Toast
       onDismiss={onDismiss}

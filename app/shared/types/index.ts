@@ -19,4 +19,21 @@ export interface TextContainerProps extends TextProps {
   bold?: boolean;
   semiBold?: boolean;
   color?: string;
+  mb?: number;
+  mt?: number;
+  ml?: number;
+  mr?: number;
 }
+export type ScreenParams = {
+  name: string;
+  key: string;
+};
+
+export type OnScrollProps = {
+  onScroll: (e: any) => void;
+};
+
+export type ModalProps = {
+  show: boolean;
+  onClose: () => void;
+};

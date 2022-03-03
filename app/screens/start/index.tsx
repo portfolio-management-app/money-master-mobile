@@ -3,11 +3,15 @@ import { StyleSheet, Image, View } from 'react-native';
 import { observer } from 'mobx-react-lite';
 import { CommonActions, useNavigation } from '@react-navigation/native';
 import { imageSource } from 'assets/images';
-import { BaseButton, PlatformView, TextContainer } from 'shared/components';
-import { colorScheme, dimensionProvider, styleProvider } from 'shared/styles';
+import {
+  BaseButton,
+  GreetingLoading,
+  PlatformView,
+  TextContainer,
+} from 'shared/components';
+import { colorScheme, dimensionProvider } from 'shared/styles';
 import { UserStore } from 'shared/stores';
 import { screenName } from 'navigation/screen-names';
-import { WaveIndicator } from 'react-native-indicators';
 import { localeKey, storage, TOKEN_KEY } from 'services/storage';
 import { i18n } from 'i18n';
 
@@ -36,9 +40,7 @@ export const Start = observer(() => {
   return (
     <>
       {pendingAuthen ? (
-        <PlatformView style={styles.container}>
-          <WaveIndicator size={80} color={colorScheme.theme} />
-        </PlatformView>
+        <GreetingLoading />
       ) : (
         <>
           {!user.isLoggedIn ? (
@@ -76,9 +78,7 @@ export const Start = observer(() => {
               </View>
             </PlatformView>
           ) : (
-            <PlatformView style={styleProvider.body}>
-              <WaveIndicator size={80} color={colorScheme.theme} />
-            </PlatformView>
+            <GreetingLoading />
           )}
         </>
       )}

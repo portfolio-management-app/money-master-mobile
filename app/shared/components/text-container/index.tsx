@@ -4,18 +4,35 @@ import { colorScheme, fontProvider } from 'shared/styles';
 import { TextContainerProps } from 'shared/types';
 
 export const TextContainer = (props: TextContainerProps) => {
-  const { style, children, bold, semiBold, color, type, light, ...res } = props;
+  const {
+    style,
+    children,
+    bold,
+    semiBold,
+    color,
+    type,
+    light,
+    mb,
+    ml,
+    mr,
+    mt,
+    ...res
+  } = props;
 
   return (
     <Text
       style={[
-        style,
         {
           fontSize: getFontSize(type),
           color: getColor(color, light),
           fontWeight: getFontWeight(bold, semiBold),
           fontFamily: fontProvider.openSans,
+          marginBottom: mb ? mb : undefined,
+          marginLeft: ml ? ml : undefined,
+          marginRight: mr ? mr : undefined,
+          marginTop: mt ? mt : undefined,
         },
+        style,
       ]}
       {...res}
     >
@@ -29,7 +46,7 @@ const getFontWeight = (bold?: boolean, semiBold?: boolean) => {
     return 'bold';
   }
   if (semiBold) {
-    return '600';
+    return '700';
   }
   return 'normal';
 };

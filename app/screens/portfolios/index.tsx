@@ -23,7 +23,8 @@ export const Portfolios = observer(() => {
         <ScrollView>
           {portfolioList.map((portfolio) => (
             <PortfolioCard
-              key={portfolio.name}
+              id={portfolio.id}
+              key={portfolio.id}
               name={portfolio.name}
               increase={portfolio.dailyIncrease}
               balance={portfolio.balance}

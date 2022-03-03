@@ -21,13 +21,15 @@ export const FloatingButton = ({
   mg,
   onPress,
 }: IProps) => {
-  const style = getStyle({
-    color: color,
-    borderRadius: borderRadius,
-    mg: mg,
-    placement: placement,
-    size: size,
-  });
+  const style = React.useMemo(() => {
+    return getStyle({
+      color: color,
+      borderRadius: borderRadius,
+      mg: mg,
+      placement: placement,
+      size: size,
+    });
+  }, [color, borderRadius, mg, placement, size]);
 
   const handlePress = () => {
     if (onPress) {
@@ -50,8 +52,8 @@ const getStyle = ({
   size,
 }: Partial<IProps>) => {
   const defaultColor = color ? color : colorScheme.theme;
-  const radius = borderRadius ? borderRadius : 50;
-  const defaultSize = size ? size : 50;
+  const radius = borderRadius ? borderRadius : 60;
+  const defaultSize = size ? size : 60;
   const margin = mg ? mg : 20;
 
   let style: ViewStyle = {
