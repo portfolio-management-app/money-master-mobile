@@ -1,6 +1,5 @@
 import { observer } from 'mobx-react-lite';
 import React from 'react';
-import { StatusBar } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import { View } from 'react-native-ui-lib';
 import { FocusAwareStatusBar, PlatformView } from 'shared/components';

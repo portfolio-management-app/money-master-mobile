@@ -14,6 +14,7 @@ interface IProps {
 }
 
 export const BankingCard = ({ id, name, description, value, rate }: IProps) => {
+  console.log('ASSET ID', id);
   const navigation = useNavigation();
 
   const gotoBankDetail = () => {

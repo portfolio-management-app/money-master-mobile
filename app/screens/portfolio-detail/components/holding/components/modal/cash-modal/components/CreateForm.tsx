@@ -7,7 +7,6 @@ import {
   CreateModalHeader,
   CurrencyPicker,
   CustomTextField,
-  DatePicker,
 } from 'shared/components';
 import { colorScheme } from 'shared/styles';
 import { CreateAssetSchema } from './validator';

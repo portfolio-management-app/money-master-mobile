@@ -1,5 +1,5 @@
 import React from 'react';
-import { Alert, Linking } from 'react-native';
+import { Linking } from 'react-native';
 import { TouchableOpacity } from 'react-native-ui-lib';
 import { TextContainerProps } from 'shared/types';
 import { TextContainer } from '../text-container';

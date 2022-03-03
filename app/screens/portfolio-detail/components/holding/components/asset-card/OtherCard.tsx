@@ -1,5 +1,5 @@
 import React from 'react';
-import { TouchableOpacity, View } from 'react-native-ui-lib';
+import { TouchableOpacity } from 'react-native-ui-lib';
 
 interface IProps {
   id: number;
@@ -9,5 +9,6 @@ interface IProps {
 }
 
 export const OtherCard = ({ id, name, description, value }: IProps) => {
+  console.log(id, name, description, value);
   return <TouchableOpacity></TouchableOpacity>;
 };

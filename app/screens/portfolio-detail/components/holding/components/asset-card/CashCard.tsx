@@ -11,6 +11,7 @@ interface IProps {
 }
 
 export const CashCard = ({ id, name, description, value }: IProps) => {
+  console.log('ASSET ID', id);
   return (
     <TouchableOpacity style={styleProvider.assetCard}>
       <View>

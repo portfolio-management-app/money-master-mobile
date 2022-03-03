@@ -1,11 +1,5 @@
-import { tSTypeAliasDeclaration } from '@babel/types';
 import React from 'react';
-import {
-  SafeAreaView,
-  StatusBar,
-  StyleSheet,
-  TouchableWithoutFeedback,
-} from 'react-native';
+import { StyleSheet, TouchableWithoutFeedback } from 'react-native';
 import Animated, {
   Easing,
   useAnimatedStyle,
