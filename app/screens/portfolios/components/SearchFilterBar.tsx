@@ -1,4 +1,3 @@
-import { i18n } from 'i18n';
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import {
@@ -9,11 +8,11 @@ import {
 } from 'react-native-popup-menu';
 
 import { Checkbox } from 'react-native-ui-lib';
-import { localeKey } from 'services/storage';
 import { Icon, SearchBar } from 'shared/components';
+import { APP_CONTENT } from 'shared/constants';
 import { colorScheme, dimensionProvider } from 'shared/styles';
 
-const SEARCH_BAR_CONTENT = i18n[localeKey].searchBar;
+const SEARCH_BAR_CONTENT = APP_CONTENT.searchBar;
 
 interface IProps {
   onFilter?: (type: string) => void;

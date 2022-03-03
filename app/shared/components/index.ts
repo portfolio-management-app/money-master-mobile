@@ -1,3 +1,5 @@
+import { ConfirmModal } from './confirm-modal';
+import { DialogPicker } from './dialog-picker';
 import { HyperLink } from './hyper-link';
 import { BottomSheet } from './bottom-sheet';
 import { AssetSectionHeader } from './asset-section-header';
@@ -44,4 +46,6 @@ export {
   GreetingLoading,
   AssetSectionHeader,
   BottomSheet,
+  DialogPicker,
+  ConfirmModal,
 };

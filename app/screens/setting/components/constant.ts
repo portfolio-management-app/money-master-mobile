@@ -1,5 +1,5 @@
-import { i18n } from 'i18n';
-import { localeKey } from 'services/storage';
-export const SCREEN_CONTENT = i18n[localeKey].setting;
+import { APP_CONTENT } from 'shared/constants';
 
-export const MARGIN_HORIZONTAL = 10;
+export const SCREEN_CONTENT = APP_CONTENT.setting;
+
+export const ICON_SIZE = 25;

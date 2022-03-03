@@ -15,14 +15,13 @@ import { HttpRequestResponse } from 'shared/types';
 import { useSocialLogin } from '../hooks';
 import { styles } from '../login';
 import { ErrorBounder } from './components';
-import { i18n } from 'i18n';
-import { localeKey } from 'services/storage';
 import { UserStore } from 'shared/stores';
 import { Formik } from 'formik';
 import { AuthenticationSchema } from '../validator';
 import { imageSource } from 'assets/images';
+import { APP_CONTENT } from 'shared/constants';
 
-const REGISTER_CONTENT = i18n[localeKey].registerPage;
+const REGISTER_CONTENT = APP_CONTENT.registerPage;
 
 export const Register = () => {
   const [apiResponse, setApiResponse] = useState<HttpRequestResponse>({

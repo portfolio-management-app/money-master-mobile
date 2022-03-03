@@ -1,10 +1,9 @@
-import { i18n } from 'i18n';
 import React from 'react';
-import { localeKey } from 'services/storage';
 import { CustomToast } from 'shared/components';
+import { APP_CONTENT } from 'shared/constants';
 import { ErrorBounderProps } from 'shared/types';
 
-const ErrorLocale = i18n[localeKey].authenError.login;
+const ErrorLocale = APP_CONTENT.authenError.login;
 
 export const ErrorBounder = ({ show, res, onClose }: ErrorBounderProps) => {
   const [message, setMessage] = React.useState('');

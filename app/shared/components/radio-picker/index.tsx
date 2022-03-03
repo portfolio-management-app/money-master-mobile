@@ -1,30 +1,37 @@
 import { TextContainer } from 'shared/components';
 import React from 'react';
-import { StyleSheet } from 'react-native';
 import { RadioButton, RadioGroup } from 'react-native-ui-lib';
-import { colorScheme, fontProvider } from 'shared/styles';
+import { colorScheme } from 'shared/styles';
+import { RadioPickerProps } from 'shared/types';
 
-interface IProps {
-  values: string[];
-  title: string;
-  onChange?: (value: string) => void;
-}
-
-export const RadioPicker = ({ values, title, onChange }: IProps) => {
+export const RadioPicker = ({
+  values,
+  title,
+  onChange,
+  titleStyle,
+  labelStyle,
+  containerStyle,
+  buttonStyle,
+  initValue = values[0],
+  size = 25,
+}: RadioPickerProps) => {
   return (
     <RadioGroup
+      style={containerStyle}
       onValueChange={(value: string) => {
         if (onChange) onChange(value);
       }}
-      style={styles.radio}
-      initialValue={values[0]}
+      initialValue={initValue}
     >
-      <TextContainer type="small">{title}</TextContainer>
+      <TextContainer {...titleStyle} bold>
+        {title}
+      </TextContainer>
       {values.map((value) => (
         <RadioButton
-          labelStyle={{ marginRight: 10, fontFamily: fontProvider.openSans }}
+          containerStyle={buttonStyle}
           key={value}
-          size={20}
+          size={size}
+          labelStyle={labelStyle}
           color={colorScheme.theme}
           label={value}
           value={value}
@@ -33,12 +40,3 @@ export const RadioPicker = ({ values, title, onChange }: IProps) => {
     </RadioGroup>
   );
 };
-
-const styles = StyleSheet.create({
-  radio: {
-    flexDirection: 'row',
-    marginBottom: 20,
-    alignItems: 'center',
-    marginHorizontal: 10,
-  },
-});

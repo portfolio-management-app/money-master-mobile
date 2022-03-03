@@ -12,10 +12,10 @@ import {
 import { colorScheme, dimensionProvider } from 'shared/styles';
 import { UserStore } from 'shared/stores';
 import { screenName } from 'navigation/screen-names';
-import { localeKey, storage, TOKEN_KEY } from 'services/storage';
-import { i18n } from 'i18n';
+import { storage, TOKEN_KEY } from 'services/storage';
+import { APP_CONTENT } from 'shared/constants';
 
-const START_CONTENT = i18n[localeKey].greetingPage;
+const START_CONTENT = APP_CONTENT.greetingPage;
 
 export const Start = observer(() => {
   const navigation = useNavigation();
@@ -35,6 +35,7 @@ export const Start = observer(() => {
 
   React.useEffect(() => {
     const token = storage.getString(TOKEN_KEY);
+    console.log('TOKEN', token);
     initUser(token);
   }, [initUser]);
   return (

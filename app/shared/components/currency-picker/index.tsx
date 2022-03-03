@@ -1,14 +1,13 @@
-import { i18n } from 'i18n';
 import React from 'react';
 import { StyleSheet } from 'react-native';
 import { Picker, PickerItemValue, View } from 'react-native-ui-lib';
-import { localeKey } from 'services/storage';
+import { APP_CONTENT } from 'shared/constants';
 import { colorScheme, fontProvider } from 'shared/styles';
 import { Icon } from '../icon';
 import { TextContainer } from '../text-container';
 import { currencyList } from './constants';
 
-const SCREEN_CONTENT = i18n[localeKey].currencyPicker;
+const SCREEN_CONTENT = APP_CONTENT.currencyPicker;
 
 interface IProps {
   errorMessage?: string;

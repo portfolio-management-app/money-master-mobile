@@ -91,4 +91,14 @@ export const styleProvider = StyleSheet.create({
     marginLeft: 10,
     marginTop: 10,
   },
+  dialog: {
+    padding: 20,
+    backgroundColor: colorScheme.white,
+    borderRadius: 10,
+  },
+  searchBarTheme: {
+    backgroundColor: colorScheme.theme,
+    paddingHorizontal: 20,
+    paddingBottom: 20,
+  },
 });

@@ -4,14 +4,14 @@ import { StyleSheet } from 'react-native';
 import { View } from 'react-native-ui-lib';
 import { TextContainer } from 'shared/components';
 import { UserStore } from 'shared/stores';
-import { styleProvider } from 'shared/styles';
+import { colorScheme, styleProvider } from 'shared/styles';
 import { parseToString } from 'utils/date';
 
 export const AccountInfo = observer(() => {
   const { user } = UserStore;
   return (
     <View style={[styleProvider.container, styles.container]}>
-      <TextContainer>
+      <TextContainer mb={10}>
         <TextContainer bold>Email: </TextContainer>
         {user.email}
       </TextContainer>
@@ -26,5 +26,7 @@ export const AccountInfo = observer(() => {
 const styles = StyleSheet.create({
   container: {
     paddingVertical: 20,
+    borderBottomColor: colorScheme.gray400,
+    borderBottomWidth: 0.5,
   },
 });

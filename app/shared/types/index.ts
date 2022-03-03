@@ -1,5 +1,5 @@
 import { HttpError } from 'errors/base';
-import { TextProps } from 'react-native';
+import { TextProps, TextStyle, ViewStyle } from 'react-native';
 export type HttpRequestResponse = {
   isError: boolean;
   response: HttpError | any;
@@ -37,3 +37,15 @@ export type ModalProps = {
   show: boolean;
   onClose: () => void;
 };
+
+export interface RadioPickerProps {
+  values: string[];
+  title: string;
+  onChange?: (value: string) => void;
+  labelStyle?: TextStyle;
+  containerStyle?: ViewStyle;
+  buttonStyle?: ViewStyle;
+  initValue?: string;
+  titleStyle?: TextContainerProps;
+  size?: number;
+}

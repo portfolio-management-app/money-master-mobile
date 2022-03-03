@@ -4,12 +4,11 @@ import { NavigationHeader } from 'navigation/header';
 import { BaseButton, CustomTextField, PlatformView } from 'shared/components';
 import { colorScheme, dimensionProvider, styleProvider } from 'shared/styles';
 import { imageSource } from 'assets/images';
-import { i18n } from 'i18n';
-import { localeKey } from 'services/storage';
 import { Formik } from 'formik';
 import { AuthenticationSchema } from '../validator';
+import { APP_CONTENT } from 'shared/constants';
 
-const FORGET_PASSWORD_CONTENT = i18n[localeKey].forgetPasswordPage;
+const FORGET_PASSWORD_CONTENT = APP_CONTENT.forgetPasswordPage;
 
 export const ForgetPassword = () => {
   return (

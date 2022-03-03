@@ -1,8 +1,7 @@
-import { i18n } from 'i18n';
 import React from 'react';
 import { StyleSheet, ViewStyle } from 'react-native';
 import { Card, Incubator, View } from 'react-native-ui-lib';
-import { localeKey } from 'services/storage';
+import { APP_CONTENT } from 'shared/constants';
 import { colorScheme } from 'shared/styles';
 import { Variant } from 'shared/types';
 import { Icon } from '../icon';
@@ -15,7 +14,7 @@ interface IProps {
   variant?: Variant;
 }
 
-const TOAST_HEADER_CONTENT = i18n[localeKey].toastHeader;
+const TOAST_HEADER_CONTENT = APP_CONTENT.toastHeader;
 
 const ICON_SIZE = 30;
 

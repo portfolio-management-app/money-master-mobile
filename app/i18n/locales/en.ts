@@ -92,6 +92,17 @@ export const en = {
     notification: 'Notification',
     share: 'Share this app',
     signOut: 'Sign out',
+    chooseLanguage: 'Choose a language',
+    reloadApp: 'Reload app to apply change?',
+    later: 'Later',
+    signOutConfirm: 'Sign out this account?',
+    notificationSetting: {
+      email: 'Email',
+      inApp: 'In app',
+      header: 'Notification setting',
+    },
+    shareContent:
+      'Money master, number one portfolio management application. Install now at: ',
   },
 
   portfolioDetail: {
@@ -138,5 +149,16 @@ export const en = {
     information: 'Information',
     transaction: 'Transaction history',
     edit: 'Edit',
+  },
+
+  confirmModal: {
+    confirm: 'OK',
+    cancel: 'Cancel',
+  },
+  marketCap: {
+    crypto: 'Crypto',
+    gold: 'Gold',
+    stock: 'Stock',
+    currency: 'Currency',
   },
 };

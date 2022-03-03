@@ -1,9 +1,10 @@
 import { observer } from 'mobx-react-lite';
 import React from 'react';
+import { StatusBar } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import { View } from 'react-native-ui-lib';
-import { PlatformView } from 'shared/components';
-import { styleProvider } from 'shared/styles';
+import { FocusAwareStatusBar, PlatformView } from 'shared/components';
+import { colorScheme, styleProvider } from 'shared/styles';
 import {
   CreateModal,
   PortfolioCard,
@@ -17,6 +18,10 @@ export const Portfolios = observer(() => {
 
   return (
     <PlatformView style={styleProvider.body}>
+      <FocusAwareStatusBar
+        backgroundColor={colorScheme.bg}
+        barStyle="dark-content"
+      />
       <View style={styleProvider.container}>
         <SearchFilterBar />
         <SumUpCard />

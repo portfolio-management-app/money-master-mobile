@@ -1,12 +1,11 @@
-import { i18n } from 'i18n';
 import React from 'react';
 import { Modal } from 'react-native-ui-lib';
-import { localeKey } from 'services/storage';
 import { FloatingButton, Icon } from 'shared/components';
+import { APP_CONTENT } from 'shared/constants';
 import { colorScheme, styleProvider } from 'shared/styles';
 import { CreateForm } from './components';
 
-export const SCREEN_CONTENT = i18n[localeKey].portfolioCreateModal;
+export const SCREEN_CONTENT = APP_CONTENT.portfolioCreateModal;
 
 export const CreateModal = () => {
   const [showModal, setShowModal] = React.useState(false);

@@ -1,4 +1,3 @@
-import { i18n } from 'i18n';
-import { localeKey } from 'services/storage';
+import { APP_CONTENT } from 'shared/constants';
 
-export const SCREEN_CONTENT = i18n[localeKey].portfolioDetail;
+export const SCREEN_CONTENT = APP_CONTENT.portfolioDetail;

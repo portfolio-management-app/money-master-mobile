@@ -16,13 +16,12 @@ import { ErrorBounder } from './components';
 import { useSocialLogin } from '../hooks';
 import { Formik } from 'formik';
 import { log } from 'services/log-service';
-import { i18n } from 'i18n';
-import { localeKey } from 'services/storage';
 import { AuthenticationSchema } from '../validator';
 import { UserStore } from 'shared/stores';
 import { imageSource } from 'assets/images';
+import { APP_CONTENT } from 'shared/constants';
 
-const LOGIN_CONTENT = i18n[localeKey].loginPage;
+const LOGIN_CONTENT = APP_CONTENT.loginPage;
 
 export const Login = () => {
   const [apiResponse, setApiResponse] = React.useState<HttpRequestResponse>({
