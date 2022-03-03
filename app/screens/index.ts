@@ -2,7 +2,7 @@ import { PortfolioDetail } from './portfolio-detail';
 import { DashBoard } from './dashboard';
 import { Portfolios } from './portfolios';
 import { MarketCap } from './market-cap';
-import { Account } from './account';
+import { Setting } from './setting';
 import { ForgetPassword } from './authentication/forget-password';
 import { Register } from './authentication/register';
 import { Login } from './authentication/login';
@@ -15,7 +15,7 @@ export {
   Start,
   Register,
   ForgetPassword,
-  Account,
+  Setting,
   MarketCap,
   DashBoard,
   Portfolios,

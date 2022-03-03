@@ -48,7 +48,7 @@ export const vn = {
     dashboard: 'Trang chủ',
     portfolio: 'Tài sản',
     marketCap: 'Thị trường',
-    account: 'Tài khoản',
+    setting: 'Cài đặt',
   },
   formErrors: {
     mustBeANumber: 'Value must be a number and greater than 0',
@@ -76,5 +76,16 @@ export const vn = {
   currencyPicker: {
     currency: 'Currency',
     search: 'Search currency',
+  },
+  setting: {
+    appInfo: 'App info',
+    accountInfo: 'Account info',
+    joinDate: 'Join date',
+    useImage: 'App use image from',
+    language: 'Language',
+    feedBack: 'Feedback',
+    notification: 'Notification',
+    share: 'Share this app',
+    signOut: 'Sign out',
   },
 };

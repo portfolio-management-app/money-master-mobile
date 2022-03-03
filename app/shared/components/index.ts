@@ -1,3 +1,4 @@
+import { HyperLink } from './hyper-link';
 import { CustomToast } from './toast';
 import { CurrencyPicker } from './currency-picker';
 import { CreateModalHeader } from './create-modal-header';
@@ -34,4 +35,5 @@ export {
   CreateModalHeader,
   CurrencyPicker,
   CustomToast,
+  HyperLink,
 };

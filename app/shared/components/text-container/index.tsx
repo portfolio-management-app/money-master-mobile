@@ -1,16 +1,9 @@
 import React from 'react';
-import { Text, TextProps } from 'react-native';
+import { Text } from 'react-native';
 import { colorScheme, fontProvider } from 'shared/styles';
+import { TextContainerProps } from 'shared/types';
 
-interface IProps extends TextProps {
-  type?: 'h1' | 'h2' | 'h3' | 'h4' | 'small' | 'extra-small' | 'xxx-small';
-  light?: boolean;
-  bold?: boolean;
-  semiBold?: boolean;
-  color?: string;
-}
-
-export const TextContainer = (props: IProps) => {
+export const TextContainer = (props: TextContainerProps) => {
   const { style, children, bold, semiBold, color, type, light, ...res } = props;
 
   return (
@@ -52,7 +45,7 @@ const getColor = (color?: string, light?: boolean) => {
   return colorScheme.black200;
 };
 
-const getFontSize = (type?: IProps['type']) => {
+const getFontSize = (type?: TextContainerProps['type']) => {
   switch (type) {
     case 'h1':
       return 28;

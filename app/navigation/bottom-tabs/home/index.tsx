@@ -1,10 +1,10 @@
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { screenName } from 'navigation/screen-names';
-import { Account, DashBoard, MarketCap, Portfolios } from 'screens';
+import { Setting, DashBoard, MarketCap, Portfolios } from 'screens';
 import { colorScheme } from 'shared/styles';
 import {
-  AccountTab,
+  SettingTab,
   MarketCapTab,
   PortfolioTab,
   DashBoardTab,
@@ -61,11 +61,11 @@ export const HomeBottomTab = () => {
       <Tab.Screen
         options={{
           tabBarIcon: ({ focused }) => {
-            return <AccountTab focused={focused} />;
+            return <SettingTab focused={focused} />;
           },
         }}
-        name={screenName.account}
-        component={Account}
+        name={screenName.setting}
+        component={Setting}
       />
     </Tab.Navigator>
   );

@@ -51,7 +51,7 @@ export const en = {
     dashboard: 'Dashboard',
     portfolio: 'Portfolios',
     marketCap: 'Market cap',
-    account: 'Account',
+    setting: 'Setting',
   },
   formErrors: {
     mustBeANumber: 'Value must be a number and greater than 0',
@@ -81,5 +81,16 @@ export const en = {
   currencyPicker: {
     currency: 'Currency',
     search: 'Search currency',
+  },
+  setting: {
+    appInfo: 'App info',
+    accountInfo: 'Account info',
+    joinDate: 'Join date',
+    useImage: 'App use image from',
+    language: 'Language',
+    feedBack: 'Feedback',
+    notification: 'Notification',
+    share: 'Share this app',
+    signOut: 'Sign out',
   },
 };

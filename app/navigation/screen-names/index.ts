@@ -5,7 +5,7 @@ export const screenName = {
   register: 'Register',
   forgetPassword: 'ForgetPassword',
   dashBoard: 'DashBoard',
-  account: 'Account',
+  setting: 'Setting',
   news: 'News',
   portfolio: 'Portfolio',
   marketCap: 'MarketCap',

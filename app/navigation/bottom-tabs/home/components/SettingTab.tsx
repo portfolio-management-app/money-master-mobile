@@ -7,14 +7,14 @@ import { BOTTOM_TAB_CONTENT } from '../index';
 interface IProps {
   focused: boolean;
 }
-export const AccountTab = ({ focused }: IProps) => {
+export const SettingTab = ({ focused }: IProps) => {
   return (
     <View center>
-      <Icon.MaterialCommunity
-        name="account"
+      <Icon.Ioni
+        name="settings"
         size={25}
         color={focused ? colorScheme.theme : colorScheme.black200}
-      ></Icon.MaterialCommunity>
+      />
 
       <TextContainer
         style={{
@@ -22,7 +22,7 @@ export const AccountTab = ({ focused }: IProps) => {
         }}
         type="xxx-small"
       >
-        {BOTTOM_TAB_CONTENT.account}
+        {BOTTOM_TAB_CONTENT.setting}
       </TextContainer>
     </View>
   );
