@@ -1,3 +1,4 @@
+import { number } from 'mobx-state-tree/dist/internal';
 import React from 'react';
 import { StyleProp, useWindowDimensions, ViewStyle } from 'react-native';
 import { TabView, TabBar, SceneRendererProps } from 'react-native-tab-view';
@@ -6,6 +7,7 @@ import { TextContainer } from '../text-container';
 interface IProps {
   barStyle?: 'light' | 'dark';
   enableScroll?: boolean;
+  onChangeView?: (index: number) => void;
   tabWidth?: number;
   style?: StyleProp<ViewStyle>;
   indicatorStyle?: StyleProp<ViewStyle>;
@@ -27,6 +29,7 @@ export const ScrollTabView = ({
   routes,
   indicatorStyle,
   style,
+  onChangeView,
 }: IProps) => {
   const layout = useWindowDimensions();
 
@@ -36,7 +39,10 @@ export const ScrollTabView = ({
     <TabView
       navigationState={{ index, routes }}
       renderScene={renderScene}
-      onIndexChange={setIndex}
+      onIndexChange={(index: number) => {
+        setIndex(index);
+        if (onChangeView) onChangeView(index);
+      }}
       renderTabBar={(props) => (
         <TabBar
           tabStyle={{ width: tabWidth }}

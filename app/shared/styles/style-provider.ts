@@ -101,4 +101,14 @@ export const styleProvider = StyleSheet.create({
     paddingHorizontal: 20,
     paddingBottom: 20,
   },
+  relativeView: {
+    flex: 1,
+    position: 'relative',
+  },
+  marketCapSearchResult: {
+    borderBottomColor: colorScheme.gray400,
+    borderBottomWidth: 0.5,
+    paddingHorizontal: 20,
+    paddingVertical: 20,
+  },
 });

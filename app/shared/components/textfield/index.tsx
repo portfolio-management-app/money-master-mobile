@@ -12,6 +12,7 @@ interface IProps {
   keyBoardType?: KeyboardTypeOptions;
   onChangeText?: (value: string) => void | void;
   onBlur?: (e: any) => void | void;
+  onFocus?: (e: any) => void | void;
 }
 
 export const CustomTextField = ({
@@ -21,11 +22,13 @@ export const CustomTextField = ({
   placeholder,
   maxLength,
   onBlur,
+  onFocus,
   keyBoardType,
 }: IProps) => {
   return (
     <View>
       <Incubator.TextField
+        onFocus={onFocus}
         onBlur={onBlur}
         keyboardType={keyBoardType}
         selectionColor={colorScheme.theme}
@@ -40,6 +43,7 @@ export const CustomTextField = ({
         floatingPlaceholderStyle={styles.placeHolder}
         maxLength={maxLength}
       />
+
       <TextContainer
         type="extra-small"
         style={{ marginVertical: 10 }}

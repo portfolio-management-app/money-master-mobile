@@ -23,6 +23,7 @@ export interface TextContainerProps extends TextProps {
   mt?: number;
   ml?: number;
   mr?: number;
+  textAl?: TextStyle['textAlign'];
 }
 export type ScreenParams = {
   name: string;

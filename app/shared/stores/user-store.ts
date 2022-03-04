@@ -4,6 +4,7 @@ import { httpRequest } from 'services/api';
 import { User } from 'shared/models';
 import { types, flow } from 'mobx-state-tree';
 import { HttpRequestResponse } from 'shared/types';
+import { BASE_URL } from 'config';
 
 type AuthenResponse = {
   email: string;
@@ -25,7 +26,7 @@ export const UserStore = types
       HttpError | AuthenResponse
     > {
       const res: AuthenResponse | HttpError = yield httpRequest.sendPost(
-        '/user',
+        `${BASE_URL}/user`,
         {
           email: email,
           password: password,
@@ -52,7 +53,7 @@ export const UserStore = types
       HttpError | AuthenResponse
     > {
       const res: AuthenResponse | HttpError = yield httpRequest.sendPost(
-        '/authentication',
+        `${BASE_URL}/authentication`,
         {
           email: email,
           password: password,
@@ -72,7 +73,10 @@ export const UserStore = types
 
     const initUser = flow(function* (token?: string) {
       if (token) {
-        const res = yield httpRequest.sendGet('/user/me', `Bearer ${token}`);
+        const res = yield httpRequest.sendGet(
+          `${BASE_URL}/user/me`,
+          `Bearer ${token}`
+        );
         if (res instanceof HttpError) {
           self.pendingAuthen = false;
         } else {

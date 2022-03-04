@@ -16,6 +16,7 @@ export const TextContainer = (props: TextContainerProps) => {
     ml,
     mr,
     mt,
+    textAl,
     ...res
   } = props;
 
@@ -31,6 +32,7 @@ export const TextContainer = (props: TextContainerProps) => {
           marginLeft: ml ? ml : undefined,
           marginRight: mr ? mr : undefined,
           marginTop: mt ? mt : undefined,
+          textAlign: textAl ? textAl : undefined,
         },
         style,
       ]}

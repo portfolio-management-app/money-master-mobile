@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, TextInput } from 'react-native';
-import { View } from 'react-native-ui-lib';
+import { TouchableOpacity, View } from 'react-native-ui-lib';
 import { colorScheme } from 'shared/styles';
 import { Icon } from '../icon';
 
@@ -15,7 +15,7 @@ interface IProps {
   onFocus?: (e: any) => void;
 }
 
-export const SearchBar = ({
+export const FocusSearchBar = ({
   onSearch,
   onFocus,
   placeholder,
@@ -42,17 +42,18 @@ export const SearchBar = ({
         style={{ marginRight: 10 }}
         color={iconColor}
       />
-
-      <TextInput
-        editable={false}
-        onFocus={onFocus}
-        value={search}
-        placeholder={placeholder}
-        style={[styles.searchField, { color: textColor }]}
-        placeholderTextColor={placeHolderTextColor}
-        onChangeText={updateSearch}
-        selectionColor={selectionColor}
-      />
+      <TouchableOpacity style={{ width: '100%' }} onPress={onFocus}>
+        <TextInput
+          editable={false}
+          focusable={false}
+          value={search}
+          placeholder={placeholder}
+          style={[styles.searchField, { color: textColor }]}
+          placeholderTextColor={placeHolderTextColor}
+          onChangeText={updateSearch}
+          selectionColor={selectionColor}
+        />
+      </TouchableOpacity>
     </View>
   );
 };

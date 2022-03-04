@@ -152,5 +152,7 @@ export const vn = {
     gold: 'Gold',
     stock: 'Stock',
     currency: 'Currency',
+    noData: 'No data',
+    cryptoSearchPlaceholder: 'Enter coin name',
   },
 };

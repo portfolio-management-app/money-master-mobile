@@ -8,7 +8,11 @@ import { CurrencyMarket } from './currency';
 import { GoldMarket } from './gold';
 import { StockMarket } from './stock';
 
-const Component = () => {
+interface IProps {
+  onViewChange?: (index: number) => void;
+}
+
+const Component = ({ onViewChange }: IProps) => {
   const [routes] = React.useState([
     { key: 'crypto', title: SCREEN_CONTENT.crypto },
     { key: 'stock', title: SCREEN_CONTENT.stock },
@@ -24,6 +28,7 @@ const Component = () => {
   return (
     <ScrollTabView
       enableScroll
+      onChangeView={onViewChange}
       tabWidth={130}
       indicatorStyle={{ backgroundColor: colorScheme.white }}
       style={{ backgroundColor: colorScheme.theme }}

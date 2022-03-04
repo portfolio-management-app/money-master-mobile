@@ -1,11 +1,10 @@
 import axios, { AxiosRequestHeaders } from 'axios';
-import { BASE_URL } from 'config';
 import { HttpError } from 'errors/base';
 
 class HttpRequest {
   async sendGet(url: string, token?: string) {
     try {
-      const response = await axios.get(`${BASE_URL}${url}`, {
+      const response = await axios.get(url, {
         headers: this.getHeader(token),
       });
 
@@ -18,13 +17,9 @@ class HttpRequest {
 
   async sendPost(url: string, body: any, token?: string) {
     try {
-      const response = await axios.post(
-        `${BASE_URL}${url}`,
-        JSON.stringify(body),
-        {
-          headers: this.getHeader(token),
-        }
-      );
+      const response = await axios.post(url, JSON.stringify(body), {
+        headers: this.getHeader(token),
+      });
       return response.data;
     } catch (error: any) {
       console.log('----call error', error);
@@ -34,13 +29,9 @@ class HttpRequest {
 
   async sendPut(url: string, body: never, token?: string) {
     try {
-      const response = await axios.put(
-        `${BASE_URL}${url}`,
-        JSON.stringify(body),
-        {
-          headers: this.getHeader(token),
-        }
-      );
+      const response = await axios.put(url, JSON.stringify(body), {
+        headers: this.getHeader(token),
+      });
       return response.data;
     } catch (error: any) {
       console.log(error);
@@ -50,7 +41,7 @@ class HttpRequest {
 
   async sendDelete(url: string, token?: string) {
     try {
-      const response = await axios.delete(`${BASE_URL}${url}`, {
+      const response = await axios.delete(url, {
         headers: this.getHeader(token),
       });
       return response.data;
@@ -80,7 +71,7 @@ class HttpRequest {
   ) {
     try {
       const response = await axios({
-        url: `${BASE_URL}${url}`,
+        url,
         method: method,
         data: formData,
         headers: token ? { Authorization: token } : {},

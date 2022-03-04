@@ -160,5 +160,7 @@ export const en = {
     gold: 'Gold',
     stock: 'Stock',
     currency: 'Currency',
+    noData: 'No data',
+    cryptoSearchPlaceholder: 'Enter coin name',
   },
 };

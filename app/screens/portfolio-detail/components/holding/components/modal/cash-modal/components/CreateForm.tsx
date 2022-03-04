@@ -7,6 +7,7 @@ import {
   CreateModalHeader,
   CurrencyPicker,
   CustomTextField,
+  renderPickerForPortfolio,
 } from 'shared/components';
 import { colorScheme } from 'shared/styles';
 import { CreateAssetSchema } from './validator';
@@ -54,6 +55,7 @@ const Component = ({ onSubmit, onClose }: IProps) => {
                 bgColor={colorScheme.theme}
                 errorMessage={touched.currency ? errors.currency : ''}
                 onChange={handleChange('currency')}
+                renderPicker={renderPickerForPortfolio}
               />
             </View>
           </>

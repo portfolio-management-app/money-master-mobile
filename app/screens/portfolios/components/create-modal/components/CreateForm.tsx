@@ -6,6 +6,7 @@ import {
   CreateModalHeader,
   CurrencyPicker,
   CustomTextField,
+  renderPickerForPortfolio,
 } from 'shared/components';
 import { SCREEN_CONTENT } from '../index';
 import { CreatePortfolioSchema } from '../validator';
@@ -48,6 +49,7 @@ export const CreateForm = ({ onSubmit, onClose }: IProps) => {
               <CurrencyPicker
                 errorMessage={touched.currency ? errors.currency : ''}
                 onChange={handleChange('currency')}
+                renderPicker={renderPickerForPortfolio}
               />
             </View>
           </>

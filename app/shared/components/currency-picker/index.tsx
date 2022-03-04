@@ -14,6 +14,7 @@ interface IProps {
   onChange?: (value: string) => void | void;
   bgColor?: string;
   headerStyle?: 'light-content' | 'dark-content';
+  renderPicker: (value?: PickerItemValue, label?: string) => JSX.Element;
 }
 
 const Component = ({
@@ -21,6 +22,7 @@ const Component = ({
   onChange,
   bgColor = colorScheme.white,
   headerStyle = 'dark-content',
+  renderPicker,
 }: IProps) => {
   const [selectedValue, setSelectedValue] = React.useState('');
 
@@ -56,22 +58,7 @@ const Component = ({
         value={selectedValue}
         onChange={handleChange}
         searchPlaceholder={SCREEN_CONTENT.search}
-        renderPicker={(value?: PickerItemValue, label?: string) => {
-          return (
-            <View style={styles.picker}>
-              <TextContainer>
-                {value ? (
-                  label
-                ) : (
-                  <TextContainer color={colorScheme.gray400}>
-                    Selected currency
-                  </TextContainer>
-                )}
-              </TextContainer>
-              <Icon.SimpleLine size={15} name="arrow-down" />
-            </View>
-          );
-        }}
+        renderPicker={renderPicker}
       >
         {Object.keys(currencyList).map((key: string) => (
           <Picker.Item
@@ -81,18 +68,42 @@ const Component = ({
           />
         ))}
       </Picker>
-      <TextContainer
-        style={{ marginTop: 10 }}
-        type="extra-small"
-        color={colorScheme.red500}
-      >
-        {errorMessage}
-      </TextContainer>
+      {errorMessage ? (
+        <TextContainer
+          style={{ marginTop: 10 }}
+          type="extra-small"
+          color={colorScheme.red500}
+        >
+          {errorMessage}
+        </TextContainer>
+      ) : (
+        <></>
+      )}
     </View>
   );
 };
 
 export const CurrencyPicker = React.memo(Component);
+
+export const renderPickerForPortfolio = (
+  value?: PickerItemValue,
+  label?: string
+) => {
+  return (
+    <View style={styles.picker}>
+      <TextContainer>
+        {value ? (
+          label
+        ) : (
+          <TextContainer color={colorScheme.gray400}>
+            Selected currency
+          </TextContainer>
+        )}
+      </TextContainer>
+      <Icon.SimpleLine size={15} name="arrow-down" />
+    </View>
+  );
+};
 
 const styles = StyleSheet.create({
   picker: {

@@ -1,13 +1,14 @@
 import { Formik } from 'formik';
 import React from 'react';
 import { StyleSheet } from 'react-native';
-import { View } from 'react-native-ui-lib';
+import { PickerItemValue, View } from 'react-native-ui-lib';
 import { SCREEN_CONTENT } from 'screens/portfolio-detail/constants';
 import {
   CreateModalHeader,
   CurrencyPicker,
   CustomTextField,
   DatePicker,
+  renderPickerForPortfolio,
 } from 'shared/components';
 import { colorScheme } from 'shared/styles';
 import { CreateAssetSchema } from './validator';
@@ -55,6 +56,7 @@ const Component = ({ onSubmit, onClose }: IProps) => {
                 bgColor={colorScheme.theme}
                 errorMessage={touched.currency ? errors.currency : ''}
                 onChange={handleChange('currency')}
+                renderPicker={renderPickerForPortfolio}
               />
               <CustomTextField
                 keyBoardType="decimal-pad"
