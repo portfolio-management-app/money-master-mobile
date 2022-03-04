@@ -2,8 +2,8 @@ import { COIN_API_URL } from 'config';
 import { HttpError } from 'errors/base';
 import { observer } from 'mobx-react-lite';
 import React from 'react';
-import { Keyboard, ScrollView } from 'react-native';
-import { Modal, Text, TouchableOpacity, View } from 'react-native-ui-lib';
+import { ScrollView } from 'react-native';
+import { Modal, TouchableOpacity, View } from 'react-native-ui-lib';
 import { SCREEN_CONTENT } from 'screens/market-cap/constant';
 import { httpRequest } from 'services/api';
 import {

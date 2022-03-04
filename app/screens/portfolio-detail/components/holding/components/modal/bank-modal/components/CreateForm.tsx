@@ -1,7 +1,7 @@
 import { Formik } from 'formik';
 import React from 'react';
 import { StyleSheet } from 'react-native';
-import { PickerItemValue, View } from 'react-native-ui-lib';
+import { View } from 'react-native-ui-lib';
 import { SCREEN_CONTENT } from 'screens/portfolio-detail/constants';
 import {
   CreateModalHeader,

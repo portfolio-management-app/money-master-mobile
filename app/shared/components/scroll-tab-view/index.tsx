@@ -1,4 +1,3 @@
-import { number } from 'mobx-state-tree/dist/internal';
 import React from 'react';
 import { StyleProp, useWindowDimensions, ViewStyle } from 'react-native';
 import { TabView, TabBar, SceneRendererProps } from 'react-native-tab-view';

@@ -1,7 +1,6 @@
 import React from 'react';
 import { StyleSheet } from 'react-native';
 import { PickerItemValue, View } from 'react-native-ui-lib';
-import { SCREEN_CONTENT } from 'screens/market-cap/constant';
 import { CurrencyPicker, Icon, TextContainer } from 'shared/components';
 import { colorScheme } from 'shared/styles';
 import { CryptoStore } from '../store';
@@ -26,7 +25,7 @@ const Component = () => {
 
 export const Filter = React.memo(Component);
 
-const renderPicker = (value?: PickerItemValue, label?: string) => {
+const renderPicker = (value?: PickerItemValue) => {
   return (
     <View style={styles.picker}>
       <TextContainer light>{value ? value : 'USD'}</TextContainer>
