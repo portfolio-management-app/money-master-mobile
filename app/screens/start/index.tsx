@@ -76,6 +76,10 @@ export const Start = observer(() => {
                   onPress={() => navigation.navigate(screenName.login as never)}
                   label={START_CONTENT.login}
                 />
+                <BaseButton
+                  label="By Pass"
+                  onPress={() => navigation.navigate(screenName.home as never)}
+                />
               </View>
             </PlatformView>
           ) : (
