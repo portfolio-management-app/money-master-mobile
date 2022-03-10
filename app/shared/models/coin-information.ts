@@ -5,6 +5,7 @@ export const CoinInformation = types.model('CoinInformation', {
   name: types.string,
   image: types.string,
   currentPrice: types.number,
-  priceChange24h: types.number,
+  priceChange: types.number,
   marketCapRank: types.number,
+  priceChangePercent: types.number,
 });

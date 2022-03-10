@@ -142,6 +142,7 @@ export const vn = {
     information: 'Thông tin',
     transaction: 'Lịch sử giao dịch',
     edit: 'Chỉnh sửa',
+    draw: 'Rut',
   },
   confirmModal: {
     confirm: 'OK',
@@ -154,6 +155,10 @@ export const vn = {
     currency: 'Currency',
     noData: 'No data',
     cryptoSearchPlaceholder: 'Enter coin name',
+  },
+  cryptoDetail: {
+    buy: 'Buy',
+    sell: 'Sell',
   },
   next: 'Next',
 };

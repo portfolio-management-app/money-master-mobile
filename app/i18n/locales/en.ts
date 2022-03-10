@@ -149,6 +149,7 @@ export const en = {
     information: 'Information',
     transaction: 'Transaction history',
     edit: 'Edit',
+    draw: 'Draw',
   },
 
   confirmModal: {
@@ -162,6 +163,10 @@ export const en = {
     currency: 'Currency',
     noData: 'No data',
     cryptoSearchPlaceholder: 'Enter coin name',
+  },
+  cryptoDetail: {
+    buy: 'Buy',
+    sell: 'Sell',
   },
   next: 'Next',
 };

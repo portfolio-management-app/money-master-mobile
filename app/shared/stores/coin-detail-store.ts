@@ -6,7 +6,7 @@ import { CoinInformation } from '../models';
 
 const Store = types
   .model('CoinDataStore', {
-    coinInfo: types.maybeNull(CoinInformation),
+    coinInfo: CoinInformation,
     chartData: types.array(types.array(types.number)),
     loading: types.boolean,
     currency: types.string,
@@ -18,7 +18,7 @@ const Store = types
       try {
         const [chartRes, coinInfoRes] = yield Promise.all([
           httpRequest.sendGet(
-            `${COIN_API_URL}/coins/${coinId}/market_chart?vs_currency=${currency}&days=30`
+            `${COIN_API_URL}/coins/${coinId}/market_chart?vs_currency=${currency}&days=365`
           ),
           httpRequest.sendGet(`${COIN_API_URL}/coins/${coinId}`),
         ]);
@@ -27,17 +27,44 @@ const Store = types
         } else {
           self.chartData = chartRes.prices.reverse();
         }
-        console.log(coinInfoRes);
+        if (coinInfoRes instanceof HttpError) {
+          console.log(coinInfoRes.getMessage());
+        } else {
+          assignCoinInfo(coinInfoRes);
+        }
         self.loading = false;
       } catch (err) {
         self.loading = false;
       }
     });
+
+    const assignCoinInfo = (res: any) => {
+      const currency = self.currency.toLocaleLowerCase();
+      const {
+        current_price,
+        price_change_24h_in_currency,
+        price_change_percentage_24h_in_currency,
+      } = res.market_data;
+
+      self.coinInfo.currentPrice = current_price[currency];
+      self.coinInfo.priceChange = price_change_24h_in_currency[currency];
+      self.coinInfo.image = res.image.small;
+      self.coinInfo.priceChangePercent =
+        price_change_percentage_24h_in_currency[currency];
+    };
     return { getChartData };
   });
 
 export const CoinDetailStore = Store.create({
-  coinInfo: null,
+  coinInfo: {
+    id: '',
+    image: '',
+    name: '',
+    currentPrice: 0,
+    priceChange: 0,
+    marketCapRank: 0,
+    priceChangePercent: 0,
+  },
   currency: 'USD',
   chartData: [],
   loading: false,
