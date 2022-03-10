@@ -111,4 +111,12 @@ export const styleProvider = StyleSheet.create({
     paddingHorizontal: 20,
     paddingVertical: 20,
   },
+  card: {
+    borderBottomWidth: 0.5,
+    borderBottomColor: colorScheme.gray400,
+    paddingHorizontal: 20,
+    paddingVertical: 20,
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
 });

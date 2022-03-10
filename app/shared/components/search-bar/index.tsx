@@ -44,7 +44,6 @@ export const SearchBar = ({
       />
 
       <TextInput
-        editable={false}
         onFocus={onFocus}
         value={search}
         placeholder={placeholder}

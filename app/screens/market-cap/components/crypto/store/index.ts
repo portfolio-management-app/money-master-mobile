@@ -23,6 +23,7 @@ export const CryptoStore = types
     currency: 'usd',
     data: types.array(Crypto),
     isLoading: false,
+    dataVersion: 0,
   })
   .actions((self) => {
     const getData = flow(function* () {
@@ -47,7 +48,7 @@ export const CryptoStore = types
             pricePercent: data.price_change_percentage_24h,
           });
         });
-
+        self.dataVersion++;
         self.data.push(...temp);
       }
       self.isLoading = false;

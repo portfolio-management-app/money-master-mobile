@@ -11,4 +11,8 @@ export const screenName = {
   marketCap: 'MarketCap',
   portfolioDetail: 'PortfolioDetail',
   bankAssetDetail: 'BankAssetDetail',
+  coinDetail: 'CoinDetail',
+  assetPicker: 'AssetPicker',
+  search: 'Search',
+  createAsset: 'CreateAsset',
 };

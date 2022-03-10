@@ -155,4 +155,5 @@ export const vn = {
     noData: 'No data',
     cryptoSearchPlaceholder: 'Enter coin name',
   },
+  next: 'Next',
 };

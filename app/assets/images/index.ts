@@ -1,3 +1,14 @@
+import { Assets } from 'react-native-ui-lib';
+
+Assets.loadAssetsGroup('icons', {
+  google: require('./source/google.png'),
+  facebook: require('./source/facebook.png'),
+});
+
+Assets.loadAssetsGroup('nodata', {
+  searchForData: require('./source/search.png'),
+});
+
 export const imageSource = {
   banner: require('./source/greeting.jpg'),
   appIcon: require('./source/app-icon.png'),

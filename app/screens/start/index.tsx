@@ -14,7 +14,6 @@ import { UserStore } from 'shared/stores';
 import { screenName } from 'navigation/screen-names';
 import { storage, TOKEN_KEY } from 'services/storage';
 import { APP_CONTENT } from 'shared/constants';
-import { Assets } from 'react-native-ui-lib';
 
 const START_CONTENT = APP_CONTENT.greetingPage;
 

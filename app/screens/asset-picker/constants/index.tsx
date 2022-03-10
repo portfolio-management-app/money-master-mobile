@@ -1,9 +1,9 @@
 import React from 'react';
-import { SCREEN_CONTENT } from 'screens/portfolio-detail/constants';
 import { Icon } from 'shared/components';
+import { APP_CONTENT } from 'shared/constants';
 import { colorScheme } from 'shared/styles';
 
-const PICKER_LABEL = SCREEN_CONTENT.assetPicker;
+const PICKER_LABEL = APP_CONTENT.portfolioDetail.assetPicker;
 const COLOR = colorScheme.black200;
 const SIZE = 30;
 

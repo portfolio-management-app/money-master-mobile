@@ -1,5 +1,6 @@
 import { HttpError } from 'errors/base';
 import { TextProps, TextStyle, ViewStyle } from 'react-native';
+
 export type HttpRequestResponse = {
   isError: boolean;
   response: HttpError | any;
@@ -25,17 +26,18 @@ export interface TextContainerProps extends TextProps {
   mr?: number;
   textAl?: TextStyle['textAlign'];
 }
-export type ScreenParams = {
+export interface ScreenParams {
   name: string;
   key: string;
-};
+  params: any;
+}
 
 export type OnScrollProps = {
   onScroll: (e: any) => void;
 };
 
 export type ModalProps = {
-  show: boolean;
+  show?: boolean;
   onClose: () => void;
 };
 
@@ -50,3 +52,16 @@ export interface RadioPickerProps {
   titleStyle?: TextContainerProps;
   size?: number;
 }
+
+export type AssetType =
+  | 'OTHER'
+  | 'CRYPTO'
+  | 'STOCK'
+  | 'REAL-ESTATE'
+  | 'CASH'
+  | 'GOLD'
+  | 'BANKING';
+
+export type CreateAssetRouteProps = {
+  type: AssetType;
+};

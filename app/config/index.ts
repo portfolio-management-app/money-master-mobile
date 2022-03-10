@@ -6,7 +6,7 @@ export const FacebookAppID = '283259500459094';
 let url: string = 'https://grade-book-backend.herokuapp.com';
 
 if (__DEV__) {
-  url = 'https://6d0d-123-22-24-194.ngrok.io';
+  url = 'https://a08f-123-22-24-194.ngrok.io';
 }
 
 export const COIN_API_URL = 'https://api.coingecko.com/api/v3';

@@ -7,10 +7,8 @@ import {
   CreateModalHeader,
   CurrencyPicker,
   CustomTextField,
-  DatePicker,
   renderPickerForPortfolio,
 } from 'shared/components';
-import { colorScheme } from 'shared/styles';
 import { CreateAssetSchema } from './validator';
 
 interface IProps {
@@ -33,16 +31,14 @@ const Component = ({ onSubmit, onClose }: IProps) => {
               onClose={onClose}
               onCreate={handleSubmit}
               buttonLabel={FORM_CONTENT.create}
-              title={SCREEN_CONTENT.assetPicker.banking}
-              bgColor={colorScheme.theme}
-              headerStyle="light-content"
+              title={SCREEN_CONTENT.assetPicker.cash}
             />
             <View style={styles.formContainer}>
               <CustomTextField
                 onChangeText={handleChange('name')}
                 onBlur={handleBlur('name')}
                 errorMessage={touched.name ? errors.name : ''}
-                placeholder={SCREEN_CONTENT.bankingModal.name}
+                placeholder={FORM_CONTENT.name}
               />
               <CustomTextField
                 onChangeText={handleChange('initBalance')}
@@ -52,21 +48,10 @@ const Component = ({ onSubmit, onClose }: IProps) => {
                 placeholder={FORM_CONTENT.balance}
               />
               <CurrencyPicker
-                headerStyle="light-content"
-                bgColor={colorScheme.theme}
                 errorMessage={touched.currency ? errors.currency : ''}
                 onChange={handleChange('currency')}
                 renderPicker={renderPickerForPortfolio}
               />
-              <CustomTextField
-                keyBoardType="decimal-pad"
-                placeholder={FORM_CONTENT.rate}
-              />
-              <CustomTextField
-                keyBoardType="decimal-pad"
-                placeholder={FORM_CONTENT.termRange}
-              />
-              <DatePicker label={FORM_CONTENT.startDate} />
             </View>
           </>
         );

@@ -1,3 +1,6 @@
+import { CryptoSearchResult } from './crypto-search-result';
+import { SearchForData } from './search-data';
+import { Chart } from './chart';
 import { TransparentLoading } from './loading/TransparentLoading';
 import { BackSearchBar } from './search-bar/BackSearchBar';
 import { FocusSearchBar } from './search-bar/FocusSearchBar';
@@ -29,6 +32,8 @@ import { ErrorDialog } from './error-dialog';
 
 export {
   PlatformView,
+  SearchForData,
+  Chart,
   TransparentLoading,
   BackSearchBar,
   FocusSearchBar,
@@ -57,4 +62,5 @@ export {
   DialogPicker,
   ConfirmModal,
   renderPickerForPortfolio,
+  CryptoSearchResult,
 };

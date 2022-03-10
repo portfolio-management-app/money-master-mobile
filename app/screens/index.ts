@@ -1,3 +1,6 @@
+import { CreateAsset } from './create-asset';
+import { AssetPicker } from './asset-picker';
+import { CoinDetail } from './coin-detail';
 import { BankAssetDetail } from './asset-detail';
 import { PortfolioDetail } from './portfolio-detail';
 import { DashBoard } from './dashboard';
@@ -20,4 +23,7 @@ export {
   Portfolios,
   PortfolioDetail,
   BankAssetDetail,
+  CoinDetail,
+  AssetPicker,
+  CreateAsset,
 };

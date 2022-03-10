@@ -1,10 +1,13 @@
+import { useNavigation } from '@react-navigation/native';
+import { screenName } from 'navigation/screen-names';
 import React from 'react';
 import { ListRenderItemInfo, StyleSheet } from 'react-native';
 import { Image, TouchableOpacity, View } from 'react-native-ui-lib';
 import { TextContainer } from 'shared/components';
+import { CoinDetailStore } from 'shared/stores';
 import { colorScheme, styleProvider } from 'shared/styles';
 import { parseToString } from 'utils/date';
-import { ICrypto } from '../store';
+import { CryptoStore, ICrypto } from '../store';
 import { CoinPrice } from './CoinPrice';
 
 interface IProps {
@@ -12,10 +15,26 @@ interface IProps {
 }
 
 const Component = ({ coin }: IProps) => {
-  const { image, name, priceChange, pricePercent, currentPrice, lastUpdate } =
-    coin.item;
+  const navigation = useNavigation();
+  const {
+    image,
+    name,
+    id,
+    priceChange,
+    pricePercent,
+    currentPrice,
+    lastUpdate,
+  } = coin.item;
+
+  const gotoDetail = React.useCallback(async () => {
+    await CoinDetailStore.getChartData(id, CryptoStore.currency);
+    navigation.navigate(
+      screenName.coinDetail as never,
+      { id: id, name: name, currency: CryptoStore.currency } as never
+    );
+  }, [id, name, navigation]);
   return (
-    <TouchableOpacity style={styles.coinButton}>
+    <TouchableOpacity onPress={gotoDetail} style={styles.coinButton}>
       <View>
         <View style={styleProvider.centerHorizontal}>
           <Image
@@ -28,7 +47,7 @@ const Component = ({ coin }: IProps) => {
           <TextContainer bold type="small">
             Last update:
           </TextContainer>{' '}
-          {parseToString(new Date(lastUpdate), true)}
+          {parseToString(new Date(lastUpdate))}
         </TextContainer>
       </View>
       <CoinPrice

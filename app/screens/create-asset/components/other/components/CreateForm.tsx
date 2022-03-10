@@ -10,7 +10,6 @@ import {
   DatePicker,
   renderPickerForPortfolio,
 } from 'shared/components';
-import { colorScheme } from 'shared/styles';
 import { CreateAssetSchema } from './validator';
 
 interface IProps {
@@ -34,8 +33,6 @@ const Component = ({ onSubmit, onClose }: IProps) => {
               onCreate={handleSubmit}
               buttonLabel={FORM_CONTENT.create}
               title={FORM_CONTENT.header}
-              bgColor={colorScheme.theme}
-              headerStyle="light-content"
             />
             <View style={styles.formContainer}>
               <CustomTextField
@@ -52,8 +49,6 @@ const Component = ({ onSubmit, onClose }: IProps) => {
                 placeholder={FORM_CONTENT.balance}
               />
               <CurrencyPicker
-                headerStyle="light-content"
-                bgColor={colorScheme.theme}
                 errorMessage={touched.currency ? errors.currency : ''}
                 onChange={handleChange('currency')}
                 renderPicker={renderPickerForPortfolio}

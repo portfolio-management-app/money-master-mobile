@@ -2,7 +2,8 @@ import { observer } from 'mobx-react-lite';
 import React from 'react';
 import { FlatList, RefreshControl } from 'react-native';
 import { SCREEN_CONTENT } from 'screens/market-cap/constant';
-import { NoData } from 'shared/components';
+import { NoData, TransparentLoading } from 'shared/components';
+import { CoinDetailStore } from 'shared/stores';
 import { CoinItem, Filter } from './components';
 import { CryptoStore } from './store';
 
@@ -36,6 +37,9 @@ const Component = () => {
           {!CryptoStore.isLoading && <NoData message={SCREEN_CONTENT.noData} />}
         </>
       )}
+      <TransparentLoading
+        show={CryptoStore.dataVersion === 0 || CoinDetailStore.loading}
+      />
     </>
   );
 };

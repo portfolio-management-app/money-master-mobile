@@ -163,4 +163,5 @@ export const en = {
     noData: 'No data',
     cryptoSearchPlaceholder: 'Enter coin name',
   },
+  next: 'Next',
 };

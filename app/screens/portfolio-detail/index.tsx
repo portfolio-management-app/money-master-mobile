@@ -7,12 +7,12 @@ import { colorScheme, styleProvider } from 'shared/styles';
 import { ScreenParams } from 'shared/types';
 import { Header, Statistic, TabBarView } from './components';
 
-type Param = ScreenParams & {
+interface Param extends ScreenParams {
   params: {
     id: number;
     name: string;
   };
-};
+}
 
 export const PortfolioDetail = observer(() => {
   const routeProps = useRoute<Param>();
