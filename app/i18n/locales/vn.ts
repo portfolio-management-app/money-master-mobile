@@ -159,6 +159,12 @@ export const vn = {
   cryptoDetail: {
     buy: 'Buy',
     sell: 'Sell',
+    range: {
+      D: 'NG',
+      W: 'T',
+      M: 'TH',
+      Y: 'N',
+    },
   },
   next: 'Next',
 };

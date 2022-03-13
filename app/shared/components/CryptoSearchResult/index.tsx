@@ -1,5 +1,6 @@
 import { COIN_API_URL } from 'config';
 import { HttpError } from 'errors/base';
+import { Observer } from 'mobx-react-lite';
 import React from 'react';
 import { ScrollView } from 'react-native';
 import { Image, TouchableOpacity, View } from 'react-native-ui-lib';
@@ -63,7 +64,14 @@ const Component = ({ onCoinPress, text }: IProps) => {
 
   return (
     <View style={styleProvider.relativeView}>
-      <TransparentLoading show={loading || CoinDetailStore.loading} />
+      <Observer>
+        {() => {
+          return (
+            <TransparentLoading show={loading || CoinDetailStore.loading} />
+          );
+        }}
+      </Observer>
+
       {searchResult.length ? (
         <ScrollView>
           {searchResult.map((result) => (

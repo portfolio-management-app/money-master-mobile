@@ -1,5 +1,5 @@
-export const formatCurrency = (value: number, currency: string) => {
-  return new Intl.NumberFormat('vn-Vie', {
+export const formatCurrency = (value: number | bigint, currency: string) => {
+  return new Intl.NumberFormat('en-US', {
     style: 'currency',
     currency: currency,
     maximumSignificantDigits: 10,

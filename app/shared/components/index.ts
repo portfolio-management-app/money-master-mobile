@@ -10,7 +10,7 @@ import { DialogPicker } from './DiaLogPicker';
 import { HyperLink } from './HyperLink';
 import { BottomSheet } from './BottomSheet';
 import { AssetSectionHeader } from './AssetSectionHeader';
-import { GreetingLoading } from './Loading/GreettingLoading';
+import { GreetingLoading } from './Loading/GreetingLoading';
 import { SpeedDial } from './SpeedDial';
 import { CustomToast } from './Toast';
 import { CurrencyPicker, renderPickerForPortfolio } from './CurrencyPicker';

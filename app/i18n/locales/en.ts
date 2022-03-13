@@ -167,6 +167,12 @@ export const en = {
   cryptoDetail: {
     buy: 'Buy',
     sell: 'Sell',
+    range: {
+      D: 'D',
+      W: 'W',
+      M: 'M',
+      Y: 'Y',
+    },
   },
   next: 'Next',
 };

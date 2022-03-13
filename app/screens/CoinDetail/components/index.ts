@@ -1,3 +1,4 @@
+import { DateRange } from './DataRange';
 import { ButtonGroup } from './ButtonGroup';
 import { Header } from './Header';
-export { Header, ButtonGroup };
+export { Header, DateRange, ButtonGroup };

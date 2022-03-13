@@ -10,15 +10,22 @@ const Store = types
     chartData: types.array(types.array(types.number)),
     loading: types.boolean,
     currency: types.string,
+    range: types.number,
   })
   .actions((self) => {
-    const getChartData = flow(function* (coinId: string, currency: string) {
+    const getChartData = flow(function* (
+      coinId: string,
+      currency: string,
+      day: number
+    ) {
       self.loading = true;
+      self.coinInfo.id = coinId;
       self.currency = currency;
+      self.range = day;
       try {
         const [chartRes, coinInfoRes] = yield Promise.all([
           httpRequest.sendGet(
-            `${COIN_API_URL}/coins/${coinId}/market_chart?vs_currency=${currency}&days=365`
+            `${COIN_API_URL}/coins/${coinId}/market_chart?vs_currency=${currency}&days=${day}`
           ),
           httpRequest.sendGet(`${COIN_API_URL}/coins/${coinId}`),
         ]);
@@ -67,5 +74,6 @@ export const CoinDetailStore = Store.create({
   },
   currency: 'USD',
   chartData: [],
+  range: 1,
   loading: false,
 });

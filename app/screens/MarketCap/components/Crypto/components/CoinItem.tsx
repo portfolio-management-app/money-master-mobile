@@ -27,7 +27,7 @@ const Component = ({ coin }: IProps) => {
   } = coin.item;
 
   const gotoDetail = React.useCallback(async () => {
-    await CoinDetailStore.getChartData(id, CryptoStore.currency);
+    await CoinDetailStore.getChartData(id, CryptoStore.currency, 1);
     navigation.navigate(
       screenName.coinDetail as never,
       { id: id, name: name, currency: CryptoStore.currency } as never
