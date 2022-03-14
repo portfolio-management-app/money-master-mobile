@@ -2,25 +2,25 @@ import React from 'react';
 import { View, TouchableOpacity, StyleSheet } from 'react-native';
 import { TextContainer } from 'shared/components';
 import { APP_CONTENT } from 'shared/constants';
-import { CoinDetailStore } from 'shared/stores';
+import { StockDetailStore } from 'shared/stores';
 import { colorScheme, styleProvider } from 'shared/styles';
-import { CryptoTimeSupport } from 'shared/types';
+import { StockTimeSupport } from 'shared/types';
 
-const DATA_RANGE: Array<CryptoTimeSupport> = [1, 7, 30, 365];
+const DATA_RANGE: Array<StockTimeSupport> = ['1h', '1day', '1week', '1month'];
 
-const RANGE_CONTENT = APP_CONTENT.cryptoDetail.range;
+const RANGE_CONTENT = APP_CONTENT.stockDetail.range;
 
 export const DateRange = () => {
-  const { getChartData, currency, coinInfo } = CoinDetailStore;
+  const { stockInformation, getStockData } = StockDetailStore;
 
-  const [dayRange, setDayRange] = React.useState<CryptoTimeSupport>(1);
+  const [dayRange, setDayRange] = React.useState<StockTimeSupport>('1h');
 
-  const changeRange = React.useCallback((day: CryptoTimeSupport) => {
+  const changeRange = React.useCallback((day: StockTimeSupport) => {
     setDayRange(day);
   }, []);
 
   React.useEffect(() => {
-    getChartData(coinInfo.id, currency, dayRange);
+    getStockData(stockInformation.symbol, dayRange);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dayRange]);
   return (
@@ -33,23 +33,27 @@ export const DateRange = () => {
           style={[styles.rangeBtn, day === dayRange && styles.rangeBtnCurrent]}
           key={day}
         >
-          <TextContainer textAl="center">{getRenderText(day)}</TextContainer>
+          <TextContainer textAl="center">
+            {getRenderText(day as any)}
+          </TextContainer>
         </TouchableOpacity>
       ))}
     </View>
   );
 };
 
-const getRenderText = (value: CryptoTimeSupport) => {
+const getRenderText = (value: StockTimeSupport) => {
   switch (value) {
-    case 1:
+    case '1h':
+      return `1 ${RANGE_CONTENT.H}`;
+    case '1day':
       return `1 ${RANGE_CONTENT.D}`;
-    case 7:
+    case '1week':
       return `1 ${RANGE_CONTENT.W}`;
-    case 30:
+    case '1month':
       return `1 ${RANGE_CONTENT.M}`;
-    case 365:
-      return `1 ${RANGE_CONTENT.Y}`;
+    default:
+      return '';
   }
 };
 

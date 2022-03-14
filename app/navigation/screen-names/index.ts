@@ -15,4 +15,5 @@ export const screenName = {
   assetPicker: 'AssetPicker',
   search: 'Search',
   createAsset: 'CreateAsset',
+  stockDetail: 'StockDetail',
 };

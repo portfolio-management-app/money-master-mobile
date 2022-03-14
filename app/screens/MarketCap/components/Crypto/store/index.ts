@@ -1,5 +1,5 @@
 import { HttpError } from 'errors/base';
-import { COIN_API_URL } from 'config';
+import { Config } from 'config';
 import { cast, flow, SnapshotOut, types } from 'mobx-state-tree';
 import { httpRequest } from 'services/api';
 
@@ -29,9 +29,11 @@ export const CryptoStore = types
     const getData = flow(function* () {
       self.isLoading = true;
       const res = yield httpRequest.sendGet(
-        `${COIN_API_URL}/coins/markets?vs_currency=${self.currency}&order=${
-          self.order
-        }&per_page=${self.perPage}&page=${++self.page}&sparkline=false`
+        `${Config.COIN_API_URL}/coins/markets?vs_currency=${
+          self.currency
+        }&order=${self.order}&per_page=${
+          self.perPage
+        }&page=${++self.page}&sparkline=false`
       );
       if (res instanceof HttpError) {
         console.log(res);

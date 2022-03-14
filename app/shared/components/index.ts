@@ -1,3 +1,4 @@
+import { StockSearchResult } from './StockSearchResult';
 import { CryptoSearchResult } from './CryptoSearchResult';
 import { SearchForData } from './SearchForData';
 import { Chart } from './Chart';
@@ -63,4 +64,5 @@ export {
   ConfirmModal,
   renderPickerForPortfolio,
   CryptoSearchResult,
+  StockSearchResult,
 };

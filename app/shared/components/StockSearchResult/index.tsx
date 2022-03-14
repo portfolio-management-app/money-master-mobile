@@ -3,31 +3,29 @@ import { HttpError } from 'errors/base';
 import { Observer } from 'mobx-react-lite';
 import React from 'react';
 import { ScrollView } from 'react-native';
-import { Image, TouchableOpacity, View } from 'react-native-ui-lib';
+import { TouchableOpacity, View } from 'react-native-ui-lib';
 import { httpRequest } from 'services/api';
-import {
-  SearchForData,
-  TextContainer,
-  TransparentLoading,
-} from 'shared/components';
-import { CoinDetailStore } from 'shared/stores';
+import { SearchForData, TextContainer } from 'shared/components';
+import { StockDetailStore } from 'shared/stores';
 import { styleProvider } from 'shared/styles';
+import { TransparentLoading } from '../Loading/TransparentLoading';
 
 type SearchResult = {
-  id: string;
-  name: string;
   symbol: string;
-  market_cap_rank: number;
-  thumb: string;
-  large: string;
+  instrument_name: string;
+  exchange: string;
+  exchange_timezone: string;
+  instrument_type: string;
+  country: string;
+  currency: string;
 };
 
 interface IProps {
-  onCoinPress?: (id: string, name: string) => void;
+  onStockPress?: (symbol: string) => void;
   text: string;
 }
 
-const Component = ({ onCoinPress, text }: IProps) => {
+const Component = ({ onStockPress, text }: IProps) => {
   const [loading, setLoading] = React.useState(false);
   const [searchResult, setSearchResult] = React.useState<Array<SearchResult>>(
     []
@@ -36,13 +34,13 @@ const Component = ({ onCoinPress, text }: IProps) => {
   const startSearching = React.useCallback(async (query: string) => {
     setLoading(true);
     const res = await httpRequest.sendGet(
-      `${Config.COIN_API_URL}/search?query=${query}`
+      `${Config.STOCK_API_URL}/symbol_search?symbol=${query}`
     );
 
     if (res instanceof HttpError) {
       console.log(res);
     } else {
-      setSearchResult(res.coins);
+      setSearchResult(res.data);
     }
     setLoading(false);
   }, []);
@@ -53,38 +51,27 @@ const Component = ({ onCoinPress, text }: IProps) => {
     }
   }, [startSearching, text]);
 
-  const onItemPress = React.useCallback(
-    (id: string, name: string) => {
-      if (onCoinPress) {
-        onCoinPress(id, name);
-      }
-    },
-    [onCoinPress]
-  );
-
   return (
     <View style={styleProvider.relativeView}>
       <Observer>
         {() => {
           return (
-            <TransparentLoading show={loading || CoinDetailStore.loading} />
+            <TransparentLoading show={loading || StockDetailStore.loading} />
           );
         }}
       </Observer>
-
       {searchResult.length ? (
         <ScrollView>
-          {searchResult.map((result) => (
+          {searchResult.map((result, id) => (
             <TouchableOpacity
-              onPress={() => onItemPress(result.id, result.name)}
+              onPress={() => {
+                onStockPress && onStockPress(result.symbol);
+              }}
               style={styleProvider.card}
-              key={result.id}
+              key={id}
             >
-              <Image
-                style={styleProvider.buttonIcon}
-                source={{ uri: result.large }}
-              />
-              <TextContainer ml={15}>{result.name}</TextContainer>
+              <TextContainer bold>{result.symbol}</TextContainer>
+              <TextContainer ml={15}>{result.instrument_name}</TextContainer>
             </TouchableOpacity>
           ))}
         </ScrollView>
@@ -95,4 +82,4 @@ const Component = ({ onCoinPress, text }: IProps) => {
   );
 };
 
-export const CryptoSearchResult = React.memo(Component);
+export const StockSearchResult = React.memo(Component);

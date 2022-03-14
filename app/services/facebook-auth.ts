@@ -1,11 +1,11 @@
-import { FacebookAppID } from 'config';
+import { Config } from 'config';
 import {
   Settings,
   LoginManager,
   Profile,
   AccessToken,
 } from 'react-native-fbsdk-next';
-Settings.setAppID(FacebookAppID);
+Settings.setAppID(Config.FacebookAppID);
 
 export const facebookLogin = async () => {
   try {

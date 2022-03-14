@@ -9,6 +9,7 @@ import { APP_CONTENT } from 'shared/constants';
 import { SearchModalMarket } from 'shared/stores';
 import { colorScheme, styleProvider } from 'shared/styles';
 import { TabBarView } from './components';
+import { StockStore } from './components/Stock/store';
 
 const Component = () => {
   const [tabIndex, setTabIndex] = React.useState(0);
@@ -17,8 +18,22 @@ const Component = () => {
     switch (tabIndex) {
       case 0:
         SearchModalMarket.toggleCryptoSearch();
+        break;
+      case 1:
+        SearchModalMarket.toggleStockSearch();
+        break;
     }
   };
+  const handleTabChange = React.useCallback((index: number) => {
+    setTabIndex(index);
+    switch (index) {
+      case 0:
+        break;
+      case 1:
+        StockStore.getStockList();
+        break;
+    }
+  }, []);
   return (
     <PlatformView style={styleProvider.body}>
       <View style={[styleProvider.searchBarTheme, { paddingTop: 30 }]}>
@@ -36,7 +51,7 @@ const Component = () => {
         backgroundColor={colorScheme.theme}
         barStyle="light-content"
       />
-      <TabBarView onViewChange={setTabIndex} />
+      <TabBarView onViewChange={handleTabChange} />
     </PlatformView>
   );
 };

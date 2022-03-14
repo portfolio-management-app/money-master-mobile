@@ -163,6 +163,7 @@ export const en = {
     currency: 'Currency',
     noData: 'No data',
     cryptoSearchPlaceholder: 'Enter coin name',
+    stockSearchPlaceholder: 'Enter stock symbol',
   },
   cryptoDetail: {
     buy: 'Buy',
@@ -172,6 +173,16 @@ export const en = {
       W: 'W',
       M: 'M',
       Y: 'Y',
+    },
+  },
+  stockDetail: {
+    buy: 'Buy',
+    sell: 'Sell',
+    range: {
+      H: 'H',
+      D: 'D',
+      W: 'W',
+      M: 'M',
     },
   },
   next: 'Next',

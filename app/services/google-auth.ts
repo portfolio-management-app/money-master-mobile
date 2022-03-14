@@ -1,7 +1,7 @@
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
-import { GoogleClientID } from 'config';
+import { Config } from 'config';
 GoogleSignin.configure({
-  webClientId: GoogleClientID,
+  webClientId: Config.GoogleClientID,
   offlineAccess: true,
   profileImageSize: 120,
 });

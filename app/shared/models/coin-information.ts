@@ -8,4 +8,6 @@ export const CoinInformation = types.model('CoinInformation', {
   priceChange: types.number,
   marketCapRank: types.number,
   priceChangePercent: types.number,
+  circulatingSupply: types.number,
+  maxSupply: types.number,
 });

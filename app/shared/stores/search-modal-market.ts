@@ -11,6 +11,9 @@ export const SearchModalMarket = types
     const toggleCryptoSearch = () => {
       self.cryptoSearch = !self.cryptoSearch;
     };
-    return { toggleCryptoSearch };
+    const toggleStockSearch = () => {
+      self.stockSearch = !self.stockSearch;
+    };
+    return { toggleCryptoSearch, toggleStockSearch };
   })
   .create({});

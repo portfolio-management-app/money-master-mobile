@@ -1,14 +1,29 @@
-export const GoogleClientID =
-  '511417762868-an9ak0crrtra3c4l0rqebt5bmuuo5aqp.apps.googleusercontent.com';
+const production = {
+  GoogleClientID:
+    '511417762868-an9ak0crrtra3c4l0rqebt5bmuuo5aqp.apps.googleusercontent.com',
+  FacebookAppID:
+    '511417762868-an9ak0crrtra3c4l0rqebt5bmuuo5aqp.apps.googleusercontent.com',
+  BASE_URL: 'https://grade-book-backend.herokuapp.com',
+  COIN_API_URL: 'https://api.coingecko.com/api/v3',
+  STOCK_API_URL: 'https://api.twelvedata.com',
+  STOCK_API_KEY: '3bc55b4319ea4709a7660a022cf6bcc4',
+};
 
-export const FacebookAppID = '283259500459094';
+const dev = {
+  GoogleClientID:
+    '511417762868-an9ak0crrtra3c4l0rqebt5bmuuo5aqp.apps.googleusercontent.com',
+  FacebookAppID:
+    '511417762868-an9ak0crrtra3c4l0rqebt5bmuuo5aqp.apps.googleusercontent.com',
+  BASE_URL: 'https://d671-123-22-24-194.ngrok.io',
+  COIN_API_URL: 'https://api.coingecko.com/api/v3',
+  STOCK_API_URL: 'https://api.twelvedata.com',
+  STOCK_API_KEY: '3bc55b4319ea4709a7660a022cf6bcc4',
+};
 
-let url: string = 'https://grade-book-backend.herokuapp.com';
+let temp = production;
 
 if (__DEV__) {
-  url = 'https://a08f-123-22-24-194.ngrok.io';
+  temp = dev;
 }
 
-export const COIN_API_URL = 'https://api.coingecko.com/api/v3';
-
-export const BASE_URL = url;
+export const Config = temp;

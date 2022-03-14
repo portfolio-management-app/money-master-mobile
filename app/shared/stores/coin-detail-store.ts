@@ -1,8 +1,9 @@
 import { flow, types } from 'mobx-state-tree';
 import { httpRequest } from 'services/api';
-import { COIN_API_URL } from 'config';
+import { Config } from 'config';
 import { HttpError } from 'errors/base';
 import { CoinInformation } from '../models';
+import { CryptoTimeSupport } from 'shared/types';
 
 const Store = types
   .model('CoinDataStore', {
@@ -10,13 +11,18 @@ const Store = types
     chartData: types.array(types.array(types.number)),
     loading: types.boolean,
     currency: types.string,
-    range: types.number,
+    range: types.union(
+      types.literal(1),
+      types.literal(7),
+      types.literal(30),
+      types.literal(365)
+    ),
   })
   .actions((self) => {
     const getChartData = flow(function* (
       coinId: string,
       currency: string,
-      day: number
+      day: CryptoTimeSupport
     ) {
       self.loading = true;
       self.coinInfo.id = coinId;
@@ -25,9 +31,9 @@ const Store = types
       try {
         const [chartRes, coinInfoRes] = yield Promise.all([
           httpRequest.sendGet(
-            `${COIN_API_URL}/coins/${coinId}/market_chart?vs_currency=${currency}&days=${day}`
+            `${Config.COIN_API_URL}/coins/${coinId}/market_chart?vs_currency=${currency}&days=${day}`
           ),
-          httpRequest.sendGet(`${COIN_API_URL}/coins/${coinId}`),
+          httpRequest.sendGet(`${Config.COIN_API_URL}/coins/${coinId}`),
         ]);
         if (chartRes instanceof HttpError) {
           console.log(chartRes.getMessage());
@@ -51,13 +57,36 @@ const Store = types
         current_price,
         price_change_24h_in_currency,
         price_change_percentage_24h_in_currency,
+
+        price_change_percentage_7d_in_currency,
+
+        price_change_percentage_30d_in_currency,
+
+        price_change_percentage_1y_in_currency,
       } = res.market_data;
 
-      self.coinInfo.currentPrice = current_price[currency];
-      self.coinInfo.priceChange = price_change_24h_in_currency[currency];
       self.coinInfo.image = res.image.small;
-      self.coinInfo.priceChangePercent =
-        price_change_percentage_24h_in_currency[currency];
+      self.coinInfo.currentPrice = current_price[currency];
+      switch (self.range) {
+        case 1:
+          self.coinInfo.priceChangePercent =
+            price_change_percentage_24h_in_currency[currency];
+          self.coinInfo.priceChange = price_change_24h_in_currency[currency];
+          break;
+        case 7:
+          self.coinInfo.priceChangePercent =
+            price_change_percentage_7d_in_currency[currency];
+
+          break;
+        case 30:
+          self.coinInfo.priceChangePercent =
+            price_change_percentage_30d_in_currency[currency];
+
+          break;
+        case 365:
+          self.coinInfo.priceChangePercent =
+            price_change_percentage_1y_in_currency[currency];
+      }
     };
     return { getChartData };
   });
@@ -71,6 +100,8 @@ export const CoinDetailStore = Store.create({
     priceChange: 0,
     marketCapRank: 0,
     priceChangePercent: 0,
+    maxSupply: 0,
+    circulatingSupply: 0,
   },
   currency: 'USD',
   chartData: [],

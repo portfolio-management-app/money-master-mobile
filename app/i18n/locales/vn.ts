@@ -155,6 +155,7 @@ export const vn = {
     currency: 'Currency',
     noData: 'No data',
     cryptoSearchPlaceholder: 'Enter coin name',
+    stockSearchPlaceholder: 'Enter stock symbol',
   },
   cryptoDetail: {
     buy: 'Buy',
@@ -164,6 +165,16 @@ export const vn = {
       W: 'T',
       M: 'TH',
       Y: 'N',
+    },
+  },
+  stockDetail: {
+    buy: 'Buy',
+    sell: 'Sell',
+    range: {
+      H: 'H',
+      D: 'D',
+      W: 'W',
+      M: 'M',
     },
   },
   next: 'Next',
