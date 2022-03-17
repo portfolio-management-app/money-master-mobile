@@ -15,7 +15,7 @@ interface IProps {
 export const StockRenderItem = ({ renderInfo }: IProps) => {
   const navigation = useNavigation();
   const gotoStockDetail = async () => {
-    await StockDetailStore.getStockData(renderInfo.item.symbol, '1h');
+    await StockDetailStore.getStockData(renderInfo.item.symbol);
     navigation.navigate(screenName.stockDetail as never);
   };
   return (

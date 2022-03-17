@@ -15,7 +15,7 @@ const Component = ({ chartData }: IProps) => {
   return (
     <GestureHandlerRootView>
       <LineChart.Provider data={renderData}>
-        <LineChart height={300}>
+        <LineChart height={200}>
           <LineChart.Path width={2} color={colorScheme.red500}>
             <LineChart.Gradient />
           </LineChart.Path>

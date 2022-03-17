@@ -1,6 +1,7 @@
 import { Crypto } from './Crypto';
 import { Bank } from './Bank';
 import { Stock } from './Stock';
-import { Cash } from './Cash';
+import { RealEstate } from './RealEstate';
 import { Other } from './Other';
-export { Other, Cash, Stock, Bank, Crypto };
+import { Cash } from './Cash';
+export { Other, Cash, Stock, Bank, Crypto, RealEstate };

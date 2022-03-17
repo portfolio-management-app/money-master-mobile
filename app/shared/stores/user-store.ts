@@ -5,11 +5,7 @@ import { User } from 'shared/models';
 import { types, flow } from 'mobx-state-tree';
 import { HttpRequestResponse } from 'shared/types';
 import { Config } from 'config';
-
-type AuthenResponse = {
-  email: string;
-  token: string;
-};
+import { AuthenResponse } from './types';
 
 export const UserStore = types
   .model('UserStore', {

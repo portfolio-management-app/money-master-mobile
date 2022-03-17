@@ -1,4 +1,4 @@
-import { SnapshotOut, types } from 'mobx-state-tree';
+import { types } from 'mobx-state-tree';
 
 export const StockInformation = types.model('StockInformation', {
   symbol: types.string,
@@ -10,14 +10,10 @@ export const StockInformation = types.model('StockInformation', {
 });
 
 export const StockTimeSeries = types.model('StockTimeSeries', {
-  datetime: types.string,
-  open: types.string,
-  high: types.string,
-  low: types.string,
-  close: types.string,
-  volume: types.string,
+  datetime: types.number,
+  open: types.number,
+  high: types.number,
+  low: types.number,
+  close: types.number,
+  volume: types.number,
 });
-
-export type IStockTimeSeries = SnapshotOut<typeof StockTimeSeries>;
-
-export type IStockInformation = SnapshotOut<typeof StockInformation>;

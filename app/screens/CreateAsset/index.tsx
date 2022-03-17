@@ -3,7 +3,7 @@ import React from 'react';
 import { PlatformView } from 'shared/components';
 import { styleProvider } from 'shared/styles';
 import { AssetType, ScreenParams } from 'shared/types';
-import { Bank, Other, Crypto, Stock, Cash } from './components';
+import { Bank, Other, Crypto, Stock, Cash, RealEstate } from './components';
 
 interface Param extends ScreenParams {
   params: {
@@ -49,7 +49,7 @@ export const CreateAsset = () => {
     case 'REAL-ESTATE':
       return (
         <PlatformView style={styleProvider.body}>
-          <Other onClose={() => navigation.goBack()} />
+          <RealEstate onClose={() => navigation.goBack()} />
         </PlatformView>
       );
     default:

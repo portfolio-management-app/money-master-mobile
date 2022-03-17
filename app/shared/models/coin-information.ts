@@ -9,5 +9,9 @@ export const CoinInformation = types.model('CoinInformation', {
   marketCapRank: types.number,
   priceChangePercent: types.number,
   circulatingSupply: types.number,
-  maxSupply: types.number,
+  maxSupply: types.maybeNull(types.number),
+  ath: types.number,
+  athPercent: types.number,
+  lastUpdate: types.string,
+  athDate: types.string,
 });

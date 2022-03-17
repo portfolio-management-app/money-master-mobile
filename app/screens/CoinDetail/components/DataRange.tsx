@@ -10,17 +10,19 @@ const DATA_RANGE: Array<CryptoTimeSupport> = [1, 7, 30, 365];
 
 const RANGE_CONTENT = APP_CONTENT.cryptoDetail.range;
 
-export const DateRange = () => {
+export const DataRange = () => {
   const { getChartData, currency, coinInfo } = CoinDetailStore;
 
   const [dayRange, setDayRange] = React.useState<CryptoTimeSupport>(1);
+  const mount = React.useRef<number>(0);
 
   const changeRange = React.useCallback((day: CryptoTimeSupport) => {
     setDayRange(day);
   }, []);
 
   React.useEffect(() => {
-    getChartData(coinInfo.id, currency, dayRange);
+    if (mount.current) getChartData(coinInfo.id, currency, dayRange);
+    mount.current++;
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dayRange]);
   return (

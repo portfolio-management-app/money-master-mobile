@@ -25,7 +25,7 @@ export const ITEMS = [
   },
   {
     id: 3,
-    label: PICKER_LABEL.realEaster,
+    label: PICKER_LABEL.realEstate,
     icon: <Icon.FontAwesome5 size={SIZE - 5} color={COLOR} name="building" />,
   },
   {

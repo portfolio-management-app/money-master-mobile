@@ -5,6 +5,7 @@ import { APP_CONTENT } from 'shared/constants';
 import { StockDetailStore } from 'shared/stores';
 import { colorScheme, styleProvider } from 'shared/styles';
 import { StockTimeSupport } from 'shared/types';
+import { getUnixTimeStamp } from 'utils/date';
 
 const DATA_RANGE: Array<StockTimeSupport> = ['1h', '1day', '1week', '1month'];
 
@@ -19,8 +20,11 @@ export const DateRange = () => {
     setDayRange(day);
   }, []);
 
+  const mount = React.useRef<number>(0);
+
   React.useEffect(() => {
-    getStockData(stockInformation.symbol, dayRange);
+    if (mount) getStockData(stockInformation.symbol, dayRange);
+    mount.current++;
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dayRange]);
   return (

@@ -2,13 +2,20 @@ import React from 'react';
 import { StyleSheet } from 'react-native';
 import { View } from 'react-native-ui-lib';
 import { SCREEN_CONTENT } from 'screens/PortfolioDetail/constants';
-import { CreateModalHeader, SearchBar } from 'shared/components';
+import {
+  CreateModalHeader,
+  SearchBar,
+  StockSearchResult,
+} from 'shared/components';
 import { SEARCH_BAR_CONTENT } from 'shared/constants';
 import { ModalProps } from 'shared/types';
+import { useDebounce } from 'use-debounce/lib';
 
 const HEADER = SCREEN_CONTENT.assetPicker;
 
 const Component = ({ onClose }: ModalProps) => {
+  const [text, setText] = React.useState('');
+  const [value] = useDebounce(text, 500);
   return (
     <>
       <CreateModalHeader
@@ -17,8 +24,12 @@ const Component = ({ onClose }: ModalProps) => {
         hasRightButton={false}
       />
       <View style={styles.searchBar}>
-        <SearchBar placeholder={SEARCH_BAR_CONTENT.placeholder} />
+        <SearchBar
+          onSearch={setText}
+          placeholder={SEARCH_BAR_CONTENT.placeholder}
+        />
       </View>
+      <StockSearchResult text={value} />
     </>
   );
 };

@@ -55,6 +55,7 @@ export const vn = {
     requiredFiled: 'Trường này không được trống',
     email: 'Email không hợp lệ',
     password: 'Mật khẩu từ 8-32 kí tự và chứa cả chữ cái và số',
+    lessThan100: 'Interest rate must be less than or equal 100',
   },
   searchBar: {
     placeholder: 'Tìm kiếm',
@@ -111,7 +112,7 @@ export const vn = {
       nft: 'Tiền điện tử',
       stock: 'Cổ phiếu',
       banking: 'Ngân hàng',
-      realEaster: 'Bất động sản',
+      realEstate: 'Bất động sản',
       other: 'Khác',
       cash: 'Tiền mặt',
     },
@@ -124,6 +125,7 @@ export const vn = {
       rate: 'Lãi suất (%)',
       termRange: 'Kì hạn (tháng)',
       startDate: 'Ngày bắt đầu',
+      description: 'Mô tả',
     },
     bankingModal: {
       name: 'Tên ngân hàng',
@@ -166,6 +168,12 @@ export const vn = {
       M: 'TH',
       Y: 'N',
     },
+    circulatingSupply: 'Circulating supply',
+    marketCapRank: 'Market cap rank',
+    maxSupply: 'Max supply',
+    ath: 'ATH',
+    athDate: 'ATH Date',
+    lastUpdate: 'Last update',
   },
   stockDetail: {
     buy: 'Buy',

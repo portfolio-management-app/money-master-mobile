@@ -38,7 +38,7 @@ const Store = types
         if (chartRes instanceof HttpError) {
           console.log(chartRes.getMessage());
         } else {
-          self.chartData = chartRes.prices.reverse();
+          self.chartData = chartRes.prices;
         }
         if (coinInfoRes instanceof HttpError) {
           console.log(coinInfoRes.getMessage());
@@ -55,17 +55,28 @@ const Store = types
       const currency = self.currency.toLocaleLowerCase();
       const {
         current_price,
+        market_cap_rank,
+        max_supply,
+        ath,
+        last_updated,
+        circulating_supply,
+        ath_change_percentage,
         price_change_24h_in_currency,
         price_change_percentage_24h_in_currency,
-
         price_change_percentage_7d_in_currency,
-
         price_change_percentage_30d_in_currency,
-
         price_change_percentage_1y_in_currency,
+        ath_date,
       } = res.market_data;
 
       self.coinInfo.image = res.image.small;
+      self.coinInfo.athDate = ath_date[currency];
+      self.coinInfo.lastUpdate = last_updated;
+      self.coinInfo.ath = ath[currency];
+      self.coinInfo.circulatingSupply = circulating_supply;
+      self.coinInfo.athPercent = ath_change_percentage[currency];
+      self.coinInfo.marketCapRank = market_cap_rank;
+      self.coinInfo.maxSupply = max_supply;
       self.coinInfo.currentPrice = current_price[currency];
       switch (self.range) {
         case 1:
@@ -102,6 +113,10 @@ export const CoinDetailStore = Store.create({
     priceChangePercent: 0,
     maxSupply: 0,
     circulatingSupply: 0,
+    ath: 0,
+    athPercent: 0,
+    lastUpdate: '',
+    athDate: '',
   },
   currency: 'USD',
   chartData: [],

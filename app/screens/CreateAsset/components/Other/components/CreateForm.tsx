@@ -2,7 +2,7 @@ import { Formik } from 'formik';
 import React from 'react';
 import { StyleSheet } from 'react-native';
 import { View } from 'react-native-ui-lib';
-import { SCREEN_CONTENT } from 'screens/PortfolioDetail/constants';
+
 import {
   CreateModalHeader,
   CurrencyPicker,
@@ -10,19 +10,28 @@ import {
   DatePicker,
   renderPickerForPortfolio,
 } from 'shared/components';
+import { APP_CONTENT } from 'shared/constants';
 import { CreateAssetSchema } from './validator';
 
 interface IProps {
   onSubmit: (data: any) => void;
   onClose: () => void;
 }
-const FORM_CONTENT = SCREEN_CONTENT.createOtherModal;
+const FORM_CONTENT = APP_CONTENT.portfolioDetail.createOtherModal;
 
 const Component = ({ onSubmit, onClose }: IProps) => {
   return (
     <Formik
       validationSchema={CreateAssetSchema}
-      initialValues={{ name: '', initBalance: 0, currency: '' }}
+      initialValues={{
+        name: '',
+        inputDay: new Date(),
+        inputMoneyAmount: 0,
+        inputCurrency: '',
+        description: '',
+        interestRate: 0,
+        termRange: 0,
+      }}
       onSubmit={(values) => onSubmit(values)}
     >
       {({ errors, touched, handleBlur, handleChange, handleSubmit }) => {
@@ -42,15 +51,21 @@ const Component = ({ onSubmit, onClose }: IProps) => {
                 placeholder={FORM_CONTENT.name}
               />
               <CustomTextField
-                onChangeText={handleChange('initBalance')}
-                onBlur={handleBlur('initBalance')}
-                errorMessage={touched.initBalance ? errors.initBalance : ''}
+                onChangeText={handleChange('description')}
+                placeholder={FORM_CONTENT.description}
+              />
+              <CustomTextField
+                onChangeText={handleChange('inputMoneyAmount')}
+                onBlur={handleBlur('inputMoneyAmount')}
+                errorMessage={
+                  touched.inputMoneyAmount ? errors.inputMoneyAmount : ''
+                }
                 keyBoardType="decimal-pad"
                 placeholder={FORM_CONTENT.balance}
               />
               <CurrencyPicker
-                errorMessage={touched.currency ? errors.currency : ''}
-                onChange={handleChange('currency')}
+                errorMessage={touched.inputCurrency ? errors.inputCurrency : ''}
+                onChange={handleChange('inputCurrency')}
                 renderPicker={renderPickerForPortfolio}
               />
               <CustomTextField

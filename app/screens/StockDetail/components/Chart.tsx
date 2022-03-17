@@ -77,11 +77,11 @@ const buildData = (dataProps: Array<IStockTimeSeries>) => {
   const res: TData = [];
   for (let i = 0; i < dataProps.length; i++) {
     res.push({
-      timestamp: new Date(dataProps[i].datetime).getTime(),
-      open: parseFloat(dataProps[i].open),
-      close: parseFloat(dataProps[i].close),
-      high: parseFloat(dataProps[i].high),
-      low: parseFloat(dataProps[i].low),
+      timestamp: dataProps[i].datetime * 1000,
+      open: dataProps[i].open,
+      close: dataProps[i].close,
+      high: dataProps[i].high,
+      low: dataProps[i].low,
     });
   }
   return res;

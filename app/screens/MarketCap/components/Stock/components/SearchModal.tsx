@@ -15,7 +15,8 @@ const Component = () => {
   const navigation = useNavigation();
 
   const onResultPress = async (symbol: string) => {
-    await StockDetailStore.getStockData(symbol, '1h');
+    console.log(symbol);
+    await StockDetailStore.getStockData(symbol);
     navigation.navigate(
       screenName.stockDetail as never,
       { symbol: symbol } as never

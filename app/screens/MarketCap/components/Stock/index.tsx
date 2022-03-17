@@ -1,22 +1,15 @@
 import { observer } from 'mobx-react-lite';
 import React from 'react';
-import { FlatList } from 'react-native';
-import { TransparentLoading } from 'shared/components';
-import { StockDetailStore } from 'shared/stores';
-import { SearchModal, StockRenderItem } from './components';
-import { StockStore } from './store';
+import { View } from 'react-native-ui-lib';
+import { SearchForData } from 'shared/components';
+import { styleProvider } from 'shared/styles';
+import { SearchModal } from './components';
 
 export const StockMarket = observer(() => {
-  const { stockList, loading } = StockStore;
-
   return (
-    <>
-      <FlatList
-        data={stockList}
-        renderItem={(item) => <StockRenderItem renderInfo={item} />}
-      />
+    <View style={[styleProvider.centerVertical, { flex: 1 }]}>
+      <SearchForData />
       <SearchModal />
-      <TransparentLoading show={StockDetailStore.loading || loading} />
-    </>
+    </View>
   );
 });

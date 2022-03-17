@@ -60,6 +60,8 @@ const styles = StyleSheet.create({
   searchField: {
     padding: 5,
     fontSize: 16,
+
+    width: '100%',
   },
   searchContainer: {
     paddingHorizontal: 10,

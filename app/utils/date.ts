@@ -44,3 +44,7 @@ export const parseToString = (date: Date, config?: ParseConfig): string => {
   }
   return '';
 };
+
+export const getUnixTimeStamp = (date: Date) => {
+  return Math.round(date.getTime() / 1000);
+};

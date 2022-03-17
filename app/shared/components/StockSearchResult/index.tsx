@@ -11,13 +11,10 @@ import { styleProvider } from 'shared/styles';
 import { TransparentLoading } from '../Loading/TransparentLoading';
 
 type SearchResult = {
+  description: string;
+  displaySymbol: string;
   symbol: string;
-  instrument_name: string;
-  exchange: string;
-  exchange_timezone: string;
-  instrument_type: string;
-  country: string;
-  currency: string;
+  type: string;
 };
 
 interface IProps {
@@ -34,13 +31,13 @@ const Component = ({ onStockPress, text }: IProps) => {
   const startSearching = React.useCallback(async (query: string) => {
     setLoading(true);
     const res = await httpRequest.sendGet(
-      `${Config.STOCK_API_URL}/symbol_search?symbol=${query}`
+      `${Config.STOCK_API_URL}/search?q=${query}&token=${Config.STOCK_API_KEY}`
     );
 
     if (res instanceof HttpError) {
       console.log(res);
     } else {
-      setSearchResult(res.data);
+      setSearchResult(res.result);
     }
     setLoading(false);
   }, []);
@@ -70,8 +67,8 @@ const Component = ({ onStockPress, text }: IProps) => {
               style={styleProvider.card}
               key={id}
             >
-              <TextContainer bold>{result.symbol}</TextContainer>
-              <TextContainer ml={15}>{result.instrument_name}</TextContainer>
+              <TextContainer bold>{result.displaySymbol}</TextContainer>
+              <TextContainer ml={15}>{result.description}</TextContainer>
             </TouchableOpacity>
           ))}
         </ScrollView>

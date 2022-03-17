@@ -58,7 +58,7 @@ export const AssetGroup = () => {
             bold
             color={colorScheme.black200}
           >
-            {GROUP_NAMES.realEaster}
+            {GROUP_NAMES.realEstate}
           </TextContainer>
           {renderRealEasterItems.map((item) => item)}
         </View>
