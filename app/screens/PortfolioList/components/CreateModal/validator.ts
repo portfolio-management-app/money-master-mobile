@@ -1,5 +1,4 @@
 import { APP_CONTENT } from 'shared/constants';
-import { yupParserNumber } from 'utils/string';
 import * as Yup from 'yup';
 
 const FORM_ERROR = APP_CONTENT.formErrors;

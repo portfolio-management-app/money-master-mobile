@@ -4,6 +4,7 @@ import React from 'react';
 import { ListRenderItemInfo, StyleSheet } from 'react-native';
 import { Image, TouchableOpacity, View } from 'react-native-ui-lib';
 import { TextContainer } from 'shared/components';
+import { APP_CONTENT } from 'shared/constants';
 import { CoinDetailStore } from 'shared/stores';
 import { colorScheme, styleProvider } from 'shared/styles';
 import { parseToString } from 'utils/date';
@@ -13,6 +14,8 @@ import { CoinPrice } from './CoinPrice';
 interface IProps {
   coin: ListRenderItemInfo<ICrypto>;
 }
+
+const CONTENT = APP_CONTENT.marketCap;
 
 const Component = ({ coin }: IProps) => {
   const navigation = useNavigation();
@@ -45,7 +48,7 @@ const Component = ({ coin }: IProps) => {
         </View>
         <TextContainer mt={10} type="small">
           <TextContainer bold type="small">
-            Last update:
+            {CONTENT.lastUpdate}:
           </TextContainer>{' '}
           {parseToString(new Date(lastUpdate))}
         </TextContainer>

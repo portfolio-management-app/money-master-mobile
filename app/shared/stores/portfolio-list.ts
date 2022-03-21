@@ -1,9 +1,9 @@
+import { flow, types } from 'mobx-state-tree';
 import { Config } from 'config';
 import { HttpError } from 'errors/base';
-import { flow, types } from 'mobx-state-tree';
 import { httpRequest } from 'services/api';
-import { UserStore } from 'shared/stores';
-import { PortfolioInformation } from './model';
+import { UserStore } from './user';
+import { PortfolioInformation } from '../models';
 
 export type AddNewBody = {
   name: string;
@@ -11,12 +11,11 @@ export type AddNewBody = {
   initialCurrency: string;
 };
 
-export const PortfolioStore = types
-  .model('PortfolioStore', {
+export const PortfolioListStore = types
+  .model({
     portfolioList: types.array(PortfolioInformation),
-    loading: types.boolean,
   })
-  .actions(() => {
+  .actions((self) => {
     const addNewPortfolio = flow(function* (body: AddNewBody) {
       const res = yield httpRequest.sendPost(
         `${Config.BASE_URL}/portfolio`,
@@ -30,12 +29,20 @@ export const PortfolioStore = types
       }
     });
 
-    return { addNewPortfolio };
+    const getPortfolioList = flow(function* () {
+      const res = yield httpRequest.sendGet(
+        `${Config.BASE_URL}/portfolio`,
+        UserStore.user.token
+      );
+      if (res instanceof HttpError) {
+        console.log(res);
+      } else {
+        self.portfolioList = res;
+      }
+    });
+
+    return { addNewPortfolio, getPortfolioList };
   })
   .create({
-    portfolioList: [
-      { id: 1, name: 'Investment 1', dailyIncrease: 10.242, balance: 45.32426 },
-      { id: 2, name: 'Investment 2', dailyIncrease: 4.345, balance: 121.2419 },
-    ],
-    loading: false,
+    portfolioList: [],
   });

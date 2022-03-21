@@ -10,10 +10,13 @@ import {
   SearchFilterBar,
   SumUpCard,
 } from './components';
-import { PortfolioStore } from './store';
+import { PortfolioListStore } from 'shared/stores';
 
 export const Portfolios = observer(() => {
-  const { portfolioList } = PortfolioStore;
+  const { portfolioList, getPortfolioList } = PortfolioListStore;
+  React.useEffect(() => {
+    getPortfolioList();
+  }, [getPortfolioList]);
 
   return (
     <PlatformView style={styleProvider.body}>
@@ -26,13 +29,7 @@ export const Portfolios = observer(() => {
         <SumUpCard />
         <ScrollView>
           {portfolioList.map((portfolio) => (
-            <PortfolioCard
-              id={portfolio.id}
-              key={portfolio.id}
-              name={portfolio.name}
-              increase={portfolio.dailyIncrease}
-              balance={portfolio.balance}
-            />
+            <PortfolioCard key={portfolio.id} item={portfolio} />
           ))}
         </ScrollView>
       </View>

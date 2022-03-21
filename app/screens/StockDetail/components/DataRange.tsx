@@ -5,7 +5,6 @@ import { APP_CONTENT } from 'shared/constants';
 import { StockDetailStore } from 'shared/stores';
 import { colorScheme, styleProvider } from 'shared/styles';
 import { StockTimeSupport } from 'shared/types';
-import { getUnixTimeStamp } from 'utils/date';
 
 const DATA_RANGE: Array<StockTimeSupport> = ['1h', '1day', '1week', '1month'];
 
@@ -66,7 +65,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 10,
     padding: 10,
     borderRadius: 10,
-    width: 50,
+    width: 70,
   },
   rangeBtnCurrent: {
     backgroundColor: colorScheme.gray100,

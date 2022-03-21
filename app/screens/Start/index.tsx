@@ -77,7 +77,8 @@ export const Start = observer(() => {
                   label={START_CONTENT.login}
                 />
                 <BaseButton
-                  label="By Pass"
+                  style={{ width: '100%', marginTop: 20 }}
+                  label="Demo"
                   onPress={() => navigation.navigate(screenName.home as never)}
                 />
               </View>
@@ -111,7 +112,7 @@ const styles = StyleSheet.create({
   },
   image: {
     width: dimensionProvider.width,
-    height: dimensionProvider.width + 50,
+    height: dimensionProvider.width,
   },
   buttonContainer: {
     paddingHorizontal: 20,

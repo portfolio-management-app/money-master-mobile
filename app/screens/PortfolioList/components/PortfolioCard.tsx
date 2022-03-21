@@ -4,30 +4,27 @@ import React from 'react';
 import { StyleSheet } from 'react-native';
 import { TouchableOpacity } from 'react-native-ui-lib';
 import { TextContainer } from 'shared/components';
+import { IPortfolio } from 'shared/models';
 import { colorScheme } from 'shared/styles';
 
 interface IProps {
-  id: number;
-  name: string;
-  balance: number;
-  increase: number;
+  item: IPortfolio;
 }
 
-export const PortfolioCard = ({ name, balance, increase, id }: IProps) => {
+export const PortfolioCard = ({ item }: IProps) => {
   const navigation = useNavigation();
 
   const gotoDetail = () => {
     navigation.navigate(
       screenName.portfolioDetail as never,
-      { id: id, name: name } as never
+      { id: item.id, name: item.name } as never
     );
   };
   return (
     <TouchableOpacity onPress={gotoDetail} style={styles.container}>
-      <TextContainer>{name}</TextContainer>
+      <TextContainer>{item.name}</TextContainer>
       <TextContainer color={colorScheme.theme} style={styles.textContainer}>
-        ${balance}{' '}
-        <TextContainer color={colorScheme.green300}>+${increase}</TextContainer>
+        ${item.sum}{' '}
       </TextContainer>
     </TouchableOpacity>
   );

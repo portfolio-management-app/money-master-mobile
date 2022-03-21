@@ -27,6 +27,7 @@ export const CryptoStore = types
   })
   .actions((self) => {
     const getData = flow(function* () {
+      console.log('start');
       self.isLoading = true;
       const res = yield httpRequest.sendGet(
         `${Config.COIN_API_URL}/coins/markets?vs_currency=${
@@ -37,6 +38,7 @@ export const CryptoStore = types
       );
       if (res instanceof HttpError) {
         console.log(res);
+        self.isLoading = false;
       } else {
         const temp: Array<ICrypto> = [];
         res.forEach((data: any) => {

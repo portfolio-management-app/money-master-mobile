@@ -60,7 +60,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 10,
     padding: 10,
     borderRadius: 10,
-    width: 50,
+    width: 70,
   },
   rangeBtnCurrent: {
     backgroundColor: colorScheme.gray100,

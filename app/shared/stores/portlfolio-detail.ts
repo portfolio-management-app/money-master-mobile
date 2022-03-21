@@ -3,7 +3,7 @@ import { HttpError } from 'errors/base';
 import { flow, types } from 'mobx-state-tree';
 import { httpRequest } from 'services/api';
 import { CreateOtherAssetBody } from './types';
-import { UserStore } from './user-store';
+import { UserStore } from './user';
 
 export const PortfolioDetailStore = types
   .model('PortfolioDetailStore', {

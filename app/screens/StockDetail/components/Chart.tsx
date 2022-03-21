@@ -3,6 +3,7 @@ import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { View } from 'react-native-ui-lib';
 import { CandlestickChart, TData } from 'react-native-wagmi-charts';
 import { TextContainer } from 'shared/components';
+import { APP_CONTENT } from 'shared/constants';
 import { IStockInformation, IStockTimeSeries } from 'shared/models';
 import { styleProvider } from 'shared/styles';
 
@@ -10,7 +11,7 @@ interface IProps {
   chartData: Array<IStockTimeSeries>;
   stockInfo: IStockInformation;
 }
-
+const CONTENT = APP_CONTENT.stockDetail;
 const Component = ({ chartData, stockInfo }: IProps) => {
   const renderData = React.useMemo(() => {
     return buildData(chartData);
@@ -25,27 +26,27 @@ const Component = ({ chartData, stockInfo }: IProps) => {
         <View style={{ paddingHorizontal: 20 }}>
           <View style={styleProvider.centerHorizontal}>
             <TextContainer type="small" bold>
-              Open:{' '}
+              {CONTENT.open}:{' '}
             </TextContainer>
             <CandlestickChart.PriceText type="open" />
             <TextContainer type="small" bold>
-              Close:{' '}
+              {CONTENT.close}:{' '}
             </TextContainer>
             <CandlestickChart.PriceText type="close" />
           </View>
           <View style={styleProvider.centerHorizontal}>
             <TextContainer type="small" bold>
-              High:{' '}
+              {CONTENT.high}:{' '}
             </TextContainer>
             <CandlestickChart.PriceText type="high" />
             <TextContainer type="small" bold>
-              Low:{' '}
+              {CONTENT.low}:{' '}
             </TextContainer>
             <CandlestickChart.PriceText type="low" />
           </View>
           <View style={styleProvider.centerHorizontal}>
             <TextContainer type="small" bold>
-              Exchange timezone:{' '}
+              {CONTENT.exchangeTimeZone}:{' '}
             </TextContainer>
             <TextContainer type="small">
               {stockInfo.exchange_timezone}
@@ -53,11 +54,11 @@ const Component = ({ chartData, stockInfo }: IProps) => {
           </View>
           <View style={[styleProvider.centerHorizontal, { marginTop: 20 }]}>
             <TextContainer type="small" bold>
-              Exchange :{' '}
+              {CONTENT.exchange} :{' '}
             </TextContainer>
             <TextContainer type="small">{stockInfo.exchange}</TextContainer>
             <TextContainer ml={10} type="small" bold>
-              Currency :{' '}
+              {CONTENT.currency} :{' '}
             </TextContainer>
             <TextContainer type="small">{stockInfo.currency}</TextContainer>
           </View>

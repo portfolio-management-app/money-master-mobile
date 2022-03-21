@@ -1,8 +1,9 @@
 import React from 'react';
 import { Modal } from 'react-native-ui-lib';
-import { PortfolioStore } from 'screens/PortfolioList/store';
+
 import { FloatingButton, Icon } from 'shared/components';
 import { APP_CONTENT } from 'shared/constants';
+import { PortfolioListStore } from 'shared/stores';
 import { colorScheme, styleProvider } from 'shared/styles';
 import { CreateForm } from './components';
 
@@ -16,7 +17,7 @@ export const CreateModal = () => {
   };
 
   const onCreate = (data: any) => {
-    PortfolioStore.addNewPortfolio({
+    PortfolioListStore.addNewPortfolio({
       initialCash: data.initBalance,
       initialCurrency: data.currency,
       name: data.name,

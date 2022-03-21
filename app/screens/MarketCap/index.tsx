@@ -9,6 +9,7 @@ import { APP_CONTENT } from 'shared/constants';
 import { SearchModalMarket } from 'shared/stores';
 import { colorScheme, styleProvider } from 'shared/styles';
 import { TabBarView } from './components';
+import { MetalStore } from './components/Metal/store';
 import { StockStore } from './components/Stock/store';
 
 const Component = () => {
@@ -22,6 +23,8 @@ const Component = () => {
       case 1:
         SearchModalMarket.toggleStockSearch();
         break;
+      case 3:
+        SearchModalMarket.toggleCurrencySearch();
     }
   };
   const handleTabChange = React.useCallback((index: number) => {
@@ -31,6 +34,9 @@ const Component = () => {
         break;
       case 1:
         StockStore.getStockList();
+        break;
+      case 2:
+        MetalStore.getMetalData('USD');
         break;
     }
   }, []);

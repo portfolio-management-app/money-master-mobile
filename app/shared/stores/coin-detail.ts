@@ -76,7 +76,9 @@ const Store = types
       self.coinInfo.circulatingSupply = circulating_supply;
       self.coinInfo.athPercent = ath_change_percentage[currency];
       self.coinInfo.marketCapRank = market_cap_rank;
+
       self.coinInfo.maxSupply = max_supply;
+
       self.coinInfo.currentPrice = current_price[currency];
       switch (self.range) {
         case 1:
