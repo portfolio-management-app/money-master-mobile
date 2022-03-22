@@ -2,13 +2,11 @@ import { useNavigation, useRoute } from '@react-navigation/native';
 import React from 'react';
 import { PlatformView } from 'shared/components';
 import { styleProvider } from 'shared/styles';
-import { AssetType, ScreenParams } from 'shared/types';
+import { CreateAssetRouteProps, ScreenParams } from 'shared/types';
 import { Bank, Other, Crypto, Stock, Cash, RealEstate } from './components';
 
 interface Param extends ScreenParams {
-  params: {
-    type: AssetType;
-  };
+  params: CreateAssetRouteProps;
 }
 
 export const CreateAsset = () => {
@@ -19,7 +17,11 @@ export const CreateAsset = () => {
     case 'OTHER':
       return (
         <PlatformView style={styleProvider.body}>
-          <Other onClose={() => navigation.goBack()} />
+          <Other
+            header={routeProps.params.name}
+            id={routeProps.params.id}
+            onClose={() => navigation.goBack()}
+          />
         </PlatformView>
       );
     case 'BANKING':

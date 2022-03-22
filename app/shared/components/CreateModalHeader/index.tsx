@@ -6,7 +6,7 @@ import { Icon } from '../Icon';
 import { TextContainer } from '../TextContainer';
 
 interface IProps {
-  title: string;
+  title?: string;
   buttonLabel?: string;
   hasRightButton?: boolean;
   onClose?: () => void;

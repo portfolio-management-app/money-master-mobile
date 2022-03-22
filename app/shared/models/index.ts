@@ -1,3 +1,9 @@
+import {
+  RealEstateAsset,
+  BankAsset,
+  IBankAsset,
+  IRealEstateAsset,
+} from './portfolio-asset';
 import { PortfolioInformation, IPortfolio } from './portfolio-information';
 import { StockInformation, StockTimeSeries } from './stock-information';
 import { CoinInformation } from './coin-information';
@@ -9,6 +15,14 @@ export {
   StockInformation,
   StockTimeSeries,
   PortfolioInformation,
+  RealEstateAsset,
+  BankAsset,
 };
 
-export type { IStockTimeSeries, IStockInformation, IPortfolio };
+export type {
+  IStockTimeSeries,
+  IStockInformation,
+  IPortfolio,
+  IBankAsset,
+  IRealEstateAsset,
+};

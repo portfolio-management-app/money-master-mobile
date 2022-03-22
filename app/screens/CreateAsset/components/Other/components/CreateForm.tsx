@@ -16,10 +16,11 @@ import { CreateAssetSchema } from './validator';
 interface IProps {
   onSubmit: (data: any) => void;
   onClose: () => void;
+  header?: string;
 }
 const FORM_CONTENT = APP_CONTENT.portfolioDetail.createOtherModal;
 
-const Component = ({ onSubmit, onClose }: IProps) => {
+const Component = ({ onSubmit, onClose, header }: IProps) => {
   return (
     <Formik
       validationSchema={CreateAssetSchema}
@@ -32,7 +33,13 @@ const Component = ({ onSubmit, onClose }: IProps) => {
         interestRate: 0,
         termRange: 0,
       }}
-      onSubmit={(values) => onSubmit(values)}
+      onSubmit={(values) => {
+        values.inputMoneyAmount = 1 * values.inputMoneyAmount;
+        values.interestRate = 1 * values.interestRate;
+        values.termRange = 1 * values.termRange;
+        onSubmit(values);
+        onClose();
+      }}
     >
       {({ errors, touched, handleBlur, handleChange, handleSubmit }) => {
         return (
@@ -41,7 +48,7 @@ const Component = ({ onSubmit, onClose }: IProps) => {
               onClose={onClose}
               onCreate={handleSubmit}
               buttonLabel={FORM_CONTENT.create}
-              title={FORM_CONTENT.header}
+              title={header}
             />
             <View style={styles.formContainer}>
               <CustomTextField

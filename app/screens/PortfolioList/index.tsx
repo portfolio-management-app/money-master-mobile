@@ -2,7 +2,11 @@ import { observer } from 'mobx-react-lite';
 import React from 'react';
 import { ScrollView } from 'react-native-gesture-handler';
 import { View } from 'react-native-ui-lib';
-import { FocusAwareStatusBar, PlatformView } from 'shared/components';
+import {
+  FocusAwareStatusBar,
+  PlatformView,
+  TransparentLoading,
+} from 'shared/components';
 import { colorScheme, styleProvider } from 'shared/styles';
 import {
   CreateModal,
@@ -13,7 +17,7 @@ import {
 import { PortfolioListStore } from 'shared/stores';
 
 export const Portfolios = observer(() => {
-  const { portfolioList, getPortfolioList } = PortfolioListStore;
+  const { portfolioList, getPortfolioList, loading } = PortfolioListStore;
   React.useEffect(() => {
     getPortfolioList();
   }, [getPortfolioList]);
@@ -34,6 +38,7 @@ export const Portfolios = observer(() => {
         </ScrollView>
       </View>
       <CreateModal />
+      <TransparentLoading show={loading} />
     </PlatformView>
   );
 });

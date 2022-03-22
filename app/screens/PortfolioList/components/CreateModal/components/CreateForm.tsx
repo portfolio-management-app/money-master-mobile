@@ -17,7 +17,6 @@ interface IProps {
 }
 
 export const CreateForm = ({ onSubmit, onClose }: IProps) => {
-  console.log('render');
   return (
     <Formik
       validationSchema={CreatePortfolioSchema}

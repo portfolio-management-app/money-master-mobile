@@ -69,11 +69,7 @@ const Component = ({
         ))}
       </Picker>
       {errorMessage ? (
-        <TextContainer
-          style={{ marginTop: 10 }}
-          type="extra-small"
-          color={colorScheme.red500}
-        >
+        <TextContainer type="extra-small" color={colorScheme.red500}>
           {errorMessage}
         </TextContainer>
       ) : (
@@ -114,6 +110,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    marginBottom: 30,
+    marginBottom: 10,
   },
 });

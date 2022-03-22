@@ -7,6 +7,7 @@ import {
   CreateModalHeader,
   CurrencyPicker,
   CustomTextField,
+  DatePicker,
   renderPickerForPortfolio,
 } from 'shared/components';
 import { CreateAssetSchema } from './validator';
@@ -15,14 +16,27 @@ interface IProps {
   onSubmit: (data: any) => void;
   onClose: () => void;
 }
-const FORM_CONTENT = SCREEN_CONTENT.createOtherModal;
-
+const FORM_CONTENT = SCREEN_CONTENT.realEstateModal;
 const Component = ({ onSubmit, onClose }: IProps) => {
   return (
     <Formik
       validationSchema={CreateAssetSchema}
-      initialValues={{ name: '', initBalance: 0, currency: '' }}
-      onSubmit={(values) => onSubmit(values)}
+      initialValues={{
+        name: '',
+        inputDay: new Date().toISOString(),
+        inputMoneyAmount: 0,
+        inputCurrency: '',
+        buyPrice: 0,
+        currentPrice: 0,
+        description: '',
+      }}
+      onSubmit={(values) => {
+        values.buyPrice = 1 * values.buyPrice;
+        values.currentPrice = 1 * values.currentPrice;
+        values.inputMoneyAmount = values.buyPrice;
+        onSubmit(values);
+        onClose();
+      }}
     >
       {({ errors, touched, handleBlur, handleChange, handleSubmit }) => {
         return (
@@ -41,16 +55,32 @@ const Component = ({ onSubmit, onClose }: IProps) => {
                 placeholder={FORM_CONTENT.name}
               />
               <CustomTextField
-                onChangeText={handleChange('initBalance')}
-                onBlur={handleBlur('initBalance')}
-                errorMessage={touched.initBalance ? errors.initBalance : ''}
+                onChangeText={handleChange('description')}
+                onBlur={handleBlur('description')}
+                placeholder={FORM_CONTENT.description}
+              />
+              <CustomTextField
+                onChangeText={handleChange('currentPrice')}
+                onBlur={handleBlur('currentPrice')}
+                errorMessage={touched.currentPrice ? errors.currentPrice : ''}
                 keyBoardType="decimal-pad"
-                placeholder={FORM_CONTENT.balance}
+                placeholder={FORM_CONTENT.currentPrice}
+              />
+              <CustomTextField
+                onChangeText={handleChange('buyPrice')}
+                onBlur={handleBlur('buyPrice')}
+                errorMessage={touched.buyPrice ? errors.buyPrice : ''}
+                keyBoardType="decimal-pad"
+                placeholder={FORM_CONTENT.buyPrice}
               />
               <CurrencyPicker
-                errorMessage={touched.currency ? errors.currency : ''}
-                onChange={handleChange('currency')}
+                errorMessage={touched.inputCurrency ? errors.inputCurrency : ''}
+                onChange={handleChange('inputCurrency')}
                 renderPicker={renderPickerForPortfolio}
+              />
+              <DatePicker
+                label={FORM_CONTENT.startDate}
+                onISOStringChange={handleChange('inputDay')}
               />
             </View>
           </>

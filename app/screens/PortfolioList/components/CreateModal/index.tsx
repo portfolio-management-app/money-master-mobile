@@ -16,12 +16,13 @@ export const CreateModal = () => {
     setShowModal(!showModal);
   };
 
-  const onCreate = (data: any) => {
-    PortfolioListStore.addNewPortfolio({
+  const onCreate = async (data: any) => {
+    await PortfolioListStore.addNewPortfolio({
       initialCash: data.initBalance,
       initialCurrency: data.currency,
       name: data.name,
     });
+    toggle();
   };
   return (
     <>

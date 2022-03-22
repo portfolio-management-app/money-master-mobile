@@ -8,11 +8,18 @@ import { Icon, TextContainer } from 'shared/components';
 interface IProps {
   label: string;
   onChange?: (date: Date) => void;
+  onISOStringChange?: (value: string) => void | void;
   maxDate?: Date;
   minDate?: Date;
 }
 
-export const DatePicker = ({ label, onChange, minDate, maxDate }: IProps) => {
+export const DatePicker = ({
+  label,
+  onChange,
+  minDate,
+  maxDate,
+  onISOStringChange,
+}: IProps) => {
   const [date, setDate] = React.useState(new Date());
   const [dateString, setDateString] = React.useState(parseToString(new Date()));
   const [showDatePicker, setShowDatePicker] = React.useState(false);
@@ -27,10 +34,13 @@ export const DatePicker = ({ label, onChange, minDate, maxDate }: IProps) => {
       if (onChange) {
         onChange(currentDate);
       }
+      if (onISOStringChange) {
+        onISOStringChange(currentDate.toISOString());
+      }
       setDate(currentDate);
       setDateString(parseToString(currentDate));
     },
-    [onChange, date]
+    [onChange, date, onISOStringChange]
   );
   return (
     <View>

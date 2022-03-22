@@ -39,6 +39,7 @@ export type OnScrollProps = {
 export type ModalProps = {
   show?: boolean;
   onClose: () => void;
+  header?: string;
 };
 
 export interface RadioPickerProps {
@@ -64,6 +65,8 @@ export type AssetType =
 
 export type CreateAssetRouteProps = {
   type: AssetType;
+  name: string;
+  id: number;
 };
 
 export type StockTimeSupport =

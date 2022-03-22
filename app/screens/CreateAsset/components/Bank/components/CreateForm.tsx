@@ -19,11 +19,29 @@ interface IProps {
 const FORM_CONTENT = SCREEN_CONTENT.createOtherModal;
 
 const Component = ({ onSubmit, onClose }: IProps) => {
+  const [date, setDate] = React.useState(new Date());
   return (
     <Formik
       validationSchema={CreateAssetSchema}
-      initialValues={{ name: '', initBalance: 0, currency: '' }}
-      onSubmit={(values) => onSubmit(values)}
+      initialValues={{
+        name: '',
+        bankCode: '',
+        inputDay: new Date().toISOString(),
+        inputCurrency: '',
+        inputMoneyAmount: 0,
+        isGoingToReinState: true,
+        description: '',
+        interestRate: 0,
+        termRange: 0,
+      }}
+      onSubmit={(values) => {
+        values.inputDay = date.toISOString();
+        values.inputMoneyAmount = 1 * values.inputMoneyAmount;
+        values.interestRate = 1 * values.interestRate;
+        values.termRange = 1 * values.termRange;
+        onSubmit(values);
+        onClose();
+      }}
     >
       {({ errors, touched, handleBlur, handleChange, handleSubmit }) => {
         return (
@@ -42,26 +60,39 @@ const Component = ({ onSubmit, onClose }: IProps) => {
                 placeholder={SCREEN_CONTENT.bankingModal.name}
               />
               <CustomTextField
-                onChangeText={handleChange('initBalance')}
-                onBlur={handleBlur('initBalance')}
-                errorMessage={touched.initBalance ? errors.initBalance : ''}
+                onChangeText={handleChange('description')}
+                onBlur={handleBlur('description')}
+                placeholder={SCREEN_CONTENT.bankingModal.description}
+              />
+              <CustomTextField
+                onChangeText={handleChange('inputMoneyAmount')}
+                onBlur={handleBlur('inputMoneyAmount')}
+                errorMessage={
+                  touched.inputMoneyAmount ? errors.inputMoneyAmount : ''
+                }
                 keyBoardType="decimal-pad"
                 placeholder={FORM_CONTENT.balance}
               />
               <CurrencyPicker
-                errorMessage={touched.currency ? errors.currency : ''}
-                onChange={handleChange('currency')}
+                errorMessage={touched.inputCurrency ? errors.inputCurrency : ''}
+                onChange={handleChange('inputCurrency')}
                 renderPicker={renderPickerForPortfolio}
               />
               <CustomTextField
+                onChangeText={handleChange('interestRate')}
+                onBlur={handleBlur('interestRate')}
                 keyBoardType="decimal-pad"
                 placeholder={FORM_CONTENT.rate}
+                errorMessage={touched.interestRate ? errors.interestRate : ''}
               />
               <CustomTextField
+                onChangeText={handleChange('termRange')}
+                onBlur={handleBlur('termRange')}
                 keyBoardType="decimal-pad"
                 placeholder={FORM_CONTENT.termRange}
+                errorMessage={touched.termRange ? errors.termRange : ''}
               />
-              <DatePicker label={FORM_CONTENT.startDate} />
+              <DatePicker onChange={setDate} label={FORM_CONTENT.startDate} />
             </View>
           </>
         );

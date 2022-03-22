@@ -14,6 +14,7 @@ export type AddNewBody = {
 export const PortfolioListStore = types
   .model({
     portfolioList: types.array(PortfolioInformation),
+    loading: types.boolean,
   })
   .actions((self) => {
     const addNewPortfolio = flow(function* (body: AddNewBody) {
@@ -25,11 +26,12 @@ export const PortfolioListStore = types
       if (res instanceof HttpError) {
         console.log(res);
       } else {
-        console.log(res);
+        yield getPortfolioList();
       }
     });
 
     const getPortfolioList = flow(function* () {
+      self.loading = true;
       const res = yield httpRequest.sendGet(
         `${Config.BASE_URL}/portfolio`,
         UserStore.user.token
@@ -39,10 +41,12 @@ export const PortfolioListStore = types
       } else {
         self.portfolioList = res;
       }
+      self.loading = false;
     });
 
     return { addNewPortfolio, getPortfolioList };
   })
   .create({
     portfolioList: [],
+    loading: false,
   });

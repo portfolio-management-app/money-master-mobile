@@ -19,7 +19,7 @@ const dev = {
     '511417762868-an9ak0crrtra3c4l0rqebt5bmuuo5aqp.apps.googleusercontent.com',
   FacebookAppID:
     '511417762868-an9ak0crrtra3c4l0rqebt5bmuuo5aqp.apps.googleusercontent.com',
-  BASE_URL: 'https://9080-14-242-81-51.ngrok.io',
+  BASE_URL: 'https://3b57-14-242-81-51.ngrok.io',
   COIN_API_URL: 'https://api.coingecko.com/api/v3',
   STOCK_API_URL: 'https://finnhub.io/api/v1',
   STOCK_API_KEY: 'c8h21oiad3i9rgv9d1f0',

@@ -135,13 +135,22 @@ export const en = {
     },
     bankingModal: {
       name: 'Bank Name',
+      description: 'Description',
+    },
+    realEstateModal: {
+      name: 'Estate Name',
+      description: 'Description',
+      currentPrice: 'Current price',
+      buyPrice: 'Buy price',
+      startDate: 'Start date',
+      create: 'Create',
     },
   },
   assetDetail: {
     headerBanking: 'Banking  information',
     headerCrypto: 'Crypto  information',
     headerStock: 'Stock information',
-    headerRealEaster: 'Real easter information',
+    headerRealEaster: 'Real estate information',
     headerOther: 'Asset information',
     buy: 'Buy',
     transfer: 'Transfer',
@@ -209,4 +218,9 @@ export const en = {
     date: 'Date',
   },
   next: 'Next',
+  createAssetType: {
+    name: 'Asset type name',
+    header: 'Create new asset type',
+    create: 'Create',
+  },
 };

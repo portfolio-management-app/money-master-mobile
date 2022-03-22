@@ -129,6 +129,15 @@ export const vn = {
     },
     bankingModal: {
       name: 'Tên ngân hàng',
+      description: 'Mô tả',
+    },
+    realEstateModal: {
+      name: 'Estate Name',
+      description: 'Description',
+      currentPrice: 'Current price',
+      buyPrice: 'Buy price',
+      startDate: 'Start date',
+      create: 'Create',
     },
   },
   assetDetail: {
@@ -202,4 +211,9 @@ export const vn = {
     date: 'Thời gian',
   },
   next: 'Tiếp theo',
+  createAssetType: {
+    name: 'Asset type name',
+    header: 'Create new asset type',
+    create: 'Create',
+  },
 };

@@ -2,35 +2,49 @@ import React from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { NavigationHeader } from 'navigation/header';
 import { TouchableOpacity } from 'react-native-ui-lib';
-import { PlatformView, TextContainer } from 'shared/components';
+import {
+  FloatingButton,
+  Icon,
+  PlatformView,
+  TextContainer,
+  TransparentLoading,
+} from 'shared/components';
 import { APP_CONTENT } from 'shared/constants';
 import { colorScheme, styleProvider } from 'shared/styles';
-import { ITEMS } from './constants';
+import { COLOR, ITEMS, SIZE } from './constants';
 import { StatusBar } from 'react-native';
 import { screenName } from 'navigation/screen-names';
 import { CreateAssetRouteProps } from 'shared/types';
+import { CreateModal } from './components';
+import { Observer } from 'mobx-react-lite';
+import { AssetTypeStore } from './store';
 
 const SCREEN_CONTENT = APP_CONTENT.portfolioDetail;
 
 export const AssetPicker = () => {
   const navigation = useNavigation();
+  const [showModal, setShowModal] = React.useState(false);
 
-  const navigateToCreate = (id: number) => {
-    const param: CreateAssetRouteProps = { type: 'OTHER' };
+  React.useEffect(() => {
+    AssetTypeStore.getAssetTypeList();
+  }, []);
+
+  const navigateToCreate = (id: number, name: string) => {
+    const param: CreateAssetRouteProps = { type: 'OTHER', name: name, id: id };
     switch (id) {
-      case 0:
+      case -1:
         param.type = 'CRYPTO';
         break;
-      case 1:
+      case -2:
         param.type = 'STOCK';
         break;
-      case 2:
+      case -3:
         param.type = 'BANKING';
         break;
-      case 3:
+      case -4:
         param.type = 'REAL-ESTATE';
         break;
-      case 4:
+      case -5:
         param.type = 'CASH';
         break;
     }
@@ -43,7 +57,7 @@ export const AssetPicker = () => {
       <NavigationHeader title={SCREEN_CONTENT.assetPicker.title} />
       {ITEMS.map((item) => (
         <TouchableOpacity
-          onPress={() => navigateToCreate(item.id)}
+          onPress={() => navigateToCreate(item.id, item.label)}
           style={styleProvider.card}
           key={item.id}
         >
@@ -51,6 +65,32 @@ export const AssetPicker = () => {
           <TextContainer style={{ marginLeft: 20 }}>{item.label}</TextContainer>
         </TouchableOpacity>
       ))}
+      <Observer>
+        {() => {
+          const { assetTypeList, loading } = AssetTypeStore;
+          return (
+            <>
+              {assetTypeList.map((assetType) => (
+                <TouchableOpacity
+                  onPress={() => navigateToCreate(assetType.id, assetType.name)}
+                  style={styleProvider.card}
+                  key={assetType.id}
+                >
+                  <Icon.Material size={SIZE} color={COLOR} name="psychology" />
+                  <TextContainer style={{ marginLeft: 20 }}>
+                    {assetType.name}
+                  </TextContainer>
+                </TouchableOpacity>
+              ))}
+              <TransparentLoading show={loading} />
+            </>
+          );
+        }}
+      </Observer>
+      <FloatingButton onPress={() => setShowModal(!showModal)}>
+        <Icon.Material color={colorScheme.white} size={25} name="add" />
+      </FloatingButton>
+      <CreateModal show={showModal} onClose={() => setShowModal(!showModal)} />
     </PlatformView>
   );
 };
