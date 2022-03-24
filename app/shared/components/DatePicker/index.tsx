@@ -11,6 +11,7 @@ interface IProps {
   onISOStringChange?: (value: string) => void | void;
   maxDate?: Date;
   minDate?: Date;
+  initDate?: Date;
 }
 
 export const DatePicker = ({
@@ -19,10 +20,20 @@ export const DatePicker = ({
   minDate,
   maxDate,
   onISOStringChange,
+  initDate,
 }: IProps) => {
   const [date, setDate] = React.useState(new Date());
   const [dateString, setDateString] = React.useState(parseToString(new Date()));
   const [showDatePicker, setShowDatePicker] = React.useState(false);
+  const mounted = React.useRef<boolean>(false);
+
+  React.useEffect(() => {
+    if (initDate && !mounted.current) {
+      setDate(initDate);
+      setDateString(parseToString(initDate));
+      mounted.current = true;
+    }
+  }, [initDate]);
 
   const toggle = () => {
     setShowDatePicker(!showDatePicker);

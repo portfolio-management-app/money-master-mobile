@@ -5,6 +5,7 @@ const colors = {
   overlay: 'rgba(255, 0, 0, 0)',
   theme: '#2D7CF3',
   black200: '#2D3748',
+  hint: 'rgba(45, 55, 72,0.8)',
   red500: '#FA0606',
   red300: '#ce5e4f',
   blue300: '#08459A',

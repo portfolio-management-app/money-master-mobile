@@ -132,10 +132,14 @@ export const en = {
       rate: 'Interest rate(%)',
       termRange: 'Term range (month)',
       startDate: 'Start date',
+      update: 'Update',
     },
     bankingModal: {
       name: 'Bank Name',
       description: 'Description',
+      reinState: 'Is rein state',
+      reinStateExplain:
+        'If not tick, the money will be automatically draw back to cash when term range end',
     },
     realEstateModal: {
       name: 'Estate Name',
@@ -160,6 +164,11 @@ export const en = {
     transaction: 'Transaction history',
     edit: 'Edit',
     draw: 'Draw',
+    startDate: 'Start date',
+    bankName: 'Bank name',
+    description: 'Description',
+    none: 'None',
+    delete: 'Delete',
   },
 
   confirmModal: {
@@ -223,4 +232,9 @@ export const en = {
     header: 'Create new asset type',
     create: 'Create',
   },
+  bankAssetDetail: {
+    editTitle: 'Edit bank asset',
+  },
+  selectCurrency: 'Select currency',
+  statistic: 'Statistic',
 };

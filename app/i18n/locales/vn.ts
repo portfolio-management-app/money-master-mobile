@@ -51,11 +51,11 @@ export const vn = {
     setting: 'Cài đặt',
   },
   formErrors: {
-    mustBeANumber: 'Giá trị phải là số  lớn hơn 0',
+    mustBeANumber: 'Giá trị phải là số lớn hơn 0',
     requiredFiled: 'Trường này không được trống',
     email: 'Email không hợp lệ',
     password: 'Mật khẩu từ 8-32 kí tự và chứa cả chữ cái và số',
-    lessThan100: 'Interest rate must be less than or equal 100',
+    lessThan100: 'Lãi suất phải lớn hơn 0 và bé hơn 100',
   },
   searchBar: {
     placeholder: 'Tìm kiếm',
@@ -126,18 +126,22 @@ export const vn = {
       termRange: 'Kì hạn (tháng)',
       startDate: 'Ngày bắt đầu',
       description: 'Mô tả',
+      update: 'Update',
     },
     bankingModal: {
       name: 'Tên ngân hàng',
       description: 'Mô tả',
+      reinState: 'Đáo hạn',
+      reinStateExplain:
+        'Nếu không chọn trường này số tiền gửi ngân hàng sẽ được chuyển vè tài khoản chính khi đến kì hạn',
     },
     realEstateModal: {
-      name: 'Estate Name',
-      description: 'Description',
-      currentPrice: 'Current price',
-      buyPrice: 'Buy price',
-      startDate: 'Start date',
-      create: 'Create',
+      name: 'Tên bất động sản',
+      description: 'Mô tả',
+      currentPrice: 'Giá hiện tại',
+      buyPrice: 'Giá mua',
+      startDate: 'Ngày mua',
+      create: 'Tạo',
     },
   },
   assetDetail: {
@@ -154,6 +158,11 @@ export const vn = {
     transaction: 'Lịch sử giao dịch',
     edit: 'Chỉnh sửa',
     draw: 'Rut',
+    startDate: 'Ngày bắt đầu',
+    bankName: 'Bank name',
+    description: 'Mô tả',
+    none: 'Không có',
+    delete: 'Xóa',
   },
   confirmModal: {
     confirm: 'OK',
@@ -212,8 +221,15 @@ export const vn = {
   },
   next: 'Tiếp theo',
   createAssetType: {
-    name: 'Asset type name',
-    header: 'Create new asset type',
-    create: 'Create',
+    name: 'Tên loại tài sản',
+    header: 'Tạo mới loại tài sản',
+    create: 'Tạo',
   },
+  bankAssetDetail: {
+    editTitle: 'Chỉnh sửa tài sản',
+  },
+  selectCurrency: 'Chọn đơn vị tiền tệ',
+  statistic: 'Tổng quan',
+  total: 'Tổng cộng',
+  portfolio: 'tài sản',
 };

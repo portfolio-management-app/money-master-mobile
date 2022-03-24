@@ -1,8 +1,6 @@
 import { Formik } from 'formik';
 import React from 'react';
-import { StyleSheet } from 'react-native';
-import { View } from 'react-native-ui-lib';
-
+import { ScrollView, StyleSheet } from 'react-native';
 import {
   CreateModalHeader,
   CurrencyPicker,
@@ -50,7 +48,7 @@ const Component = ({ onSubmit, onClose, header }: IProps) => {
               buttonLabel={FORM_CONTENT.create}
               title={header}
             />
-            <View style={styles.formContainer}>
+            <ScrollView style={styles.formContainer}>
               <CustomTextField
                 onChangeText={handleChange('name')}
                 onBlur={handleBlur('name')}
@@ -84,7 +82,7 @@ const Component = ({ onSubmit, onClose, header }: IProps) => {
                 placeholder={FORM_CONTENT.termRange}
               />
               <DatePicker label={FORM_CONTENT.startDate} />
-            </View>
+            </ScrollView>
           </>
         );
       }}

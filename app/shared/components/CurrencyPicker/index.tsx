@@ -14,6 +14,7 @@ interface IProps {
   onChange?: (value: string) => void | void;
   bgColor?: string;
   headerStyle?: 'light-content' | 'dark-content';
+  initVal?: string;
   renderPicker: (value?: PickerItemValue, label?: string) => JSX.Element;
 }
 
@@ -23,8 +24,12 @@ const Component = ({
   bgColor = colorScheme.white,
   headerStyle = 'dark-content',
   renderPicker,
+  initVal,
 }: IProps) => {
-  const [selectedValue, setSelectedValue] = React.useState('');
+  const [selectedValue, setSelectedValue] = React.useState(
+    initVal ? initVal : ''
+  );
+  console.log('render');
 
   const color = React.useMemo(() => {
     if (headerStyle == 'light-content') return colorScheme.white;
@@ -38,6 +43,7 @@ const Component = ({
     },
     [onChange]
   );
+
   return (
     <View>
       <Picker
@@ -61,11 +67,7 @@ const Component = ({
         renderPicker={renderPicker}
       >
         {Object.keys(currencyList).map((key: string) => (
-          <Picker.Item
-            key={key}
-            value={key}
-            label={`${key}:    ${currencyList[key]}`}
-          />
+          <Picker.Item key={key} value={key} label={key} />
         ))}
       </Picker>
       {errorMessage ? (
@@ -83,16 +85,17 @@ export const CurrencyPicker = React.memo(Component);
 
 export const renderPickerForPortfolio = (
   value?: PickerItemValue,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   label?: string
 ) => {
   return (
     <View style={styles.picker}>
       <TextContainer>
         {value ? (
-          label
+          `${value}:  ${currencyList[value as string]}`
         ) : (
           <TextContainer color={colorScheme.gray400}>
-            Selected currency
+            {APP_CONTENT.selectCurrency}
           </TextContainer>
         )}
       </TextContainer>

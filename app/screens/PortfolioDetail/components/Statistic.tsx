@@ -2,6 +2,7 @@ import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { ExpandableSection } from 'react-native-ui-lib';
 import { Icon, TextContainer } from 'shared/components';
+import { APP_CONTENT } from 'shared/constants';
 import { colorScheme } from 'shared/styles';
 
 const Component = () => {
@@ -37,7 +38,7 @@ const SectionHeader = ({ isOpen }: { isOpen: boolean }) => {
   return (
     <View style={styles.selectionHeader}>
       <TextContainer type="h3" light>
-        Statistic
+        {APP_CONTENT.statistic}
       </TextContainer>
       {isOpen ? (
         <Icon.Evil color={colorScheme.white} size={30} name="chevron-down" />

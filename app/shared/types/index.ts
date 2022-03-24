@@ -1,3 +1,4 @@
+import { RouteProp } from '@react-navigation/native';
 import { HttpError } from 'errors/base';
 import { TextProps, TextStyle, ViewStyle } from 'react-native';
 
@@ -26,9 +27,7 @@ export interface TextContainerProps extends TextProps {
   mr?: number;
   textAl?: TextStyle['textAlign'];
 }
-export interface ScreenParams {
-  name: string;
-  key: string;
+export interface ScreenParams extends RouteProp<any, any> {
   params: any;
 }
 
@@ -82,3 +81,5 @@ export type StockTimeSupport =
   | '45min';
 
 export type CryptoTimeSupport = 1 | 7 | 30 | 365;
+
+export type AssetActionType = 'edit' | 'delete';

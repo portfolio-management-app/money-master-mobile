@@ -1,13 +1,19 @@
+import { observer } from 'mobx-react-lite';
 import React from 'react';
 import { StyleSheet } from 'react-native';
 import { View } from 'react-native-ui-lib';
 import { TextContainer } from 'shared/components';
+import { APP_CONTENT } from 'shared/constants';
+import { PortfolioListStore } from 'shared/stores';
 import { colorScheme } from 'shared/styles';
 
-export const SumUpCard = () => {
+export const SumUpCard = observer(() => {
   return (
     <View style={styles.container}>
-      <TextContainer light>Total: 2 portfolios</TextContainer>
+      <TextContainer light>
+        {APP_CONTENT.total}: {PortfolioListStore.portfolioList.length}{' '}
+        {APP_CONTENT.portfolio}
+      </TextContainer>
       <TextContainer bold light type="h1">
         $10324.221
       </TextContainer>
@@ -21,7 +27,7 @@ export const SumUpCard = () => {
       </TextContainer>
     </View>
   );
-};
+});
 
 const styles = StyleSheet.create({
   container: {

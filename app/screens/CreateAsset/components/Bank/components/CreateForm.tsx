@@ -1,7 +1,6 @@
 import { Formik } from 'formik';
 import React from 'react';
-import { StyleSheet } from 'react-native';
-import { View } from 'react-native-ui-lib';
+import { ScrollView, StyleSheet } from 'react-native';
 import { SCREEN_CONTENT } from 'screens/PortfolioDetail/constants';
 import {
   CreateModalHeader,
@@ -9,7 +8,9 @@ import {
   CustomTextField,
   DatePicker,
   renderPickerForPortfolio,
+  ReinStateCheckBox,
 } from 'shared/components';
+
 import { CreateAssetSchema } from './validator';
 
 interface IProps {
@@ -19,7 +20,7 @@ interface IProps {
 const FORM_CONTENT = SCREEN_CONTENT.createOtherModal;
 
 const Component = ({ onSubmit, onClose }: IProps) => {
-  const [date, setDate] = React.useState(new Date());
+  const [reinState, setReinState] = React.useState(false);
   return (
     <Formik
       validationSchema={CreateAssetSchema}
@@ -35,10 +36,10 @@ const Component = ({ onSubmit, onClose }: IProps) => {
         termRange: 0,
       }}
       onSubmit={(values) => {
-        values.inputDay = date.toISOString();
         values.inputMoneyAmount = 1 * values.inputMoneyAmount;
         values.interestRate = 1 * values.interestRate;
         values.termRange = 1 * values.termRange;
+        values.isGoingToReinState = reinState;
         onSubmit(values);
         onClose();
       }}
@@ -52,7 +53,7 @@ const Component = ({ onSubmit, onClose }: IProps) => {
               buttonLabel={FORM_CONTENT.create}
               title={SCREEN_CONTENT.assetPicker.banking}
             />
-            <View style={styles.formContainer}>
+            <ScrollView style={styles.formContainer}>
               <CustomTextField
                 onChangeText={handleChange('name')}
                 onBlur={handleBlur('name')}
@@ -92,8 +93,16 @@ const Component = ({ onSubmit, onClose }: IProps) => {
                 placeholder={FORM_CONTENT.termRange}
                 errorMessage={touched.termRange ? errors.termRange : ''}
               />
-              <DatePicker onChange={setDate} label={FORM_CONTENT.startDate} />
-            </View>
+              <ReinStateCheckBox
+                reinState={reinState}
+                onToggle={() => setReinState(!reinState)}
+              />
+
+              <DatePicker
+                onISOStringChange={handleChange('inputDay')}
+                label={FORM_CONTENT.startDate}
+              />
+            </ScrollView>
           </>
         );
       }}

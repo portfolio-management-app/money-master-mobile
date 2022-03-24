@@ -7,7 +7,7 @@ import { CreateOtherAssetBody } from './types';
 import { UserStore } from './user';
 
 export const PortfolioDetailStore = types
-  .model('PortfolioDetailStore', {
+  .model({
     id: types.number,
     name: types.string,
     bankAssetList: types.array(BankAsset),

@@ -27,7 +27,7 @@ class HttpRequest {
     }
   }
 
-  async sendPut(url: string, body: never, token?: string) {
+  async sendPut(url: string, body: any, token?: string) {
     try {
       const response = await axios.put(url, JSON.stringify(body), {
         headers: this.getHeader(token),

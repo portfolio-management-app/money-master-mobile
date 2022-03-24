@@ -12,11 +12,13 @@ interface IProps {
 }
 
 export const BankingCard = ({ item }: IProps) => {
-  console.log('ASSET ID', item.id);
   const navigation = useNavigation();
 
   const gotoBankDetail = () => {
-    navigation.navigate(screenName.bankAssetDetail as never);
+    navigation.navigate(
+      screenName.bankAssetDetail as never,
+      { info: item } as never
+    );
   };
   return (
     <TouchableOpacity onPress={gotoBankDetail} style={styleProvider.assetCard}>
