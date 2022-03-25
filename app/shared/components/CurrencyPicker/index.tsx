@@ -67,7 +67,11 @@ const Component = ({
         renderPicker={renderPicker}
       >
         {Object.keys(currencyList).map((key: string) => (
-          <Picker.Item key={key} value={key} label={key} />
+          <Picker.Item
+            key={key}
+            value={key}
+            label={`${key}: ${currencyList[key]}`}
+          />
         ))}
       </Picker>
       {errorMessage ? (

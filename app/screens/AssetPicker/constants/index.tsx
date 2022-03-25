@@ -11,28 +11,57 @@ export const ITEMS = [
   {
     id: -1,
     label: PICKER_LABEL.nft,
-    icon: <Icon.MaterialCommunity size={SIZE} color={COLOR} name="bitcoin" />,
+    icon: (
+      <Icon.MaterialCommunity
+        style={{ width: SIZE }}
+        size={SIZE}
+        color={COLOR}
+        name="bitcoin"
+      />
+    ),
   },
   {
     id: -2,
     label: PICKER_LABEL.stock,
-    icon: <Icon.Material size={SIZE} color={COLOR} name="insert-chart" />,
+    icon: (
+      <Icon.Material
+        size={SIZE}
+        style={{ width: SIZE }}
+        color={COLOR}
+        name="insert-chart"
+      />
+    ),
   },
   {
     id: -3,
     label: PICKER_LABEL.banking,
-    icon: <Icon.FontAwesome size={SIZE - 5} color={COLOR} name="bank" />,
+    icon: (
+      <Icon.FontAwesome
+        size={SIZE - 5}
+        style={{ width: SIZE }}
+        color={COLOR}
+        name="bank"
+      />
+    ),
   },
   {
     id: -4,
     label: PICKER_LABEL.realEstate,
-    icon: <Icon.FontAwesome5 size={SIZE - 5} color={COLOR} name="building" />,
+    icon: (
+      <Icon.FontAwesome5
+        style={{ width: SIZE }}
+        size={SIZE - 5}
+        color={COLOR}
+        name="building"
+      />
+    ),
   },
   {
     id: -5,
     label: PICKER_LABEL.cash,
     icon: (
       <Icon.FontAwesome5
+        style={{ width: SIZE }}
         size={SIZE - 10}
         color={COLOR}
         name="money-bill-wave-alt"

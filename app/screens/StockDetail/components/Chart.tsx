@@ -64,7 +64,7 @@ const Component = ({ chartData, stockInfo }: IProps) => {
           </View>
           <View style={styleProvider.centerHorizontal}>
             <TextContainer type="small" bold>
-              Date:{' '}
+              {CONTENT.date}:{' '}
             </TextContainer>
             <CandlestickChart.DatetimeText />
           </View>

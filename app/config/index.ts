@@ -9,8 +9,8 @@ const production = {
   STOCK_API_KEY: '3bc55b4319ea4709a7660a022cf6bcc4',
   TWELVEDATA_URL: 'https://api.twelvedata.com',
   TWELVEDATA_API_KEY: '67d9c7d05deb4bda882af961e6f1ca57',
-  CURRENCY_API_KEY: '6e444db0b87845888c535eab08d1ea9e',
-  CURRENCY_API_URL: 'https://openexchangerates.org/api',
+  CURRENCY_API_KEY: 'OSittjQ0FfyHBjtWy2ao',
+  CURRENCY_API_URL: 'https://fcsapi.com/api-v3/forex',
   METAL_API_KEY: 'goldapi-ejlu18l0q4qaka-io',
 };
 
