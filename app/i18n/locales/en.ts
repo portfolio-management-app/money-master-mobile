@@ -237,4 +237,6 @@ export const en = {
   },
   selectCurrency: 'Select currency',
   statistic: 'Statistic',
+  total: "Total",
+  portfolio:"portfolio",
 };

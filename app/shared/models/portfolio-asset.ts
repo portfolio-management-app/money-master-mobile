@@ -1,4 +1,4 @@
-import { types, SnapshotOut } from 'mobx-state-tree';
+import { types } from 'mobx-state-tree';
 
 export const BankAsset = types.model('BankAsset', {
   id: types.number,
@@ -24,7 +24,3 @@ export const RealEstateAsset = types.model('RealEstateAsset', {
   buyPrice: types.number,
   currentPrice: types.number,
 });
-
-export type IRealEstateAsset = SnapshotOut<typeof RealEstateAsset>;
-
-export type IBankAsset = SnapshotOut<typeof BankAsset>;

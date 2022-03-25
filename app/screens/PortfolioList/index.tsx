@@ -2,11 +2,7 @@ import { observer } from 'mobx-react-lite';
 import React from 'react';
 import { ScrollView } from 'react-native-gesture-handler';
 import { View } from 'react-native-ui-lib';
-import {
-  FocusAwareStatusBar,
-  PlatformView,
-  TransparentLoading,
-} from 'shared/components';
+import { FocusAwareStatusBar, PlatformView } from 'shared/components';
 import { colorScheme, styleProvider } from 'shared/styles';
 import {
   CreateModal,
@@ -15,6 +11,7 @@ import {
   SumUpCard,
 } from './components';
 import { PortfolioListStore } from 'shared/stores';
+import { RefreshControl } from 'react-native';
 
 export const Portfolios = observer(() => {
   const { portfolioList, getPortfolioList, loading } = PortfolioListStore;
@@ -28,17 +25,24 @@ export const Portfolios = observer(() => {
         backgroundColor={colorScheme.bg}
         barStyle="dark-content"
       />
+
       <View style={styleProvider.container}>
         <SearchFilterBar />
         <SumUpCard />
-        <ScrollView>
+        <ScrollView
+          refreshControl={
+            <RefreshControl
+              refreshing={loading}
+              onRefresh={() => getPortfolioList()}
+            />
+          }
+        >
           {portfolioList.map((portfolio) => (
             <PortfolioCard key={portfolio.id} item={portfolio} />
           ))}
         </ScrollView>
       </View>
       <CreateModal />
-      <TransparentLoading show={loading} />
     </PlatformView>
   );
 });

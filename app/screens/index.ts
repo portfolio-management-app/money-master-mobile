@@ -1,3 +1,4 @@
+import { CurrencyDetail } from './CurrencyDetail';
 import { StockDetail } from './StockDetail';
 import { CreateAsset } from './CreateAsset';
 import { AssetPicker } from './AssetPicker';
@@ -28,4 +29,5 @@ export {
   AssetPicker,
   CreateAsset,
   StockDetail,
+  CurrencyDetail,
 };

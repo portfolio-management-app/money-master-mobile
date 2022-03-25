@@ -1,10 +1,10 @@
 import { observer } from 'mobx-react-lite';
 import React from 'react';
-import { ScrollView } from 'react-native';
+import { RefreshControl, ScrollView } from 'react-native';
 import { View } from 'react-native-ui-lib';
 import { SCREEN_CONTENT } from 'screens/PortfolioDetail/constants';
 import { TextContainer } from 'shared/components';
-import { PortfolioDetailStore, ScrollStore } from 'shared/stores';
+import { PortfolioDetailStore } from 'shared/stores';
 import { colorScheme, styleProvider } from 'shared/styles';
 import { fakeData } from '../../fake-data';
 import {
@@ -19,12 +19,13 @@ const GROUP_NAMES = SCREEN_CONTENT.assetPicker;
 export const AssetGroup = observer(() => {
   const { renderCashItems, renderCryptoItems } = getRenderArray();
 
-  const { realEstateAssetList, bankAssetList } = PortfolioDetailStore;
+  const { realEstateAssetList, bankAssetList, loading, getAllAsset } =
+    PortfolioDetailStore;
 
   return (
     <ScrollView
-      onScroll={(e: any) =>
-        ScrollStore.changeOffset(e.nativeEvent.contentOffset.y)
+      refreshControl={
+        <RefreshControl refreshing={loading} onRefresh={() => getAllAsset()} />
       }
       showsVerticalScrollIndicator={false}
     >

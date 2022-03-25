@@ -82,4 +82,6 @@ export type StockTimeSupport =
 
 export type CryptoTimeSupport = 1 | 7 | 30 | 365;
 
+export type CurrencyTimeSupport = '1h' | '1d' | '1w' | '1m';
+
 export type AssetActionType = 'edit' | 'delete';

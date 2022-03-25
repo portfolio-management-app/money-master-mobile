@@ -32,7 +32,7 @@ export const TextContainer = (props: TextContainerProps) => {
           marginLeft: ml ? ml : undefined,
           marginRight: mr ? mr : undefined,
           marginTop: mt ? mt : undefined,
-          textAlign: textAl ? textAl : undefined,
+          textAlign: textAl,
         },
         style,
       ]}

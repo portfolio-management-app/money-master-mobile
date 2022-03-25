@@ -13,6 +13,9 @@ interface IProps {
   onChangeText?: (value: string) => void | void;
   onBlur?: (e: any) => void | void;
   onFocus?: (e: any) => void | void;
+  floatingPlaceHolder?: boolean;
+  floatOnFocus?: boolean;
+  value?: string;
 }
 
 export const CustomTextField = ({
@@ -24,11 +27,15 @@ export const CustomTextField = ({
   onBlur,
   onFocus,
   keyBoardType,
+  floatingPlaceHolder = true,
+  floatOnFocus = true,
+  value,
 }: IProps) => {
   return (
     <View>
       <Incubator.TextField
         onFocus={onFocus}
+        value={value}
         onBlur={onBlur}
         keyboardType={keyBoardType}
         selectionColor={colorScheme.theme}
@@ -36,10 +43,10 @@ export const CustomTextField = ({
         fieldStyle={styles.field}
         secureTextEntry={secureText}
         placeholder={placeholder}
-        floatingPlaceholder
+        floatingPlaceholder={floatingPlaceHolder}
         onChangeText={onChangeText}
         showCharCounter
-        floatOnFocus
+        floatOnFocus={floatOnFocus}
         floatingPlaceholderStyle={styles.placeHolder}
         maxLength={maxLength}
       />

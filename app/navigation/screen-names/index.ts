@@ -16,4 +16,5 @@ export const screenName = {
   search: 'Search',
   createAsset: 'CreateAsset',
   stockDetail: 'StockDetail',
+  currencyDetail: 'CurrencyDetail',
 };

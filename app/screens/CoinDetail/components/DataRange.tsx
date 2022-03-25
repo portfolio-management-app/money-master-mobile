@@ -14,7 +14,7 @@ export const DataRange = () => {
   const { getChartData, currency, coinInfo } = CoinDetailStore;
 
   const [dayRange, setDayRange] = React.useState<CryptoTimeSupport>(1);
-  const mount = React.useRef<number>(0);
+  const mount = React.useRef<boolean>(false);
 
   const changeRange = React.useCallback((day: CryptoTimeSupport) => {
     setDayRange(day);
@@ -22,7 +22,7 @@ export const DataRange = () => {
 
   React.useEffect(() => {
     if (mount.current) getChartData(coinInfo.id, currency, dayRange);
-    mount.current++;
+    mount.current = true;
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dayRange]);
   return (
@@ -61,6 +61,8 @@ const styles = StyleSheet.create({
     padding: 10,
     borderRadius: 10,
     width: 70,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   rangeBtnCurrent: {
     backgroundColor: colorScheme.gray100,

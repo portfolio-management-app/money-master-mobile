@@ -52,7 +52,14 @@ export const EditModal = ({ open, item, onClose, onEdit }: IProps) => {
           onClose();
         }}
       >
-        {({ errors, touched, handleBlur, handleChange, handleSubmit }) => {
+        {({
+          errors,
+          touched,
+          handleBlur,
+          handleChange,
+          handleSubmit,
+          values,
+        }) => {
           return (
             <>
               <CreateModalHeader
@@ -66,16 +73,14 @@ export const EditModal = ({ open, item, onClose, onEdit }: IProps) => {
                   onChangeText={handleChange('name')}
                   onBlur={handleBlur('name')}
                   errorMessage={touched.name ? errors.name : ''}
-                  placeholder={`${SCREEN_CONTENT.bankingModal.name} (${item.name})`}
+                  value={values.name}
+                  placeholder={SCREEN_CONTENT.bankingModal.name}
                 />
                 <CustomTextField
                   onChangeText={handleChange('description')}
                   onBlur={handleBlur('description')}
-                  placeholder={
-                    item.description === ''
-                      ? FORM_CONTENT.description
-                      : `${FORM_CONTENT.description} (${item.description})`
-                  }
+                  placeholder={FORM_CONTENT.description}
+                  value={values.description}
                 />
                 <CustomTextField
                   onChangeText={handleChange('inputMoneyAmount')}
@@ -84,9 +89,8 @@ export const EditModal = ({ open, item, onClose, onEdit }: IProps) => {
                     touched.inputMoneyAmount ? errors.inputMoneyAmount : ''
                   }
                   keyBoardType="decimal-pad"
-                  placeholder={`${
-                    FORM_CONTENT.balance
-                  } (${item.inputMoneyAmount.toString()})`}
+                  placeholder={FORM_CONTENT.balance}
+                  value={values.inputMoneyAmount.toString()}
                 />
                 <CurrencyPicker
                   errorMessage={
@@ -100,18 +104,16 @@ export const EditModal = ({ open, item, onClose, onEdit }: IProps) => {
                   onChangeText={handleChange('interestRate')}
                   onBlur={handleBlur('interestRate')}
                   keyBoardType="decimal-pad"
-                  placeholder={`${
-                    FORM_CONTENT.rate
-                  } (${item.interestRate.toString()})`}
+                  placeholder={FORM_CONTENT.rate}
+                  value={values.interestRate.toString()}
                   errorMessage={touched.interestRate ? errors.interestRate : ''}
                 />
                 <CustomTextField
                   onChangeText={handleChange('termRange')}
                   onBlur={handleBlur('termRange')}
                   keyBoardType="decimal-pad"
-                  placeholder={`${
-                    FORM_CONTENT.termRange
-                  } (${item.termRange.toString()})`}
+                  placeholder={FORM_CONTENT.termRange}
+                  value={values.termRange.toString()}
                   errorMessage={touched.termRange ? errors.termRange : ''}
                 />
                 <ReinStateCheckBox

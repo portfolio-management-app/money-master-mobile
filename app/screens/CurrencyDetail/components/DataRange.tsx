@@ -2,29 +2,26 @@ import React from 'react';
 import { View, TouchableOpacity, StyleSheet } from 'react-native';
 import { TextContainer } from 'shared/components';
 import { APP_CONTENT } from 'shared/constants';
-import { StockDetailStore } from 'shared/stores';
+import { CurrencyDetailStore } from 'shared/stores';
 import { colorScheme, styleProvider } from 'shared/styles';
-import { StockTimeSupport } from 'shared/types';
+import { CurrencyTimeSupport } from 'shared/types';
 
-const DATA_RANGE: Array<StockTimeSupport> = ['1h', '1day', '1week', '1month'];
+const DATA_RANGE: Array<CurrencyTimeSupport> = ['1h', '1d', '1w', '1m'];
 
 const RANGE_CONTENT = APP_CONTENT.stockDetail.range;
 
 export const DateRange = () => {
-  const { stockInformation, getStockData } = StockDetailStore;
+  const { getChartData } = CurrencyDetailStore;
+  const [dayRange, setDayRange] = React.useState<CurrencyTimeSupport>('1h');
 
-  const [dayRange, setDayRange] = React.useState<StockTimeSupport>('1h');
-
-  const changeRange = React.useCallback((day: StockTimeSupport) => {
+  const changeRange = React.useCallback((day: CurrencyTimeSupport) => {
     setDayRange(day);
-    console.log('change');
   }, []);
 
   const mount = React.useRef<boolean>(false);
 
   React.useEffect(() => {
-    console.log('mounted', mount.current);
-    if (mount.current) getStockData(stockInformation.symbol, dayRange);
+    if (mount.current) getChartData(dayRange);
     mount.current = true;
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dayRange]);
@@ -47,15 +44,15 @@ export const DateRange = () => {
   );
 };
 
-const getRenderText = (value: StockTimeSupport) => {
+const getRenderText = (value: CurrencyTimeSupport) => {
   switch (value) {
     case '1h':
       return `1 ${RANGE_CONTENT.H}`;
-    case '1day':
+    case '1d':
       return `1 ${RANGE_CONTENT.D}`;
-    case '1week':
+    case '1w':
       return `1 ${RANGE_CONTENT.W}`;
-    case '1month':
+    case '1m':
       return `1 ${RANGE_CONTENT.M}`;
     default:
       return '';

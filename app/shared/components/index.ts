@@ -1,3 +1,4 @@
+import { CurrencySearchResult } from './CurrencySearchResult';
 import { ReinStateCheckBox } from './ReinStateCheckBox';
 import { CustomHint } from './CustomHint';
 import { StockSearchResult } from './StockSearchResult';
@@ -36,6 +37,7 @@ import { ErrorDialog } from './ErrorDialog';
 export {
   PlatformView,
   SearchForData,
+  CurrencySearchResult,
   Chart,
   TransparentLoading,
   BackSearchBar,

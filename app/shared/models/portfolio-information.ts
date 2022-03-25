@@ -1,4 +1,4 @@
-import { types, SnapshotOut } from 'mobx-state-tree';
+import { types } from 'mobx-state-tree';
 
 export const PortfolioInformation = types.model('PortfolioInformation', {
   id: types.number,
@@ -7,5 +7,3 @@ export const PortfolioInformation = types.model('PortfolioInformation', {
   initialCurrency: types.string,
   sum: types.number,
 });
-
-export type IPortfolio = SnapshotOut<typeof PortfolioInformation>;

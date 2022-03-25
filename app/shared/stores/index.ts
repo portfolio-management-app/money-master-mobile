@@ -1,3 +1,4 @@
+import { CurrencyDetailStore } from './currency-detail';
 import { PortfolioDetailStore } from './portfolio-detail';
 import { PortfolioListStore } from './portfolio-list';
 import { StockDetailStore } from './stock-detail';
@@ -13,4 +14,5 @@ export {
   StockDetailStore,
   PortfolioListStore,
   PortfolioDetailStore,
+  CurrencyDetailStore,
 };

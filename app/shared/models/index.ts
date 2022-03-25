@@ -1,14 +1,21 @@
 import {
-  RealEstateAsset,
-  BankAsset,
-  IBankAsset,
-  IRealEstateAsset,
-} from './portfolio-asset';
-import { PortfolioInformation, IPortfolio } from './portfolio-information';
+  CurrencyTimeSeries,
+  CurrencyInformation,
+} from './currency-information';
+import { RealEstateAsset, BankAsset } from './portfolio-asset';
+import { PortfolioInformation } from './portfolio-information';
 import { StockInformation, StockTimeSeries } from './stock-information';
 import { CoinInformation } from './coin-information';
 import { User } from './user';
-import { IStockInformation, IStockTimeSeries } from './types';
+import {
+  IBankAsset,
+  IPortfolio,
+  IRealEstateAsset,
+  IStockInformation,
+  IStockTimeSeries,
+  ICurrencyInformation,
+  ICurrencyTimeSeries,
+} from './types';
 export {
   User,
   CoinInformation,
@@ -17,6 +24,8 @@ export {
   PortfolioInformation,
   RealEstateAsset,
   BankAsset,
+  CurrencyInformation,
+  CurrencyTimeSeries,
 };
 
 export type {
@@ -25,4 +34,6 @@ export type {
   IPortfolio,
   IBankAsset,
   IRealEstateAsset,
+  ICurrencyInformation,
+  ICurrencyTimeSeries,
 };
