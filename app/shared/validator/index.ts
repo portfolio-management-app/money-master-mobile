@@ -21,3 +21,14 @@ export const CreateBankAssetSchema = Yup.object().shape({
     .required(FORM_ERROR.requiredFiled)
     .positive(FORM_ERROR.mustBeANumber),
 });
+
+export const PriceSchema = Yup.object().shape({
+  price: Yup.number()
+    .transform(yupParserNumber)
+    .required(FORM_ERROR.requiredFiled)
+    .positive(FORM_ERROR.mustBeANumber),
+  amount: Yup.number()
+    .transform(yupParserNumber)
+    .required(FORM_ERROR.requiredFiled)
+    .positive(FORM_ERROR.mustBeANumber),
+});

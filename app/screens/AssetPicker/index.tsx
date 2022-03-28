@@ -7,7 +7,6 @@ import {
   Icon,
   PlatformView,
   TextContainer,
-  TransparentLoading,
 } from 'shared/components';
 import { APP_CONTENT } from 'shared/constants';
 import { colorScheme, styleProvider } from 'shared/styles';

@@ -237,6 +237,13 @@ export const en = {
   },
   selectCurrency: 'Select currency',
   statistic: 'Statistic',
-  total: "Total",
-  portfolio:"portfolio",
+  total: 'Total',
+  portfolio: 'portfolio',
+  addMarketAsset: {
+    amount: 'Amount',
+    price: 'Price',
+    currentPrice: 'Current price',
+    add: 'Add',
+  },
+  currency: 'Currency',
 };

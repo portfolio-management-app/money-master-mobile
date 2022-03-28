@@ -29,7 +29,6 @@ const Component = ({
   const [selectedValue, setSelectedValue] = React.useState(
     initVal ? initVal : ''
   );
-  console.log('render');
 
   const color = React.useMemo(() => {
     if (headerStyle == 'light-content') return colorScheme.white;

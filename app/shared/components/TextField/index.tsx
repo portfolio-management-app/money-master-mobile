@@ -7,6 +7,7 @@ import { colorScheme, fontProvider } from 'shared/styles';
 interface IProps {
   errorMessage?: string;
   secureText?: boolean;
+  focusable?: boolean;
   placeholder: string;
   maxLength?: number;
   keyBoardType?: KeyboardTypeOptions;
@@ -30,10 +31,12 @@ export const CustomTextField = ({
   floatingPlaceHolder = true,
   floatOnFocus = true,
   value,
+  focusable,
 }: IProps) => {
   return (
     <View>
       <Incubator.TextField
+        focusable={focusable}
         onFocus={onFocus}
         value={value}
         onBlur={onBlur}

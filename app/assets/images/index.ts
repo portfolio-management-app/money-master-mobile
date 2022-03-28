@@ -29,4 +29,5 @@ export const imageSource = {
   noData: require('./source/no-data.png'),
   google: require('./source/google.png'),
   facebook: require('./source/facebook.png'),
+  searchForData: require('./source/search.png'),
 };

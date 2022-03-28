@@ -5,10 +5,11 @@ import { colorScheme } from 'shared/styles';
 interface IProps {
   children: React.ReactNode;
   open: boolean;
+  height?: number;
   onClose: () => void;
 }
 
-export const BottomSheet = ({ children, open, onClose }: IProps) => {
+export const BottomSheet = ({ children, open, onClose, height }: IProps) => {
   const ref: any = React.useRef();
 
   React.useEffect(() => {
@@ -18,6 +19,7 @@ export const BottomSheet = ({ children, open, onClose }: IProps) => {
   return (
     <RBSheet
       ref={ref}
+      height={height}
       closeOnPressBack
       closeOnPressMask
       onClose={onClose}

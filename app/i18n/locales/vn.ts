@@ -232,4 +232,11 @@ export const vn = {
   statistic: 'Tổng quan',
   total: 'Tổng cộng',
   portfolio: 'tài sản',
+  addMarketAsset: {
+    amount: 'Số lương',
+    price: 'Giá',
+    currentPrice: 'Giá hiện tại',
+    add: 'Thêm',
+  },
+  currency: 'Ngoại tệ',
 };
