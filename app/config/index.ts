@@ -6,7 +6,7 @@ const production = {
   BASE_URL: 'https://grade-book-backend.herokuapp.com',
   COIN_API_URL: 'https://api.coingecko.com/api/v3',
   STOCK_API_URL: 'https://finnhub.io/api/v1',
-  STOCK_API_KEY: '3bc55b4319ea4709a7660a022cf6bcc4',
+  STOCK_API_KEY: 'c91frk2ad3if9n5lf930',
   CURRENCY_API_KEY: 'OSittjQ0FfyHBjtWy2ao',
   CURRENCY_API_URL: 'https://fcsapi.com/api-v3/forex',
   METAL_API_KEY: 'goldapi-ejlu18l0q4qaka-io',
