@@ -12,7 +12,7 @@ interface IProps {
   stockInfo: IStockInformation;
 }
 const CONTENT = APP_CONTENT.stockDetail;
-const Component = ({ chartData, stockInfo }: IProps) => {
+const Component = ({ chartData }: IProps) => {
   const renderData = React.useMemo(() => {
     return buildData(chartData);
   }, [chartData]);
@@ -44,23 +44,12 @@ const Component = ({ chartData, stockInfo }: IProps) => {
             </TextContainer>
             <CandlestickChart.PriceText type="low" />
           </View>
-          <View style={styleProvider.centerHorizontal}>
+
+          <View style={[styleProvider.centerHorizontal]}>
             <TextContainer type="small" bold>
-              {CONTENT.exchangeTimeZone}:{' '}
+              {CONTENT.currency}:
             </TextContainer>
-            <TextContainer type="small">
-              {stockInfo.exchange_timezone}
-            </TextContainer>
-          </View>
-          <View style={[styleProvider.centerHorizontal, { marginTop: 20 }]}>
-            <TextContainer type="small" bold>
-              {CONTENT.exchange} :{' '}
-            </TextContainer>
-            <TextContainer type="small">{stockInfo.exchange}</TextContainer>
-            <TextContainer ml={10} type="small" bold>
-              {CONTENT.currency} :{' '}
-            </TextContainer>
-            <TextContainer type="small">{stockInfo.currency}</TextContainer>
+            <TextContainer type="small"> USD</TextContainer>
           </View>
           <View style={styleProvider.centerHorizontal}>
             <TextContainer type="small" bold>

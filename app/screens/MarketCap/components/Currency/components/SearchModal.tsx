@@ -14,8 +14,7 @@ const Component = () => {
   const navigation = useNavigation();
 
   const handleItemPress = async (id: string, name: string, symbol: string) => {
-    CurrencyDetailStore.assignInfo({ id: id, name: name, symbol: symbol });
-    await CurrencyDetailStore.getChartData('1h');
+    await CurrencyDetailStore.getCurrencyData(symbol, '1h');
     navigation.navigate(screenName.currencyDetail as never);
   };
 

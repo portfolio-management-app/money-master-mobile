@@ -11,7 +11,14 @@ export const CurrencyTimeSeries = types.model('CurrencyTimSeries', {
 });
 
 export const CurrencyInformation = types.model('CurrencyInformation', {
-  symbol: types.string,
-  name: types.string,
-  id: types.string,
+  id: '1',
+  o: '1.09782',
+  h: '1.09984',
+  l: '1.0973',
+  c: '1.09837',
+  ch: '+0.00055',
+  cp: '+0.05%',
+  t: '1648532108',
+  s: 'EURUSD',
+  tm: '2022-03-29 05:35:08',
 });

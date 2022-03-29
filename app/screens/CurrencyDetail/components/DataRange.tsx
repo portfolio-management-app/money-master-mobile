@@ -11,7 +11,7 @@ const DATA_RANGE: Array<CurrencyTimeSupport> = ['1h', '1d', '1w', '1m'];
 const RANGE_CONTENT = APP_CONTENT.stockDetail.range;
 
 export const DateRange = () => {
-  const { getChartData } = CurrencyDetailStore;
+  const { getChartData, currencyInformation } = CurrencyDetailStore;
   const [dayRange, setDayRange] = React.useState<CurrencyTimeSupport>('1h');
 
   const changeRange = React.useCallback((day: CurrencyTimeSupport) => {
@@ -21,7 +21,7 @@ export const DateRange = () => {
   const mount = React.useRef<boolean>(false);
 
   React.useEffect(() => {
-    if (mount.current) getChartData(dayRange);
+    if (mount.current) getChartData(dayRange, currencyInformation.s);
     mount.current = true;
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dayRange]);

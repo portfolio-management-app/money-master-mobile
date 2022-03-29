@@ -10,7 +10,6 @@ import { SearchModalMarket } from 'shared/stores';
 import { colorScheme, styleProvider } from 'shared/styles';
 import { TabBarView } from './components';
 import { MetalStore } from './components/Metal/store';
-import { StockStore } from './components/Stock/store';
 
 const Component = () => {
   const [tabIndex, setTabIndex] = React.useState(0);
@@ -31,9 +30,6 @@ const Component = () => {
     setTabIndex(index);
     switch (index) {
       case 0:
-        break;
-      case 1:
-        StockStore.getStockList();
         break;
       case 2:
         MetalStore.getMetalData('USD');

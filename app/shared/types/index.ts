@@ -68,17 +68,7 @@ export type CreateAssetRouteProps = {
   id: number;
 };
 
-export type StockTimeSupport =
-  | '1h'
-  | '1day'
-  | '1week'
-  | '1month'
-  | '1year'
-  | '1min'
-  | '5min'
-  | '15min'
-  | '30min'
-  | '45min';
+export type StockTimeSupport = '1' | '5' | '15' | '30' | '60' | 'D' | 'W' | 'M';
 
 export type CryptoTimeSupport = 1 | 7 | 30 | 365;
 

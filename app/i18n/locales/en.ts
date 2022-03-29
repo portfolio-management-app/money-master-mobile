@@ -120,7 +120,7 @@ export const en = {
       banking: 'Banking',
       realEstate: 'Real estate',
       other: 'Other',
-      cash: 'Cash',
+      cash: 'Currency',
     },
     createOtherModal: {
       header: 'Other',

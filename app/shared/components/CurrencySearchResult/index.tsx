@@ -41,7 +41,7 @@ const Component = ({ onItemPress, text }: IProps) => {
     if (res instanceof HttpError) {
       console.log(res);
     } else {
-      setSearchResult(res.response);
+      if (res.response) setSearchResult(res.response);
     }
     setLoading(false);
   }, []);

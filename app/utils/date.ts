@@ -48,3 +48,11 @@ export const parseToString = (date: Date, config?: ParseConfig): string => {
 export const getUnixTimeStamp = (date: Date) => {
   return Math.round(date.getTime() / 1000);
 };
+
+export const formatToStockApi = (date: Date) => {
+  const year = date.getFullYear();
+  const month = date.getMonth() + 1;
+  const day = date.getDate();
+
+  return `${day}/${month}/${year}`;
+};

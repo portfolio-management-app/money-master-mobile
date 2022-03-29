@@ -17,12 +17,25 @@ export const CurrencyDetailStore = types
     currencyInformation: CurrencyInformation,
   })
   .actions((self) => {
-    const getChartData = flow(function* (period: CurrencyTimeSupport) {
+    const getCurrencyData = flow(function* (
+      symbol: string,
+      period: CurrencyTimeSupport
+    ) {
+      yield Promise.all([
+        getChartData(period, symbol),
+        getCurrencyInfo(symbol),
+      ]);
+    });
+    const getChartData = flow(function* (
+      period: CurrencyTimeSupport,
+      symbol: string
+    ) {
       console.log(period);
       self.loading = true;
       const res = yield httpRequest.sendGet(
-        `${Config.CURRENCY_API_URL}/history?id=${self.currencyInformation.id}&period=${period}&access_key=${Config.CURRENCY_API_KEY}&level=0`
+        `${Config.CURRENCY_API_URL}/history?symbol=${symbol}&period=${period}&access_key=${Config.CURRENCY_API_KEY}&level=0`
       );
+
       if (res instanceof HttpError) {
         log('ERROR WHEN GET CURRENCY DATA', res);
       } else {
@@ -37,6 +50,7 @@ export const CurrencyDetailStore = types
           self.loading = false;
         }
       }
+
       self.loading = false;
     });
 
@@ -44,14 +58,32 @@ export const CurrencyDetailStore = types
       self.currencyInformation = info;
     };
 
-    return { getChartData, assignInfo };
+    const getCurrencyInfo = flow(function* (symbol: string) {
+      const res = yield httpRequest.sendGet(
+        `${Config.CURRENCY_API_URL}/latest?symbol=${symbol}&access_key=${Config.CURRENCY_API_KEY}`
+      );
+      if (res instanceof HttpError) {
+        log('ERROR WHEN GET CURRENCY DATA', res);
+      } else {
+        self.currencyInformation = res.response[0];
+      }
+    });
+
+    return { getChartData, assignInfo, getCurrencyData };
   })
   .create({
     chartData: [],
     loading: false,
     currencyInformation: {
-      symbol: '',
-      id: '',
-      name: '',
+      id: '1',
+      o: '1.09782',
+      h: '1.09984',
+      l: '1.0973',
+      c: '1.09837',
+      ch: '+0.00055',
+      cp: '+0.05%',
+      t: '1648532108',
+      s: 'EURUSD',
+      tm: '2022-03-29 05:35:08',
     },
   });

@@ -114,7 +114,7 @@ export const vn = {
       banking: 'Ngân hàng',
       realEstate: 'Bất động sản',
       other: 'Khác',
-      cash: 'Tiền mặt',
+      cash: 'Ngoại tệ',
     },
     createOtherModal: {
       header: 'Tạo tài sản mới',
