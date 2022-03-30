@@ -8,7 +8,7 @@ import { Chart, PlatformView, TransparentLoading } from 'shared/components';
 import { CoinDetailStore } from 'shared/stores';
 import { styleProvider } from 'shared/styles';
 import { ScreenParams } from 'shared/types';
-import { ButtonGroup, CoinInfo, DataRange, Header } from './components';
+import { ButtonGroup, CoinInfo, RangeMenu, Header } from './components';
 
 interface Param extends ScreenParams {
   params: {
@@ -24,10 +24,13 @@ const Component = () => {
 
   return (
     <PlatformView style={styleProvider.body}>
-      <NavigationHeader title={routeProps.params.name} />
+      <NavigationHeader
+        renderRightItem={() => <RangeMenu />}
+        title={routeProps.params.name}
+      />
       <Header />
       <Chart chartData={getSnapshot(chartData)} />
-      <DataRange />
+
       <ScrollView>
         <View style={styleProvider.relativeView}>
           <CoinInfo />

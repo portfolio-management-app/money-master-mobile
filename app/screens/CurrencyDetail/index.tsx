@@ -11,13 +11,16 @@ import {
 import { CurrencyDetailStore } from 'shared/stores';
 import { colorScheme, styleProvider } from 'shared/styles';
 import { formatCurrency } from 'utils/number';
-import { ButtonGroup, Chart, DateRange } from './components';
+import { ButtonGroup, Chart, RangeMenu } from './components';
 
 export const CurrencyDetail = observer(() => {
   const { chartData, loading, currencyInformation } = CurrencyDetailStore;
   return (
     <PlatformView style={styleProvider.body}>
-      <NavigationHeader title={currencyInformation.s} />
+      <NavigationHeader
+        renderRightItem={() => <RangeMenu />}
+        title={currencyInformation.s}
+      />
       <ScrollView>
         <View style={{ flex: 1 }}>
           <View>
@@ -44,7 +47,6 @@ export const CurrencyDetail = observer(() => {
             </TextContainer>
           </View>
           <Chart chartData={getSnapshot(chartData)} />
-          <DateRange />
         </View>
       </ScrollView>
       <TransparentLoading show={loading} />

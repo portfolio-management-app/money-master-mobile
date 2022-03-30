@@ -44,13 +44,6 @@ const Component = ({ chartData }: IProps) => {
             </TextContainer>
             <CandlestickChart.PriceText type="low" />
           </View>
-
-          <View style={[styleProvider.centerHorizontal]}>
-            <TextContainer type="small" bold>
-              {CONTENT.currency}:
-            </TextContainer>
-            <TextContainer type="small"> USD</TextContainer>
-          </View>
           <View style={styleProvider.centerHorizontal}>
             <TextContainer type="small" bold>
               {CONTENT.date}:{' '}
