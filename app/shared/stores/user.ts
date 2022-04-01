@@ -1,6 +1,6 @@
 import { HttpError } from 'errors/base';
 import { storage, TOKEN_KEY } from 'services/storage';
-import { httpRequest } from 'services/api';
+import { httpRequest } from 'services/http';
 import { User } from 'shared/models';
 import { types, flow } from 'mobx-state-tree';
 import { HttpRequestResponse } from 'shared/types';

@@ -1,7 +1,7 @@
 import { HttpError } from 'errors/base';
 import { Config } from 'config';
 import { types, flow } from 'mobx-state-tree';
-import { httpRequest } from 'services/api';
+import { httpRequest } from 'services/http';
 import { PortfolioDetailStore, UserStore } from 'shared/stores';
 
 export const BankAssetDetailStore = types

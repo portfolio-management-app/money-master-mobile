@@ -4,7 +4,7 @@ import { Observer } from 'mobx-react-lite';
 import React from 'react';
 import { ScrollView } from 'react-native';
 import { TouchableOpacity, View } from 'react-native-ui-lib';
-import { httpRequest } from 'services/api';
+import { httpRequest } from 'services/http';
 import { SearchForData, TextContainer } from 'shared/components';
 import { StockDetailStore } from 'shared/stores';
 import { styleProvider } from 'shared/styles';

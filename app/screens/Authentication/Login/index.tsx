@@ -15,7 +15,7 @@ import { HttpRequestResponse } from 'shared/types';
 import { ErrorBounder } from './components';
 import { useSocialLogin } from '../hooks';
 import { Formik } from 'formik';
-import { log } from 'services/log-service';
+import { log } from 'services/log';
 import { AuthenticationSchema } from '../validator';
 import { UserStore } from 'shared/stores';
 import { imageSource } from 'assets/images';

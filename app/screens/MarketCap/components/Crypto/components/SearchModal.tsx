@@ -17,7 +17,7 @@ const Component = () => {
 
   const onItemPress = React.useCallback(
     async (id: string, name: string) => {
-      await CoinDetailStore.getChartData(id, CryptoStore.currency, 1);
+      await CoinDetailStore.getAllData(id, CryptoStore.currency, 1);
       navigation.navigate(
         screenName.coinDetail as never,
         { id: id, name: name } as never

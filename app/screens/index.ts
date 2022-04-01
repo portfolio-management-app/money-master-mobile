@@ -1,3 +1,7 @@
+import { BuyCurrency } from './BuyCurrency';
+import { BuyStock } from './BuyStock';
+import { BuyCrypto } from './BuyCrypto';
+import { PortfolioPicker } from './PortfolioPicker';
 import { CurrencyDetail } from './CurrencyDetail';
 import { StockDetail } from './StockDetail';
 import { CreateAsset } from './CreateAsset';
@@ -14,6 +18,8 @@ import { Home } from './Home';
 import { ForgetPassword, Login, Register } from './Authentication';
 
 export {
+  BuyStock,
+  BuyCurrency,
   Home,
   Login,
   Start,
@@ -30,4 +36,6 @@ export {
   CreateAsset,
   StockDetail,
   CurrencyDetail,
+  PortfolioPicker,
+  BuyCrypto,
 };

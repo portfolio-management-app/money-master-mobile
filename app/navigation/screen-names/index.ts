@@ -17,4 +17,8 @@ export const screenName = {
   createAsset: 'CreateAsset',
   stockDetail: 'StockDetail',
   currencyDetail: 'CurrencyDetail',
+  portfolioPicker: 'PortfolioPicker',
+  buyCrypto: 'BuyCrypto',
+  buyStock: 'BuyStock',
+  buyCurrency: 'BuyCurrency',
 };

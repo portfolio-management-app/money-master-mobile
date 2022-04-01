@@ -1,7 +1,7 @@
 import { HttpError } from 'errors/base';
 import { Config } from 'config';
 import { cast, flow, SnapshotOut, types } from 'mobx-state-tree';
-import { httpRequest } from 'services/api';
+import { httpRequest } from 'services/http';
 
 const Crypto = types.model('Crypto', {
   id: types.string,

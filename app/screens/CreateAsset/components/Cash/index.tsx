@@ -1,8 +1,8 @@
-import { Config } from 'config';
+import { useNavigation } from '@react-navigation/native';
+import { screenName } from 'navigation/screen-names';
 import React from 'react';
 import { StyleSheet } from 'react-native';
 import { View } from 'react-native-ui-lib';
-import { httpRequest } from 'services/api';
 import {
   CreateModalHeader,
   CurrencySearchResult,
@@ -11,41 +11,26 @@ import {
   TransparentLoading,
 } from 'shared/components';
 import { APP_CONTENT, SEARCH_BAR_CONTENT } from 'shared/constants';
+import { CurrencyDetailStore } from 'shared/stores';
 import { styleProvider } from 'shared/styles';
 import { ModalProps } from 'shared/types';
 import { useDebounce } from 'use-debounce';
-import { CreateSheet } from './components';
-export interface ICurrencyPrice {
-  id: string;
-  o: string;
-  h: string;
-  l: string;
-  c: string;
-  ch: string;
-  cp: string;
-  t: string;
-  s: string;
-  tm: string;
-}
 
 const Component = ({ onClose }: ModalProps) => {
   const [text, setText] = React.useState('');
-  const [openSheet, setOpenSheet] = React.useState(false);
   const [loading, setLoading] = React.useState(false);
-  const [currencyPrice, setCurrencyPrice] = React.useState<ICurrencyPrice>();
-  const [name, setName] = React.useState('');
+  const navigation = useNavigation();
   const [value] = useDebounce(text, 500);
-
-  const fetchCurrencyPrice = React.useCallback(async (id: string) => {
+  const handleCurrencyPress = async (
+    id: string,
+    name: string,
+    symbol: string
+  ) => {
     setLoading(true);
-    const res = await httpRequest.sendGet(
-      `${Config.CURRENCY_API_URL}/latest?id=${id}&access_key=${Config.CURRENCY_API_KEY}`
-    );
-
-    setCurrencyPrice(res.response[0]);
+    await CurrencyDetailStore.getCurrencyInfo(symbol);
     setLoading(false);
-    setOpenSheet(true);
-  }, []);
+    navigation.navigate(screenName.buyStock as never);
+  };
 
   return (
     <PlatformView style={styleProvider.body}>
@@ -60,21 +45,8 @@ const Component = ({ onClose }: ModalProps) => {
           placeholder={SEARCH_BAR_CONTENT.placeholder}
         />
       </View>
-      <CurrencySearchResult
-        onItemPress={(id: string, name: string, symbol: string) => {
-          setName(symbol);
-          fetchCurrencyPrice(id);
-        }}
-        text={value}
-      />
-      <CreateSheet
-        onClose={() => {
-          setOpenSheet(false);
-        }}
-        open={openSheet}
-        name={name}
-        price={currencyPrice}
-      />
+      <CurrencySearchResult onItemPress={handleCurrencyPress} text={value} />
+
       <TransparentLoading show={loading} />
     </PlatformView>
   );

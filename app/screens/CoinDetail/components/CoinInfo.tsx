@@ -12,23 +12,30 @@ const CONTENT = APP_CONTENT.cryptoDetail;
 const MT = 10;
 export const CoinInfo = observer(() => {
   const { coinInfo, currency } = CoinDetailStore;
+  const renderAth = formatCurrency(
+    coinInfo.ath.get(currency.toLowerCase()) || 0,
+    currency
+  );
+  const renderAthPercent = coinInfo.athPercent.get(currency.toLowerCase()) || 0;
   return (
     <View style={{ paddingHorizontal: 20, paddingTop: 20 }}>
       <TextContainer color={colorScheme.blue200}>
         <TextContainer bold>{CONTENT.ath}: </TextContainer>
-        {formatCurrency(coinInfo.ath, currency)}
+        {renderAth}
         <TextContainer
           color={
-            coinInfo.athPercent > 0 ? colorScheme.green300 : colorScheme.red500
+            renderAthPercent > 0 ? colorScheme.green300 : colorScheme.red500
           }
         >
           {' '}
-          ({coinInfo.athPercent}%)
+          ({renderAthPercent}%)
         </TextContainer>
       </TextContainer>
       <TextContainer mt={MT}>
         <TextContainer bold>{CONTENT.athDate}: </TextContainer>
-        {parseToString(new Date(coinInfo.athDate))}
+        {parseToString(
+          new Date(coinInfo.athDate.get(currency.toLowerCase()) || 0)
+        )}
       </TextContainer>
       <TextContainer mt={MT}>
         <TextContainer bold>{CONTENT.marketCapRank}: </TextContainer>

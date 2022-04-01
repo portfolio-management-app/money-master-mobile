@@ -15,7 +15,7 @@ interface IProps {
   bgColor?: string;
   headerStyle?: 'light-content' | 'dark-content';
   initVal?: string;
-  renderPicker: (value?: PickerItemValue, label?: string) => JSX.Element;
+  renderPicker?: (value?: PickerItemValue, label?: string) => JSX.Element;
 }
 
 const Component = ({
@@ -23,7 +23,7 @@ const Component = ({
   onChange,
   bgColor = colorScheme.white,
   headerStyle = 'dark-content',
-  renderPicker,
+  renderPicker = renderPickerForPortfolio,
   initVal,
 }: IProps) => {
   const [selectedValue, setSelectedValue] = React.useState(

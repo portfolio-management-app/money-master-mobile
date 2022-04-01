@@ -2,7 +2,7 @@ import { BankAsset, RealEstateAsset } from './../models';
 import { Config } from 'config';
 import { HttpError } from 'errors/base';
 import { flow, types } from 'mobx-state-tree';
-import { httpRequest } from 'services/api';
+import { httpRequest } from 'services/http';
 import { CreateOtherAssetBody } from './types';
 import { UserStore } from './user';
 

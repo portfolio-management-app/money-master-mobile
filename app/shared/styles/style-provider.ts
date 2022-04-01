@@ -119,4 +119,8 @@ export const styleProvider = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
   },
+  formBody: {
+    marginHorizontal: 20,
+    marginTop: 20,
+  },
 });

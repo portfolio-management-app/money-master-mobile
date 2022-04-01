@@ -1,9 +1,7 @@
 import { flow, types } from 'mobx-state-tree';
-import { httpRequest } from 'services/api';
-import { Config } from 'config';
-import { HttpError } from 'errors/base';
-import { CoinInformation } from '../models';
 import { CryptoTimeSupport } from 'shared/types';
+import { cryptoService } from 'services/crypto';
+import { CoinInformation } from '../models';
 
 const Store = types
   .model('CoinDataStore', {
@@ -19,6 +17,16 @@ const Store = types
     ),
   })
   .actions((self) => {
+    const getAllData = flow(function* (
+      coinId: string,
+      currency: string,
+      day: CryptoTimeSupport
+    ) {
+      yield Promise.all([
+        getChartData(coinId, currency, day),
+        getCoinInfo(coinId),
+      ]);
+    });
     const getChartData = flow(function* (
       coinId: string,
       currency: string,
@@ -28,31 +36,21 @@ const Store = types
       self.coinInfo.id = coinId;
       self.currency = currency;
       self.range = day;
-      try {
-        const [chartRes, coinInfoRes] = yield Promise.all([
-          httpRequest.sendGet(
-            `${Config.COIN_API_URL}/coins/${coinId}/market_chart?vs_currency=${currency}&days=${day}`
-          ),
-          httpRequest.sendGet(`${Config.COIN_API_URL}/coins/${coinId}`),
-        ]);
-        if (chartRes instanceof HttpError) {
-          console.log(chartRes.getMessage());
-        } else {
-          self.chartData = chartRes.prices;
-        }
-        if (coinInfoRes instanceof HttpError) {
-          console.log(coinInfoRes.getMessage());
-        } else {
-          assignCoinInfo(coinInfoRes);
-        }
-        self.loading = false;
-      } catch (err) {
-        self.loading = false;
+      const res = yield cryptoService.getChartData(coinId, currency, day);
+      if (res) {
+        self.chartData = res;
+      }
+      self.loading = false;
+    });
+
+    const getCoinInfo = flow(function* (coinId: string) {
+      const res = yield cryptoService.getCoinInfo(coinId);
+      if (res) {
+        assignCoinInfo(res);
       }
     });
 
     const assignCoinInfo = (res: any) => {
-      const currency = self.currency.toLocaleLowerCase();
       const {
         current_price,
         market_cap_rank,
@@ -68,40 +66,40 @@ const Store = types
         price_change_percentage_1y_in_currency,
         ath_date,
       } = res.market_data;
-
+      self.coinInfo.name = res.name;
       self.coinInfo.image = res.image.small;
-      self.coinInfo.athDate = ath_date[currency];
+      self.coinInfo.athDate = ath_date;
       self.coinInfo.lastUpdate = last_updated;
-      self.coinInfo.ath = ath[currency];
+      self.coinInfo.ath = ath;
       self.coinInfo.circulatingSupply = circulating_supply;
-      self.coinInfo.athPercent = ath_change_percentage[currency];
+      self.coinInfo.athPercent = ath_change_percentage;
       self.coinInfo.marketCapRank = market_cap_rank;
 
       self.coinInfo.maxSupply = max_supply;
 
-      self.coinInfo.currentPrice = current_price[currency];
+      self.coinInfo.currentPrice = current_price;
       switch (self.range) {
         case 1:
           self.coinInfo.priceChangePercent =
-            price_change_percentage_24h_in_currency[currency];
-          self.coinInfo.priceChange = price_change_24h_in_currency[currency];
+            price_change_percentage_24h_in_currency;
+          self.coinInfo.priceChange = price_change_24h_in_currency;
           break;
         case 7:
           self.coinInfo.priceChangePercent =
-            price_change_percentage_7d_in_currency[currency];
+            price_change_percentage_7d_in_currency;
 
           break;
         case 30:
           self.coinInfo.priceChangePercent =
-            price_change_percentage_30d_in_currency[currency];
+            price_change_percentage_30d_in_currency;
 
           break;
         case 365:
           self.coinInfo.priceChangePercent =
-            price_change_percentage_1y_in_currency[currency];
+            price_change_percentage_1y_in_currency;
       }
     };
-    return { getChartData };
+    return { getChartData, getCoinInfo, getAllData };
   });
 
 export const CoinDetailStore = Store.create({
@@ -109,16 +107,16 @@ export const CoinDetailStore = Store.create({
     id: '',
     image: '',
     name: '',
-    currentPrice: 0,
-    priceChange: 0,
+    currentPrice: {},
+    priceChange: {},
     marketCapRank: 0,
-    priceChangePercent: 0,
+    priceChangePercent: {},
     maxSupply: 0,
     circulatingSupply: 0,
-    ath: 0,
-    athPercent: 0,
+    ath: {},
+    athPercent: {},
     lastUpdate: '',
-    athDate: '',
+    athDate: {},
   },
   currency: 'USD',
   chartData: [],

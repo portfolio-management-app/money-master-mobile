@@ -1,6 +1,6 @@
 import { MetalInformation } from './model';
 import { flow, types } from 'mobx-state-tree';
-import { httpRequest } from 'services/api';
+import { httpRequest } from 'services/http';
 import { HttpError } from 'errors/base';
 
 export const MetalStore = types

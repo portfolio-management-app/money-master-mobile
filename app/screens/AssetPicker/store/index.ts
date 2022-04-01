@@ -1,7 +1,7 @@
 import { HttpError } from 'errors/base';
 import { Config } from 'config';
 import { flow, types } from 'mobx-state-tree';
-import { httpRequest } from 'services/api';
+import { httpRequest } from 'services/http';
 import { UserStore } from 'shared/stores';
 
 const AssetType = types.model('AssetType', {

@@ -1,8 +1,5 @@
-import { Config } from 'config';
-import { HttpError } from 'errors/base';
-import { cast, flow, types } from 'mobx-state-tree';
-import { httpRequest } from 'services/api';
-import { log } from 'services/log-service';
+import { flow, types } from 'mobx-state-tree';
+import { currencyService } from 'services/currency';
 import {
   CurrencyTimeSeries,
   CurrencyInformation,
@@ -30,27 +27,11 @@ export const CurrencyDetailStore = types
       period: CurrencyTimeSupport,
       symbol: string
     ) {
-      console.log(period);
       self.loading = true;
-      const res = yield httpRequest.sendGet(
-        `${Config.CURRENCY_API_URL}/history?symbol=${symbol}&period=${period}&access_key=${Config.CURRENCY_API_KEY}&level=0`
-      );
-
-      if (res instanceof HttpError) {
-        log('ERROR WHEN GET CURRENCY DATA', res);
-      } else {
-        try {
-          const temp: Array<any> = [];
-          console.log('success');
-          Object.keys(res.response).forEach((key: string) => {
-            temp.push(res.response[key]);
-          });
-          self.chartData = cast(temp);
-        } catch (error) {
-          self.loading = false;
-        }
+      const res = yield currencyService.getChartData(period, symbol);
+      if (res) {
+        self.chartData = res;
       }
-
       self.loading = false;
     });
 
@@ -59,17 +40,13 @@ export const CurrencyDetailStore = types
     };
 
     const getCurrencyInfo = flow(function* (symbol: string) {
-      const res = yield httpRequest.sendGet(
-        `${Config.CURRENCY_API_URL}/latest?symbol=${symbol}&access_key=${Config.CURRENCY_API_KEY}`
-      );
-      if (res instanceof HttpError) {
-        log('ERROR WHEN GET CURRENCY DATA', res);
-      } else {
-        self.currencyInformation = res.response[0];
+      const res = yield currencyService.getCurrencyInfo(symbol);
+      if (res) {
+        self.currencyInformation = res;
       }
     });
 
-    return { getChartData, assignInfo, getCurrencyData };
+    return { getChartData, assignInfo, getCurrencyData, getCurrencyInfo };
   })
   .create({
     chartData: [],

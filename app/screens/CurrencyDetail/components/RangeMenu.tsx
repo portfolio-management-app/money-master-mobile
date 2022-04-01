@@ -13,8 +13,8 @@ import { colorScheme, styleProvider } from 'shared/styles';
 
 const RANGE_CONTENT = APP_CONTENT.stockDetail.range;
 
-export const RangeMenu = () => {
-  const [range, setRange] = React.useState<string>(RANGE_CONTENT.D);
+const Component = () => {
+  const [range, setRange] = React.useState<string>(RANGE_CONTENT.H);
   const { getChartData, currencyInformation } = CurrencyDetailStore;
   return (
     <Menu>
@@ -74,3 +74,5 @@ export const RangeMenu = () => {
     </Menu>
   );
 };
+
+export const RangeMenu = React.memo(Component);

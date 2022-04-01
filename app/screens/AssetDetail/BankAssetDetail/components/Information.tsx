@@ -37,7 +37,9 @@ export const Information = ({ info }: IProps) => {
         {info.description === '' ? ASSET_DETAIL_CONTENT.none : info.description}
       </TextContainer>
       <TextContainer mb={10} type="small">
-        <TextContainer>{ASSET_DETAIL_CONTENT.startDate}: </TextContainer>
+        <TextContainer type="small">
+          {ASSET_DETAIL_CONTENT.startDate}:{' '}
+        </TextContainer>
         {parseToString(new Date(info.inputDay), { withTime: false })}
       </TextContainer>
     </ExpandableSection>

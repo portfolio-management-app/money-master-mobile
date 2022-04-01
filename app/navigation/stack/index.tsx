@@ -14,6 +14,10 @@ import {
   CreateAsset,
   StockDetail,
   CurrencyDetail,
+  PortfolioPicker,
+  BuyCrypto,
+  BuyStock,
+  BuyCurrency,
 } from 'screens';
 import { screenName } from 'navigation/screen-names';
 import { StatusBar } from 'react-native';
@@ -53,6 +57,13 @@ export const NavigationStack = () => {
           name={screenName.currencyDetail}
           component={CurrencyDetail}
         />
+        <Stack.Screen
+          name={screenName.portfolioPicker}
+          component={PortfolioPicker}
+        />
+        <Stack.Screen name={screenName.buyCrypto} component={BuyCrypto} />
+        <Stack.Screen name={screenName.buyStock} component={BuyStock} />
+        <Stack.Screen name={screenName.buyCurrency} component={BuyCurrency} />
       </Stack.Navigator>
     </NavigationContainer>
   );

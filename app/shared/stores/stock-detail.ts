@@ -1,10 +1,8 @@
 import { getUnixTime, addDays } from 'date-fns';
-import { IStockTimeSeries, StockInformation, StockTimeSeries } from '../models';
-import { cast, flow, types } from 'mobx-state-tree';
-import { httpRequest } from 'services/api';
-import { Config } from 'config';
-import { HttpError } from 'errors/base';
+import { StockInformation, StockTimeSeries } from '../models';
+import { flow, types } from 'mobx-state-tree';
 import { StockTimeSupport } from 'shared/types';
+import { stockService } from 'services/stock';
 
 export const StockDetailStore = types
   .model('StockDetailStore', {
@@ -36,41 +34,20 @@ export const StockDetailStore = types
       to: number = getUnixTime(new Date()),
       range: StockTimeSupport
     ) {
-      const res = yield httpRequest.sendGet(
-        `${Config.STOCK_API_URL}/stock/candle?symbol=${symbol}&resolution=${range}&from=${from}&to=${to}&token=${Config.STOCK_API_KEY}`
-      );
-
-      if (res instanceof HttpError) {
-        console.log(res);
-      } else {
-        if (res.s === 'ok') {
-          const temp: Array<IStockTimeSeries> = [];
-          for (let i = 0; i < res['t'].length; i++) {
-            temp.push({
-              close: res['c'][i],
-              open: res['o'][i],
-              high: res['h'][i],
-              low: res['l'][i],
-              datetime: res['t'][i],
-              volume: res['v'][i],
-            });
-          }
-          self.timeSeries = cast(temp);
-        }
+      const res = yield stockService.getChartData(symbol, from, to, range);
+      if (res) {
+        self.timeSeries = res;
       }
     });
 
     const getStockInfo = flow(function* (symbol: string) {
-      const res = yield httpRequest.sendGet(
-        `${Config.STOCK_API_URL}/quote?symbol=${symbol}&token=${Config.STOCK_API_KEY}`
-      );
-      if (res instanceof HttpError) {
-        console.log(res);
-      } else {
+      self.symbol = symbol;
+      const res = yield stockService.getStockInfo(symbol);
+      if (res) {
         self.stockInformation = res;
       }
     });
-    return { getStockData, getChartData };
+    return { getStockData, getChartData, getStockInfo };
   })
   .create({
     stockInformation: {

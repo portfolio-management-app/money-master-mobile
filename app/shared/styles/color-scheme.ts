@@ -19,6 +19,7 @@ const colors = {
   pink700: '#FA0EC7',
   green200: '#88EA65',
   green300: '#4d8c6b',
+  green400: '#209E2C',
   gray100: '#E0E0E0',
   blue100: '#EDF8FD',
 

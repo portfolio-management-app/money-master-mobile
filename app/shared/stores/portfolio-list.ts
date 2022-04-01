@@ -1,7 +1,7 @@
 import { flow, types } from 'mobx-state-tree';
 import { Config } from 'config';
 import { HttpError } from 'errors/base';
-import { httpRequest } from 'services/api';
+import { httpRequest } from 'services/http';
 import { UserStore } from './user';
 import { PortfolioInformation } from '../models';
 

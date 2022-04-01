@@ -13,7 +13,7 @@ import { colorScheme, styleProvider } from 'shared/styles';
 
 const RANGE_CONTENT = APP_CONTENT.cryptoDetail.range;
 
-export const RangeMenu = () => {
+const Component = () => {
   const [range, setRange] = React.useState<string>(RANGE_CONTENT.D);
   const { getChartData, coinInfo, currency } = CoinDetailStore;
   return (
@@ -74,3 +74,5 @@ export const RangeMenu = () => {
     </Menu>
   );
 };
+
+export const RangeMenu = React.memo(Component);
