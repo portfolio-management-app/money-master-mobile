@@ -3,22 +3,18 @@ import { MainStackNavigationProp } from 'navigation/types';
 import React from 'react';
 import { ActionSheet } from 'react-native-ui-lib';
 import { APP_CONTENT } from 'shared/constants';
-import { CoinDetailStore, PortfolioListStore } from 'shared/stores';
 
 interface IProps {
   show: boolean;
   onClose?: () => void;
-  coinId: string;
+  type: string;
 }
 
-export const ActionBottomSheet = ({ show, onClose, coinId }: IProps) => {
+export const ActionBottomSheet = ({ show, onClose, type }: IProps) => {
   const navigation = useNavigation<MainStackNavigationProp>();
   const onBuy = async () => {
-    await Promise.all([
-      PortfolioListStore.getPortfolioList(),
-      CoinDetailStore.getCoinInfo(coinId),
-    ]);
-    navigation.navigate('PortfolioPicker', { type: 'CRYPTO' });
+    console.log(type);
+    navigation.navigate('PortfolioPicker', { type: 'METAL' });
   };
   return (
     <ActionSheet

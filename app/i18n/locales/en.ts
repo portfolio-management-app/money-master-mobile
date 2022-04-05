@@ -169,6 +169,7 @@ export const en = {
     description: 'Description',
     none: 'None',
     delete: 'Delete',
+    realEstateName: 'Estate name',
   },
 
   confirmModal: {
@@ -270,6 +271,8 @@ export const en = {
     amount: 'Amount',
     buy: 'Buy',
     currencyPrice: 'Current price',
+    gold: 'Gold',
+    silver: 'Silver',
   },
   metalDetailScreen: {
     gold: 'Gold',
@@ -278,5 +281,20 @@ export const en = {
     sell: 'Sell',
     close: 'Close price',
     change: 'Change (24h)',
+  },
+  buy: 'Buy',
+  sell: 'Sell',
+  action: 'Action',
+  cancel: 'Cancel',
+  delete: 'Delete',
+  edit: 'Edit',
+  realEstateAssetDetail: {
+    header: 'Real estate information',
+    editModal: {
+      title: 'Edit real estate',
+      name: 'Name',
+      buyPrice: 'Buy price',
+      currentPrice: 'Current price',
+    },
   },
 };

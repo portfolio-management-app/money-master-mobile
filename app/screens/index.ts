@@ -1,14 +1,11 @@
-import { MetalDetail } from './MetalDetail';
-import { BuyCurrency } from './BuyCurrency';
-import { BuyStock } from './BuyStock';
-import { BuyCrypto } from './BuyCrypto';
+import { BuyCurrency, BuyCrypto, BuyStock } from './BuyScreen';
 import { PortfolioPicker } from './PortfolioPicker';
 import { CurrencyDetail } from './CurrencyDetail';
 import { StockDetail } from './StockDetail';
 import { CreateAsset } from './CreateAsset';
 import { AssetPicker } from './AssetPicker';
 import { CoinDetail } from './CoinDetail';
-import { BankAssetDetail } from './AssetDetail';
+import { BankAssetDetail, RealEstateAssetDetail } from './AssetDetail';
 import { PortfolioDetail } from './PortfolioDetail';
 import { DashBoard } from './DashBoard';
 import { Portfolios } from './PortfolioList';
@@ -20,6 +17,7 @@ import { ForgetPassword, Login, Register } from './Authentication';
 
 export {
   BuyStock,
+  RealEstateAssetDetail,
   BuyCurrency,
   Home,
   Login,
@@ -39,5 +37,4 @@ export {
   CurrencyDetail,
   PortfolioPicker,
   BuyCrypto,
-  MetalDetail,
 };

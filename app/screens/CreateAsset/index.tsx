@@ -1,27 +1,20 @@
 import { useNavigation, useRoute } from '@react-navigation/native';
+import { RootStackScreenProps } from 'navigation/types';
 import React from 'react';
 import { PlatformView } from 'shared/components';
 import { styleProvider } from 'shared/styles';
-import { CreateAssetRouteProps, ScreenParams } from 'shared/types';
 import { Bank, Other, Crypto, Stock, Cash, RealEstate } from './components';
 
-interface Param extends ScreenParams {
-  params: CreateAssetRouteProps;
-}
-
 export const CreateAsset = () => {
-  const routeProps = useRoute<Param>();
+  const routeProps = useRoute<RootStackScreenProps<'CreateAsset'>['route']>();
   const navigation = useNavigation();
+  const { id, name, type } = routeProps.params.props;
 
-  switch (routeProps.params.type) {
+  switch (type) {
     case 'OTHER':
       return (
         <PlatformView style={styleProvider.body}>
-          <Other
-            header={routeProps.params.name}
-            id={routeProps.params.id}
-            onClose={() => navigation.goBack()}
-          />
+          <Other header={name} id={id} onClose={() => navigation.goBack()} />
         </PlatformView>
       );
     case 'BANKING':

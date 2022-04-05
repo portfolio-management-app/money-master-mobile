@@ -1,2 +1,3 @@
+import { RealEstateAssetDetail } from './RealEstateAssetDetail';
 import { BankAssetDetail } from './BankAssetDetail';
-export { BankAssetDetail };
+export { BankAssetDetail, RealEstateAssetDetail };

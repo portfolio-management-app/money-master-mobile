@@ -18,7 +18,7 @@ import {
   BuyCrypto,
   BuyStock,
   BuyCurrency,
-  MetalDetail,
+  RealEstateAssetDetail,
 } from 'screens';
 import { StatusBar } from 'react-native';
 import { colorScheme } from 'shared/styles';
@@ -50,7 +50,11 @@ export const NavigationStack = () => {
         <Stack.Screen name={'BuyCrypto'} component={BuyCrypto} />
         <Stack.Screen name={'BuyStock'} component={BuyStock} />
         <Stack.Screen name={'BuyCurrency'} component={BuyCurrency} />
-        <Stack.Screen name={'MetalDetail'} component={MetalDetail} />
+
+        <Stack.Screen
+          name={'RealEstateAssetDetail'}
+          component={RealEstateAssetDetail}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );

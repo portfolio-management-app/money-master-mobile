@@ -1,6 +1,4 @@
-import { useNavigation } from '@react-navigation/native';
 import { observer } from 'mobx-react-lite';
-import { MainStackNavigationProp } from 'navigation/types';
 import React from 'react';
 import { TouchableOpacity, View } from 'react-native-ui-lib';
 import { TextContainer, TransparentLoading } from 'shared/components';
@@ -9,29 +7,46 @@ import { MetalStore } from 'shared/stores';
 import { colorScheme, styleProvider } from 'shared/styles';
 import { parseToString } from 'utils/date';
 import { formatCurrency } from 'utils/number';
-import { Filter } from './components';
+import { ActionBottomSheet, Filter } from './components';
 
 const CONTENT = APP_CONTENT.marketCap;
 
 export const MetalMarket = observer(() => {
-  const navigation = useNavigation<MainStackNavigationProp>();
+  const [openSheet, setOpenSheet] = React.useState(false);
+  const [type, setType] = React.useState('gold');
   const { information, getMetalData } = MetalStore;
-
   const { xauPrice, xagPrice, curr } = information.items[0];
+  React.useEffect(() => {
+    const interval = setInterval(() => {
+      getMetalData(curr);
+    }, 1000 * 60);
+    return () => {
+      clearInterval(interval);
+    };
+  }, [curr, getMetalData]);
 
-  const gotoGoldScreen = () => {
-    navigation.navigate('MetalDetail', { type: 'gold' });
+  const handleGoldLongPress = () => {
+    setOpenSheet(!openSheet);
+    setType('gold');
   };
-
-  const gotoSilverScreen = () => {
-    navigation.navigate('MetalDetail', { type: 'silver' });
+  const handleSilverLongPress = () => {
+    setOpenSheet(!openSheet);
+    setType('silver');
   };
   return (
     <View style={styleProvider.relativeView}>
       <Filter onChange={(val) => getMetalData(val)} />
+      <ActionBottomSheet
+        type={type}
+        show={openSheet}
+        onClose={() => setOpenSheet(!openSheet)}
+      />
       <TransparentLoading show={MetalStore.loading} />
 
-      <TouchableOpacity onPress={gotoGoldScreen} style={styleProvider.card}>
+      <TouchableOpacity
+        onLongPress={handleGoldLongPress}
+        style={styleProvider.card}
+      >
         <View>
           <View style={[styleProvider.centerHorizontal, { paddingBottom: 10 }]}>
             <TextContainer bold>{CONTENT.gold}: </TextContainer>
@@ -47,7 +62,10 @@ export const MetalMarket = observer(() => {
           </View>
         </View>
       </TouchableOpacity>
-      <TouchableOpacity onPress={gotoSilverScreen} style={styleProvider.card}>
+      <TouchableOpacity
+        onLongPress={handleSilverLongPress}
+        style={styleProvider.card}
+      >
         <View>
           <View style={[styleProvider.centerHorizontal, { paddingBottom: 10 }]}>
             <TextContainer bold>{CONTENT.silver}: </TextContainer>

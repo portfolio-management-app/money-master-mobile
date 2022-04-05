@@ -11,6 +11,7 @@ import { colorScheme, styleProvider } from 'shared/styles';
 import { parseToString } from 'utils/date';
 import { CryptoStore, ICrypto } from '../store';
 import { CoinPrice } from './CoinPrice';
+import { ActionBottomSheet } from './ActionSheet';
 
 interface IProps {
   coin: ListRenderItemInfo<ICrypto>;
@@ -21,6 +22,7 @@ const CONTENT = APP_CONTENT.marketCap;
 type NavigationProp = NativeStackNavigationProp<RootStackParamList>;
 
 const Component = ({ coin }: IProps) => {
+  const [openSheet, setOpenSheet] = React.useState(false);
   const navigation = useNavigation<NavigationProp>();
   const {
     image,
@@ -32,6 +34,10 @@ const Component = ({ coin }: IProps) => {
     lastUpdate,
   } = coin.item;
 
+  const toggleSheet = React.useCallback(() => {
+    setOpenSheet((prev) => !prev);
+  }, []);
+
   const gotoDetail = React.useCallback(async () => {
     await CoinDetailStore.getAllData(id, CryptoStore.currency, 1);
     navigation.navigate('CoinDetail', {
@@ -41,28 +47,35 @@ const Component = ({ coin }: IProps) => {
     });
   }, [id, name, navigation]);
   return (
-    <TouchableOpacity onPress={gotoDetail} style={styles.coinButton}>
-      <View>
-        <View style={styleProvider.centerHorizontal}>
-          <Image
-            style={styleProvider.buttonIcon}
-            source={{ uri: image }}
-          ></Image>
-          <TextContainer ml={10}>{name}</TextContainer>
+    <>
+      <ActionBottomSheet coinId={id} show={openSheet} onClose={toggleSheet} />
+      <TouchableOpacity
+        onLongPress={toggleSheet}
+        onPress={gotoDetail}
+        style={styles.coinButton}
+      >
+        <View>
+          <View style={styleProvider.centerHorizontal}>
+            <Image
+              style={styleProvider.buttonIcon}
+              source={{ uri: image }}
+            ></Image>
+            <TextContainer ml={10}>{name}</TextContainer>
+          </View>
+          <TextContainer mt={10} type="small">
+            <TextContainer bold type="small">
+              {CONTENT.lastUpdate}:
+            </TextContainer>{' '}
+            {parseToString(new Date(lastUpdate))}
+          </TextContainer>
         </View>
-        <TextContainer mt={10} type="small">
-          <TextContainer bold type="small">
-            {CONTENT.lastUpdate}:
-          </TextContainer>{' '}
-          {parseToString(new Date(lastUpdate))}
-        </TextContainer>
-      </View>
-      <CoinPrice
-        price={currentPrice}
-        changeAmount={priceChange}
-        percent={pricePercent}
-      />
-    </TouchableOpacity>
+        <CoinPrice
+          price={currentPrice}
+          changeAmount={priceChange}
+          percent={pricePercent}
+        />
+      </TouchableOpacity>
+    </>
   );
 };
 

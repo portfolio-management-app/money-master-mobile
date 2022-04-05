@@ -22,6 +22,23 @@ export const CreateBankAssetSchema = Yup.object().shape({
     .positive(FORM_ERROR.mustBeANumber),
 });
 
+export const CreateRealEstateAssetSchema = Yup.object().shape({
+  name: Yup.string().required(FORM_ERROR.requiredFiled),
+  inputMoneyAmount: Yup.number()
+    .transform(yupParserNumber)
+    .required(FORM_ERROR.requiredFiled)
+    .positive(FORM_ERROR.mustBeANumber),
+  inputCurrency: Yup.string().required(FORM_ERROR.requiredFiled),
+  buyPrice: Yup.number()
+    .transform(yupParserNumber)
+    .required(FORM_ERROR.requiredFiled)
+    .positive(FORM_ERROR.mustBeANumber),
+  currentPrice: Yup.number()
+    .transform(yupParserNumber)
+    .required(FORM_ERROR.requiredFiled)
+    .positive(FORM_ERROR.mustBeANumber),
+});
+
 export const PriceSchema = Yup.object().shape({
   price: Yup.number()
     .transform(yupParserNumber)

@@ -123,4 +123,13 @@ export const styleProvider = StyleSheet.create({
     marginHorizontal: 20,
     marginTop: 20,
   },
+  buyBtn: {
+    backgroundColor: colorScheme.green400,
+    marginRight: 20,
+    borderRadius: 10,
+  },
+  sellBtn: {
+    backgroundColor: colorScheme.red500,
+    borderRadius: 10,
+  },
 });

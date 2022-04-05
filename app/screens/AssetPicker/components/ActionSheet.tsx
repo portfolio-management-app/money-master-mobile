@@ -1,5 +1,6 @@
 import React from 'react';
 import { ActionSheet } from 'react-native-ui-lib';
+import { APP_CONTENT } from 'shared/constants';
 
 interface IProps {
   show: boolean;
@@ -12,12 +13,10 @@ export const ActionBottomSheet = ({ show, onClose, assetTypeId }: IProps) => {
   return (
     <ActionSheet
       visible={show}
-      title={'Title'}
+      title={APP_CONTENT.action}
       onDismiss={onClose}
-      message={'Message goes here'}
-      cancelButtonIndex={3}
       destructiveButtonIndex={0}
-      options={[{ label: 'Cancel', onPress: () => console.log('cancel') }]}
+      options={[{ label: APP_CONTENT.edit }, { label: APP_CONTENT.delete }]}
     />
   );
 };
