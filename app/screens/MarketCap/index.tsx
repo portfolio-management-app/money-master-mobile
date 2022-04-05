@@ -6,10 +6,9 @@ import {
   PlatformView,
 } from 'shared/components';
 import { APP_CONTENT } from 'shared/constants';
-import { SearchModalMarket } from 'shared/stores';
+import { SearchModalMarket, MetalStore } from 'shared/stores';
 import { colorScheme, styleProvider } from 'shared/styles';
 import { TabBarView } from './components';
-import { MetalStore } from './components/Metal/store';
 
 const Component = () => {
   const [tabIndex, setTabIndex] = React.useState(0);

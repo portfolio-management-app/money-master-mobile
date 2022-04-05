@@ -1,6 +1,6 @@
 import { useNavigation } from '@react-navigation/native';
 import { observer } from 'mobx-react-lite';
-import { screenName } from 'navigation/screen-names';
+import { MainStackNavigationProp } from 'navigation/types';
 import React from 'react';
 import { Modal } from 'react-native-ui-lib';
 import { SCREEN_CONTENT } from 'screens/MarketCap/constant';
@@ -11,11 +11,11 @@ import { useDebounce } from 'use-debounce';
 const Component = () => {
   const [text, setText] = React.useState('');
   const [value] = useDebounce(text, 500);
-  const navigation = useNavigation();
+  const navigation = useNavigation<MainStackNavigationProp>();
 
   const handleItemPress = async (id: string, name: string, symbol: string) => {
     await CurrencyDetailStore.getCurrencyData(symbol, '1h');
-    navigation.navigate(screenName.currencyDetail as never);
+    navigation.navigate('CurrencyDetail');
   };
 
   return (

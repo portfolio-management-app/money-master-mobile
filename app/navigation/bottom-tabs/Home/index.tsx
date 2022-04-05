@@ -1,6 +1,5 @@
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { screenName } from 'navigation/screen-names';
 import { Setting, DashBoard, MarketCap, Portfolios } from 'screens';
 import { colorScheme } from 'shared/styles';
 import {
@@ -10,15 +9,16 @@ import {
   DashBoardTab,
 } from './components';
 import { APP_CONTENT } from 'shared/constants';
+import { BottomStackParamStack } from 'navigation/types';
 
 export const BOTTOM_TAB_CONTENT = APP_CONTENT.bottomTab;
 
-const Tab = createBottomTabNavigator();
+const Tab = createBottomTabNavigator<BottomStackParamStack>();
 
 export const HomeBottomTab = () => {
   return (
     <Tab.Navigator
-      initialRouteName={screenName.dashBoard}
+      initialRouteName="Dashboard"
       screenOptions={{
         headerShown: false,
         tabBarShowLabel: false,
@@ -36,7 +36,7 @@ export const HomeBottomTab = () => {
             return <DashBoardTab focused={focused} />;
           },
         }}
-        name={screenName.dashBoard}
+        name="Dashboard"
         component={DashBoard}
       />
       <Tab.Screen
@@ -45,7 +45,7 @@ export const HomeBottomTab = () => {
             return <PortfolioTab focused={focused} />;
           },
         }}
-        name={screenName.portfolio}
+        name="PortfolioList"
         component={Portfolios}
       />
       <Tab.Screen
@@ -54,7 +54,7 @@ export const HomeBottomTab = () => {
             return <MarketCapTab focused={focused} />;
           },
         }}
-        name={screenName.marketCap}
+        name="MarketCap"
         component={MarketCap}
       />
       <Tab.Screen
@@ -63,7 +63,7 @@ export const HomeBottomTab = () => {
             return <SettingTab focused={focused} />;
           },
         }}
-        name={screenName.setting}
+        name="Setting"
         component={Setting}
       />
     </Tab.Navigator>

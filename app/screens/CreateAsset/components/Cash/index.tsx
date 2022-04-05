@@ -1,5 +1,5 @@
 import { useNavigation } from '@react-navigation/native';
-import { screenName } from 'navigation/screen-names';
+import { MainStackNavigationProp } from 'navigation/types';
 import React from 'react';
 import { StyleSheet } from 'react-native';
 import { View } from 'react-native-ui-lib';
@@ -19,7 +19,7 @@ import { useDebounce } from 'use-debounce';
 const Component = ({ onClose }: ModalProps) => {
   const [text, setText] = React.useState('');
   const [loading, setLoading] = React.useState(false);
-  const navigation = useNavigation();
+  const navigation = useNavigation<MainStackNavigationProp>();
   const [value] = useDebounce(text, 500);
   const handleCurrencyPress = async (
     id: string,
@@ -29,7 +29,7 @@ const Component = ({ onClose }: ModalProps) => {
     setLoading(true);
     await CurrencyDetailStore.getCurrencyInfo(symbol);
     setLoading(false);
-    navigation.navigate(screenName.buyStock as never);
+    navigation.navigate('BuyCurrency');
   };
 
   return (

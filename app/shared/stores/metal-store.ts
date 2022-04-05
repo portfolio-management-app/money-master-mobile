@@ -1,4 +1,4 @@
-import { MetalInformation } from './model';
+import { MetalInformation } from '../models';
 import { flow, types } from 'mobx-state-tree';
 import { httpRequest } from 'services/http';
 import { HttpError } from 'errors/base';
@@ -26,20 +26,20 @@ export const MetalStore = types
   })
   .create({
     information: {
-      ts: 1647847947732,
-      tsj: 1647847945949,
-      date: 'Mar 21st 2022, 03:32:25 am NY',
+      ts: 0,
+      tsj: 0,
+      date: '',
       items: [
         {
-          curr: 'USD',
-          xauPrice: 1924.275,
-          xagPrice: 24.9677,
-          chgXau: 5.58,
-          chgXag: 0.0557,
-          pcXau: 0.2908,
-          pcXag: 0.2236,
-          xauClose: 1918.695,
-          xagClose: 24.912,
+          curr: 'VND',
+          xauPrice: 0,
+          xagPrice: 0,
+          chgXau: 0,
+          chgXag: 0,
+          pcXau: 0,
+          pcXag: 0,
+          xauClose: 0,
+          xagClose: 0,
         },
       ],
     },

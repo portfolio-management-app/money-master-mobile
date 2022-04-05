@@ -1,5 +1,6 @@
 import React from 'react';
 import { useNavigation } from '@react-navigation/native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { NavigationHeader } from 'navigation/header';
 import { TouchableOpacity } from 'react-native-ui-lib';
 import {
@@ -12,17 +13,24 @@ import { APP_CONTENT } from 'shared/constants';
 import { colorScheme, styleProvider } from 'shared/styles';
 import { COLOR, ITEMS, SIZE } from './constants';
 import { RefreshControl, ScrollView, StatusBar } from 'react-native';
-import { screenName } from 'navigation/screen-names';
 import { CreateAssetRouteProps } from 'shared/types';
-import { CreateModal } from './components';
+import { ActionBottomSheet, CreateModal } from './components';
 import { Observer } from 'mobx-react-lite';
 import { AssetTypeStore } from './store';
+import { RootStackParamList } from 'navigation/types';
 
 const SCREEN_CONTENT = APP_CONTENT.portfolioDetail;
 
+type NavigationProp = NativeStackNavigationProp<
+  RootStackParamList,
+  'AssetTypePicker'
+>;
+
 export const AssetPicker = () => {
-  const navigation = useNavigation();
+  const navigation = useNavigation<NavigationProp>();
   const [showModal, setShowModal] = React.useState(false);
+  const [showActionSheet, setShowActionSheet] = React.useState(false);
+  const assetId = React.useRef<number>(0);
 
   React.useEffect(() => {
     AssetTypeStore.getAssetTypeList();
@@ -47,7 +55,7 @@ export const AssetPicker = () => {
         param.type = 'CASH';
         break;
     }
-    navigation.navigate(screenName.createAsset as never, param as never);
+    navigation.navigate('CreateAsset', { props: param });
   };
 
   return (
@@ -81,6 +89,10 @@ export const AssetPicker = () => {
               ))}
               {assetTypeList.map((assetType) => (
                 <TouchableOpacity
+                  onLongPress={() => {
+                    assetId.current = assetType.id;
+                    setShowActionSheet(!showActionSheet);
+                  }}
                   onPress={() => navigateToCreate(assetType.id, assetType.name)}
                   style={styleProvider.card}
                   key={assetType.id}
@@ -104,6 +116,11 @@ export const AssetPicker = () => {
         <Icon.Material color={colorScheme.white} size={25} name="add" />
       </FloatingButton>
       <CreateModal show={showModal} onClose={() => setShowModal(!showModal)} />
+      <ActionBottomSheet
+        assetTypeId={assetId.current}
+        show={showActionSheet}
+        onClose={() => setShowActionSheet(!showActionSheet)}
+      />
     </PlatformView>
   );
 };

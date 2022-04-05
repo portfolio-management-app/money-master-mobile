@@ -1,5 +1,5 @@
 import { useNavigation } from '@react-navigation/native';
-import { screenName } from 'navigation/screen-names';
+import { MainStackNavigationProp } from 'navigation/types';
 import React from 'react';
 import { StyleSheet } from 'react-native';
 import { TouchableOpacity } from 'react-native-ui-lib';
@@ -12,13 +12,10 @@ interface IProps {
 }
 
 export const PortfolioCard = ({ item }: IProps) => {
-  const navigation = useNavigation();
+  const navigation = useNavigation<MainStackNavigationProp>();
 
   const gotoDetail = () => {
-    navigation.navigate(
-      screenName.portfolioDetail as never,
-      { id: item.id, name: item.name } as never
-    );
+    navigation.navigate('PortfolioDetail', { id: item.id, name: item.name });
   };
   return (
     <TouchableOpacity onPress={gotoDetail} style={styles.container}>

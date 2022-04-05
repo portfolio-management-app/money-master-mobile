@@ -1,15 +1,15 @@
 import { useNavigation } from '@react-navigation/native';
-import { screenName } from 'navigation/screen-names';
+import { MainStackNavigationProp } from 'navigation/types';
 import React from 'react';
 import { FloatingButton, Icon, PlatformView } from 'shared/components';
 import { colorScheme, styleProvider } from 'shared/styles';
 import { AssetGroup } from './components';
 
 const Component = () => {
-  const navigation = useNavigation();
+  const navigation = useNavigation<MainStackNavigationProp>();
 
   const toggle = () => {
-    navigation.navigate(screenName.assetPicker as never);
+    navigation.navigate('AssetTypePicker');
   };
   return (
     <PlatformView style={[styleProvider.body]}>

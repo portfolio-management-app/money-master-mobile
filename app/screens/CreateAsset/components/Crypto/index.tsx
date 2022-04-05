@@ -1,5 +1,5 @@
 import { useNavigation } from '@react-navigation/native';
-import { screenName } from 'navigation/screen-names';
+import { MainStackNavigationProp } from 'navigation/types';
 import React from 'react';
 import { StyleSheet } from 'react-native';
 import { View } from 'react-native-ui-lib';
@@ -20,12 +20,12 @@ const HEADER = SCREEN_CONTENT.assetPicker;
 
 const Component = ({ onClose }: ModalProps) => {
   const [text, setText] = React.useState('');
-  const navigation = useNavigation();
+  const navigation = useNavigation<MainStackNavigationProp>();
   const [value] = useDebounce(text, 500);
 
   const handleCoinPress = async (id: string) => {
     await CoinDetailStore.getCoinInfo(id);
-    navigation.navigate(screenName.buyCrypto as never);
+    navigation.navigate('BuyCrypto');
   };
   return (
     <PlatformView style={styleProvider.body}>

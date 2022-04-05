@@ -11,8 +11,7 @@ interface IProps {
   rate: number;
 }
 
-export const CryptoCard = ({ id, name, description, value, rate }: IProps) => {
-  console.log('ASSET ID', id);
+export const CryptoCard = ({ name, description, value, rate }: IProps) => {
   return (
     <TouchableOpacity style={styleProvider.assetCard}>
       <View>

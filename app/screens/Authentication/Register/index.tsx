@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { TouchableOpacity, View } from 'react-native';
 import { CommonActions, useNavigation } from '@react-navigation/native';
-import { screenName } from 'navigation/screen-names';
 import {
   BaseButton,
   CustomTextField,
@@ -20,6 +19,7 @@ import { Formik } from 'formik';
 import { AuthenticationSchema } from '../validator';
 import { imageSource } from 'assets/images';
 import { APP_CONTENT } from 'shared/constants';
+import { MainStackNavigationProp } from 'navigation/types';
 
 const REGISTER_CONTENT = APP_CONTENT.registerPage;
 
@@ -32,7 +32,7 @@ export const Register = () => {
   const [loading, handleFaceBookLogin, handleGoogleLogin, setLoading] =
     useSocialLogin();
 
-  const navigation = useNavigation();
+  const navigation = useNavigation<MainStackNavigationProp>();
 
   const onRegister = async (email: string, password: string) => {
     setLoading(true);
@@ -45,7 +45,7 @@ export const Register = () => {
         navigation.dispatch(
           CommonActions.reset({
             index: 0,
-            routes: [{ name: screenName.home }],
+            routes: [{ name: 'Home' }],
           })
         );
     }
@@ -118,9 +118,7 @@ export const Register = () => {
           />
           <View style={styles.signInLinkContainer}>
             <TextContainer>{REGISTER_CONTENT.signInLink} </TextContainer>
-            <TouchableOpacity
-              onPress={() => navigation.navigate(screenName.login as never)}
-            >
+            <TouchableOpacity onPress={() => navigation.navigate('Login')}>
               <TextContainer color={colorScheme.theme}>
                 {REGISTER_CONTENT.login}
               </TextContainer>

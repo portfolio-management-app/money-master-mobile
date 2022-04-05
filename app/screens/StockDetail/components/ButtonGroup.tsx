@@ -1,5 +1,5 @@
 import { useNavigation } from '@react-navigation/native';
-import { screenName } from 'navigation/screen-names';
+import { MainStackNavigationProp } from 'navigation/types';
 import React from 'react';
 import { StyleSheet } from 'react-native';
 import { View } from 'react-native-ui-lib';
@@ -7,21 +7,15 @@ import { BaseButton } from 'shared/components';
 import { APP_CONTENT } from 'shared/constants';
 import { PortfolioListStore } from 'shared/stores';
 import { colorScheme } from 'shared/styles';
-import { BuyScreenRouteProps } from 'shared/types';
 
 const CONTENT = APP_CONTENT.cryptoDetail;
 
 export const ButtonGroup = () => {
-  const navigation = useNavigation();
+  const navigation = useNavigation<MainStackNavigationProp>();
 
   const handleBuyPress = () => {
     PortfolioListStore.getPortfolioList();
-    navigation.navigate(
-      screenName.buyStock as never,
-      {
-        type: 'STOCK',
-      } as BuyScreenRouteProps as never
-    );
+    navigation.navigate('PortfolioPicker', { type: 'STOCK' });
   };
   return (
     <View style={styles.container}>

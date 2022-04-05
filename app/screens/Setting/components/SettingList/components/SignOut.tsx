@@ -1,5 +1,5 @@
 import { CommonActions, useNavigation } from '@react-navigation/native';
-import { screenName } from 'navigation/screen-names';
+import { MainStackNavigationProp } from 'navigation/types';
 import React from 'react';
 import { ConfirmModal, Icon } from 'shared/components';
 import { UserStore } from 'shared/stores';
@@ -9,14 +9,14 @@ import { Common } from './Common';
 
 export const SignOut = () => {
   const [open, setOpen] = React.useState(false);
-  const navigation = useNavigation();
+  const navigation = useNavigation<MainStackNavigationProp>();
 
   const onSignOut = () => {
     UserStore.logout();
     navigation.dispatch(
       CommonActions.reset({
         index: 0,
-        routes: [{ name: screenName.start }],
+        routes: [{ name: 'Start' }],
       })
     );
   };

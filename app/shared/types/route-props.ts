@@ -1,9 +1,3 @@
-import { RouteProp } from '@react-navigation/native';
-
-export interface ScreenParams extends RouteProp<any, any> {
-  params: any;
-}
-
 export type AssetType =
   | 'OTHER'
   | 'CRYPTO'
@@ -18,6 +12,6 @@ export type CreateAssetRouteProps = {
   name: string;
   id: number;
 };
-export type BuyScreenRouteProps = {
-  type: 'CRYPTO' | 'STOCK' | 'CURRENCY' | 'METAL';
-};
+export type BuyScreenRouteProps = 'CRYPTO' | 'STOCK' | 'CURRENCY' | 'METAL';
+
+export type MetalDetailScreenProps = 'gold' | 'silver';

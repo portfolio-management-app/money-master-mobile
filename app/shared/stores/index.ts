@@ -1,3 +1,4 @@
+import { MetalStore } from './metal-store';
 import { CurrencyDetailStore } from './currency-detail';
 import { PortfolioDetailStore } from './portfolio-detail';
 import { PortfolioListStore } from './portfolio-list';
@@ -15,4 +16,5 @@ export {
   PortfolioListStore,
   PortfolioDetailStore,
   CurrencyDetailStore,
+  MetalStore,
 };

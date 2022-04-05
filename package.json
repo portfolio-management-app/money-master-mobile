@@ -18,6 +18,7 @@
     "@react-navigation/material-bottom-tabs": "^6.1.1",
     "@react-navigation/native": "^6.0.6",
     "@react-navigation/native-stack": "^6.2.5",
+    "@react-navigation/stack": "^6.2.1",
     "@types/react-native-indicators": "^0.16.2",
     "appcenter": "4.3.0",
     "appcenter-analytics": "4.3.0",

@@ -1,3 +1,4 @@
+import { MetalDetail } from './MetalDetail';
 import { BuyCurrency } from './BuyCurrency';
 import { BuyStock } from './BuyStock';
 import { BuyCrypto } from './BuyCrypto';
@@ -38,4 +39,5 @@ export {
   CurrencyDetail,
   PortfolioPicker,
   BuyCrypto,
+  MetalDetail,
 };

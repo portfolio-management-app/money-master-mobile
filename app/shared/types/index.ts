@@ -15,7 +15,7 @@ import {
 import {
   CreateAssetRouteProps,
   BuyScreenRouteProps,
-  ScreenParams,
+  MetalDetailScreenProps,
 } from './route-props';
 
 export type {
@@ -30,7 +30,7 @@ export type {
   CurrencyTimeSupport,
   CreateAssetRouteProps,
   BuyScreenRouteProps,
-  ScreenParams,
+  MetalDetailScreenProps,
 };
 
 export type HttpRequestResponse = {

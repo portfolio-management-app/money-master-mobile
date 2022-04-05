@@ -15,7 +15,10 @@ import {
   IStockTimeSeries,
   ICurrencyInformation,
   ICurrencyTimeSeries,
+  IMetalInformation,
+  IMetalItem,
 } from './types';
+import { MetalInformation } from './metal-information';
 export {
   User,
   CoinInformation,
@@ -26,6 +29,7 @@ export {
   BankAsset,
   CurrencyInformation,
   CurrencyTimeSeries,
+  MetalInformation,
 };
 
 export type {
@@ -36,4 +40,6 @@ export type {
   IRealEstateAsset,
   ICurrencyInformation,
   ICurrencyTimeSeries,
+  IMetalInformation,
+  IMetalItem,
 };

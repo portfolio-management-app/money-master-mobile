@@ -1,5 +1,5 @@
 import { useNavigation } from '@react-navigation/native';
-import { screenName } from 'navigation/screen-names';
+import { MainStackNavigationProp } from 'navigation/types';
 import React from 'react';
 import { TouchableOpacity, View } from 'react-native-ui-lib';
 import { TextContainer } from 'shared/components';
@@ -12,13 +12,10 @@ interface IProps {
 }
 
 export const BankingCard = ({ item }: IProps) => {
-  const navigation = useNavigation();
+  const navigation = useNavigation<MainStackNavigationProp>();
 
   const gotoBankDetail = () => {
-    navigation.navigate(
-      screenName.bankAssetDetail as never,
-      { info: item } as never
-    );
+    navigation.navigate('BankAssetDetail', { info: item });
   };
   return (
     <TouchableOpacity onPress={gotoBankDetail} style={styleProvider.assetCard}>

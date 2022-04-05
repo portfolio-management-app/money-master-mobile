@@ -1,6 +1,6 @@
 import { useNavigation } from '@react-navigation/native';
 import { observer } from 'mobx-react-lite';
-import { screenName } from 'navigation/screen-names';
+import { MainStackNavigationProp } from 'navigation/types';
 import React from 'react';
 import { Modal } from 'react-native-ui-lib';
 import { SCREEN_CONTENT } from 'screens/MarketCap/constant';
@@ -13,15 +13,16 @@ const Component = () => {
   const [text, setText] = React.useState('');
   const [value] = useDebounce(text, 500);
 
-  const navigation = useNavigation();
+  const navigation = useNavigation<MainStackNavigationProp>();
 
   const onItemPress = React.useCallback(
     async (id: string, name: string) => {
       await CoinDetailStore.getAllData(id, CryptoStore.currency, 1);
-      navigation.navigate(
-        screenName.coinDetail as never,
-        { id: id, name: name } as never
-      );
+      navigation.navigate('CoinDetail', {
+        id: id,
+        name: name,
+        currency: CryptoStore.currency,
+      });
     },
     [navigation]
   );

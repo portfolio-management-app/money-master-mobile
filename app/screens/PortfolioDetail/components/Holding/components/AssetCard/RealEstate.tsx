@@ -10,7 +10,6 @@ interface IProps {
 }
 
 export const RealEstateCard = ({ item }: IProps) => {
-  console.log('ASSET ID', item.id);
   return (
     <TouchableOpacity style={styleProvider.assetCard}>
       <View>

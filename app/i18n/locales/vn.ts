@@ -264,4 +264,12 @@ export const vn = {
     buy: 'Buy',
     currencyPrice: 'Current price',
   },
+  metalDetailScreen: {
+    gold: 'Gold',
+    silver: 'Silver',
+    buy: 'Buy',
+    sell: 'Sell',
+    close: 'Close price',
+    change: 'Change (24h)',
+  },
 };

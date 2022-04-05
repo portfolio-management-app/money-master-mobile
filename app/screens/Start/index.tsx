@@ -3,6 +3,7 @@ import { StyleSheet, Image, View } from 'react-native';
 import { observer } from 'mobx-react-lite';
 import { CommonActions, useNavigation } from '@react-navigation/native';
 import { imageSource } from 'assets/images';
+import { MainStackNavigationProp } from 'navigation/types';
 import {
   BaseButton,
   GreetingLoading,
@@ -11,14 +12,13 @@ import {
 } from 'shared/components';
 import { colorScheme, dimensionProvider } from 'shared/styles';
 import { UserStore } from 'shared/stores';
-import { screenName } from 'navigation/screen-names';
 import { storage, TOKEN_KEY } from 'services/storage';
 import { APP_CONTENT } from 'shared/constants';
 
 const START_CONTENT = APP_CONTENT.greetingPage;
 
 export const Start = observer(() => {
-  const navigation = useNavigation();
+  const navigation = useNavigation<MainStackNavigationProp>();
   const { pendingAuthen, user, initUser } = UserStore;
   React.useEffect(() => {
     if (!pendingAuthen) {
@@ -26,7 +26,7 @@ export const Start = observer(() => {
         navigation.dispatch(
           CommonActions.reset({
             index: 0,
-            routes: [{ name: screenName.home }],
+            routes: [{ name: 'Home' }],
           })
         );
       }
@@ -65,21 +65,19 @@ export const Start = observer(() => {
               <View style={styles.buttonContainer}>
                 <BaseButton
                   style={styles.registerButton}
-                  onPress={() =>
-                    navigation.navigate(screenName.register as never)
-                  }
+                  onPress={() => navigation.navigate('Register')}
                   label={START_CONTENT.register}
                 />
                 <BaseButton
                   style={styles.loginButton}
                   labelStyle={{ color: colorScheme.theme }}
-                  onPress={() => navigation.navigate(screenName.login as never)}
+                  onPress={() => navigation.navigate('Login')}
                   label={START_CONTENT.login}
                 />
                 <BaseButton
                   style={{ width: '100%', marginTop: 20 }}
                   label="Demo"
-                  onPress={() => navigation.navigate(screenName.home as never)}
+                  onPress={() => navigation.navigate('Home')}
                 />
               </View>
             </PlatformView>

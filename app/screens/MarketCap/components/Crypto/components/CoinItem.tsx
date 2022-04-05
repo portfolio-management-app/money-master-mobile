@@ -1,5 +1,6 @@
 import { useNavigation } from '@react-navigation/native';
-import { screenName } from 'navigation/screen-names';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { RootStackParamList } from 'navigation/types';
 import React from 'react';
 import { ListRenderItemInfo, StyleSheet } from 'react-native';
 import { Image, TouchableOpacity, View } from 'react-native-ui-lib';
@@ -17,8 +18,10 @@ interface IProps {
 
 const CONTENT = APP_CONTENT.marketCap;
 
+type NavigationProp = NativeStackNavigationProp<RootStackParamList>;
+
 const Component = ({ coin }: IProps) => {
-  const navigation = useNavigation();
+  const navigation = useNavigation<NavigationProp>();
   const {
     image,
     name,
@@ -31,10 +34,11 @@ const Component = ({ coin }: IProps) => {
 
   const gotoDetail = React.useCallback(async () => {
     await CoinDetailStore.getAllData(id, CryptoStore.currency, 1);
-    navigation.navigate(
-      screenName.coinDetail as never,
-      { id: id, name: name, currency: CryptoStore.currency } as never
-    );
+    navigation.navigate('CoinDetail', {
+      id: id,
+      name: name,
+      currency: CoinDetailStore.currency,
+    });
   }, [id, name, navigation]);
   return (
     <TouchableOpacity onPress={gotoDetail} style={styles.coinButton}>

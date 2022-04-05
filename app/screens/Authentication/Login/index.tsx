@@ -10,7 +10,6 @@ import {
 import { NavigationHeader } from 'navigation/header';
 import { colorScheme, styleProvider } from 'shared/styles';
 import { CommonActions, useNavigation } from '@react-navigation/native';
-import { screenName } from 'navigation/screen-names';
 import { HttpRequestResponse } from 'shared/types';
 import { ErrorBounder } from './components';
 import { useSocialLogin } from '../hooks';
@@ -20,6 +19,7 @@ import { AuthenticationSchema } from '../validator';
 import { UserStore } from 'shared/stores';
 import { imageSource } from 'assets/images';
 import { APP_CONTENT } from 'shared/constants';
+import { MainStackNavigationProp } from 'navigation/types';
 
 const LOGIN_CONTENT = APP_CONTENT.loginPage;
 
@@ -32,7 +32,7 @@ export const Login = () => {
   const [loading, handleFaceBookLogin, handleGoogleLogin, setLoading] =
     useSocialLogin();
 
-  const navigation = useNavigation();
+  const navigation = useNavigation<MainStackNavigationProp>();
 
   const onLogin = async (email: string, password: string) => {
     setLoading(true);
@@ -46,7 +46,7 @@ export const Login = () => {
         navigation.dispatch(
           CommonActions.reset({
             index: 0,
-            routes: [{ name: screenName.home }],
+            routes: [{ name: 'Home' }],
           })
         );
     }
@@ -100,9 +100,7 @@ export const Login = () => {
 
           <View style={styles.forgetContainer}>
             <TouchableOpacity
-              onPress={() =>
-                navigation.navigate(screenName.forgetPassword as never)
-              }
+              onPress={() => navigation.navigate('ForgetPassword')}
             >
               <TextContainer color={colorScheme.theme} type="small">
                 {LOGIN_CONTENT.forgetPassword}
@@ -133,9 +131,7 @@ export const Login = () => {
 
           <View style={styles.signInLinkContainer}>
             <TextContainer>{LOGIN_CONTENT.signUpLink} </TextContainer>
-            <TouchableOpacity
-              onPress={() => navigation.navigate(screenName.register as never)}
-            >
+            <TouchableOpacity onPress={() => navigation.navigate('Register')}>
               <TextContainer color={colorScheme.theme}>
                 {LOGIN_CONTENT.register}
               </TextContainer>

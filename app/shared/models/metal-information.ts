@@ -1,6 +1,6 @@
 import { types } from 'mobx-state-tree';
 
-const MetalItem = types.model('MetalItem', {
+export const MetalItem = types.model('MetalItem', {
   curr: types.string,
   xauPrice: types.number,
   xagPrice: types.number,

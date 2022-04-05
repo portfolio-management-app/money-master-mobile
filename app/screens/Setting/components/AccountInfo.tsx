@@ -17,7 +17,7 @@ export const AccountInfo = observer(() => {
       </TextContainer>
       <TextContainer>
         <TextContainer bold>Join date: </TextContainer>
-        {parseToString(new Date(), false)}
+        {parseToString(new Date())}
       </TextContainer>
     </View>
   );
