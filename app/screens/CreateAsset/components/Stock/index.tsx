@@ -11,7 +11,7 @@ import {
   TransparentLoading,
 } from 'shared/components';
 import { SEARCH_BAR_CONTENT } from 'shared/constants';
-import { PortfolioDetailStore, StockDetailStore } from 'shared/stores';
+import { StockDetailStore } from 'shared/stores';
 import { ModalProps } from 'shared/types';
 import { useDebounce } from 'use-debounce/lib';
 

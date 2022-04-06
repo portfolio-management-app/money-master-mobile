@@ -3,7 +3,6 @@ import { MainStackNavigationProp } from 'navigation/types';
 import React from 'react';
 import { SCREEN_CONTENT } from 'screens/PortfolioDetail/constants';
 import { CreateModalHeader, MetalPrice } from 'shared/components';
-import { PortfolioDetailStore } from 'shared/stores';
 import { ModalProps } from 'shared/types';
 
 const HEADER = SCREEN_CONTENT.assetPicker;

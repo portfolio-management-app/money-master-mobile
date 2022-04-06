@@ -11,7 +11,7 @@ import {
   SearchBar,
 } from 'shared/components';
 import { SEARCH_BAR_CONTENT } from 'shared/constants';
-import { CoinDetailStore, PortfolioDetailStore } from 'shared/stores';
+import { CoinDetailStore } from 'shared/stores';
 import { styleProvider } from 'shared/styles';
 import { ModalProps } from 'shared/types';
 import { useDebounce } from 'use-debounce';
