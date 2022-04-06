@@ -1,4 +1,10 @@
-import { BuyCurrency, BuyCrypto, BuyStock } from './BuyScreen';
+import {
+  BuyCurrency,
+  BuyCrypto,
+  BuyStock,
+  BuyGold,
+  BuySilver,
+} from './BuyScreen';
 import { PortfolioPicker } from './PortfolioPicker';
 import { CurrencyDetail } from './CurrencyDetail';
 import { StockDetail } from './StockDetail';
@@ -17,6 +23,8 @@ import { ForgetPassword, Login, Register } from './Authentication';
 
 export {
   BuyStock,
+  BuyGold,
+  BuySilver,
   RealEstateAssetDetail,
   BuyCurrency,
   Home,

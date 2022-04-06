@@ -25,10 +25,15 @@ export type RootStackParamList = {
   CoinDetail: { id: string; name: string; currency: string };
   CurrencyDetail: undefined;
   MetalDetail: { type: MetalDetailScreenProps };
-  PortfolioPicker: { type: BuyScreenRouteProps };
+  PortfolioPicker: {
+    type: BuyScreenRouteProps;
+    metalType?: 'gold' | 'silver';
+  };
   BuyCrypto: undefined;
   BuyStock: undefined;
   BuyCurrency: undefined;
+  BuyGold: undefined;
+  BuySilver: undefined;
 };
 
 export type BottomStackParamStack = {

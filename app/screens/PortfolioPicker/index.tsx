@@ -10,7 +10,7 @@ import { ScrollView } from 'react-native';
 import { TouchableOpacity } from 'react-native-ui-lib';
 import { PlatformView, TextContainer } from 'shared/components';
 import { APP_CONTENT } from 'shared/constants';
-import { PortfolioListStore } from 'shared/stores';
+import { PortfolioDetailStore, PortfolioListStore } from 'shared/stores';
 import { styleProvider } from 'shared/styles';
 
 const CONTENT = APP_CONTENT.portfolioPicker;
@@ -20,7 +20,8 @@ export const PortfolioPicker = observer(() => {
   const routeProps =
     useRoute<RootStackScreenProps<'PortfolioPicker'>['route']>();
   const { portfolioList } = PortfolioListStore;
-  const handlePortfolioPress = () => {
+  const handlePortfolioPress = (id: number, name: string) => {
+    PortfolioDetailStore.assignInfo(id, name);
     switch (routeProps.params.type) {
       case 'CRYPTO':
         navigation.navigate('BuyCrypto');
@@ -30,6 +31,13 @@ export const PortfolioPicker = observer(() => {
         break;
       case 'CURRENCY':
         navigation.navigate('BuyCurrency');
+        break;
+      case 'METAL':
+        if (routeProps.params.metalType === 'gold') {
+          navigation.navigate('BuyGold');
+        } else {
+          navigation.navigate('BuySilver');
+        }
     }
   };
   return (
@@ -38,7 +46,7 @@ export const PortfolioPicker = observer(() => {
       <ScrollView>
         {portfolioList.map((portfolio) => (
           <TouchableOpacity
-            onPress={handlePortfolioPress}
+            onPress={() => handlePortfolioPress(portfolio.id, portfolio.name)}
             key={portfolio.id}
             style={styleProvider.card}
           >

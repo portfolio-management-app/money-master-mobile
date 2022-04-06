@@ -4,7 +4,7 @@ export type AssetType =
   | 'STOCK'
   | 'REAL-ESTATE'
   | 'CASH'
-  | 'GOLD'
+  | 'METAL'
   | 'BANKING';
 
 export type CreateAssetRouteProps = {

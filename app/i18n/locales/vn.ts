@@ -115,6 +115,7 @@ export const vn = {
       realEstate: 'Bất động sản',
       other: 'Khác',
       cash: 'Ngoại tệ',
+      metal: 'Kim loại quý',
     },
     createOtherModal: {
       header: 'Tạo tài sản mới',
@@ -126,7 +127,7 @@ export const vn = {
       termRange: 'Kì hạn (tháng)',
       startDate: 'Ngày bắt đầu',
       description: 'Mô tả',
-      update: 'Update',
+      update: 'Cập nhật',
     },
     bankingModal: {
       name: 'Tên ngân hàng',

@@ -3,7 +3,15 @@ import { RootStackScreenProps } from 'navigation/types';
 import React from 'react';
 import { PlatformView } from 'shared/components';
 import { styleProvider } from 'shared/styles';
-import { Bank, Other, Crypto, Stock, Cash, RealEstate } from './components';
+import {
+  Bank,
+  Other,
+  Crypto,
+  Stock,
+  Cash,
+  RealEstate,
+  Metal,
+} from './components';
 
 export const CreateAsset = () => {
   const routeProps = useRoute<RootStackScreenProps<'CreateAsset'>['route']>();
@@ -45,6 +53,12 @@ export const CreateAsset = () => {
       return (
         <PlatformView style={styleProvider.body}>
           <RealEstate onClose={() => navigation.goBack()} />
+        </PlatformView>
+      );
+    case 'METAL':
+      return (
+        <PlatformView style={styleProvider.body}>
+          <Metal onClose={() => navigation.goBack()} />
         </PlatformView>
       );
     default:

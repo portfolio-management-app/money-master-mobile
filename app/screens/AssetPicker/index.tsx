@@ -54,6 +54,8 @@ export const AssetPicker = () => {
       case -5:
         param.type = 'CASH';
         break;
+      case -6:
+        param.type = 'METAL';
     }
     navigation.navigate('CreateAsset', { props: param });
   };

@@ -7,13 +7,15 @@ import { MetalStore } from 'shared/stores';
 import { colorScheme, styleProvider } from 'shared/styles';
 import { parseToString } from 'utils/date';
 import { formatCurrency } from 'utils/number';
-import { ActionBottomSheet, Filter } from './components';
+
+interface IProps {
+  onGoldPress?: () => void;
+  onSilverPress?: () => void;
+}
 
 const CONTENT = APP_CONTENT.marketCap;
 
-export const MetalMarket = observer(() => {
-  const [openSheet, setOpenSheet] = React.useState(false);
-  const [type, setType] = React.useState('gold');
+export const MetalPrice = observer(({ onGoldPress, onSilverPress }: IProps) => {
   const { information, getMetalData } = MetalStore;
   const { xauPrice, xagPrice, curr, chgXag, chgXau, xauClose, xagClose } =
     information.items[0];
@@ -25,29 +27,10 @@ export const MetalMarket = observer(() => {
       clearInterval(interval);
     };
   }, [curr, getMetalData]);
-
-  const handleGoldLongPress = () => {
-    setOpenSheet(!openSheet);
-    setType('gold');
-  };
-  const handleSilverLongPress = () => {
-    setOpenSheet(!openSheet);
-    setType('silver');
-  };
   return (
     <View style={styleProvider.relativeView}>
-      <Filter onChange={(val) => getMetalData(val)} />
-      <ActionBottomSheet
-        type={type}
-        show={openSheet}
-        onClose={() => setOpenSheet(!openSheet)}
-      />
       <TransparentLoading show={MetalStore.loading} />
-
-      <TouchableOpacity
-        onLongPress={handleGoldLongPress}
-        style={styleProvider.card}
-      >
+      <TouchableOpacity onPress={onGoldPress} style={styleProvider.card}>
         <View>
           <View style={[styleProvider.centerHorizontal, { paddingBottom: 10 }]}>
             <TextContainer bold>{CONTENT.gold}: </TextContainer>
@@ -80,10 +63,7 @@ export const MetalMarket = observer(() => {
           </View>
         </View>
       </TouchableOpacity>
-      <TouchableOpacity
-        onLongPress={handleSilverLongPress}
-        style={styleProvider.card}
-      >
+      <TouchableOpacity onPress={onSilverPress} style={styleProvider.card}>
         <View>
           <View style={[styleProvider.centerHorizontal, { paddingBottom: 10 }]}>
             <TextContainer bold>{CONTENT.silver}: </TextContainer>

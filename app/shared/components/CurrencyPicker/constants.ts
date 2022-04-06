@@ -4,7 +4,6 @@ const CONTENT = APP_CONTENT.currencyList;
 
 export const currencyList: any = {
   AUD: CONTENT.AUD,
-  BTC: CONTENT.BTC,
   GBP: CONTENT.GBP,
   CAD: CONTENT.CAD,
   CNY: CONTENT.CNY,

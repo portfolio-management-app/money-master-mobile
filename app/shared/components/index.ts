@@ -1,3 +1,4 @@
+import { AssetActionSheet } from './AssetActionSheet';
 import { CurrencySearchResult } from './CurrencySearchResult';
 import { ReinStateCheckBox } from './ReinStateCheckBox';
 import { CustomHint } from './CustomHint';
@@ -33,9 +34,11 @@ import { Loading } from './Loading';
 import { TextContainer } from './TextContainer';
 import { PlatformView } from './PlatformView';
 import { ErrorDialog } from './ErrorDialog';
+import { MetalPrice } from './MetalPrice';
 
 export {
   PlatformView,
+  AssetActionSheet,
   SearchForData,
   CurrencySearchResult,
   Chart,
@@ -71,4 +74,5 @@ export {
   CryptoSearchResult,
   StockSearchResult,
   CustomHint,
+  MetalPrice,
 };

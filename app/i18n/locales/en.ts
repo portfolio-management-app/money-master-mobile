@@ -121,6 +121,7 @@ export const en = {
       realEstate: 'Real estate',
       other: 'Other',
       cash: 'Currency',
+      metal: 'Metal',
     },
     createOtherModal: {
       header: 'Other',
