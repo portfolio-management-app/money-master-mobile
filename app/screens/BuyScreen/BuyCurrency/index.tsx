@@ -26,7 +26,7 @@ export const BuyCurrency = observer(() => {
       <Formik
         validationSchema={PriceSchema}
         onSubmit={(values) => console.log(values)}
-        initialValues={{ amount: 0 }}
+        initialValues={{ amount: 0, name: '', description: '' }}
       >
         {({ handleChange, handleBlur, values, touched, errors }) => {
           return (
@@ -39,6 +39,13 @@ export const BuyCurrency = observer(() => {
                   {formatCurrency(parseFloat(currencyInformation.c), tokens[1])}
                 </TextContainer>
               </View>
+              <CustomTextField
+                onBlur={handleBlur('name')}
+                value={values.name}
+                onChangeText={handleChange('name')}
+                placeholder={CONTENT.name}
+                errorMessage={touched.name ? errors.name : ''}
+              />
 
               <CustomTextField
                 onBlur={handleBlur('amount')}
@@ -46,6 +53,12 @@ export const BuyCurrency = observer(() => {
                 onChangeText={handleChange('amount')}
                 placeholder={CONTENT.amount}
                 errorMessage={touched.amount ? errors.amount : ''}
+              />
+              <CustomTextField
+                onBlur={handleBlur('description')}
+                value={values.description}
+                onChangeText={handleChange('description')}
+                placeholder={CONTENT.description}
               />
 
               <BaseButton

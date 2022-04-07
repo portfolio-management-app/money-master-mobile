@@ -20,6 +20,7 @@ export const MetalPrice = observer(({ onGoldPress, onSilverPress }: IProps) => {
   const { xauPrice, xagPrice, curr, chgXag, chgXau, xauClose, xagClose } =
     information.items[0];
   React.useEffect(() => {
+    getMetalData(curr);
     const interval = setInterval(() => {
       getMetalData(curr);
     }, 1000 * 60);

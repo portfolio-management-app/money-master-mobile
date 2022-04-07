@@ -25,7 +25,7 @@ export const RealEstateCard = ({ item }: IProps) => {
       </View>
 
       <TextContainer color={colorScheme.assetPrice}>
-        {formatCurrency(item.buyPrice, item.inputCurrency)}
+        {formatCurrency(item.inputMoneyAmount, item.inputCurrency)}
       </TextContainer>
     </TouchableOpacity>
   );

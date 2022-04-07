@@ -267,6 +267,10 @@ export const vn = {
     currencyPrice: 'Giá hiện tại',
     gold: 'Vàng',
     silver: 'Bạc',
+    description: 'Mô tả',
+    name: 'Tên',
+    startDate: 'Ngày mua',
+    purchasePrice: 'Giá mua',
   },
   metalDetailScreen: {
     gold: 'Vàng',

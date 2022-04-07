@@ -40,7 +40,7 @@ export const CreateRealEstateAssetSchema = Yup.object().shape({
 });
 
 export const PriceSchema = Yup.object().shape({
-  price: Yup.number()
+  purchasePrice: Yup.number()
     .transform(yupParserNumber)
     .required(FORM_ERROR.requiredFiled)
     .positive(FORM_ERROR.mustBeANumber),
@@ -48,4 +48,5 @@ export const PriceSchema = Yup.object().shape({
     .transform(yupParserNumber)
     .required(FORM_ERROR.requiredFiled)
     .positive(FORM_ERROR.mustBeANumber),
+  name: Yup.string().required(FORM_ERROR.requiredFiled),
 });

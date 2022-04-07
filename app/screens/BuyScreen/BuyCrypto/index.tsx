@@ -7,6 +7,7 @@ import {
   BaseButton,
   CurrencyPicker,
   CustomTextField,
+  DatePicker,
   PlatformView,
   TextContainer,
 } from 'shared/components';
@@ -27,9 +28,22 @@ export const BuyCrypto = observer(() => {
       <Formik
         validationSchema={PriceSchema}
         onSubmit={(values) => console.log(values)}
-        initialValues={{ currency: currency, amount: 0 }}
+        initialValues={{
+          currency: currency,
+          amount: 0,
+          description: '',
+          purchasePrice: 0,
+          name: '',
+        }}
       >
-        {({ handleChange, handleBlur, values, touched, errors }) => {
+        {({
+          handleChange,
+          handleBlur,
+          handleSubmit,
+          values,
+          touched,
+          errors,
+        }) => {
           const renderCurrentPrice = formatCurrency(
             coinInfo.currentPrice.get(values.currency.toLowerCase()) || 0,
             values.currency
@@ -44,17 +58,40 @@ export const BuyCrypto = observer(() => {
               </View>
 
               <CustomTextField
+                onBlur={handleBlur('name')}
+                value={values.name}
+                onChangeText={handleChange('name')}
+                placeholder={CONTENT.name}
+                errorMessage={touched.name ? errors.name : ''}
+              />
+
+              <CustomTextField
                 onBlur={handleBlur('amount')}
                 value={values.amount.toString()}
                 onChangeText={handleChange('amount')}
                 placeholder={CONTENT.amount}
                 errorMessage={touched.amount ? errors.amount : ''}
               />
+              <CustomTextField
+                onBlur={handleBlur('purchasePrice')}
+                value={values.purchasePrice.toString()}
+                onChangeText={handleChange('purchasePrice')}
+                placeholder={CONTENT.purchasePrice}
+                errorMessage={touched.purchasePrice ? errors.purchasePrice : ''}
+              />
+              <CustomTextField
+                onBlur={handleBlur('description')}
+                value={values.description}
+                onChangeText={handleChange('description')}
+                placeholder={CONTENT.description}
+              />
               <CurrencyPicker
                 onChange={handleChange('currency')}
                 initVal={currency.toUpperCase()}
               />
+              <DatePicker label={CONTENT.startDate} />
               <BaseButton
+                onPress={handleSubmit}
                 label={CONTENT.buy}
                 backgroundColor={colorScheme.theme}
                 style={{ marginTop: 20 }}

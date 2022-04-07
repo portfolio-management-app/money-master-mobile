@@ -2,7 +2,7 @@ import {
   CurrencyTimeSeries,
   CurrencyInformation,
 } from './currency-information';
-import { RealEstateAsset, BankAsset } from './portfolio-asset';
+import { RealEstateAsset, BankAsset, CryptoAsset } from './portfolio-asset';
 import { PortfolioInformation } from './portfolio-information';
 import { StockInformation, StockTimeSeries } from './stock-information';
 import { CoinInformation } from './coin-information';
@@ -17,6 +17,7 @@ import {
   ICurrencyTimeSeries,
   IMetalInformation,
   IMetalItem,
+  ICryptoAsset,
 } from './types';
 import { MetalInformation } from './metal-information';
 export {
@@ -27,6 +28,7 @@ export {
   PortfolioInformation,
   RealEstateAsset,
   BankAsset,
+  CryptoAsset,
   CurrencyInformation,
   CurrencyTimeSeries,
   MetalInformation,
@@ -42,4 +44,5 @@ export type {
   ICurrencyTimeSeries,
   IMetalInformation,
   IMetalItem,
+  ICryptoAsset,
 };

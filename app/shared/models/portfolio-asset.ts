@@ -21,6 +21,17 @@ export const RealEstateAsset = types.model('RealEstateAsset', {
   inputCurrency: types.string,
   lastChanged: types.string,
   description: types.string,
-  buyPrice: types.number,
   currentPrice: types.number,
+});
+
+export const CryptoAsset = types.model('CryptoAsset', {
+  id: types.number,
+  name: types.string,
+  inputDay: types.string,
+  currentAmountHolding: types.number,
+  lastChanged: types.string,
+  portfolioId: types.number,
+  description: types.string,
+  cryptoCoinCode: types.string,
+  currentPrice: 0,
 });

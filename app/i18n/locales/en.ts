@@ -274,6 +274,10 @@ export const en = {
     currencyPrice: 'Current price',
     gold: 'Gold',
     silver: 'Silver',
+    description: 'Description',
+    name: 'Name',
+    startDate: 'Buy date',
+    purchasePrice: 'Purchase price',
   },
   metalDetailScreen: {
     gold: 'Gold',

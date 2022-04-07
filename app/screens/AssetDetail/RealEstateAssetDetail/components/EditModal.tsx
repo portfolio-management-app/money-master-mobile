@@ -34,7 +34,6 @@ export const EditModal = ({ open, item, onClose, onEdit }: IProps) => {
           inputDay: item.inputDay,
           inputMoneyAmount: item.inputMoneyAmount,
           inputCurrency: item.inputCurrency,
-          buyPrice: item.buyPrice,
           currentPrice: item.currentPrice,
           description: item.description,
         }}
@@ -85,14 +84,7 @@ export const EditModal = ({ open, item, onClose, onEdit }: IProps) => {
                   placeholder={FORM_CONTENT.balance}
                   value={values.inputMoneyAmount.toString()}
                 />
-                <CustomTextField
-                  onChangeText={handleChange('buyPrice')}
-                  onBlur={handleBlur('buyPrice')}
-                  errorMessage={touched.buyPrice ? errors.buyPrice : ''}
-                  keyBoardType="decimal-pad"
-                  placeholder={SCREEN_CONTENT.buyPrice}
-                  value={values.buyPrice.toString()}
-                />
+
                 <CustomTextField
                   onChangeText={handleChange('currentPrice')}
                   onBlur={handleBlur('currentPrice')}
