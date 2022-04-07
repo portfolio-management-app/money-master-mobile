@@ -31,6 +31,7 @@ const Component = ({ show, onClose, onBuyPress, onSellPress }: IProps) => {
           case 0:
             return (
               <TouchableOpacity
+                key={index}
                 onPress={onBuyPress}
                 style={styles.optionButton}
               >
@@ -45,6 +46,7 @@ const Component = ({ show, onClose, onBuyPress, onSellPress }: IProps) => {
           case 1:
             return (
               <TouchableOpacity
+                key={index}
                 onPress={onSellPress}
                 style={styles.optionButton}
               >

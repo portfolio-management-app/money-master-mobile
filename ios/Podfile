@@ -18,6 +18,8 @@ target 'moneymastermobile' do
 
   pod 'RNSVG', :path => '../node_modules/react-native-svg'
 
+  pod 'RNFBApp', :path => '../node_modules/@react-native-firebase/app'
+
   target 'moneymastermobileTests' do
     inherit! :complete
     # Pods for testing
