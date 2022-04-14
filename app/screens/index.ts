@@ -11,7 +11,12 @@ import { StockDetail } from './StockDetail';
 import { CreateAsset } from './CreateAsset';
 import { AssetPicker } from './AssetPicker';
 import { CoinDetail } from './CoinDetail';
-import { BankAssetDetail, RealEstateAssetDetail } from './AssetDetail';
+import {
+  BankAssetDetail,
+  RealEstateAssetDetail,
+  CryptoAssetDetail,
+  StockAssetDetail,
+} from './AssetDetail';
 import { PortfolioDetail } from './PortfolioDetail';
 import { DashBoard } from './DashBoard';
 import { Portfolios } from './PortfolioList';
@@ -25,6 +30,8 @@ export {
   BuyStock,
   BuyGold,
   BuySilver,
+  CryptoAssetDetail,
+  StockAssetDetail,
   RealEstateAssetDetail,
   BuyCurrency,
   Home,

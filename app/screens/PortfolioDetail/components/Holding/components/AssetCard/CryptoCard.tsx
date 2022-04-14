@@ -1,30 +1,44 @@
+import { useNavigation } from '@react-navigation/native';
+import { MainStackNavigationProp } from 'navigation/types';
 import React from 'react';
 import { TouchableOpacity, View } from 'react-native-ui-lib';
 import { TextContainer } from 'shared/components';
+import { ICryptoAsset } from 'shared/models';
 import { colorScheme, styleProvider } from 'shared/styles';
+import { calcPercent, formatCurrency } from 'utils/number';
 
 interface IProps {
-  id: number;
-  name: string;
-  description: string;
-  value: number;
-  rate: number;
+  item: ICryptoAsset;
 }
 
-export const CryptoCard = ({ name, description, value, rate }: IProps) => {
+export const CryptoCard = ({ item }: IProps) => {
+  const navigation = useNavigation<MainStackNavigationProp>();
+  const percent = calcPercent(item.currentPrice, item.purchasePrice);
+  const gotoCryptoDetail = () => {
+    navigation.navigate('CoinAssetDetail', { info: item });
+  };
   return (
-    <TouchableOpacity style={styleProvider.assetCard}>
+    <TouchableOpacity
+      onPress={gotoCryptoDetail}
+      style={styleProvider.assetCard}
+    >
       <View>
-        <TextContainer>{name}</TextContainer>
-        <TextContainer>{description}</TextContainer>
+        <TextContainer>{item.name}</TextContainer>
+        <TextContainer>{item.description}</TextContainer>
       </View>
       <View>
-        <TextContainer color={colorScheme.assetPrice}>${value}</TextContainer>
-        {rate > 0 ? (
-          <TextContainer color={colorScheme.green300}>+{rate}</TextContainer>
-        ) : (
-          <TextContainer color={colorScheme.red500}>{rate}</TextContainer>
-        )}
+        <TextContainer textAl="right" color={colorScheme.assetPrice}>
+          {formatCurrency(item.purchasePrice, item.currencyCode)}
+        </TextContainer>
+        <TextContainer textAl="right" color={colorScheme.green300}>
+          {formatCurrency(item.currentPrice, item.currencyCode)}{' '}
+          <TextContainer
+            color={percent > 0 ? colorScheme.green300 : colorScheme.red500}
+          >
+            ({percent > 0 && '+'}
+            {percent}%)
+          </TextContainer>
+        </TextContainer>
       </View>
     </TouchableOpacity>
   );

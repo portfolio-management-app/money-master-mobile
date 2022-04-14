@@ -6,13 +6,26 @@ import { SCREEN_CONTENT } from 'screens/PortfolioDetail/constants';
 import { TextContainer } from 'shared/components';
 import { PortfolioDetailStore } from 'shared/stores';
 import { colorScheme, styleProvider } from 'shared/styles';
-import { BankingCard, RealEstateCard } from '../AssetCard';
+import {
+  BankingCard,
+  CashCard,
+  CryptoCard,
+  RealEstateCard,
+  StockCard,
+} from '../AssetCard';
 
 const GROUP_NAMES = SCREEN_CONTENT.assetPicker;
 
 export const AssetGroup = observer(() => {
-  const { realEstateAssetList, bankAssetList, loading, getAllAsset } =
-    PortfolioDetailStore;
+  const {
+    realEstateAssetList,
+    bankAssetList,
+    loading,
+    getAllAsset,
+    cryptoAssetList,
+    stockAssetList,
+    currencyAssetList,
+  } = PortfolioDetailStore;
 
   return (
     <ScrollView
@@ -30,6 +43,9 @@ export const AssetGroup = observer(() => {
           >
             {GROUP_NAMES.cash}
           </TextContainer>
+          {currencyAssetList.map((currency) => (
+            <CashCard key={currency.id} info={currency} />
+          ))}
         </View>
         <View>
           <TextContainer
@@ -39,6 +55,21 @@ export const AssetGroup = observer(() => {
           >
             {GROUP_NAMES.nft}
           </TextContainer>
+          {cryptoAssetList.map((crypto) => (
+            <CryptoCard key={crypto.id} item={crypto} />
+          ))}
+        </View>
+        <View>
+          <TextContainer
+            style={styleProvider.assetGroupName}
+            bold
+            color={colorScheme.black200}
+          >
+            {GROUP_NAMES.stock}
+          </TextContainer>
+          {stockAssetList.map((stock) => (
+            <StockCard key={stock.id} item={stock} />
+          ))}
         </View>
         <View>
           <TextContainer

@@ -165,6 +165,19 @@ export const vn = {
     none: 'Không có',
     delete: 'Xóa',
     realEstateName: 'Tên bất động sản',
+    coinName: 'Tên',
+    coinCode: 'Mã crypto',
+    buyPrice: 'Giá mua',
+    currentPrice: 'Gía hiện tại',
+    buyDate: 'Ngày mua',
+    amountHolding: 'Số lượng nắm giữ',
+    stockCode: 'Mã cổ phiếu',
+    name: 'Tên',
+    transferOption: {
+      title: 'Transfer to',
+      portfolio: 'Other portfolio',
+      asset: 'Other asset',
+    },
   },
   confirmModal: {
     confirm: 'OK',
@@ -271,6 +284,7 @@ export const vn = {
     name: 'Tên',
     startDate: 'Ngày mua',
     purchasePrice: 'Giá mua',
+    createSuccess: 'Giao dịch thành công',
   },
   metalDetailScreen: {
     gold: 'Vàng',
@@ -293,6 +307,14 @@ export const vn = {
       name: 'Tên',
       buyPrice: 'Giá mua',
       currentPrice: 'Giá hiện tại',
+    },
+  },
+  cryptoAssetDetail: {
+    header: 'Thông tin tiền điện tử',
+    editModal: {
+      title: 'Chỉnh sửa',
+      name: 'Tên',
+      buyPrice: 'Giá mua',
     },
   },
 };

@@ -4,7 +4,13 @@ import {
   CurrencyInformation,
 } from '../currency-information';
 import { MetalItem, MetalInformation } from '../metal-information';
-import { BankAsset, RealEstateAsset, CryptoAsset } from '../portfolio-asset';
+import {
+  BankAsset,
+  RealEstateAsset,
+  CryptoAsset,
+  StockAsset,
+  CurrencyAsset,
+} from '../portfolio-asset';
 import { PortfolioInformation } from '../portfolio-information';
 import { StockInformation, StockTimeSeries } from '../stock-information';
 
@@ -23,6 +29,9 @@ export type IRealEstateAsset = SnapshotOut<typeof RealEstateAsset>;
 export type IBankAsset = SnapshotOut<typeof BankAsset>;
 
 export type ICryptoAsset = SnapshotOut<typeof CryptoAsset>;
+
+export type IStockAsset = SnapshotOut<typeof StockAsset>;
+export type ICurrencyAsset = SnapshotOut<typeof CurrencyAsset>;
 
 export type IMetalItem = SnapshotOut<typeof MetalItem>;
 

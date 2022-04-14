@@ -3,6 +3,7 @@ import messaging from '@react-native-firebase/messaging';
 import { requestUserPermission } from 'services/notification';
 import { HomeBottomTab } from 'navigation/bottom-tabs';
 import { Alert } from 'react-native';
+import { CustomToast } from 'shared/components';
 
 export const Home = () => {
   React.useEffect(() => {
@@ -13,5 +14,9 @@ export const Home = () => {
 
     return unsubscribe;
   }, []);
-  return <HomeBottomTab />;
+  return (
+    <>
+      <HomeBottomTab />
+    </>
+  );
 };

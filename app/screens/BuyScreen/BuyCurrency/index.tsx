@@ -6,29 +6,66 @@ import { View } from 'react-native';
 import {
   BaseButton,
   CustomTextField,
+  CustomToast,
+  DatePicker,
   PlatformView,
   TextContainer,
+  TransparentLoading,
 } from 'shared/components';
 import { APP_CONTENT } from 'shared/constants';
-import { CurrencyDetailStore } from 'shared/stores';
+import { CurrencyDetailStore, PortfolioDetailStore } from 'shared/stores';
 import { styleProvider, colorScheme } from 'shared/styles';
-import { PriceSchema } from 'shared/validator';
+import { CreateCurrencyAssetSchema } from 'shared/validator';
 import { formatCurrency } from 'utils/number';
 
 const CONTENT = APP_CONTENT.buyScreen;
 
 export const BuyCurrency = observer(() => {
+  const [success, setSuccess] = React.useState(false);
   const { currencyInformation } = CurrencyDetailStore;
+  const { createCurrencyAsset, loadingCreateCurrencyAsset } =
+    PortfolioDetailStore;
   const tokens = currencyInformation.s.split('/');
+
+  const onCreate = React.useCallback(
+    async (values: any) => {
+      const isSuccess = await createCurrencyAsset(values);
+      if (isSuccess) {
+        setSuccess(true);
+      }
+    },
+    [createCurrencyAsset]
+  );
   return (
     <PlatformView style={styleProvider.body}>
       <NavigationHeader title={currencyInformation.s} />
+      <TransparentLoading show={loadingCreateCurrencyAsset} />
+      <CustomToast
+        variant="success"
+        message={CONTENT.createSuccess}
+        show={success}
+        onDismiss={() => setSuccess(false)}
+      />
       <Formik
-        validationSchema={PriceSchema}
-        onSubmit={(values) => console.log(values)}
-        initialValues={{ amount: 0, name: '', description: '' }}
+        validationSchema={CreateCurrencyAssetSchema}
+        onSubmit={(values) => onCreate(values)}
+        initialValues={{
+          currencyCode: currencyInformation.s,
+          amount: 0,
+          name: '',
+          inputDay: new Date().toISOString(),
+          description: '',
+        }}
       >
-        {({ handleChange, handleBlur, values, touched, errors }) => {
+        {({
+          handleChange,
+          handleBlur,
+          handleSubmit,
+          values,
+          touched,
+          errors,
+        }) => {
+          console.log(errors);
           return (
             <View style={styleProvider.formBody}>
               <View style={styleProvider.centerHorizontal}>
@@ -46,7 +83,6 @@ export const BuyCurrency = observer(() => {
                 placeholder={CONTENT.name}
                 errorMessage={touched.name ? errors.name : ''}
               />
-
               <CustomTextField
                 onBlur={handleBlur('amount')}
                 value={values.amount.toString()}
@@ -60,8 +96,12 @@ export const BuyCurrency = observer(() => {
                 onChangeText={handleChange('description')}
                 placeholder={CONTENT.description}
               />
-
+              <DatePicker
+                onISOStringChange={handleChange('inputDay')}
+                label={CONTENT.startDate}
+              />
               <BaseButton
+                onPress={handleSubmit}
                 label={CONTENT.buy}
                 backgroundColor={colorScheme.theme}
               />

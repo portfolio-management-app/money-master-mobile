@@ -66,6 +66,7 @@ const Store = types
         price_change_percentage_1y_in_currency,
         ath_date,
       } = res.market_data;
+      self.coinInfo.id = res.id;
       self.coinInfo.name = res.name;
       self.coinInfo.image = res.image.small;
       self.coinInfo.athDate = ath_date;

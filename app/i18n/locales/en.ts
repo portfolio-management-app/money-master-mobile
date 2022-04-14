@@ -171,6 +171,19 @@ export const en = {
     none: 'None',
     delete: 'Delete',
     realEstateName: 'Estate name',
+    coinName: 'Coin name',
+    coinCode: 'Coin code',
+    buyPrice: 'Buy price',
+    currentPrice: 'Current price',
+    buyDate: 'Buy date',
+    amountHolding: 'Holding amount',
+    stockCode: 'Stock symbol',
+    name: 'name',
+    transferOption: {
+      title: 'Transfer to',
+      portfolio: 'Other portfolio',
+      asset: 'Other asset',
+    },
   },
 
   confirmModal: {
@@ -278,6 +291,7 @@ export const en = {
     name: 'Name',
     startDate: 'Buy date',
     purchasePrice: 'Purchase price',
+    createSuccess: 'Transaction success',
   },
   metalDetailScreen: {
     gold: 'Gold',
@@ -300,6 +314,14 @@ export const en = {
       name: 'Name',
       buyPrice: 'Buy price',
       currentPrice: 'Current price',
+    },
+  },
+  cryptoAssetDetail: {
+    header: 'Crypto asset information',
+    editModal: {
+      title: 'Edit crypto estate',
+      name: 'Name',
+      buyPrice: 'Buy price',
     },
   },
 };

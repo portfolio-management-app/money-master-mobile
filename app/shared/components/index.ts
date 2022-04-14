@@ -35,9 +35,11 @@ import { TextContainer } from './TextContainer';
 import { PlatformView } from './PlatformView';
 import { ErrorDialog } from './ErrorDialog';
 import { MetalPrice } from './MetalPrice';
+import { AssetSpeedDialButton } from './AssetSpeedDialButton';
 
 export {
   PlatformView,
+  AssetSpeedDialButton,
   AssetActionSheet,
   SearchForData,
   CurrencySearchResult,

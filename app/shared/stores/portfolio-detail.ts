@@ -1,9 +1,19 @@
-import { BankAsset, RealEstateAsset, CryptoAsset } from './../models';
+import {
+  BankAsset,
+  RealEstateAsset,
+  CryptoAsset,
+  StockAsset,
+  CurrencyAsset,
+} from './../models';
 import { Config } from 'config';
 import { HttpError } from 'errors/base';
 import { flow, types } from 'mobx-state-tree';
 import { httpRequest } from 'services/http';
-import { CreateOtherAssetBody, CryptoAssetBody } from './types';
+import {
+  CreateOtherAssetBody,
+  CreateStockAssetBody,
+  CryptoAssetBody,
+} from './types';
 import { UserStore } from './user';
 import { log } from 'services/log';
 
@@ -14,10 +24,32 @@ export const PortfolioDetailStore = types
     bankAssetList: types.array(BankAsset),
     realEstateAssetList: types.array(RealEstateAsset),
     cryptoAssetList: types.array(CryptoAsset),
+    stockAssetList: types.array(StockAsset),
+    currencyAssetList: types.array(CurrencyAsset),
     loading: types.boolean,
+    loadingCreateCrypto: types.boolean,
+    loadingCreateStockAsset: types.boolean,
+    loadingCreateCurrencyAsset: types.boolean,
   })
   .actions((self) => {
+    const createCurrencyAsset = flow(function* (body: any) {
+      self.loadingCreateCurrencyAsset = true;
+      const res = yield httpRequest.sendPost(
+        `${Config.BASE_URL}/portfolio/${self.id}/cash`,
+        body,
+        UserStore.user.token
+      );
+      if (res instanceof HttpError) {
+        log('Error when create currency asset', res);
+        return false;
+      } else {
+        getCurrencyAsset();
+      }
+      self.loadingCreateCurrencyAsset = false;
+      return true;
+    });
     const createCryptoAsset = flow(function* (body: CryptoAssetBody) {
+      self.loadingCreateCrypto = true;
       const res = yield httpRequest.sendPost(
         `${Config.BASE_URL}/portfolio/${self.id}/crypto`,
         body,
@@ -25,11 +57,15 @@ export const PortfolioDetailStore = types
       );
       if (res instanceof HttpError) {
         log('Error when create crypto asset', res);
+        return false;
       } else {
         getCryptoAsset();
       }
+      self.loadingCreateCrypto = false;
+      return true;
     });
-    const createStockAsset = flow(function* (body: CryptoAssetBody) {
+    const createStockAsset = flow(function* (body: CreateStockAssetBody) {
+      self.loadingCreateStockAsset = true;
       const res = yield httpRequest.sendPost(
         `${Config.BASE_URL}/portfolio/${self.id}/stock`,
         body,
@@ -37,9 +73,12 @@ export const PortfolioDetailStore = types
       );
       if (res instanceof HttpError) {
         log('Error when create stock asset', res);
+        return false;
       } else {
-        getCryptoAsset();
+        getStockAsset();
       }
+      self.loadingCreateStockAsset = false;
+      return true;
     });
     const createOtherAsset = flow(function* (
       body: CreateOtherAssetBody,
@@ -64,7 +103,7 @@ export const PortfolioDetailStore = types
         UserStore.user.token
       );
       if (res instanceof HttpError) {
-        console.log(res);
+        log('error when create bank', res);
       } else {
         getBankingAsset();
       }
@@ -77,7 +116,7 @@ export const PortfolioDetailStore = types
         UserStore.user.token
       );
       if (res instanceof HttpError) {
-        console.log(res);
+        log('error when create real estate', res);
       } else {
         getRealEstateAsset();
       }
@@ -85,7 +124,13 @@ export const PortfolioDetailStore = types
 
     const getAllAsset = flow(function* () {
       self.loading = true;
-      yield Promise.all([getBankingAsset(), getRealEstateAsset()]);
+      yield Promise.all([
+        getBankingAsset(),
+        getRealEstateAsset(),
+        getCryptoAsset(),
+        getStockAsset(),
+        getCurrencyAsset(),
+      ]);
       self.loading = false;
     });
 
@@ -95,7 +140,7 @@ export const PortfolioDetailStore = types
         UserStore.user.token
       );
       if (res instanceof HttpError) {
-        console.log(res);
+        log('error when get bank asset list', res);
       } else {
         self.bankAssetList = res;
       }
@@ -106,9 +151,9 @@ export const PortfolioDetailStore = types
         `${Config.BASE_URL}/portfolio/${self.id}/realEstate`,
         UserStore.user.token
       );
-      console.log(res);
+
       if (res instanceof HttpError) {
-        console.log(res);
+        log('error when get real estate asset list', res);
       } else {
         self.realEstateAssetList = res;
       }
@@ -119,11 +164,36 @@ export const PortfolioDetailStore = types
         `${Config.BASE_URL}/portfolio/${self.id}/crypto`,
         UserStore.user.token
       );
-      console.log(res);
+
       if (res instanceof HttpError) {
-        console.log(res);
+        log('error when get crypto asset list', res);
       } else {
         self.cryptoAssetList = res;
+      }
+    });
+
+    const getStockAsset = flow(function* () {
+      const res = yield httpRequest.sendGet(
+        `${Config.BASE_URL}/portfolio/${self.id}/stock`,
+        UserStore.user.token
+      );
+
+      if (res instanceof HttpError) {
+        log('error when get crypto asset list', res);
+      } else {
+        self.stockAssetList = res;
+      }
+    });
+    const getCurrencyAsset = flow(function* () {
+      const res = yield httpRequest.sendGet(
+        `${Config.BASE_URL}/portfolio/${self.id}/cash`,
+        UserStore.user.token
+      );
+
+      if (res instanceof HttpError) {
+        log('error when get currency asset list', res);
+      } else {
+        self.currencyAssetList = res;
       }
     });
 
@@ -140,10 +210,15 @@ export const PortfolioDetailStore = types
       getAllAsset,
       createCryptoAsset,
       createStockAsset,
+      getStockAsset,
+      createCurrencyAsset,
     };
   })
   .create({
     id: 0,
     name: '',
     loading: false,
+    loadingCreateCrypto: false,
+    loadingCreateStockAsset: false,
+    loadingCreateCurrencyAsset: false,
   });

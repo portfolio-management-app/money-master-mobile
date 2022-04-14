@@ -6,32 +6,56 @@ import { View } from 'react-native';
 import {
   BaseButton,
   CustomTextField,
+  CustomToast,
   DatePicker,
   PlatformView,
   TextContainer,
+  TransparentLoading,
 } from 'shared/components';
 import { APP_CONTENT } from 'shared/constants';
-import { StockDetailStore } from 'shared/stores';
+import { PortfolioDetailStore, StockDetailStore } from 'shared/stores';
 import { styleProvider, colorScheme } from 'shared/styles';
-import { PriceSchema } from 'shared/validator';
+import { CreateStockAssetSchema } from 'shared/validator';
 import { formatCurrency } from 'utils/number';
 const CONTENT = APP_CONTENT.buyScreen;
 
 export const BuyStock = observer(() => {
+  const [success, setSuccess] = React.useState(false);
   const { stockInformation, symbol } = StockDetailStore;
+  const { createStockAsset, loadingCreateStockAsset } = PortfolioDetailStore;
+
+  const handleCreate = React.useCallback(
+    async (values: any) => {
+      const isSuccess = await createStockAsset(values);
+      if (isSuccess) {
+        setSuccess(true);
+      }
+    },
+    [createStockAsset]
+  );
 
   return (
     <PlatformView style={styleProvider.body}>
       <NavigationHeader title={symbol} />
+      <TransparentLoading show={loadingCreateStockAsset} />
+      <CustomToast
+        variant="success"
+        message={CONTENT.createSuccess}
+        show={success}
+        onDismiss={() => setSuccess(false)}
+      />
       <Formik
-        validationSchema={PriceSchema}
-        onSubmit={(values) => console.log(values)}
+        validationSchema={CreateStockAssetSchema}
+        onSubmit={(values) => handleCreate(values)}
         initialValues={{
-          currency: 'USD',
-          amount: 0,
           name: '',
-          purchasePrice: 0,
+          inputDay: new Date().toISOString(),
           description: '',
+          currentAmountHolding: 0,
+          stockCode: symbol,
+          marketCode: '',
+          purchasePrice: 0,
+          currencyCode: 'USD',
         }}
       >
         {({
@@ -42,6 +66,7 @@ export const BuyStock = observer(() => {
           touched,
           errors,
         }) => {
+          console.log(errors);
           return (
             <View style={styleProvider.formBody}>
               <View style={styleProvider.centerHorizontal}>
@@ -49,7 +74,7 @@ export const BuyStock = observer(() => {
                   {CONTENT.currencyPrice}:{' '}
                 </TextContainer>
                 <TextContainer mb={20}>
-                  {formatCurrency(stockInformation.c, values.currency)}
+                  {formatCurrency(stockInformation.c, values.currencyCode)}
                 </TextContainer>
               </View>
               <CustomTextField
@@ -67,11 +92,15 @@ export const BuyStock = observer(() => {
               />
 
               <CustomTextField
-                onBlur={handleBlur('amount')}
-                value={values.amount.toString()}
-                onChangeText={handleChange('amount')}
+                onBlur={handleBlur('currentAmountHolding')}
+                value={values.currentAmountHolding.toString()}
+                onChangeText={handleChange('currentAmountHolding')}
                 placeholder={CONTENT.amount}
-                errorMessage={touched.amount ? errors.amount : ''}
+                errorMessage={
+                  touched.currentAmountHolding
+                    ? errors.currentAmountHolding
+                    : ''
+                }
               />
               <CustomTextField
                 onBlur={handleBlur('purchasePrice')}
@@ -80,7 +109,10 @@ export const BuyStock = observer(() => {
                 placeholder={CONTENT.purchasePrice}
                 errorMessage={touched.purchasePrice ? errors.purchasePrice : ''}
               />
-              <DatePicker label={CONTENT.startDate} />
+              <DatePicker
+                onISOStringChange={handleChange('inputDay')}
+                label={CONTENT.startDate}
+              />
 
               <BaseButton
                 onPress={handleSubmit}

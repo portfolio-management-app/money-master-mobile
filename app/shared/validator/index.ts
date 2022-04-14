@@ -50,3 +50,41 @@ export const PriceSchema = Yup.object().shape({
     .positive(FORM_ERROR.mustBeANumber),
   name: Yup.string().required(FORM_ERROR.requiredFiled),
 });
+
+export const CreateCryptoAssetSchema = Yup.object().shape({
+  name: Yup.string().required(FORM_ERROR.requiredFiled),
+  inputDay: Yup.string().required(FORM_ERROR.requiredFiled),
+  currentAmountHolding: Yup.number()
+    .transform(yupParserNumber)
+    .required(FORM_ERROR.requiredFiled)
+    .positive(FORM_ERROR.mustBeANumber),
+  purchasePrice: Yup.number()
+    .transform(yupParserNumber)
+    .required(FORM_ERROR.requiredFiled)
+    .positive(FORM_ERROR.mustBeANumber),
+  currencyCode: Yup.string().required(FORM_ERROR.requiredFiled),
+});
+
+export const CreateStockAssetSchema = Yup.object().shape({
+  name: Yup.string().required(FORM_ERROR.requiredFiled),
+  inputDay: Yup.string().required(FORM_ERROR.requiredFiled),
+  currentAmountHolding: Yup.number()
+    .transform(yupParserNumber)
+    .required(FORM_ERROR.requiredFiled)
+    .positive(FORM_ERROR.mustBeANumber),
+  stockCode: Yup.string().required(FORM_ERROR.requiredFiled),
+  purchasePrice: Yup.number()
+    .transform(yupParserNumber)
+    .required(FORM_ERROR.requiredFiled)
+    .positive(FORM_ERROR.mustBeANumber),
+});
+
+export const CreateCurrencyAssetSchema = Yup.object().shape({
+  currencyCode: Yup.string().required(FORM_ERROR.requiredFiled),
+  amount: Yup.number()
+    .transform(yupParserNumber)
+    .required(FORM_ERROR.requiredFiled)
+    .positive(FORM_ERROR.mustBeANumber),
+  name: Yup.string().required(FORM_ERROR.requiredFiled),
+  inputDay: Yup.string().required(FORM_ERROR.requiredFiled),
+});

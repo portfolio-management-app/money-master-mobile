@@ -3,4 +3,12 @@ import { CryptoCard } from './CryptoCard';
 import { RealEstateCard } from './RealEstate';
 import { OtherCard } from './OtherCard';
 import { BankingCard } from './BankingCard';
-export { BankingCard, OtherCard, RealEstateCard, CryptoCard, CashCard };
+import { StockCard } from './StockCard';
+export {
+  BankingCard,
+  OtherCard,
+  RealEstateCard,
+  CryptoCard,
+  CashCard,
+  StockCard,
+};

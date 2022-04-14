@@ -43,7 +43,7 @@ export const RealEstateAssetDetail = observer(() => {
     <PlatformView style={styleProvider.body}>
       <StatusBar backgroundColor={colorScheme.bg} barStyle="dark-content" />
       <NavigationHeader
-        title={APP_CONTENT.realEstateAssetDetail.header}
+        title={routeProps.params.info.name}
         renderRightItem={() => <PopoverMenu onPress={handleMenuItemPress} />}
       />
       <View style={styleProvider.container}>

@@ -1,5 +1,10 @@
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { IBankAsset, IRealEstateAsset } from 'shared/models';
+import {
+  IBankAsset,
+  ICryptoAsset,
+  IRealEstateAsset,
+  IStockAsset,
+} from 'shared/models';
 import {
   BuyScreenRouteProps,
   CreateAssetRouteProps,
@@ -16,8 +21,8 @@ export type RootStackParamList = {
   PortfolioDetail: { id: number; name: string };
   BankAssetDetail: { info: IBankAsset };
   RealEstateAssetDetail: { info: IRealEstateAsset };
-  CoinAssetDetail: undefined;
-  StockAssetDetail: undefined;
+  CoinAssetDetail: { info: ICryptoAsset };
+  StockAssetDetail: { info: IStockAsset };
   CurrencyAssetDetail: undefined;
   AssetTypePicker: undefined;
   CreateAsset: { props: CreateAssetRouteProps };

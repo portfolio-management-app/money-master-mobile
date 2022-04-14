@@ -1,3 +1,10 @@
+import { StockAssetDetail } from './StockAssetDetail';
+import { CryptoAssetDetail } from './CryptoAssetDetail';
 import { RealEstateAssetDetail } from './RealEstateAssetDetail';
 import { BankAssetDetail } from './BankAssetDetail';
-export { BankAssetDetail, RealEstateAssetDetail };
+export {
+  BankAssetDetail,
+  RealEstateAssetDetail,
+  CryptoAssetDetail,
+  StockAssetDetail,
+};

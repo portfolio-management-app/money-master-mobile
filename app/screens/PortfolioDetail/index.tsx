@@ -1,22 +1,16 @@
 import { useRoute } from '@react-navigation/native';
 import { observer } from 'mobx-react-lite';
+import { RootStackScreenProps } from 'navigation/types';
 import React from 'react';
 import { StatusBar } from 'react-native';
 import { PlatformView } from 'shared/components';
 import { PortfolioDetailStore } from 'shared/stores';
 import { colorScheme, styleProvider } from 'shared/styles';
-import { ScreenParams } from 'shared/types';
 import { Header, Statistic, TabBarView } from './components';
 
-interface Param extends ScreenParams {
-  params: {
-    id: number;
-    name: string;
-  };
-}
-
 export const PortfolioDetail = observer(() => {
-  const routeProps = useRoute<Param>();
+  const routeProps =
+    useRoute<RootStackScreenProps<'PortfolioDetail'>['route']>();
 
   React.useEffect(() => {
     PortfolioDetailStore.assignInfo(

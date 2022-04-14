@@ -43,7 +43,7 @@ export const BankAssetDetail = observer(() => {
     <PlatformView style={styleProvider.body}>
       <StatusBar backgroundColor={colorScheme.bg} barStyle="dark-content" />
       <NavigationHeader
-        title={ASSET_DETAIL_CONTENT.headerBanking}
+        title={routeProps.params.info.name}
         renderRightItem={() => <PopoverMenu onPress={handleMenuItemPress} />}
       />
       <View style={styleProvider.container}>
