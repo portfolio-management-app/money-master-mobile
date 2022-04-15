@@ -42,7 +42,6 @@ const data = [
 ];
 
 export const Brief = () => {
-  console.log(data);
   return (
     <PlatformView style={styleProvider.body}>
       <PieChart

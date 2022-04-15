@@ -1,3 +1,5 @@
+import { ICustomAsset } from './types/index';
+import { CategoryAssetList } from './custom-asset';
 import {
   CurrencyTimeSeries,
   CurrencyInformation,
@@ -42,6 +44,7 @@ export {
   MetalInformation,
   StockAsset,
   CurrencyAsset,
+  CategoryAssetList,
 };
 
 export type {
@@ -57,4 +60,5 @@ export type {
   ICryptoAsset,
   IStockAsset,
   ICurrencyAsset,
+  ICustomAsset,
 };

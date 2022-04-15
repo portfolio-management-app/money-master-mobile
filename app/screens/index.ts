@@ -16,6 +16,7 @@ import {
   RealEstateAssetDetail,
   CryptoAssetDetail,
   StockAssetDetail,
+  CustomAssetDetail,
 } from './AssetDetail';
 import { PortfolioDetail } from './PortfolioDetail';
 import { DashBoard } from './DashBoard';
@@ -34,6 +35,7 @@ export {
   StockAssetDetail,
   RealEstateAssetDetail,
   BuyCurrency,
+  CustomAssetDetail,
   Home,
   Login,
   Start,

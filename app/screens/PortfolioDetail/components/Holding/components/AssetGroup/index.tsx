@@ -10,6 +10,7 @@ import {
   BankingCard,
   CashCard,
   CryptoCard,
+  OtherCard,
   RealEstateCard,
   StockCard,
 } from '../AssetCard';
@@ -25,6 +26,7 @@ export const AssetGroup = observer(() => {
     cryptoAssetList,
     stockAssetList,
     currencyAssetList,
+    customAssetList,
   } = PortfolioDetailStore;
 
   return (
@@ -47,6 +49,7 @@ export const AssetGroup = observer(() => {
             <CashCard key={currency.id} info={currency} />
           ))}
         </View>
+
         <View>
           <TextContainer
             style={styleProvider.assetGroupName}
@@ -96,15 +99,20 @@ export const AssetGroup = observer(() => {
             <BankingCard key={item.id} item={item} />
           ))}
         </View>
-        <View>
-          <TextContainer
-            style={styleProvider.assetGroupName}
-            bold
-            color={colorScheme.black200}
-          >
-            {GROUP_NAMES.other}
-          </TextContainer>
-        </View>
+        {customAssetList.map((listItem) => (
+          <View key={listItem.categoryId}>
+            <TextContainer
+              style={styleProvider.assetGroupName}
+              bold
+              color={colorScheme.black200}
+            >
+              {listItem.categoryName}
+            </TextContainer>
+            {listItem.assets.map((item) => (
+              <OtherCard key={item.id} item={item} />
+            ))}
+          </View>
+        ))}
       </View>
     </ScrollView>
   );

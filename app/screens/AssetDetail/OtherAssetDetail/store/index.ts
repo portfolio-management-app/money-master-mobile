@@ -4,14 +4,14 @@ import { types, flow } from 'mobx-state-tree';
 import { httpRequest } from 'services/http';
 import { PortfolioDetailStore, UserStore } from 'shared/stores';
 
-export const CryptoAssetDetailStore = types
+export const CustomAssetDetailStore = types
   .model({
     id: types.number,
   })
   .actions((self) => {
-    const editAsset = flow(function* (body: any) {
+    const editCustomAsset = flow(function* (body: any) {
       const res = yield httpRequest.sendPut(
-        `${Config.BASE_URL}/portfolio/${PortfolioDetailStore.id}/realEstate/${self.id}`,
+        `${Config.BASE_URL}/portfolio/${PortfolioDetailStore.id}/bankSaving/${self.id}`,
         body,
         UserStore.user.token
       );
@@ -24,7 +24,7 @@ export const CryptoAssetDetailStore = types
       self.id = id;
     };
 
-    return { editAsset, assignInfo };
+    return { editCustomAsset, assignInfo };
   })
   .create({
     id: 0,

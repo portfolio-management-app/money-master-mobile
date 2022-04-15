@@ -4,7 +4,6 @@ import { AssetSectionHeader } from 'shared/components';
 import { ASSET_DETAIL_CONTENT } from 'shared/constants';
 import { DetailModal, TransactionDetail } from './components';
 import { fakeData } from '../../fake-data';
-import { ScrollView } from 'react-native';
 
 export const TransactionList = () => {
   const [open, setOpen] = React.useState(true);
@@ -32,18 +31,16 @@ export const TransactionList = () => {
           />
         }
       >
-        <ScrollView>
-          {fakeData.transactions.map((item, index) => (
-            <TransactionDetail
-              onPress={() => setOpenModal(true)}
-              key={index}
-              amount={item.amount}
-              type={item.type as any}
-              receiver={item.receiver}
-              date={item.date}
-            />
-          ))}
-        </ScrollView>
+        {fakeData.transactions.map((item) => (
+          <TransactionDetail
+            onPress={() => setOpenModal(true)}
+            key={item.id}
+            amount={item.amount}
+            type={item.type as any}
+            receiver={item.receiver}
+            date={item.date}
+          />
+        ))}
       </ExpandableSection>
     </>
   );

@@ -4,7 +4,7 @@ import { types, flow } from 'mobx-state-tree';
 import { httpRequest } from 'services/http';
 import { PortfolioDetailStore, UserStore } from 'shared/stores';
 
-export const RealEstateAssetDetailStore = types
+export const StockAssetDetailStore = types
   .model({
     id: types.number,
   })

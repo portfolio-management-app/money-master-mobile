@@ -1,3 +1,4 @@
+import { CustomAssetDetail } from './OtherAssetDetail/index';
 import { StockAssetDetail } from './StockAssetDetail';
 import { CryptoAssetDetail } from './CryptoAssetDetail';
 import { RealEstateAssetDetail } from './RealEstateAssetDetail';
@@ -7,4 +8,5 @@ export {
   RealEstateAssetDetail,
   CryptoAssetDetail,
   StockAssetDetail,
+  CustomAssetDetail,
 };

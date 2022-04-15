@@ -5,22 +5,15 @@ import { RootStackScreenProps } from 'navigation/types';
 import React from 'react';
 import { StatusBar } from 'react-native';
 import { View } from 'react-native-ui-lib';
-import {
-  AssetSpeedDialButton,
-  PlatformView,
-  SpeedDial,
-} from 'shared/components';
-import { APP_CONTENT } from 'shared/constants';
+import { AssetSpeedDialButton, PlatformView } from 'shared/components';
 import { colorScheme, styleProvider } from 'shared/styles';
 import { AssetActionType } from 'shared/types';
 import {
   Information,
-  SpeedDialButtons,
   TransactionList,
   PopoverMenu,
   EditModal,
 } from './components';
-import { RealEstateAssetDetailStore } from './store';
 
 export const CryptoAssetDetail = observer(() => {
   const routeProps =
@@ -35,7 +28,7 @@ export const CryptoAssetDetail = observer(() => {
   };
 
   const handleEditInformation = (newData: any) => {
-    RealEstateAssetDetailStore.editAsset(newData);
+    console.log('edit crypto asset', newData);
   };
 
   return (

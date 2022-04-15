@@ -5,20 +5,21 @@ import { RootStackScreenProps } from 'navigation/types';
 import React from 'react';
 import { StatusBar } from 'react-native';
 import { View } from 'react-native-ui-lib';
-import { AssetSpeedDialButton, PlatformView } from 'shared/components';
+import { PlatformView, SpeedDial } from 'shared/components';
 import { colorScheme, styleProvider } from 'shared/styles';
 import { AssetActionType } from 'shared/types';
 import {
   Information,
+  SpeedDialButtons,
   TransactionList,
   PopoverMenu,
   EditModal,
 } from './components';
-
-export const StockAssetDetail = observer(() => {
+export const CustomAssetDetail = observer(() => {
   const routeProps =
-    useRoute<RootStackScreenProps<'StockAssetDetail'>['route']>();
+    useRoute<RootStackScreenProps<'CustomAssetDetail'>['route']>();
   const [showModal, setShowModal] = React.useState(false);
+
   const handleMenuItemPress = (type: AssetActionType) => {
     switch (type) {
       case 'edit':
@@ -28,7 +29,7 @@ export const StockAssetDetail = observer(() => {
   };
 
   const handleEditInformation = (newData: any) => {
-    console.log('edit stock asset', newData);
+    console.log('edit custom asset');
   };
 
   return (
@@ -48,7 +49,7 @@ export const StockAssetDetail = observer(() => {
         open={showModal}
         onClose={() => setShowModal(!showModal)}
       />
-      <AssetSpeedDialButton />
+      <SpeedDial renderItems={() => <SpeedDialButtons />} />
     </PlatformView>
   );
 });

@@ -178,6 +178,7 @@ export const vn = {
       portfolio: 'Other portfolio',
       asset: 'Other asset',
     },
+    profit: 'Profit',
   },
   confirmModal: {
     confirm: 'OK',

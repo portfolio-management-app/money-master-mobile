@@ -3,6 +3,7 @@ import {
   CurrencyTimeSeries,
   CurrencyInformation,
 } from '../currency-information';
+import { CustomAsset } from '../custom-asset';
 import { MetalItem, MetalInformation } from '../metal-information';
 import {
   BankAsset,
@@ -32,6 +33,8 @@ export type ICryptoAsset = SnapshotOut<typeof CryptoAsset>;
 
 export type IStockAsset = SnapshotOut<typeof StockAsset>;
 export type ICurrencyAsset = SnapshotOut<typeof CurrencyAsset>;
+
+export type ICustomAsset = SnapshotOut<typeof CustomAsset>;
 
 export type IMetalItem = SnapshotOut<typeof MetalItem>;
 

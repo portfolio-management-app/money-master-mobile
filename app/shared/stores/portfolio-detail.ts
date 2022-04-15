@@ -4,6 +4,7 @@ import {
   CryptoAsset,
   StockAsset,
   CurrencyAsset,
+  CategoryAssetList,
 } from './../models';
 import { Config } from 'config';
 import { HttpError } from 'errors/base';
@@ -26,6 +27,7 @@ export const PortfolioDetailStore = types
     cryptoAssetList: types.array(CryptoAsset),
     stockAssetList: types.array(StockAsset),
     currencyAssetList: types.array(CurrencyAsset),
+    customAssetList: types.array(CategoryAssetList),
     loading: types.boolean,
     loadingCreateCrypto: types.boolean,
     loadingCreateStockAsset: types.boolean,
@@ -92,7 +94,7 @@ export const PortfolioDetailStore = types
       if (res instanceof HttpError) {
         console.log(res);
       } else {
-        getAllAsset();
+        getCustomAsset();
       }
     });
 
@@ -130,6 +132,7 @@ export const PortfolioDetailStore = types
         getCryptoAsset(),
         getStockAsset(),
         getCurrencyAsset(),
+        getCustomAsset(),
       ]);
       self.loading = false;
     });
@@ -194,6 +197,17 @@ export const PortfolioDetailStore = types
         log('error when get currency asset list', res);
       } else {
         self.currencyAssetList = res;
+      }
+    });
+    const getCustomAsset = flow(function* () {
+      const res = yield httpRequest.sendGet(
+        `${Config.BASE_URL}/portfolio/${self.id}/custom`,
+        UserStore.user.token
+      );
+      if (res instanceof HttpError) {
+        log('error when get custom asset list', res);
+      } else {
+        self.customAssetList = res;
       }
     });
 

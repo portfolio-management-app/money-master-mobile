@@ -184,6 +184,7 @@ export const en = {
       portfolio: 'Other portfolio',
       asset: 'Other asset',
     },
+    profit: 'Profit',
   },
 
   confirmModal: {
