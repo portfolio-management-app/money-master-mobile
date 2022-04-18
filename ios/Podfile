@@ -20,6 +20,8 @@ target 'moneymastermobile' do
 
   pod 'RNFBApp', :path => '../node_modules/@react-native-firebase/app'
 
+  pod 'react-native-notifications', :path => '../node_modules/react-native-notifications'
+
   target 'moneymastermobileTests' do
     inherit! :complete
     # Pods for testing

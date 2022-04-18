@@ -6094,6 +6094,11 @@ react-native-mmkv@^2.1.0:
   resolved "https://registry.yarnpkg.com/react-native-mmkv/-/react-native-mmkv-2.1.0.tgz#07fba18e6220a39bccfcff9b478d67801a17650b"
   integrity sha512-dgX6RguKmipDmpmr11Zoz5CbuZVzInME2yAjOHw8jPnsGJNy33ZUEqHVxS6IZI5hpg2kmA5Gq91OSLQ8y7bnqw==
 
+react-native-notifications@^4.2.4:
+  version "4.2.4"
+  resolved "https://registry.yarnpkg.com/react-native-notifications/-/react-native-notifications-4.2.4.tgz#0d686eb1576d3d9cb73dd9db1ee4f212e00f7d89"
+  integrity sha512-ffToxERa2bRUsXShCO19yXY6c6l4Esq7MqRKAb4mPSn+T428X7Je7WYvWOIOVw/BMGJ3R0lPrZk52vDpoYqanw==
+
 react-native-pager-view@^5.4.11:
   version "5.4.11"
   resolved "https://registry.yarnpkg.com/react-native-pager-view/-/react-native-pager-view-5.4.11.tgz#677540293c7b4e0e022efb45727ef9b4efa35409"

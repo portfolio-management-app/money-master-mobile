@@ -174,11 +174,11 @@ export const vn = {
     stockCode: 'Mã cổ phiếu',
     name: 'Tên',
     transferOption: {
-      title: 'Transfer to',
-      portfolio: 'Other portfolio',
-      fund: 'Invest fund',
+      title: 'Chuyển tới',
+      portfolio: 'Khoản đầu tư khác',
+      fund: 'Quỹ đầu tư',
     },
-    profit: 'Profit',
+    profit: 'Lợi nhuận',
   },
   confirmModal: {
     confirm: 'OK',
