@@ -25,10 +25,10 @@ export const Information = ({ info }: IProps) => {
       }
     >
       <View style={styleProvider.centerVertical}>
-        <TextContainer bold type="h1" color={colorScheme.theme}>
-          {formatCurrency(info.currentPrice, info.currencyCode)}
-        </TextContainer>
         <View>
+          <TextContainer bold type="h1" color={colorScheme.theme}>
+            {formatCurrency(info.currentPrice, info.currencyCode)}
+          </TextContainer>
           <View style={[styleProvider.centerHorizontal, { marginTop: 10 }]}>
             <TextContainer type="small">
               {ASSET_DETAIL_CONTENT.buyPrice}:{' '}

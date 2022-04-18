@@ -14,7 +14,7 @@ interface IProps {
   show: boolean;
   onClose?: () => void;
   onTransferPortfolio?: () => void;
-  onTransferOtherAsset?: () => void;
+  onTransferToFund?: () => void;
 }
 
 const ML = 10;
@@ -22,7 +22,7 @@ const ML = 10;
 const Component = ({
   show,
   onClose,
-  onTransferOtherAsset,
+  onTransferToFund,
   onTransferPortfolio,
 }: IProps) => {
   return (
@@ -52,11 +52,11 @@ const Component = ({
             return (
               <TouchableOpacity
                 key={index}
-                onPress={onTransferOtherAsset}
+                onPress={onTransferToFund}
                 style={styles.optionButton}
               >
                 <Icon.FontAwesome5
-                  size={25}
+                  size={20}
                   name="money-check-alt"
                   color={colorScheme.black200}
                 />
@@ -69,7 +69,7 @@ const Component = ({
       }}
       options={[
         { label: ASSET_DETAIL_CONTENT.transferOption.portfolio },
-        { label: ASSET_DETAIL_CONTENT.transferOption.asset },
+        { label: ASSET_DETAIL_CONTENT.transferOption.fund },
       ]}
     />
   );

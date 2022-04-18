@@ -1,3 +1,4 @@
+import { TransferOptions } from './TransferOption/index';
 import { AssetActionSheet } from './AssetActionSheet';
 import { CurrencySearchResult } from './CurrencySearchResult';
 import { ReinStateCheckBox } from './ReinStateCheckBox';
@@ -39,6 +40,7 @@ import { AssetSpeedDialButton } from './AssetSpeedDialButton';
 
 export {
   PlatformView,
+  TransferOptions,
   AssetSpeedDialButton,
   AssetActionSheet,
   SearchForData,

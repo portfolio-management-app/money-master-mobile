@@ -1,5 +1,9 @@
 import React from 'react';
-import { StyleSheet, TouchableWithoutFeedback } from 'react-native';
+import {
+  StyleSheet,
+  TouchableWithoutFeedback,
+  ViewPagerAndroidOnPageSelectedEventData,
+} from 'react-native';
 import Animated, {
   Easing,
   useAnimatedStyle,
@@ -12,17 +16,17 @@ import { Icon } from '../Icon';
 
 interface IProps {
   renderItems: () => JSX.Element;
+  show: boolean;
+  onPress?: () => void;
 }
 
-export const SpeedDial = ({ renderItems }: IProps) => {
-  const [isOpen, setIsOpen] = React.useState(false);
-
+export const SpeedDial = ({ renderItems, show, onPress }: IProps) => {
   const rotate = useDerivedValue(() => {
-    return withTiming(isOpen ? 45 : 0, {
+    return withTiming(show ? 45 : 0, {
       duration: 100,
       easing: Easing.linear,
     });
-  }, [isOpen]);
+  }, [show]);
   const animatedStyles = useAnimatedStyle(() => {
     return {
       transform: [{ rotateZ: `${rotate.value}deg` }],
@@ -31,17 +35,14 @@ export const SpeedDial = ({ renderItems }: IProps) => {
 
   return (
     <>
-      {isOpen && (
-        <TouchableWithoutFeedback onPress={() => setIsOpen(false)}>
+      {show && (
+        <TouchableWithoutFeedback onPress={onPress}>
           <View style={styles.overlay} />
         </TouchableWithoutFeedback>
       )}
       <View style={styles.container}>
-        {isOpen && renderItems()}
-        <TouchableOpacity
-          onPress={() => setIsOpen(!isOpen)}
-          style={styles.button}
-        >
+        {show && renderItems()}
+        <TouchableOpacity onPress={onPress} style={styles.button}>
           <Animated.View style={animatedStyles}>
             <Icon.Ioni size={25} color={colorScheme.white} name="add" />
           </Animated.View>

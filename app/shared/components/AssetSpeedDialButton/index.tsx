@@ -21,15 +21,51 @@ export const AssetSpeedDialButton = ({
   onImport,
   onTransfer,
 }: IProps) => {
+  const [show, setShow] = React.useState(false);
+  const onToggle = React.useCallback(() => {
+    setShow((prev) => !prev);
+  }, []);
+  const handleTransfer = React.useCallback(() => {
+    onToggle();
+    if (onTransfer) {
+      onTransfer();
+    }
+  }, [onTransfer, onToggle]);
+  const handleBuy = React.useCallback(() => {
+    onToggle();
+    if (onBuy) {
+      onBuy();
+    }
+  }, [onBuy, onToggle]);
+  const handleImport = React.useCallback(() => {
+    onToggle();
+    if (onImport) {
+      onImport();
+    }
+  }, [onImport, onToggle]);
+  const handleExport = React.useCallback(() => {
+    onToggle();
+    if (onExport) {
+      onExport();
+    }
+  }, [onExport, onToggle]);
+  const handleDraw = React.useCallback(() => {
+    onToggle();
+    if (onDraw) {
+      onDraw();
+    }
+  }, [onDraw, onToggle]);
   return (
     <SpeedDial
+      show={show}
+      onPress={onToggle}
       renderItems={() => (
         <SpeedDialItems
-          onBuy={onBuy}
-          onDraw={onDraw}
-          onExport={onExport}
-          onImport={onImport}
-          onTransfer={onTransfer}
+          onBuy={handleBuy}
+          onDraw={handleDraw}
+          onExport={handleExport}
+          onImport={handleImport}
+          onTransfer={handleTransfer}
         />
       )}
     />

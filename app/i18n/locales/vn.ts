@@ -176,7 +176,7 @@ export const vn = {
     transferOption: {
       title: 'Transfer to',
       portfolio: 'Other portfolio',
-      asset: 'Other asset',
+      fund: 'Invest fund',
     },
     profit: 'Profit',
   },

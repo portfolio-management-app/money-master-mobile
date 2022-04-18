@@ -12,6 +12,11 @@ export type CreateAssetRouteProps = {
   name: string;
   id: number;
 };
-export type BuyScreenRouteProps = 'CRYPTO' | 'STOCK' | 'CURRENCY' | 'METAL';
+export type BuyScreenRouteProps =
+  | 'CRYPTO'
+  | 'STOCK'
+  | 'CURRENCY'
+  | 'METAL'
+  | 'TRANSFER';
 
 export type MetalDetailScreenProps = 'gold' | 'silver';
