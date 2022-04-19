@@ -131,6 +131,9 @@ android {
     ndkVersion rootProject.ext.ndkVersion
 
     compileSdkVersion rootProject.ext.compileSdkVersion
+    lintOptions { 
+      checkReleaseBuilds false
+    }
 
     defaultConfig {
         applicationId "com.moneymastermobile"
