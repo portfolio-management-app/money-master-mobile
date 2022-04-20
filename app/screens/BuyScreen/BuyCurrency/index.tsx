@@ -50,7 +50,7 @@ export const BuyCurrency = observer(() => {
         validationSchema={CreateCurrencyAssetSchema}
         onSubmit={(values) => onCreate(values)}
         initialValues={{
-          currencyCode: currencyInformation.s,
+          currencyCode: currencyInformation.s.split('/')[0],
           amount: 0,
           name: '',
           inputDay: new Date().toISOString(),

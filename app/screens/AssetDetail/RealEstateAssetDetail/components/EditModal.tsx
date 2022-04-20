@@ -52,6 +52,7 @@ export const EditModal = ({ open, item, onClose, onEdit }: IProps) => {
           handleSubmit,
           values,
         }) => {
+          console.log(errors);
           return (
             <>
               <CreateModalHeader

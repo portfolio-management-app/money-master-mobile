@@ -5,7 +5,11 @@ import { RootStackScreenProps } from 'navigation/types';
 import React from 'react';
 import { StatusBar } from 'react-native';
 import { View } from 'react-native-ui-lib';
-import { PlatformView, SpeedDial } from 'shared/components';
+import {
+  AssetSpeedDialButton,
+  PlatformView,
+  SpeedDial,
+} from 'shared/components';
 import { APP_CONTENT } from 'shared/constants';
 import { colorScheme, styleProvider } from 'shared/styles';
 import { AssetActionType } from 'shared/types';
@@ -36,6 +40,7 @@ export const RealEstateAssetDetail = observer(() => {
   };
 
   const handleEditInformation = (newData: any) => {
+    console.log('onedit');
     RealEstateAssetDetailStore.editAsset(newData);
   };
 
@@ -56,7 +61,7 @@ export const RealEstateAssetDetail = observer(() => {
         open={showModal}
         onClose={() => setShowModal(!showModal)}
       />
-      <SpeedDial renderItems={() => <SpeedDialButtons />} />
+      <AssetSpeedDialButton />
     </PlatformView>
   );
 });

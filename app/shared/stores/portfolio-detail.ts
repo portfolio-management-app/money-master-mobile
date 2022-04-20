@@ -5,6 +5,7 @@ import {
   StockAsset,
   CurrencyAsset,
   CategoryAssetList,
+  PieChartItem,
 } from './../models';
 import { Config } from 'config';
 import { HttpError } from 'errors/base';
@@ -28,6 +29,7 @@ export const PortfolioDetailStore = types
     stockAssetList: types.array(StockAsset),
     currencyAssetList: types.array(CurrencyAsset),
     customAssetList: types.array(CategoryAssetList),
+    pieChartInformation: types.array(PieChartItem),
     loading: types.boolean,
     loadingCreateCrypto: types.boolean,
     loadingCreateStockAsset: types.boolean,
@@ -211,6 +213,18 @@ export const PortfolioDetailStore = types
       }
     });
 
+    const getPieChart = flow(function* () {
+      const res = yield httpRequest.sendGet(
+        `${Config.BASE_URL}/portfolio/${self.id}/pieChart`,
+        UserStore.user.token
+      );
+      if (res instanceof HttpError) {
+        log('error when get pie chart', res);
+      } else {
+        self.pieChartInformation = res;
+      }
+    });
+
     const assignInfo = (id: number, name: string) => {
       self.id = id;
       self.name = name;
@@ -226,6 +240,7 @@ export const PortfolioDetailStore = types
       createStockAsset,
       getStockAsset,
       createCurrencyAsset,
+      getPieChart,
     };
   })
   .create({

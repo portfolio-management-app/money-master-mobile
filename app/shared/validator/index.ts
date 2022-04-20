@@ -29,10 +29,6 @@ export const CreateRealEstateAssetSchema = Yup.object().shape({
     .required(FORM_ERROR.requiredFiled)
     .positive(FORM_ERROR.mustBeANumber),
   inputCurrency: Yup.string().required(FORM_ERROR.requiredFiled),
-  buyPrice: Yup.number()
-    .transform(yupParserNumber)
-    .required(FORM_ERROR.requiredFiled)
-    .positive(FORM_ERROR.mustBeANumber),
   currentPrice: Yup.number()
     .transform(yupParserNumber)
     .required(FORM_ERROR.requiredFiled)

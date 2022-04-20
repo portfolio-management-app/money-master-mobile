@@ -24,7 +24,7 @@ export const PortfolioDetail = observer(() => {
     <PlatformView style={styleProvider.body}>
       <StatusBar backgroundColor={colorScheme.theme} barStyle="light-content" />
       <Header title={routeProps.params.name} />
-      <Statistic />
+      {/* <Statistic /> */}
 
       <TabBarView />
     </PlatformView>

@@ -13,6 +13,7 @@ import {
   CurrencyAsset,
 } from '../portfolio-asset';
 import { PortfolioInformation } from '../portfolio-information';
+import { PieChartItem } from '../portfolio-report';
 import { StockInformation, StockTimeSeries } from '../stock-information';
 
 export type IStockTimeSeries = SnapshotOut<typeof StockTimeSeries>;
@@ -37,5 +38,7 @@ export type ICurrencyAsset = SnapshotOut<typeof CurrencyAsset>;
 export type ICustomAsset = SnapshotOut<typeof CustomAsset>;
 
 export type IMetalItem = SnapshotOut<typeof MetalItem>;
+
+export type IPieChartItem = SnapshotOut<typeof PieChartItem>;
 
 export type IMetalInformation = SnapshotOut<typeof MetalInformation>;

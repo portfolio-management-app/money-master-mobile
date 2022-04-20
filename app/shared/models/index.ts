@@ -1,4 +1,5 @@
-import { ICustomAsset } from './types/index';
+import { PieChartItem } from './portfolio-report';
+import { ICustomAsset, IPieChartItem } from './types/index';
 import { CategoryAssetList } from './custom-asset';
 import {
   CurrencyTimeSeries,
@@ -45,6 +46,7 @@ export {
   StockAsset,
   CurrencyAsset,
   CategoryAssetList,
+  PieChartItem,
 };
 
 export type {
@@ -61,4 +63,5 @@ export type {
   IStockAsset,
   ICurrencyAsset,
   ICustomAsset,
+  IPieChartItem,
 };
