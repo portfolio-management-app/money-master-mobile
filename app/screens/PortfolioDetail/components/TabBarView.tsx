@@ -5,6 +5,7 @@ import { colorScheme } from 'shared/styles';
 import { SCREEN_CONTENT } from '../constants';
 import { Brief } from './Brief';
 import { Holding } from './Holding';
+import { InvestFund } from './InvestFund';
 import { Note } from './Note';
 import { Payout } from './Payout';
 import { Report } from './Report';
@@ -14,6 +15,7 @@ const TAB_CONTENT = SCREEN_CONTENT.tabs;
 const Component = () => {
   const [routes] = React.useState([
     { key: 'holding', title: TAB_CONTENT.holding },
+    { key: 'investFund', title: TAB_CONTENT.investFund },
     { key: 'brief', title: TAB_CONTENT.brief },
     { key: 'report', title: TAB_CONTENT.report },
     { key: 'payout', title: TAB_CONTENT.payout },
@@ -22,6 +24,7 @@ const Component = () => {
   const renderScene = SceneMap({
     holding: Holding,
     brief: Brief,
+    investFund: InvestFund,
     note: Note,
     payout: Payout,
     report: Report,

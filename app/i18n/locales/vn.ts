@@ -106,6 +106,7 @@ export const vn = {
       report: 'Báo cáo',
       note: 'Ghi chú',
       payout: 'Trả',
+      investFund: 'Quỹ đầu tư',
     },
     assetPicker: {
       title: 'Chọn loại tài sản',

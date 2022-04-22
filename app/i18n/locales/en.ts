@@ -112,6 +112,7 @@ export const en = {
       report: 'Report',
       note: 'Notes',
       payout: 'Payout',
+      investFund: 'Invest fund',
     },
     assetPicker: {
       title: 'Choose an asset type',

@@ -1,8 +1,11 @@
 export const randomPieChartColor = (): string => {
-  const letters = '0123456789ABCDEF';
-  let color = '#';
-  for (let i = 0; i < 6; i++) {
-    color += letters[Math.floor(Math.random() * 16)];
-  }
-  return color;
+  return (
+    'rgb(' +
+    Math.floor(Math.random() * (235 - 52 + 1) + 52) +
+    ',' +
+    Math.floor(Math.random() * (235 - 52 + 1) + 52) +
+    ',' +
+    Math.floor(Math.random() * (235 - 52 + 1) + 52) +
+    ')'
+  );
 };
