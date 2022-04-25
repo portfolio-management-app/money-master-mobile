@@ -5,7 +5,6 @@ import { AssetSectionHeader, TextContainer } from 'shared/components';
 import { ASSET_DETAIL_CONTENT } from 'shared/constants';
 import { ICustomAsset } from 'shared/models';
 import { colorScheme, styleProvider } from 'shared/styles';
-import { parseToString } from 'utils/date';
 import { formatCurrency } from 'utils/number';
 
 interface IProps {

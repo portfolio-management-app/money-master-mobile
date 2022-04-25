@@ -3,10 +3,14 @@ import { Config } from 'config';
 import { types, flow } from 'mobx-state-tree';
 import { httpRequest } from 'services/http';
 import { PortfolioDetailStore, UserStore } from 'shared/stores';
+import { TransactionItem } from 'shared/models';
+import { log } from 'services/log';
 
 export const CryptoAssetDetailStore = types
   .model({
     id: types.number,
+    transactionList: types.array(TransactionItem),
+    loading: types.boolean,
   })
   .actions((self) => {
     const editAsset = flow(function* (body: any) {
@@ -20,12 +24,27 @@ export const CryptoAssetDetailStore = types
         console.log(res);
       }
     });
+
+    const getTransactionList = flow(function* () {
+      self.loading = true;
+      const res = yield httpRequest.sendGet(
+        `${Config.BASE_URL}/portfolio/${PortfolioDetailStore.id}/crypto/${self.id}/transactions`,
+        UserStore.user.token
+      );
+      if (res instanceof HttpError) {
+        log('Error when get crypto transaction list', res);
+      } else {
+        self.transactionList = res;
+      }
+      self.loading = false;
+    });
     const assignInfo = (id: number) => {
       self.id = id;
     };
 
-    return { editAsset, assignInfo };
+    return { editAsset, assignInfo, getTransactionList };
   })
   .create({
     id: 0,
+    loading: false,
   });

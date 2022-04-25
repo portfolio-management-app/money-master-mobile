@@ -5,7 +5,11 @@ import { RootStackScreenProps } from 'navigation/types';
 import React from 'react';
 import { StatusBar } from 'react-native';
 import { View } from 'react-native-ui-lib';
-import { AssetSpeedDialButton, PlatformView } from 'shared/components';
+import {
+  AssetSpeedDialButton,
+  PlatformView,
+  TransferOptions,
+} from 'shared/components';
 import { colorScheme, styleProvider } from 'shared/styles';
 import { AssetActionType } from 'shared/types';
 import {
@@ -14,11 +18,18 @@ import {
   PopoverMenu,
   EditModal,
 } from './components';
+import { StockAssetDetailStore } from './store';
 
 export const StockAssetDetail = observer(() => {
   const routeProps =
     useRoute<RootStackScreenProps<'StockAssetDetail'>['route']>();
   const [showModal, setShowModal] = React.useState(false);
+  const [showTransferOption, setShowTransferOption] = React.useState(false);
+
+  React.useEffect(() => {
+    StockAssetDetailStore.assignInfo(routeProps.params.info.id);
+    StockAssetDetailStore.getTransactionList();
+  }, [routeProps]);
   const handleMenuItemPress = (type: AssetActionType) => {
     switch (type) {
       case 'edit':
@@ -49,6 +60,10 @@ export const StockAssetDetail = observer(() => {
         onClose={() => setShowModal(!showModal)}
       />
       <AssetSpeedDialButton />
+      <TransferOptions
+        show={showTransferOption}
+        onClose={() => setShowTransferOption(!showTransferOption)}
+      />
     </PlatformView>
   );
 });

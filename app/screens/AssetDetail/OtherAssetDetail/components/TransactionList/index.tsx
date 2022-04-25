@@ -1,14 +1,17 @@
+import { observer } from 'mobx-react-lite';
 import React from 'react';
 import { ExpandableSection } from 'react-native-ui-lib';
-import { AssetSectionHeader } from 'shared/components';
+import { AssetSectionHeader, TransactionDetail } from 'shared/components';
 import { ASSET_DETAIL_CONTENT } from 'shared/constants';
-import { DetailModal, TransactionDetail } from './components';
-import { fakeData } from '../../fake-data';
+import { CustomAssetDetailStore } from '../../store';
+import { DetailModal } from './components';
 
-export const TransactionList = () => {
+export const TransactionList = observer(() => {
   const [open, setOpen] = React.useState(true);
 
   const [openModal, setOpenModal] = React.useState(false);
+
+  const { transactionList } = CustomAssetDetailStore;
 
   return (
     <>
@@ -31,17 +34,14 @@ export const TransactionList = () => {
           />
         }
       >
-        {fakeData.transactions.map((item) => (
+        {transactionList.map((item) => (
           <TransactionDetail
             onPress={() => setOpenModal(true)}
             key={item.id}
-            amount={item.amount}
-            type={item.type as any}
-            receiver={item.receiver}
-            date={item.date}
+            info={item}
           />
         ))}
       </ExpandableSection>
     </>
   );
-};
+});

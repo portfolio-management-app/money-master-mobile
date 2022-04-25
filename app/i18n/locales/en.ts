@@ -326,4 +326,5 @@ export const en = {
       buyPrice: 'Buy price',
     },
   },
+  emptyData: 'No data',
 };

@@ -6,7 +6,7 @@ import { StatusBar } from 'react-native';
 import { PlatformView } from 'shared/components';
 import { PortfolioDetailStore } from 'shared/stores';
 import { colorScheme, styleProvider } from 'shared/styles';
-import { Header, Statistic, TabBarView } from './components';
+import { Header, TabBarView } from './components';
 
 export const PortfolioDetail = observer(() => {
   const routeProps =
@@ -18,6 +18,7 @@ export const PortfolioDetail = observer(() => {
       routeProps.params.name
     );
     PortfolioDetailStore.getAllAsset();
+    return () => PortfolioDetailStore.cleanUp();
   }, [routeProps]);
 
   return (

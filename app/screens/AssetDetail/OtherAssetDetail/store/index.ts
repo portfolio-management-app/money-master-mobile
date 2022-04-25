@@ -1,12 +1,15 @@
+import { TransactionItem } from 'shared/models';
 import { HttpError } from 'errors/base';
 import { Config } from 'config';
 import { types, flow } from 'mobx-state-tree';
 import { httpRequest } from 'services/http';
 import { PortfolioDetailStore, UserStore } from 'shared/stores';
+import { log } from 'services/log';
 
 export const CustomAssetDetailStore = types
   .model({
     id: types.number,
+    transactionList: types.array(TransactionItem),
   })
   .actions((self) => {
     const editCustomAsset = flow(function* (body: any) {
@@ -20,11 +23,23 @@ export const CustomAssetDetailStore = types
         console.log(res);
       }
     });
+
+    const getTransactionList = flow(function* () {
+      const res = yield httpRequest.sendGet(
+        `${Config.BASE_URL}/portfolio/${PortfolioDetailStore.id}/custom/${self.id}/transactions`,
+        UserStore.user.token
+      );
+      if (res instanceof HttpError) {
+        log('Error when get custom transaction list', res);
+      } else {
+        self.transactionList = res;
+      }
+    });
     const assignInfo = (id: number) => {
       self.id = id;
     };
 
-    return { editCustomAsset, assignInfo };
+    return { editCustomAsset, assignInfo, getTransactionList };
   })
   .create({
     id: 0,

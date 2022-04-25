@@ -5,13 +5,15 @@ import { RootStackScreenProps } from 'navigation/types';
 import React from 'react';
 import { StatusBar } from 'react-native';
 import { View } from 'react-native-ui-lib';
-import { PlatformView, SpeedDial } from 'shared/components';
-import { ASSET_DETAIL_CONTENT } from 'shared/constants';
+import {
+  AssetSpeedDialButton,
+  PlatformView,
+  TransferOptions,
+} from 'shared/components';
 import { colorScheme, styleProvider } from 'shared/styles';
 import { AssetActionType } from 'shared/types';
 import {
   Information,
-  SpeedDialButtons,
   TransactionList,
   PopoverMenu,
   EditModal,
@@ -22,9 +24,11 @@ export const BankAssetDetail = observer(() => {
   const routeProps =
     useRoute<RootStackScreenProps<'BankAssetDetail'>['route']>();
   const [showModal, setShowModal] = React.useState(false);
+  const [showTransferOption, setShowTransferOption] = React.useState(false);
 
   React.useEffect(() => {
     BankAssetDetailStore.assignInfo(routeProps.params.info.id);
+    BankAssetDetailStore.getTransactionList();
   }, [routeProps]);
 
   const handleMenuItemPress = (type: AssetActionType) => {
@@ -37,6 +41,10 @@ export const BankAssetDetail = observer(() => {
 
   const handleEditInformation = (newData: any) => {
     BankAssetDetailStore.editBankAsset(newData);
+  };
+
+  const handleTransferToPortfolio = () => {
+    console.log('Do thing');
   };
 
   return (
@@ -56,7 +64,12 @@ export const BankAssetDetail = observer(() => {
         open={showModal}
         onClose={() => setShowModal(!showModal)}
       />
-      <SpeedDial renderItems={() => <SpeedDialButtons />} />
+      <TransferOptions
+        onTransferPortfolio={handleTransferToPortfolio}
+        show={showTransferOption}
+        onClose={() => setShowTransferOption(!showTransferOption)}
+      />
+      <AssetSpeedDialButton />
     </PlatformView>
   );
 });

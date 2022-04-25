@@ -41,6 +41,11 @@ export type RootStackParamList = {
   BuyCurrency: undefined;
   BuyGold: undefined;
   BuySilver: undefined;
+  CryptoTransfer: { info: ICryptoAsset };
+  StockTransfer: { info: IStockAsset };
+  CustomTransfer: { info: ICustomAsset };
+  BankTransfer: { info: IBankAsset };
+  RealEstateTransfer: { info: IRealEstateAsset };
 };
 
 export type BottomStackParamStack = {

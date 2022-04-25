@@ -1,9 +1,5 @@
 import React from 'react';
-import {
-  StyleSheet,
-  TouchableWithoutFeedback,
-  ViewPagerAndroidOnPageSelectedEventData,
-} from 'react-native';
+import { StyleSheet, TouchableWithoutFeedback } from 'react-native';
 import Animated, {
   Easing,
   useAnimatedStyle,

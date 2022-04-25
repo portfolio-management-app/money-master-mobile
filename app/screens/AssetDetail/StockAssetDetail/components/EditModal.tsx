@@ -4,7 +4,7 @@ import { ScrollView } from 'react-native';
 import { Modal } from 'react-native-ui-lib';
 import { CreateModalHeader, DatePicker } from 'shared/components';
 import { APP_CONTENT } from 'shared/constants';
-import { ICryptoAsset, IStockAsset } from 'shared/models';
+import { IStockAsset } from 'shared/models';
 import { styleProvider } from 'shared/styles';
 import { CreateRealEstateAssetSchema } from 'shared/validator';
 
@@ -18,24 +18,18 @@ interface IProps {
 const FORM_CONTENT = APP_CONTENT.portfolioDetail.createOtherModal;
 const SCREEN_CONTENT = APP_CONTENT.cryptoAssetDetail.editModal;
 
-export const EditModal = ({ open, item, onClose, onEdit }: IProps) => {
+export const EditModal = ({ open, item, onClose }: IProps) => {
   return (
     <Modal visible={open} animationType="fade">
       <Formik
         validationSchema={CreateRealEstateAssetSchema}
         initialValues={{}}
         onSubmit={(values) => {
+          console.log(values);
           onClose();
         }}
       >
-        {({
-          errors,
-          touched,
-          handleBlur,
-          handleChange,
-          handleSubmit,
-          values,
-        }) => {
+        {({ handleChange, handleSubmit }) => {
           return (
             <>
               <CreateModalHeader

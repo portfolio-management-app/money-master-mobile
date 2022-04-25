@@ -21,6 +21,7 @@ import {
   PopoverMenu,
   EditModal,
 } from './components';
+import { CryptoAssetDetailStore } from './store';
 
 export const CryptoAssetDetail = observer(() => {
   const navigation = useNavigation<MainStackNavigationProp>();
@@ -28,6 +29,13 @@ export const CryptoAssetDetail = observer(() => {
     useRoute<RootStackScreenProps<'CoinAssetDetail'>['route']>();
   const [showModal, setShowModal] = React.useState(false);
   const [showTransferOption, setShowTransferOption] = React.useState(false);
+
+  const { getTransactionList, assignInfo } = CryptoAssetDetailStore;
+
+  React.useEffect(() => {
+    assignInfo(routeProps.params.info.id);
+    getTransactionList();
+  }, [assignInfo, getTransactionList, routeProps]);
   const handleMenuItemPress = (type: AssetActionType) => {
     switch (type) {
       case 'edit':

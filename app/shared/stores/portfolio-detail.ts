@@ -9,7 +9,7 @@ import {
 } from './../models';
 import { Config } from 'config';
 import { HttpError } from 'errors/base';
-import { flow, types } from 'mobx-state-tree';
+import { cast, flow, types } from 'mobx-state-tree';
 import { httpRequest } from 'services/http';
 import {
   CreateOtherAssetBody,
@@ -230,6 +230,18 @@ export const PortfolioDetailStore = types
       self.name = name;
     };
 
+    const cleanUp = () => {
+      self.bankAssetList = cast([]);
+      self.cryptoAssetList = cast([]);
+      self.currencyAssetList = cast([]);
+      self.customAssetList = cast([]);
+      self.stockAssetList = cast([]);
+      self.loading = false;
+      self.loadingCreateCrypto = false;
+      self.loadingCreateCurrencyAsset = false;
+      self.loadingCreateStockAsset = false;
+    };
+
     return {
       createOtherAsset,
       assignInfo,
@@ -241,6 +253,7 @@ export const PortfolioDetailStore = types
       getStockAsset,
       createCurrencyAsset,
       getPieChart,
+      cleanUp,
     };
   })
   .create({

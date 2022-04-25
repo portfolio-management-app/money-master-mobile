@@ -2,30 +2,26 @@ import React from 'react';
 import { StyleSheet } from 'react-native';
 import { TouchableOpacity, View } from 'react-native-ui-lib';
 import { Icon, TextContainer } from 'shared/components';
+import { ITransactionItem } from 'shared/models';
 import { styleProvider, colorScheme } from 'shared/styles';
+import { parseToString } from 'utils/date';
+import { formatCurrency } from 'utils/number';
 
 interface IProps {
-  type: 'buy' | 'transfer';
-  amount: number;
-  receiver: string | null;
-  date: string;
+  info: ITransactionItem;
   onPress?: () => void;
 }
 
 const MARGIN = 10;
 
-export const TransactionDetail = ({
-  type,
-  amount,
-  receiver,
-  date,
-  onPress,
-}: IProps) => {
-  switch (type) {
-    case 'buy':
+export const TransactionDetail = ({ info, onPress }: IProps) => {
+  switch (info.singleAssetTransactionType) {
+    case 'newAsset':
       return (
         <TouchableOpacity onPress={onPress} style={styles.transactionItem}>
-          <TextContainer mb={MARGIN}>{date}</TextContainer>
+          <TextContainer mb={MARGIN}>
+            {parseToString(new Date(info.createdAt))}
+          </TextContainer>
           <View style={styles.info}>
             <View style={styleProvider.centerHorizontal}>
               <Icon.Entypo
@@ -38,35 +34,13 @@ export const TransactionDetail = ({
               </TextContainer>
             </View>
             <TextContainer color={colorScheme.green300}>
-              +{amount}
+              +{formatCurrency(info.amount, info.currencyCode)}
             </TextContainer>
           </View>
         </TouchableOpacity>
       );
-    case 'transfer':
-      return (
-        <TouchableOpacity onPress={onPress} style={styles.transactionItem}>
-          <TextContainer mb={MARGIN}>{date}</TextContainer>
-          <View style={styles.info}>
-            <View>
-              <View style={styleProvider.centerHorizontal}>
-                <Icon.Entypo
-                  name="arrow-long-left"
-                  color={colorScheme.red500}
-                  size={20}
-                />
-                <TextContainer ml={MARGIN} semiBold type="small">
-                  Transfer
-                </TextContainer>
-              </View>
-              <TextContainer type="small" mt={MARGIN}>
-                To: {receiver}
-              </TextContainer>
-            </View>
-            <TextContainer color={colorScheme.red500}>-{amount}</TextContainer>
-          </View>
-        </TouchableOpacity>
-      );
+    default:
+      return <></>;
   }
 };
 

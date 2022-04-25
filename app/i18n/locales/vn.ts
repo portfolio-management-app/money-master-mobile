@@ -319,4 +319,5 @@ export const vn = {
       buyPrice: 'Giá mua',
     },
   },
+  emptyData: 'Không có dữ liệu',
 };

@@ -1,3 +1,4 @@
+import { TransactionItem } from './../transaction';
 import { SnapshotOut } from 'mobx-state-tree';
 import {
   CurrencyTimeSeries,
@@ -42,3 +43,5 @@ export type IMetalItem = SnapshotOut<typeof MetalItem>;
 export type IPieChartItem = SnapshotOut<typeof PieChartItem>;
 
 export type IMetalInformation = SnapshotOut<typeof MetalInformation>;
+
+export type ITransactionItem = SnapshotOut<typeof TransactionItem>;

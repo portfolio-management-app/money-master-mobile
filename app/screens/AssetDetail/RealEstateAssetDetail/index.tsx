@@ -8,14 +8,12 @@ import { View } from 'react-native-ui-lib';
 import {
   AssetSpeedDialButton,
   PlatformView,
-  SpeedDial,
+  TransferOptions,
 } from 'shared/components';
-import { APP_CONTENT } from 'shared/constants';
 import { colorScheme, styleProvider } from 'shared/styles';
 import { AssetActionType } from 'shared/types';
 import {
   Information,
-  SpeedDialButtons,
   TransactionList,
   PopoverMenu,
   EditModal,
@@ -26,6 +24,11 @@ export const RealEstateAssetDetail = observer(() => {
   const routeProps =
     useRoute<RootStackScreenProps<'RealEstateAssetDetail'>['route']>();
   const [showModal, setShowModal] = React.useState(false);
+  const [showTransferOption, setShowTransferOption] = React.useState(false);
+
+  const handleTransferToPortfolio = () => {
+    setShowTransferOption(!setShowTransferOption);
+  };
 
   React.useEffect(() => {
     RealEstateAssetDetailStore.assignInfo(routeProps.params.info.id);
@@ -62,6 +65,11 @@ export const RealEstateAssetDetail = observer(() => {
         onClose={() => setShowModal(!showModal)}
       />
       <AssetSpeedDialButton />
+      <TransferOptions
+        onTransferPortfolio={handleTransferToPortfolio}
+        show={showTransferOption}
+        onClose={() => setShowTransferOption(!showTransferOption)}
+      />
     </PlatformView>
   );
 });
