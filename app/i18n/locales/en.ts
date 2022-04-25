@@ -327,4 +327,14 @@ export const en = {
     },
   },
   emptyData: 'No data',
+  transferToFund: {
+    header: 'Transfer to fund',
+    amount: 'Amount',
+    money: 'Money',
+    transfer: 'Transfer',
+  },
+  confirm: {
+    ok: 'OK',
+    cancel: 'Cancel',
+  },
 };

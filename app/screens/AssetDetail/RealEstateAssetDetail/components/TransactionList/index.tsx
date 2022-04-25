@@ -1,5 +1,6 @@
 import { observer } from 'mobx-react-lite';
 import React from 'react';
+import { ScrollView, RefreshControl } from 'react-native';
 import { ExpandableSection } from 'react-native-ui-lib';
 import { AssetSectionHeader, TransactionDetail } from 'shared/components';
 import { ASSET_DETAIL_CONTENT } from 'shared/constants';
@@ -11,7 +12,8 @@ export const TransactionList = observer(() => {
 
   const [openModal, setOpenModal] = React.useState(false);
 
-  const {transactionList} = RealEstateAssetDetailStore;
+  const { transactionList, getTransactionList, loading } =
+    RealEstateAssetDetailStore;
 
   return (
     <>
@@ -34,13 +36,22 @@ export const TransactionList = observer(() => {
           />
         }
       >
-        {transactionList.map((item) => (
-          <TransactionDetail
-            onPress={() => setOpenModal(true)}
-            key={item.id}
-            info={item}
-          />
-        ))}
+        <ScrollView
+          refreshControl={
+            <RefreshControl
+              refreshing={loading}
+              onRefresh={() => getTransactionList()}
+            />
+          }
+        >
+          {transactionList.map((item) => (
+            <TransactionDetail
+              onPress={() => setOpenModal(true)}
+              key={item.id}
+              info={item}
+            />
+          ))}
+        </ScrollView>
       </ExpandableSection>
     </>
   );

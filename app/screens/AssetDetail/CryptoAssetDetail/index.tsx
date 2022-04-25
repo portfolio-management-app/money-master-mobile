@@ -53,6 +53,11 @@ export const CryptoAssetDetail = observer(() => {
     navigation.navigate('PortfolioPicker', { type: 'TRANSFER' });
   };
 
+  const handleTransferToInvestFund = () => {
+    setShowTransferOption(!setShowTransferOption);
+    navigation.navigate('CryptoTransfer', { info: routeProps.params.info });
+  };
+
   return (
     <PlatformView style={styleProvider.body}>
       <StatusBar backgroundColor={colorScheme.bg} barStyle="dark-content" />
@@ -75,6 +80,7 @@ export const CryptoAssetDetail = observer(() => {
       />
       <TransferOptions
         onTransferPortfolio={handleTransferToPortfolio}
+        onTransferToFund={handleTransferToInvestFund}
         show={showTransferOption}
         onClose={() => setShowTransferOption(!showTransferOption)}
       />

@@ -69,7 +69,9 @@ export const BankAssetDetail = observer(() => {
         show={showTransferOption}
         onClose={() => setShowTransferOption(!showTransferOption)}
       />
-      <AssetSpeedDialButton />
+      <AssetSpeedDialButton
+        onTransfer={() => setShowTransferOption(!showTransferOption)}
+      />
     </PlatformView>
   );
 });

@@ -1,3 +1,5 @@
+import { StockTransfer, CryptoTransfer } from './InvestFundTransfer';
+
 import {
   BuyCurrency,
   BuyCrypto,
@@ -36,6 +38,8 @@ export {
   RealEstateAssetDetail,
   BuyCurrency,
   CustomAssetDetail,
+  CryptoTransfer,
+  StockTransfer,
   Home,
   Login,
   Start,

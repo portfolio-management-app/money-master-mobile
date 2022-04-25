@@ -1,10 +1,6 @@
 import React from 'react';
 import { ExpandableSection } from 'react-native-ui-lib';
-import {
-  AssetSectionHeader,
-  Empty,
-  TransactionDetail,
-} from 'shared/components';
+import { AssetSectionHeader, TransactionDetail } from 'shared/components';
 import { ASSET_DETAIL_CONTENT } from 'shared/constants';
 import { RefreshControl, ScrollView } from 'react-native';
 import { observer } from 'mobx-react-lite';
@@ -40,26 +36,22 @@ export const TransactionList = observer(() => {
           />
         }
       >
-        {transactionList.length ? (
-          <ScrollView
-            refreshControl={
-              <RefreshControl
-                refreshing={loading}
-                onRefresh={() => getTransactionList()}
-              />
-            }
-          >
-            {transactionList.map((item) => (
-              <TransactionDetail
-                onPress={() => setOpenModal(true)}
-                key={item.id}
-                info={item}
-              />
-            ))}
-          </ScrollView>
-        ) : (
-          <Empty />
-        )}
+        <ScrollView
+          refreshControl={
+            <RefreshControl
+              refreshing={loading}
+              onRefresh={() => getTransactionList()}
+            />
+          }
+        >
+          {transactionList.map((item) => (
+            <TransactionDetail
+              onPress={() => setOpenModal(true)}
+              key={item.id}
+              info={item}
+            />
+          ))}
+        </ScrollView>
       </ExpandableSection>
     </>
   );

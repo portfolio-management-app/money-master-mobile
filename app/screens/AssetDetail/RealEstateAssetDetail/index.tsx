@@ -64,7 +64,9 @@ export const RealEstateAssetDetail = observer(() => {
         open={showModal}
         onClose={() => setShowModal(!showModal)}
       />
-      <AssetSpeedDialButton />
+      <AssetSpeedDialButton
+        onTransfer={() => setShowTransferOption(!showTransferOption)}
+      />
       <TransferOptions
         onTransferPortfolio={handleTransferToPortfolio}
         show={showTransferOption}

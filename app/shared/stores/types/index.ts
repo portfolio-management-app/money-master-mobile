@@ -33,3 +33,11 @@ export type CreateStockAssetBody = {
   purchasePrice: number;
   currencyCode: string;
 };
+
+export type TransferToInvestFundBody = {
+  referentialAssetId: number;
+  referentialAssetType: string;
+  amount: number;
+  currencyCode: string;
+  isTransferringAll: boolean;
+};

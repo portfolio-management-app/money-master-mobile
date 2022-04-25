@@ -84,3 +84,10 @@ export const CreateCurrencyAssetSchema = Yup.object().shape({
   name: Yup.string().required(FORM_ERROR.requiredFiled),
   inputDay: Yup.string().required(FORM_ERROR.requiredFiled),
 });
+
+export const TransferToFundAssetSchema = Yup.object().shape({
+  amount: Yup.number()
+    .transform(yupParserNumber)
+    .required(FORM_ERROR.requiredFiled)
+    .positive(FORM_ERROR.mustBeANumber),
+});

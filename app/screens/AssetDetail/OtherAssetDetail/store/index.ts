@@ -10,6 +10,7 @@ export const CustomAssetDetailStore = types
   .model({
     id: types.number,
     transactionList: types.array(TransactionItem),
+    loading: types.boolean,
   })
   .actions((self) => {
     const editCustomAsset = flow(function* (body: any) {
@@ -25,6 +26,7 @@ export const CustomAssetDetailStore = types
     });
 
     const getTransactionList = flow(function* () {
+      self.loading = true;
       const res = yield httpRequest.sendGet(
         `${Config.BASE_URL}/portfolio/${PortfolioDetailStore.id}/custom/${self.id}/transactions`,
         UserStore.user.token
@@ -34,6 +36,7 @@ export const CustomAssetDetailStore = types
       } else {
         self.transactionList = res;
       }
+      self.loading = false;
     });
     const assignInfo = (id: number) => {
       self.id = id;
@@ -43,4 +46,5 @@ export const CustomAssetDetailStore = types
   })
   .create({
     id: 0,
+    loading: false,
   });

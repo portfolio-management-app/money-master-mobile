@@ -28,10 +28,10 @@ export const Information = ({ info }: IProps) => {
       }
     >
       <View style={styleProvider.centerVertical}>
-        <TextContainer mb={10} color={colorScheme.theme} bold type="h1">
-          {formatCurrency(info.inputMoneyAmount, info.inputCurrency)}
-        </TextContainer>
         <View>
+          <TextContainer mb={10} color={colorScheme.theme} bold type="h1">
+            {formatCurrency(info.inputMoneyAmount, info.inputCurrency)}
+          </TextContainer>
           <TextContainer mb={10} type="small">
             {ASSET_DETAIL_CONTENT.realEstateName}: {info.name}
           </TextContainer>

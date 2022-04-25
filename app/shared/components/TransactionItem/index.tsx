@@ -2,6 +2,7 @@ import React from 'react';
 import { StyleSheet } from 'react-native';
 import { TouchableOpacity, View } from 'react-native-ui-lib';
 import { Icon, TextContainer } from 'shared/components';
+import { APP_CONTENT } from 'shared/constants';
 import { ITransactionItem } from 'shared/models';
 import { styleProvider, colorScheme } from 'shared/styles';
 import { parseToString } from 'utils/date';
@@ -30,7 +31,7 @@ export const TransactionDetail = ({ info, onPress }: IProps) => {
                 size={20}
               />
               <TextContainer ml={MARGIN} semiBold type="small">
-                Buy
+                {APP_CONTENT.buy}
               </TextContainer>
             </View>
             <TextContainer color={colorScheme.green300}>

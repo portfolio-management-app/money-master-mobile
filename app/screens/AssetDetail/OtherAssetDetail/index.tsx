@@ -59,7 +59,9 @@ export const CustomAssetDetail = observer(() => {
         open={showModal}
         onClose={() => setShowModal(!showModal)}
       />
-      <AssetSpeedDialButton />
+      <AssetSpeedDialButton
+        onTransfer={() => setShowTransferOption(!showTransferOption)}
+      />
       <TransferOptions
         show={showTransferOption}
         onClose={() => setShowTransferOption(!showTransferOption)}

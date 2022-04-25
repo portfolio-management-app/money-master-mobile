@@ -320,4 +320,14 @@ export const vn = {
     },
   },
   emptyData: 'Không có dữ liệu',
+  transferToFund: {
+    header: 'Chuyển tới quỹ đầu tư',
+    amount: 'Số lượng',
+    money: 'Số tiền',
+    transfer: 'Chuyển',
+  },
+  confirm: {
+    ok: 'Ok',
+    cancel: 'Hủy',
+  },
 };
