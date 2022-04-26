@@ -253,6 +253,8 @@ export const PortfolioDetailStore = types
       getStockAsset,
       createCurrencyAsset,
       getPieChart,
+      getCryptoAsset,
+      getBankingAsset,
       cleanUp,
     };
   })

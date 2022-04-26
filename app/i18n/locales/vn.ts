@@ -325,6 +325,10 @@ export const vn = {
     amount: 'Số lượng',
     money: 'Số tiền',
     transfer: 'Chuyển',
+    error: {
+      notEnoughMoney: 'Số tiền còn lại của tài sản không đủ',
+    },
+    success: 'Chuyển thành công',
   },
   confirm: {
     ok: 'Ok',

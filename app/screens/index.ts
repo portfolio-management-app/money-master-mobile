@@ -1,3 +1,6 @@
+import { RealEstateTransfer } from './InvestFundTransfer/RealEstateTransfer/index';
+import { CustomTransfer } from './InvestFundTransfer/CustomTransfer/index';
+import { BankTransfer } from './InvestFundTransfer/BankTransfer/index';
 import { StockTransfer, CryptoTransfer } from './InvestFundTransfer';
 
 import {
@@ -30,6 +33,9 @@ import { Home } from './Home';
 import { ForgetPassword, Login, Register } from './Authentication';
 
 export {
+  BankTransfer,
+  CustomTransfer,
+  RealEstateTransfer,
   BuyStock,
   BuyGold,
   BuySilver,

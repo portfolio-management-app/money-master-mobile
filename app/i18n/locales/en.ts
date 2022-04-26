@@ -332,6 +332,10 @@ export const en = {
     amount: 'Amount',
     money: 'Money',
     transfer: 'Transfer',
+    error: {
+      notEnoughMoney: 'Insufficient value left in asset',
+    },
+    success: 'Transfer success',
   },
   confirm: {
     ok: 'OK',

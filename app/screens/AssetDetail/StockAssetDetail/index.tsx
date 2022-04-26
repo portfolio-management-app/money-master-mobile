@@ -1,7 +1,10 @@
-import { useRoute } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import { observer } from 'mobx-react-lite';
 import { NavigationHeader } from 'navigation/header';
-import { RootStackScreenProps } from 'navigation/types';
+import {
+  MainStackNavigationProp,
+  RootStackScreenProps,
+} from 'navigation/types';
 import React from 'react';
 import { StatusBar } from 'react-native';
 import { View } from 'react-native-ui-lib';
@@ -23,6 +26,7 @@ import { StockAssetDetailStore } from './store';
 export const StockAssetDetail = observer(() => {
   const routeProps =
     useRoute<RootStackScreenProps<'StockAssetDetail'>['route']>();
+  const navigation = useNavigation<MainStackNavigationProp>();
   const [showModal, setShowModal] = React.useState(false);
   const [showTransferOption, setShowTransferOption] = React.useState(false);
 
@@ -40,6 +44,11 @@ export const StockAssetDetail = observer(() => {
 
   const handleEditInformation = (newData: any) => {
     console.log('edit stock asset', newData);
+  };
+  const handleTransferToInvestFund = () => {
+    navigation.navigate('StockTransfer', {
+      info: routeProps.params.info,
+    });
   };
 
   return (
@@ -63,6 +72,7 @@ export const StockAssetDetail = observer(() => {
         onTransfer={() => setShowTransferOption(!showTransferOption)}
       />
       <TransferOptions
+        onTransferToFund={handleTransferToInvestFund}
         show={showTransferOption}
         onClose={() => setShowTransferOption(!showTransferOption)}
       />

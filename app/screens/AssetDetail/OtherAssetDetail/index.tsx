@@ -1,7 +1,10 @@
-import { useRoute } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import { observer } from 'mobx-react-lite';
 import { NavigationHeader } from 'navigation/header';
-import { RootStackScreenProps } from 'navigation/types';
+import {
+  MainStackNavigationProp,
+  RootStackScreenProps,
+} from 'navigation/types';
 import React from 'react';
 import { StatusBar } from 'react-native';
 import { View } from 'react-native-ui-lib';
@@ -22,6 +25,7 @@ import { CustomAssetDetailStore } from './store';
 export const CustomAssetDetail = observer(() => {
   const routeProps =
     useRoute<RootStackScreenProps<'CustomAssetDetail'>['route']>();
+  const navigation = useNavigation<MainStackNavigationProp>();
   const [showModal, setShowModal] = React.useState(false);
   const [showTransferOption, setShowTransferOption] = React.useState(false);
 
@@ -35,6 +39,9 @@ export const CustomAssetDetail = observer(() => {
 
   const handleEditInformation = (newData: any) => {
     console.log('edit custom asset', newData);
+  };
+  const handleTransferToInvestFund = () => {
+    navigation.navigate('CustomTransfer', { info: routeProps.params.info });
   };
 
   React.useEffect(() => {
@@ -64,6 +71,7 @@ export const CustomAssetDetail = observer(() => {
       />
       <TransferOptions
         show={showTransferOption}
+        onTransferToFund={handleTransferToInvestFund}
         onClose={() => setShowTransferOption(!showTransferOption)}
       />
     </PlatformView>

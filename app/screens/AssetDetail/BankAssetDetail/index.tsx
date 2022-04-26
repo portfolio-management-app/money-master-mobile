@@ -1,7 +1,10 @@
-import { useRoute } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import { observer } from 'mobx-react-lite';
 import { NavigationHeader } from 'navigation/header';
-import { RootStackScreenProps } from 'navigation/types';
+import {
+  MainStackNavigationProp,
+  RootStackScreenProps,
+} from 'navigation/types';
 import React from 'react';
 import { StatusBar } from 'react-native';
 import { View } from 'react-native-ui-lib';
@@ -23,6 +26,7 @@ import { BankAssetDetailStore } from './store';
 export const BankAssetDetail = observer(() => {
   const routeProps =
     useRoute<RootStackScreenProps<'BankAssetDetail'>['route']>();
+  const navigation = useNavigation<MainStackNavigationProp>();
   const [showModal, setShowModal] = React.useState(false);
   const [showTransferOption, setShowTransferOption] = React.useState(false);
 
@@ -47,6 +51,10 @@ export const BankAssetDetail = observer(() => {
     console.log('Do thing');
   };
 
+  const handleTransferToFund = () => {
+    navigation.navigate('BankTransfer', { info: routeProps.params.info });
+  };
+
   return (
     <PlatformView style={styleProvider.body}>
       <StatusBar backgroundColor={colorScheme.bg} barStyle="dark-content" />
@@ -65,6 +73,7 @@ export const BankAssetDetail = observer(() => {
         onClose={() => setShowModal(!showModal)}
       />
       <TransferOptions
+        onTransferToFund={handleTransferToFund}
         onTransferPortfolio={handleTransferToPortfolio}
         show={showTransferOption}
         onClose={() => setShowTransferOption(!showTransferOption)}

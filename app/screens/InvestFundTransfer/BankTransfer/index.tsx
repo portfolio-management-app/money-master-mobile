@@ -17,9 +17,8 @@ import { styleProvider } from 'shared/styles';
 
 const CONTENT = APP_CONTENT.transferToFund;
 
-export const CryptoTransfer = observer(() => {
-  const routeProps =
-    useRoute<RootStackScreenProps<'CryptoTransfer'>['route']>();
+export const BankTransfer = observer(() => {
+  const routeProps = useRoute<RootStackScreenProps<'BankTransfer'>['route']>();
 
   const {
     transferToFund,
@@ -33,13 +32,13 @@ export const CryptoTransfer = observer(() => {
 
   const handleTransfer = React.useCallback(
     (amount: number) => {
-      const { id, currencyCode } = routeProps.params.info;
+      const { id, inputCurrency } = routeProps.params.info;
       transferToFund(PortfolioDetailStore.id, {
         referentialAssetId: id,
         amount: amount,
-        referentialAssetType: 'crypto',
+        referentialAssetType: 'bankSaving',
         isTransferringAll: false,
-        currencyCode: currencyCode,
+        currencyCode: inputCurrency,
       });
     },
     [routeProps, transferToFund]

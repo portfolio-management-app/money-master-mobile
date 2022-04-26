@@ -1,3 +1,4 @@
+import { InvestFundStore } from './invest-fund';
 import { MetalStore } from './metal-store';
 import { CurrencyDetailStore } from './currency-detail';
 import { PortfolioDetailStore } from './portfolio-detail';
@@ -17,4 +18,5 @@ export {
   PortfolioDetailStore,
   CurrencyDetailStore,
   MetalStore,
+  InvestFundStore,
 };

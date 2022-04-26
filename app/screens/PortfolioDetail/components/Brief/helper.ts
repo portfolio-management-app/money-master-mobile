@@ -21,7 +21,6 @@ export const buildPieChartData = (data: Array<IPieChartItem>) => {
       legendFontSize: 15,
     });
   }
-  console.log(res);
 
   return res;
 };

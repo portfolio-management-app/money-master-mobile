@@ -36,7 +36,13 @@ export type CreateStockAssetBody = {
 
 export type TransferToInvestFundBody = {
   referentialAssetId: number;
-  referentialAssetType: string;
+  referentialAssetType:
+    | 'bankSaving'
+    | 'cash'
+    | 'crypto'
+    | 'custom'
+    | 'realEstate'
+    | 'stock';
   amount: number;
   currencyCode: string;
   isTransferringAll: boolean;

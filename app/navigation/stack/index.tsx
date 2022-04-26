@@ -26,6 +26,9 @@ import {
   CustomAssetDetail,
   CryptoTransfer,
   StockTransfer,
+  BankTransfer,
+  RealEstateTransfer,
+  CustomTransfer,
 } from 'screens';
 import { StatusBar } from 'react-native';
 import { colorScheme } from 'shared/styles';
@@ -72,6 +75,13 @@ export const NavigationStack = () => {
         />
         <Stack.Screen name="CryptoTransfer" component={CryptoTransfer} />
         <Stack.Screen name="StockTransfer" component={StockTransfer} />
+        <Stack.Screen name="BankTransfer" component={BankTransfer} />
+
+        <Stack.Screen
+          name="RealEstateTransfer"
+          component={RealEstateTransfer}
+        />
+        <Stack.Screen name="CustomTransfer" component={CustomTransfer} />
       </Stack.Navigator>
     </NavigationContainer>
   );

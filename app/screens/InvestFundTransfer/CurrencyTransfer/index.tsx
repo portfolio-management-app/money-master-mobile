@@ -17,9 +17,9 @@ import { styleProvider } from 'shared/styles';
 
 const CONTENT = APP_CONTENT.transferToFund;
 
-export const CryptoTransfer = observer(() => {
+export const CurrencyTransfer = observer(() => {
   const routeProps =
-    useRoute<RootStackScreenProps<'CryptoTransfer'>['route']>();
+    useRoute<RootStackScreenProps<'CurrencyTransfer'>['route']>();
 
   const {
     transferToFund,
@@ -37,7 +37,7 @@ export const CryptoTransfer = observer(() => {
       transferToFund(PortfolioDetailStore.id, {
         referentialAssetId: id,
         amount: amount,
-        referentialAssetType: 'crypto',
+        referentialAssetType: 'cash',
         isTransferringAll: false,
         currencyCode: currencyCode,
       });

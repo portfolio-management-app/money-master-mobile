@@ -1,3 +1,4 @@
+import { TransferForm } from './TransferForm/index';
 import { Empty } from './Empty/index';
 import { TransactionDetail } from './TransactionItem';
 
@@ -58,6 +59,7 @@ export {
   FloatingButton,
   Empty,
   DatePicker,
+  TransferForm,
   BaseButton,
   ReinStateCheckBox,
   ErrorDialog,
