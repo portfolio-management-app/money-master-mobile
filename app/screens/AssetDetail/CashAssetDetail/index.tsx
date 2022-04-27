@@ -21,11 +21,11 @@ import {
   PopoverMenu,
   EditModal,
 } from './components';
-import { RealEstateAssetDetailStore } from './store';
+import { CurrencyAssetDetailStore } from './store';
 
-export const RealEstateAssetDetail = observer(() => {
+export const CurrencyAssetDetail = observer(() => {
   const routeProps =
-    useRoute<RootStackScreenProps<'RealEstateAssetDetail'>['route']>();
+    useRoute<RootStackScreenProps<'CurrencyAssetDetail'>['route']>();
   const navigation = useNavigation<MainStackNavigationProp>();
   const [showModal, setShowModal] = React.useState(false);
   const [showTransferOption, setShowTransferOption] = React.useState(false);
@@ -35,8 +35,8 @@ export const RealEstateAssetDetail = observer(() => {
   };
 
   React.useEffect(() => {
-    RealEstateAssetDetailStore.assignInfo(routeProps.params.info.id);
-    RealEstateAssetDetailStore.getTransactionList();
+    CurrencyAssetDetailStore.assignInfo(routeProps.params.info.id);
+    CurrencyAssetDetailStore.getTransactionList();
   }, [routeProps]);
 
   const handleMenuItemPress = (type: AssetActionType) => {
@@ -48,11 +48,11 @@ export const RealEstateAssetDetail = observer(() => {
   };
 
   const handleEditInformation = (newData: any) => {
-    console.log('onedit');
-    RealEstateAssetDetailStore.editAsset(newData);
+    console.log('on edit');
+    CurrencyAssetDetailStore.editAsset(newData);
   };
   const handleTransferToInvestFund = () => {
-    navigation.navigate('RealEstateTransfer', { info: routeProps.params.info });
+    navigation.navigate('CurrencyTransfer', { info: routeProps.params.info });
   };
 
   return (

@@ -1,3 +1,4 @@
+import { CurrencyAssetDetail } from './CashAssetDetail/index';
 import { CustomAssetDetail } from './OtherAssetDetail/index';
 import { StockAssetDetail } from './StockAssetDetail';
 import { CryptoAssetDetail } from './CryptoAssetDetail';
@@ -9,4 +10,5 @@ export {
   CryptoAssetDetail,
   StockAssetDetail,
   CustomAssetDetail,
+  CurrencyAssetDetail,
 };

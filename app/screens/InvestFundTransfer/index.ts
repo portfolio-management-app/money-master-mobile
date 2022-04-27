@@ -1,3 +1,4 @@
+import { CurrencyTransfer } from './CurrencyTransfer/index';
 import { CustomTransfer } from './CustomTransfer/index';
 import { BankTransfer } from './BankTransfer/index';
 import { RealEstateTransfer } from './RealEstateTransfer/index';
@@ -9,4 +10,5 @@ export {
   RealEstateTransfer,
   BankTransfer,
   CustomTransfer,
+  CurrencyTransfer,
 };

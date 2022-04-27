@@ -22,9 +22,11 @@ export const PortfolioPicker = observer(() => {
   const { portfolioList } = PortfolioListStore;
   const handlePortfolioPress = (id: number, name: string) => {
     PortfolioDetailStore.assignInfo(id, name);
+    const { actionType } = routeProps.params;
     switch (routeProps.params.type) {
       case 'CRYPTO':
-        navigation.navigate('BuyCrypto');
+        if (actionType === 'BUY') navigation.navigate('BuyCrypto');
+        else navigation.navigate('SellCrypto');
         break;
       case 'STOCK':
         navigation.navigate('BuyStock');

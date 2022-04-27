@@ -329,9 +329,11 @@ export const en = {
   emptyData: 'No data',
   transferToFund: {
     header: 'Transfer to fund',
-    amount: 'Amount',
+    amount: 'Money amount to transfer',
     money: 'Money',
     transfer: 'Transfer',
+    currentPrice: 'Current price',
+    currentHolding: 'Current holding',
     error: {
       notEnoughMoney: 'Insufficient value left in asset',
     },
@@ -340,5 +342,19 @@ export const en = {
   confirm: {
     ok: 'OK',
     cancel: 'Cancel',
+  },
+  sellScreen: {
+    amount: 'Amount',
+    sell: 'Sell',
+    title: 'Choose asset',
+    currencyPrice: 'Current price',
+    gold: 'Gold',
+    silver: 'Silver',
+    description: 'Description',
+    name: 'Name',
+    startDate: 'Buy date',
+    purchasePrice: 'Purchase price',
+    createSuccess: 'Transaction success',
+    noAsset: 'There are no assets of this kind in this portfolio',
   },
 };

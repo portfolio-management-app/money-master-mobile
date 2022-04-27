@@ -1,3 +1,5 @@
+import { useNavigation } from '@react-navigation/native';
+import { MainStackNavigationProp } from 'navigation/types';
 import React from 'react';
 import { TouchableOpacity, View } from 'react-native-ui-lib';
 import { TextContainer } from 'shared/components';
@@ -9,8 +11,12 @@ interface IProps {
 }
 
 export const CashCard = ({ info }: IProps) => {
+  const navigation = useNavigation<MainStackNavigationProp>();
+  const gotoDetail = () => {
+    navigation.navigate('CurrencyAssetDetail', { info: info });
+  };
   return (
-    <TouchableOpacity style={styleProvider.assetCard}>
+    <TouchableOpacity onPress={gotoDetail} style={styleProvider.assetCard}>
       <View>
         <TextContainer>{info.name}</TextContainer>
         <TextContainer>{info.description}</TextContainer>

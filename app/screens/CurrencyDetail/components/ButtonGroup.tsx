@@ -15,7 +15,10 @@ export const ButtonGroup = () => {
 
   const handleBuyPress = () => {
     PortfolioListStore.getPortfolioList();
-    navigation.navigate('PortfolioPicker', { type: 'CURRENCY' });
+    navigation.navigate('PortfolioPicker', {
+      type: 'CURRENCY',
+      actionType: 'BUY',
+    });
   };
   return (
     <View style={styles.container}>

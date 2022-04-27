@@ -56,6 +56,7 @@ export const StockTransfer = observer(() => {
         onDismiss={() => dispatchSuccess()}
       />
       <CustomToast
+        variant="error"
         show={isError}
         message={errorMessage}
         onDismiss={() => clearError()}

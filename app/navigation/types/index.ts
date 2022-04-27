@@ -2,6 +2,7 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import {
   IBankAsset,
   ICryptoAsset,
+  ICurrencyAsset,
   ICustomAsset,
   IRealEstateAsset,
   IStockAsset,
@@ -25,7 +26,7 @@ export type RootStackParamList = {
   CoinAssetDetail: { info: ICryptoAsset };
   StockAssetDetail: { info: IStockAsset };
   CustomAssetDetail: { info: ICustomAsset };
-  CurrencyAssetDetail: undefined;
+  CurrencyAssetDetail: { info: ICurrencyAsset };
   AssetTypePicker: undefined;
   CreateAsset: { props: CreateAssetRouteProps };
   StockDetail: { symbol: string };
@@ -35,16 +36,19 @@ export type RootStackParamList = {
   PortfolioPicker: {
     type: BuyScreenRouteProps;
     metalType?: 'gold' | 'silver';
+    actionType: 'BUY' | 'SELL';
   };
   BuyCrypto: undefined;
   BuyStock: undefined;
   BuyCurrency: undefined;
   BuyGold: undefined;
   BuySilver: undefined;
+  SellCrypto: undefined;
   CryptoTransfer: { info: ICryptoAsset };
   StockTransfer: { info: IStockAsset };
   CustomTransfer: { info: ICustomAsset };
   BankTransfer: { info: IBankAsset };
+  CurrencyTransfer: { info: ICurrencyAsset };
   RealEstateTransfer: { info: IRealEstateAsset };
 };
 

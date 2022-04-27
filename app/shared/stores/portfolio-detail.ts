@@ -34,7 +34,15 @@ export const PortfolioDetailStore = types
     loadingCreateCrypto: types.boolean,
     loadingCreateStockAsset: types.boolean,
     loadingCreateCurrencyAsset: types.boolean,
+    doneLoadingCryptoAsset: types.boolean,
   })
+  .views((self) => ({
+    getCoinByCode(code: string) {
+      return self.cryptoAssetList.filter(
+        (coin) => coin.cryptoCoinCode === code
+      );
+    },
+  }))
   .actions((self) => {
     const createCurrencyAsset = flow(function* (body: any) {
       self.loadingCreateCurrencyAsset = true;
@@ -165,6 +173,7 @@ export const PortfolioDetailStore = types
     });
 
     const getCryptoAsset = flow(function* () {
+      self.doneLoadingCryptoAsset = false;
       const res = yield httpRequest.sendGet(
         `${Config.BASE_URL}/portfolio/${self.id}/crypto`,
         UserStore.user.token
@@ -175,6 +184,7 @@ export const PortfolioDetailStore = types
       } else {
         self.cryptoAssetList = res;
       }
+      self.doneLoadingCryptoAsset = true;
     });
 
     const getStockAsset = flow(function* () {
@@ -265,4 +275,5 @@ export const PortfolioDetailStore = types
     loadingCreateCrypto: false,
     loadingCreateStockAsset: false,
     loadingCreateCurrencyAsset: false,
+    doneLoadingCryptoAsset: false,
   });

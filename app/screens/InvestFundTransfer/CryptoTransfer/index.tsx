@@ -14,13 +14,14 @@ import {
 import { APP_CONTENT } from 'shared/constants';
 import { InvestFundStore, PortfolioDetailStore } from 'shared/stores';
 import { styleProvider } from 'shared/styles';
+import { formatCurrency } from 'utils/number';
 
 const CONTENT = APP_CONTENT.transferToFund;
 
 export const CryptoTransfer = observer(() => {
   const routeProps =
     useRoute<RootStackScreenProps<'CryptoTransfer'>['route']>();
-
+  const { info } = routeProps.params;
   const {
     transferToFund,
     clearError,
@@ -33,30 +34,39 @@ export const CryptoTransfer = observer(() => {
 
   const handleTransfer = React.useCallback(
     (amount: number) => {
-      const { id, currencyCode } = routeProps.params.info;
       transferToFund(PortfolioDetailStore.id, {
-        referentialAssetId: id,
+        referentialAssetId: info.id,
         amount: amount,
         referentialAssetType: 'crypto',
         isTransferringAll: false,
-        currencyCode: currencyCode,
+        currencyCode: info.currencyCode,
       });
     },
-    [routeProps, transferToFund]
+    [info, transferToFund]
   );
   return (
     <PlatformView style={styleProvider.body}>
       <NavigationHeader title={CONTENT.header} />
-      <View>
-        <TextContainer></TextContainer>
+      <View style={styleProvider.centerVertical}>
+        <View>
+          <TextContainer mb={10}>
+            {CONTENT.currentHolding}:{' '}
+            {formatCurrency(info.currentAmountInCurrency, info.currencyCode)}
+          </TextContainer>
+          <TextContainer>
+            {CONTENT.currentPrice}:{' '}
+            {formatCurrency(info.currentPrice, info.currencyCode)}
+          </TextContainer>
+        </View>
       </View>
       <TransferForm onTransfer={handleTransfer} />
       <CustomToast
         show={isSuccess}
-        message={APP_CONTENT.transferToFund.success}
+        message={CONTENT.success}
         onDismiss={() => dispatchSuccess()}
       />
       <CustomToast
+        variant="error"
         show={isError}
         message={errorMessage}
         onDismiss={() => clearError()}

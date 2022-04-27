@@ -57,6 +57,7 @@ export const RealEstateTransfer = observer(() => {
         onDismiss={() => dispatchSuccess()}
       />
       <CustomToast
+        variant="error"
         show={isError}
         message={errorMessage}
         onDismiss={() => clearError()}

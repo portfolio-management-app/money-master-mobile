@@ -18,11 +18,13 @@ export const ActionBottomSheet = ({ show, onClose, type }: IProps) => {
       navigation.navigate('PortfolioPicker', {
         type: 'METAL',
         metalType: 'gold',
+        actionType: 'BUY',
       });
     else
       navigation.navigate('PortfolioPicker', {
         type: 'METAL',
         metalType: 'silver',
+        actionType: 'BUY',
       });
   };
   return <AssetActionSheet show={show} onBuyPress={onBuy} onClose={onClose} />;

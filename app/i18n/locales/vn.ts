@@ -322,9 +322,11 @@ export const vn = {
   emptyData: 'Không có dữ liệu',
   transferToFund: {
     header: 'Chuyển tới quỹ đầu tư',
-    amount: 'Số lượng',
+    amount: 'Số tiền chuyển',
     money: 'Số tiền',
     transfer: 'Chuyển',
+    currentPrice: 'Giá hiện tại',
+    currentHolding: 'Sở hữu',
     error: {
       notEnoughMoney: 'Số tiền còn lại của tài sản không đủ',
     },
@@ -333,5 +335,19 @@ export const vn = {
   confirm: {
     ok: 'Ok',
     cancel: 'Hủy',
+  },
+  sellScreen: {
+    amount: 'Amount',
+    sell: 'Sell',
+    title: 'Chọn tài sản',
+    currencyPrice: 'Current price',
+    gold: 'Gold',
+    silver: 'Silver',
+    description: 'Description',
+    name: 'Name',
+    startDate: 'Buy date',
+    purchasePrice: 'Purchase price',
+    createSuccess: 'Transaction success',
+    noAsset: 'Không tìm thấy tài sản phù hợp',
   },
 };

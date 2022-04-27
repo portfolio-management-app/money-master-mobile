@@ -14,11 +14,17 @@ export const ButtonGroup = () => {
   const navigation = useNavigation<MainStackNavigationProp>();
   const handleBuyPress = () => {
     PortfolioListStore.getPortfolioList();
-    navigation.navigate('PortfolioPicker', { type: 'CRYPTO' });
+    navigation.navigate('PortfolioPicker', {
+      type: 'CRYPTO',
+      actionType: 'BUY',
+    });
   };
   const handleSellPress = () => {
     PortfolioListStore.getPortfolioList();
-    navigation.navigate('PortfolioPicker', { type: 'CRYPTO' });
+    navigation.navigate('PortfolioPicker', {
+      type: 'CRYPTO',
+      actionType: 'SELL',
+    });
   };
   return (
     <View style={styles.container}>

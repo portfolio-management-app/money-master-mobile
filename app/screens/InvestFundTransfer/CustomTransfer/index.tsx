@@ -37,7 +37,7 @@ export const CustomTransfer = observer(() => {
       transferToFund(PortfolioDetailStore.id, {
         referentialAssetId: id,
         amount: amount,
-        referentialAssetType: 'bankSaving',
+        referentialAssetType: 'custom',
         isTransferringAll: false,
         currencyCode: inputCurrency,
       });
@@ -57,6 +57,7 @@ export const CustomTransfer = observer(() => {
         onDismiss={() => dispatchSuccess()}
       />
       <CustomToast
+        variant="error"
         show={isError}
         message={errorMessage}
         onDismiss={() => clearError()}

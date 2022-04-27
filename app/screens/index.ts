@@ -1,3 +1,6 @@
+import { SellCrypto } from './SellScreen/SellCrypto/index';
+import { CurrencyTransfer } from './InvestFundTransfer/CurrencyTransfer/index';
+import { CurrencyAssetDetail } from './AssetDetail/CashAssetDetail/index';
 import { RealEstateTransfer } from './InvestFundTransfer/RealEstateTransfer/index';
 import { CustomTransfer } from './InvestFundTransfer/CustomTransfer/index';
 import { BankTransfer } from './InvestFundTransfer/BankTransfer/index';
@@ -35,10 +38,12 @@ import { ForgetPassword, Login, Register } from './Authentication';
 export {
   BankTransfer,
   CustomTransfer,
+  CurrencyAssetDetail,
   RealEstateTransfer,
   BuyStock,
   BuyGold,
   BuySilver,
+  SellCrypto,
   CryptoAssetDetail,
   StockAssetDetail,
   RealEstateAssetDetail,
@@ -46,6 +51,7 @@ export {
   CustomAssetDetail,
   CryptoTransfer,
   StockTransfer,
+  CurrencyTransfer,
   Home,
   Login,
   Start,
