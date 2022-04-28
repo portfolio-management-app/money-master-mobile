@@ -10,13 +10,14 @@ interface IProps {
   onClose?: () => void;
   onConfirm?: () => void;
   onCancel?: () => void;
+  title?: string;
 }
 const ML = 10;
-const Component = ({ show, onClose, onConfirm, onCancel }: IProps) => {
+const Component = ({ show, onClose, onConfirm, onCancel, title }: IProps) => {
   return (
     <ActionSheet
       visible={show}
-      title={APP_CONTENT.action}
+      title={title}
       onDismiss={onClose}
       destructiveButtonIndex={0}
       renderAction={(option: ButtonProps, index: number) => {
@@ -57,7 +58,7 @@ const Component = ({ show, onClose, onConfirm, onCancel }: IProps) => {
   );
 };
 
-export const AssetActionSheet = React.memo(Component);
+export const ConfirmSheet = React.memo(Component);
 
 const styles = StyleSheet.create({
   optionButton: {

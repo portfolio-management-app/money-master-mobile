@@ -10,9 +10,14 @@ import { StatusBar } from 'react-native';
 import { View } from 'react-native-ui-lib';
 import {
   AssetSpeedDialButton,
+  ConfirmSheet,
+  CustomToast,
   PlatformView,
   TransferOptions,
+  TransparentLoading,
 } from 'shared/components';
+import { ASSET_DETAIL_CONTENT } from 'shared/constants';
+import { PortfolioDetailStore } from 'shared/stores';
 import { colorScheme, styleProvider } from 'shared/styles';
 import { AssetActionType } from 'shared/types';
 import {
@@ -27,12 +32,24 @@ export const CustomAssetDetail = observer(() => {
     useRoute<RootStackScreenProps<'CustomAssetDetail'>['route']>();
   const navigation = useNavigation<MainStackNavigationProp>();
   const [showModal, setShowModal] = React.useState(false);
+  const [showConfirm, setShowConfirm] = React.useState(false);
   const [showTransferOption, setShowTransferOption] = React.useState(false);
+
+  const { deleteResponse, deleteCustomAsset, clearDeleteError } =
+    PortfolioDetailStore;
+
+  React.useEffect(() => {
+    CustomAssetDetailStore.assignInfo(routeProps.params.info.id);
+    CustomAssetDetailStore.getTransactionList();
+  }, [routeProps]);
 
   const handleMenuItemPress = (type: AssetActionType) => {
     switch (type) {
       case 'edit':
         setShowModal(!showModal);
+        break;
+      case 'delete':
+        setShowConfirm(!showConfirm);
         break;
     }
   };
@@ -44,10 +61,16 @@ export const CustomAssetDetail = observer(() => {
     navigation.navigate('CustomTransfer', { info: routeProps.params.info });
   };
 
-  React.useEffect(() => {
-    CustomAssetDetailStore.assignInfo(routeProps.params.info.id);
-    CustomAssetDetailStore.getTransactionList();
-  }, [routeProps]);
+  const handleConfirmDelete = async () => {
+    setShowConfirm(!showConfirm);
+    const res = await deleteCustomAsset(routeProps.params.info.id);
+    if (res) {
+      navigation.goBack();
+    }
+  };
+  const handleCancelDelete = () => {
+    setShowConfirm(!showConfirm);
+  };
 
   return (
     <PlatformView style={styleProvider.body}>
@@ -73,6 +96,20 @@ export const CustomAssetDetail = observer(() => {
         show={showTransferOption}
         onTransferToFund={handleTransferToInvestFund}
         onClose={() => setShowTransferOption(!showTransferOption)}
+      />
+      <ConfirmSheet
+        title={ASSET_DETAIL_CONTENT.deleteTitle}
+        onConfirm={handleConfirmDelete}
+        onClose={handleCancelDelete}
+        onCancel={handleCancelDelete}
+        show={showConfirm}
+      />
+      <TransparentLoading show={deleteResponse.pending} />
+      <CustomToast
+        variant="error"
+        onDismiss={clearDeleteError}
+        message={deleteResponse.errorMessage}
+        show={deleteResponse.isError}
       />
     </PlatformView>
   );

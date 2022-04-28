@@ -10,9 +10,14 @@ import { StatusBar } from 'react-native';
 import { View } from 'react-native-ui-lib';
 import {
   AssetSpeedDialButton,
+  ConfirmSheet,
+  CustomToast,
   PlatformView,
   TransferOptions,
+  TransparentLoading,
 } from 'shared/components';
+import { APP_CONTENT } from 'shared/constants';
+import { PortfolioDetailStore } from 'shared/stores';
 import { colorScheme, styleProvider } from 'shared/styles';
 import { AssetActionType } from 'shared/types';
 import {
@@ -23,23 +28,32 @@ import {
 } from './components';
 import { CryptoAssetDetailStore } from './store';
 
+const CONTENT = APP_CONTENT.assetDetail;
+
 export const CryptoAssetDetail = observer(() => {
   const navigation = useNavigation<MainStackNavigationProp>();
   const routeProps =
     useRoute<RootStackScreenProps<'CoinAssetDetail'>['route']>();
   const [showModal, setShowModal] = React.useState(false);
+  const [showConfirm, setShowConfirm] = React.useState(false);
   const [showTransferOption, setShowTransferOption] = React.useState(false);
 
   const { getTransactionList, assignInfo } = CryptoAssetDetailStore;
+  const { deleteResponse, deleteCryptoAsset, clearDeleteError } =
+    PortfolioDetailStore;
 
   React.useEffect(() => {
     assignInfo(routeProps.params.info.id);
     getTransactionList();
   }, [assignInfo, getTransactionList, routeProps]);
+
   const handleMenuItemPress = (type: AssetActionType) => {
     switch (type) {
       case 'edit':
         setShowModal(!showModal);
+        break;
+      case 'delete':
+        setShowConfirm(!showConfirm);
         break;
     }
   };
@@ -50,12 +64,26 @@ export const CryptoAssetDetail = observer(() => {
 
   const handleTransferToPortfolio = () => {
     setShowTransferOption(!setShowTransferOption);
-    navigation.navigate('PortfolioPicker', { type: 'TRANSFER' });
+    navigation.navigate('PortfolioPicker', {
+      type: 'TRANSFER',
+      actionType: 'SELL',
+    });
   };
 
   const handleTransferToInvestFund = () => {
     setShowTransferOption(!setShowTransferOption);
     navigation.navigate('CryptoTransfer', { info: routeProps.params.info });
+  };
+
+  const handleConfirmDelete = async () => {
+    setShowConfirm(!showConfirm);
+    const res = await deleteCryptoAsset(routeProps.params.info.id);
+    if (res) {
+      navigation.goBack();
+    }
+  };
+  const handleCancelDelete = () => {
+    setShowConfirm(!showConfirm);
   };
 
   return (
@@ -83,6 +111,20 @@ export const CryptoAssetDetail = observer(() => {
         onTransferToFund={handleTransferToInvestFund}
         show={showTransferOption}
         onClose={() => setShowTransferOption(!showTransferOption)}
+      />
+      <ConfirmSheet
+        title={CONTENT.deleteTitle}
+        onConfirm={handleConfirmDelete}
+        onClose={handleCancelDelete}
+        onCancel={handleCancelDelete}
+        show={showConfirm}
+      />
+      <TransparentLoading show={deleteResponse.pending} />
+      <CustomToast
+        variant="error"
+        onDismiss={clearDeleteError}
+        message={deleteResponse.errorMessage}
+        show={deleteResponse.isError}
       />
     </PlatformView>
   );

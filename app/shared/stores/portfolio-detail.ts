@@ -1,3 +1,14 @@
+import { Config } from 'config';
+import { HttpError } from 'errors/base';
+import { cast, flow, types } from 'mobx-state-tree';
+import { httpRequest } from 'services/http';
+import { log } from 'services/log';
+import {
+  CreateOtherAssetBody,
+  CreateStockAssetBody,
+  CryptoAssetBody,
+} from './types';
+import { UserStore } from './user';
 import {
   BankAsset,
   RealEstateAsset,
@@ -7,17 +18,13 @@ import {
   CategoryAssetList,
   PieChartItem,
 } from './../models';
-import { Config } from 'config';
-import { HttpError } from 'errors/base';
-import { cast, flow, types } from 'mobx-state-tree';
-import { httpRequest } from 'services/http';
-import {
-  CreateOtherAssetBody,
-  CreateStockAssetBody,
-  CryptoAssetBody,
-} from './types';
-import { UserStore } from './user';
-import { log } from 'services/log';
+
+const DeleteResponse = types.model({
+  isSuccess: types.boolean,
+  isError: types.boolean,
+  errorMessage: types.string,
+  pending: types.boolean,
+});
 
 export const PortfolioDetailStore = types
   .model({
@@ -35,6 +42,7 @@ export const PortfolioDetailStore = types
     loadingCreateStockAsset: types.boolean,
     loadingCreateCurrencyAsset: types.boolean,
     doneLoadingCryptoAsset: types.boolean,
+    deleteResponse: DeleteResponse,
   })
   .views((self) => ({
     getCoinByCode(code: string) {
@@ -223,6 +231,111 @@ export const PortfolioDetailStore = types
       }
     });
 
+    const deleteCryptoAsset = flow(function* (assetId: number) {
+      self.deleteResponse.pending = true;
+      const res = yield httpRequest.sendDelete(
+        `${Config.BASE_URL}/portfolio/${self.id}/crypto/${assetId}`,
+        UserStore.user.token
+      );
+      self.deleteResponse.pending = false;
+      if (res instanceof HttpError) {
+        makeDeleteError(res);
+        log('Error when delete crypto asset', res);
+        return false;
+      } else {
+        getCryptoAsset();
+        dispatchDeleteSuccess();
+        return true;
+      }
+    });
+    const deleteStockAsset = flow(function* (assetId: number) {
+      self.deleteResponse.pending = true;
+      const res = yield httpRequest.sendDelete(
+        `${Config.BASE_URL}/portfolio/${self.id}/stock/${assetId}`,
+        UserStore.user.token
+      );
+      self.deleteResponse.pending = false;
+      if (res instanceof HttpError) {
+        makeDeleteError(res);
+        log('Error when delete stock asset', res);
+        return false;
+      } else {
+        getStockAsset();
+        dispatchDeleteSuccess();
+        return true;
+      }
+    });
+    const deleteBankAsset = flow(function* (assetId: number) {
+      self.deleteResponse.pending = true;
+      const res = yield httpRequest.sendDelete(
+        `${Config.BASE_URL}/portfolio/${self.id}/bankSaving/${assetId}`,
+        UserStore.user.token
+      );
+      self.deleteResponse.pending = false;
+
+      if (res instanceof HttpError) {
+        makeDeleteError(res);
+        log('Error when delete bank asset', res);
+        return false;
+      } else {
+        getBankingAsset();
+        dispatchDeleteSuccess();
+        return true;
+      }
+    });
+    const deleteRealEstateAsset = flow(function* (assetId: number) {
+      self.deleteResponse.pending = true;
+      const res = yield httpRequest.sendDelete(
+        `${Config.BASE_URL}/portfolio/${self.id}/realEstate/${assetId}`,
+        UserStore.user.token
+      );
+      self.deleteResponse.pending = false;
+      if (res instanceof HttpError) {
+        makeDeleteError(res);
+        log('Error when delete real estate asset', res);
+        return false;
+      } else {
+        getRealEstateAsset();
+        dispatchDeleteSuccess();
+        return true;
+      }
+    });
+
+    const deleteCashAsset = flow(function* (assetId: number) {
+      self.deleteResponse.pending = true;
+      const res = yield httpRequest.sendDelete(
+        `${Config.BASE_URL}/portfolio/${self.id}/cash/${assetId}`,
+        UserStore.user.token
+      );
+      self.deleteResponse.pending = false;
+      if (res instanceof HttpError) {
+        makeDeleteError(res);
+        log('Error when delete cash asset', res);
+        return false;
+      } else {
+        getCurrencyAsset();
+        dispatchDeleteSuccess();
+        return true;
+      }
+    });
+
+    const deleteCustomAsset = flow(function* (assetId: number) {
+      self.deleteResponse.pending = true;
+      const res = yield httpRequest.sendDelete(
+        `${Config.BASE_URL}/portfolio/${self.id}/custom/${assetId}`,
+        UserStore.user.token
+      );
+      self.deleteResponse.pending = false;
+      if (res instanceof HttpError) {
+        makeDeleteError(res);
+        log('Error when delete custom asset', res);
+        return false;
+      } else {
+        getCustomAsset();
+        dispatchDeleteSuccess();
+        return true;
+      }
+    });
     const getPieChart = flow(function* () {
       const res = yield httpRequest.sendGet(
         `${Config.BASE_URL}/portfolio/${self.id}/pieChart`,
@@ -234,6 +347,24 @@ export const PortfolioDetailStore = types
         self.pieChartInformation = res;
       }
     });
+
+    const makeDeleteError = (error: HttpError) => {
+      self.deleteResponse.errorMessage = error.getMessage();
+      self.deleteResponse.isError = true;
+    };
+
+    const dispatchDeleteSuccess = () => {
+      self.deleteResponse.isSuccess = true;
+    };
+
+    const clearDeleteSuccess = () => {
+      self.deleteResponse.isSuccess = false;
+    };
+
+    const clearDeleteError = () => {
+      self.deleteResponse.isError = false;
+      self.deleteResponse.errorMessage = '';
+    };
 
     const assignInfo = (id: number, name: string) => {
       self.id = id;
@@ -265,7 +396,15 @@ export const PortfolioDetailStore = types
       getPieChart,
       getCryptoAsset,
       getBankingAsset,
+      deleteBankAsset,
+      deleteCryptoAsset,
+      deleteRealEstateAsset,
+      deleteStockAsset,
+      deleteCashAsset,
       cleanUp,
+      clearDeleteError,
+      clearDeleteSuccess,
+      deleteCustomAsset,
     };
   })
   .create({
@@ -276,4 +415,10 @@ export const PortfolioDetailStore = types
     loadingCreateStockAsset: false,
     loadingCreateCurrencyAsset: false,
     doneLoadingCryptoAsset: false,
+    deleteResponse: {
+      isError: false,
+      isSuccess: false,
+      errorMessage: '',
+      pending: false,
+    },
   });

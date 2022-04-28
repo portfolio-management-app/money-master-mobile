@@ -10,9 +10,14 @@ import { StatusBar } from 'react-native';
 import { View } from 'react-native-ui-lib';
 import {
   AssetSpeedDialButton,
+  ConfirmSheet,
+  CustomToast,
   PlatformView,
   TransferOptions,
+  TransparentLoading,
 } from 'shared/components';
+import { ASSET_DETAIL_CONTENT } from 'shared/constants';
+import { PortfolioDetailStore } from 'shared/stores';
 import { colorScheme, styleProvider } from 'shared/styles';
 import { AssetActionType } from 'shared/types';
 import {
@@ -28,7 +33,10 @@ export const BankAssetDetail = observer(() => {
     useRoute<RootStackScreenProps<'BankAssetDetail'>['route']>();
   const navigation = useNavigation<MainStackNavigationProp>();
   const [showModal, setShowModal] = React.useState(false);
+  const [showConfirm, setShowConfirm] = React.useState(false);
   const [showTransferOption, setShowTransferOption] = React.useState(false);
+  const { deleteResponse, deleteBankAsset, clearDeleteError } =
+    PortfolioDetailStore;
 
   React.useEffect(() => {
     BankAssetDetailStore.assignInfo(routeProps.params.info.id);
@@ -39,6 +47,9 @@ export const BankAssetDetail = observer(() => {
     switch (type) {
       case 'edit':
         setShowModal(!showModal);
+        break;
+      case 'delete':
+        setShowConfirm(!showConfirm);
         break;
     }
   };
@@ -53,6 +64,17 @@ export const BankAssetDetail = observer(() => {
 
   const handleTransferToFund = () => {
     navigation.navigate('BankTransfer', { info: routeProps.params.info });
+  };
+
+  const handleConfirmDelete = async () => {
+    setShowConfirm(!showConfirm);
+    const res = await deleteBankAsset(routeProps.params.info.id);
+    if (res) {
+      navigation.goBack();
+    }
+  };
+  const handleCancelDelete = () => {
+    setShowConfirm(!showConfirm);
   };
 
   return (
@@ -80,6 +102,20 @@ export const BankAssetDetail = observer(() => {
       />
       <AssetSpeedDialButton
         onTransfer={() => setShowTransferOption(!showTransferOption)}
+      />
+      <ConfirmSheet
+        title={ASSET_DETAIL_CONTENT.deleteTitle}
+        onConfirm={handleConfirmDelete}
+        onClose={handleCancelDelete}
+        onCancel={handleCancelDelete}
+        show={showConfirm}
+      />
+      <TransparentLoading show={deleteResponse.pending} />
+      <CustomToast
+        variant="error"
+        onDismiss={clearDeleteError}
+        message={deleteResponse.errorMessage}
+        show={deleteResponse.isError}
       />
     </PlatformView>
   );

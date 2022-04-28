@@ -41,6 +41,7 @@ import { PlatformView } from './PlatformView';
 import { ErrorDialog } from './ErrorDialog';
 import { MetalPrice } from './MetalPrice';
 import { AssetSpeedDialButton } from './AssetSpeedDialButton';
+import { ConfirmSheet } from './ConfirmSheet';
 
 export {
   PlatformView,
@@ -60,6 +61,7 @@ export {
   Empty,
   DatePicker,
   TransferForm,
+  ConfirmSheet,
   BaseButton,
   ReinStateCheckBox,
   ErrorDialog,
