@@ -1,6 +1,12 @@
+import { InvestFundInformation } from './invest-fund';
 import { TransactionItem } from './transaction';
 import { PieChartItem } from './portfolio-report';
-import { ICustomAsset, IPieChartItem, ITransactionItem } from './types/index';
+import {
+  ICustomAsset,
+  IPieChartItem,
+  ITransactionItem,
+  IInvestFundInformation,
+} from './types/index';
 import { CategoryAssetList } from './custom-asset';
 import {
   CurrencyTimeSeries,
@@ -49,6 +55,7 @@ export {
   CategoryAssetList,
   PieChartItem,
   TransactionItem,
+  InvestFundInformation,
 };
 
 export type {
@@ -67,4 +74,5 @@ export type {
   ICustomAsset,
   IPieChartItem,
   ITransactionItem,
+  IInvestFundInformation,
 };

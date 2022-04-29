@@ -15,7 +15,7 @@ export const CustomAssetDetailStore = types
   .actions((self) => {
     const editCustomAsset = flow(function* (body: any) {
       const res = yield httpRequest.sendPut(
-        `${Config.BASE_URL}/portfolio/${PortfolioDetailStore.id}/bankSaving/${self.id}`,
+        `${Config.BASE_URL}/portfolio/${PortfolioDetailStore.information.id}/custom/${self.id}`,
         body,
         UserStore.user.token
       );
@@ -28,7 +28,7 @@ export const CustomAssetDetailStore = types
     const getTransactionList = flow(function* () {
       self.loading = true;
       const res = yield httpRequest.sendGet(
-        `${Config.BASE_URL}/portfolio/${PortfolioDetailStore.id}/custom/${self.id}/transactions`,
+        `${Config.BASE_URL}/portfolio/${PortfolioDetailStore.information.id}/custom/${self.id}/transactions`,
         UserStore.user.token
       );
       if (res instanceof HttpError) {

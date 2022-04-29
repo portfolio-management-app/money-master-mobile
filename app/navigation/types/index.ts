@@ -4,6 +4,7 @@ import {
   ICryptoAsset,
   ICurrencyAsset,
   ICustomAsset,
+  IPortfolio,
   IRealEstateAsset,
   IStockAsset,
 } from 'shared/models';
@@ -20,7 +21,7 @@ export type RootStackParamList = {
   Login: undefined;
   Register: undefined;
   ForgetPassword: undefined;
-  PortfolioDetail: { id: number; name: string };
+  PortfolioDetail: { info: IPortfolio };
   BankAssetDetail: { info: IBankAsset };
   RealEstateAssetDetail: { info: IRealEstateAsset };
   CoinAssetDetail: { info: ICryptoAsset };

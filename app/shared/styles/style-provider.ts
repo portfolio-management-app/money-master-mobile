@@ -132,4 +132,7 @@ export const styleProvider = StyleSheet.create({
     backgroundColor: colorScheme.red500,
     borderRadius: 10,
   },
+  assetGroup: {
+    paddingVertical: 10,
+  },
 });

@@ -15,7 +15,7 @@ export const StockAssetDetailStore = types
   .actions((self) => {
     const editAsset = flow(function* (body: any) {
       const res = yield httpRequest.sendPut(
-        `${Config.BASE_URL}/portfolio/${PortfolioDetailStore.id}/realEstate/${self.id}`,
+        `${Config.BASE_URL}/portfolio/${PortfolioDetailStore.information.id}/realEstate/${self.id}`,
         body,
         UserStore.user.token
       );
@@ -27,7 +27,7 @@ export const StockAssetDetailStore = types
     const getTransactionList = flow(function* () {
       self.loading = true;
       const res = yield httpRequest.sendGet(
-        `${Config.BASE_URL}/portfolio/${PortfolioDetailStore.id}/stock/${self.id}/transactions`,
+        `${Config.BASE_URL}/portfolio/${PortfolioDetailStore.information.id}/stock/${self.id}/transactions`,
         UserStore.user.token
       );
       if (res instanceof HttpError) {

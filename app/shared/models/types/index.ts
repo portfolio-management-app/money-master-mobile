@@ -1,3 +1,4 @@
+import { InvestFundInformation } from './../invest-fund';
 import { TransactionItem } from './../transaction';
 import { SnapshotOut } from 'mobx-state-tree';
 import {
@@ -45,3 +46,5 @@ export type IPieChartItem = SnapshotOut<typeof PieChartItem>;
 export type IMetalInformation = SnapshotOut<typeof MetalInformation>;
 
 export type ITransactionItem = SnapshotOut<typeof TransactionItem>;
+
+export type IInvestFundInformation = SnapshotOut<typeof InvestFundInformation>;

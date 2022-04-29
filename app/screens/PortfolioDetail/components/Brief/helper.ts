@@ -12,6 +12,10 @@ export const buildPieChartData = (data: Array<IPieChartItem>) => {
     legendFontColor: string;
     legendFontSize: number;
   }> = [];
+  if (checkIsEmpty(data)) {
+    return [];
+  }
+
   for (let i = 0; i < data.length; i++) {
     res.push({
       name: getLabel(data[i].assetType),
@@ -51,4 +55,11 @@ const getLabel = (s: string) => {
     default:
       return s;
   }
+};
+
+const checkIsEmpty = (data: Array<IPieChartItem>) => {
+  for (let i = 0; i < data.length; i++) {
+    if (data[i].sumValue !== 0) return false;
+  }
+  return true;
 };

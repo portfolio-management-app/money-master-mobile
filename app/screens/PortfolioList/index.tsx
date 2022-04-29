@@ -29,19 +29,21 @@ export const Portfolios = observer(() => {
       <View style={styleProvider.container}>
         <SearchFilterBar />
         <SumUpCard />
-        <ScrollView
-          refreshControl={
-            <RefreshControl
-              refreshing={loading}
-              onRefresh={() => getPortfolioList()}
-            />
-          }
-        >
-          {portfolioList.map((portfolio) => (
-            <PortfolioCard key={portfolio.id} item={portfolio} />
-          ))}
-        </ScrollView>
       </View>
+      <ScrollView
+        style={styleProvider.container}
+        refreshControl={
+          <RefreshControl
+            refreshing={loading}
+            onRefresh={() => getPortfolioList()}
+          />
+        }
+      >
+        {portfolioList.map((portfolio) => (
+          <PortfolioCard key={portfolio.id} item={portfolio} />
+        ))}
+      </ScrollView>
+
       <CreateModal />
     </PlatformView>
   );

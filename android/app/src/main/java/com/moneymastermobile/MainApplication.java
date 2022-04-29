@@ -4,6 +4,8 @@ import android.app.Application;
 import android.content.Context;
 import com.facebook.react.PackageList;
 import com.facebook.react.ReactApplication;
+import com.BV.LinearGradient.LinearGradientPackage;
+import com.BV.LinearGradient.LinearGradientPackage;
 import com.wix.reactnativenotifications.RNNotificationsPackage;
 import com.horcrux.svg.SvgPackage;
 import com.reactnativerestart.RestartPackage;

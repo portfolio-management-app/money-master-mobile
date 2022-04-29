@@ -17,6 +17,8 @@ import {
   CurrencyAsset,
   CategoryAssetList,
   PieChartItem,
+  PortfolioInformation,
+  IPortfolio,
 } from './../models';
 
 const DeleteResponse = types.model({
@@ -28,8 +30,7 @@ const DeleteResponse = types.model({
 
 export const PortfolioDetailStore = types
   .model({
-    id: types.number,
-    name: types.string,
+    information: PortfolioInformation,
     bankAssetList: types.array(BankAsset),
     realEstateAssetList: types.array(RealEstateAsset),
     cryptoAssetList: types.array(CryptoAsset),
@@ -55,7 +56,7 @@ export const PortfolioDetailStore = types
     const createCurrencyAsset = flow(function* (body: any) {
       self.loadingCreateCurrencyAsset = true;
       const res = yield httpRequest.sendPost(
-        `${Config.BASE_URL}/portfolio/${self.id}/cash`,
+        `${Config.BASE_URL}/portfolio/${self.information.id}/cash`,
         body,
         UserStore.user.token
       );
@@ -71,7 +72,7 @@ export const PortfolioDetailStore = types
     const createCryptoAsset = flow(function* (body: CryptoAssetBody) {
       self.loadingCreateCrypto = true;
       const res = yield httpRequest.sendPost(
-        `${Config.BASE_URL}/portfolio/${self.id}/crypto`,
+        `${Config.BASE_URL}/portfolio/${self.information.id}/crypto`,
         body,
         UserStore.user.token
       );
@@ -87,7 +88,7 @@ export const PortfolioDetailStore = types
     const createStockAsset = flow(function* (body: CreateStockAssetBody) {
       self.loadingCreateStockAsset = true;
       const res = yield httpRequest.sendPost(
-        `${Config.BASE_URL}/portfolio/${self.id}/stock`,
+        `${Config.BASE_URL}/portfolio/${self.information.id}/stock`,
         body,
         UserStore.user.token
       );
@@ -105,7 +106,7 @@ export const PortfolioDetailStore = types
       assetTypeId: number
     ) {
       const res = yield httpRequest.sendPost(
-        `${Config.BASE_URL}/portfolio/${self.id}/custom/${assetTypeId}`,
+        `${Config.BASE_URL}/portfolio/${self.information.id}/custom/${assetTypeId}`,
         body,
         UserStore.user.token
       );
@@ -118,7 +119,7 @@ export const PortfolioDetailStore = types
 
     const createBankAsset = flow(function* (body: any) {
       const res = yield httpRequest.sendPost(
-        `${Config.BASE_URL}/portfolio/${self.id}/bankSaving`,
+        `${Config.BASE_URL}/portfolio/${self.information.id}/bankSaving`,
         body,
         UserStore.user.token
       );
@@ -131,7 +132,7 @@ export const PortfolioDetailStore = types
 
     const createRealEstateAsset = flow(function* (body: any) {
       const res = yield httpRequest.sendPost(
-        `${Config.BASE_URL}/portfolio/${self.id}/realEstate`,
+        `${Config.BASE_URL}/portfolio/${self.information.id}/realEstate`,
         body,
         UserStore.user.token
       );
@@ -157,7 +158,7 @@ export const PortfolioDetailStore = types
 
     const getBankingAsset = flow(function* () {
       const res = yield httpRequest.sendGet(
-        `${Config.BASE_URL}/portfolio/${self.id}/bankSaving`,
+        `${Config.BASE_URL}/portfolio/${self.information.id}/bankSaving`,
         UserStore.user.token
       );
       if (res instanceof HttpError) {
@@ -169,7 +170,7 @@ export const PortfolioDetailStore = types
 
     const getRealEstateAsset = flow(function* () {
       const res = yield httpRequest.sendGet(
-        `${Config.BASE_URL}/portfolio/${self.id}/realEstate`,
+        `${Config.BASE_URL}/portfolio/${self.information.id}/realEstate`,
         UserStore.user.token
       );
 
@@ -183,7 +184,7 @@ export const PortfolioDetailStore = types
     const getCryptoAsset = flow(function* () {
       self.doneLoadingCryptoAsset = false;
       const res = yield httpRequest.sendGet(
-        `${Config.BASE_URL}/portfolio/${self.id}/crypto`,
+        `${Config.BASE_URL}/portfolio/${self.information.id}/crypto`,
         UserStore.user.token
       );
 
@@ -197,7 +198,7 @@ export const PortfolioDetailStore = types
 
     const getStockAsset = flow(function* () {
       const res = yield httpRequest.sendGet(
-        `${Config.BASE_URL}/portfolio/${self.id}/stock`,
+        `${Config.BASE_URL}/portfolio/${self.information.id}/stock`,
         UserStore.user.token
       );
 
@@ -209,7 +210,7 @@ export const PortfolioDetailStore = types
     });
     const getCurrencyAsset = flow(function* () {
       const res = yield httpRequest.sendGet(
-        `${Config.BASE_URL}/portfolio/${self.id}/cash`,
+        `${Config.BASE_URL}/portfolio/${self.information.id}/cash`,
         UserStore.user.token
       );
 
@@ -221,7 +222,7 @@ export const PortfolioDetailStore = types
     });
     const getCustomAsset = flow(function* () {
       const res = yield httpRequest.sendGet(
-        `${Config.BASE_URL}/portfolio/${self.id}/custom`,
+        `${Config.BASE_URL}/portfolio/${self.information.id}/custom`,
         UserStore.user.token
       );
       if (res instanceof HttpError) {
@@ -234,7 +235,7 @@ export const PortfolioDetailStore = types
     const deleteCryptoAsset = flow(function* (assetId: number) {
       self.deleteResponse.pending = true;
       const res = yield httpRequest.sendDelete(
-        `${Config.BASE_URL}/portfolio/${self.id}/crypto/${assetId}`,
+        `${Config.BASE_URL}/portfolio/${self.information.id}/crypto/${assetId}`,
         UserStore.user.token
       );
       self.deleteResponse.pending = false;
@@ -251,7 +252,7 @@ export const PortfolioDetailStore = types
     const deleteStockAsset = flow(function* (assetId: number) {
       self.deleteResponse.pending = true;
       const res = yield httpRequest.sendDelete(
-        `${Config.BASE_URL}/portfolio/${self.id}/stock/${assetId}`,
+        `${Config.BASE_URL}/portfolio/${self.information.id}/stock/${assetId}`,
         UserStore.user.token
       );
       self.deleteResponse.pending = false;
@@ -268,7 +269,7 @@ export const PortfolioDetailStore = types
     const deleteBankAsset = flow(function* (assetId: number) {
       self.deleteResponse.pending = true;
       const res = yield httpRequest.sendDelete(
-        `${Config.BASE_URL}/portfolio/${self.id}/bankSaving/${assetId}`,
+        `${Config.BASE_URL}/portfolio/${self.information.id}/bankSaving/${assetId}`,
         UserStore.user.token
       );
       self.deleteResponse.pending = false;
@@ -286,7 +287,7 @@ export const PortfolioDetailStore = types
     const deleteRealEstateAsset = flow(function* (assetId: number) {
       self.deleteResponse.pending = true;
       const res = yield httpRequest.sendDelete(
-        `${Config.BASE_URL}/portfolio/${self.id}/realEstate/${assetId}`,
+        `${Config.BASE_URL}/portfolio/${self.information.id}/realEstate/${assetId}`,
         UserStore.user.token
       );
       self.deleteResponse.pending = false;
@@ -304,7 +305,7 @@ export const PortfolioDetailStore = types
     const deleteCashAsset = flow(function* (assetId: number) {
       self.deleteResponse.pending = true;
       const res = yield httpRequest.sendDelete(
-        `${Config.BASE_URL}/portfolio/${self.id}/cash/${assetId}`,
+        `${Config.BASE_URL}/portfolio/${self.information.id}/cash/${assetId}`,
         UserStore.user.token
       );
       self.deleteResponse.pending = false;
@@ -322,7 +323,7 @@ export const PortfolioDetailStore = types
     const deleteCustomAsset = flow(function* (assetId: number) {
       self.deleteResponse.pending = true;
       const res = yield httpRequest.sendDelete(
-        `${Config.BASE_URL}/portfolio/${self.id}/custom/${assetId}`,
+        `${Config.BASE_URL}/portfolio/${self.information.id}/custom/${assetId}`,
         UserStore.user.token
       );
       self.deleteResponse.pending = false;
@@ -338,7 +339,7 @@ export const PortfolioDetailStore = types
     });
     const getPieChart = flow(function* () {
       const res = yield httpRequest.sendGet(
-        `${Config.BASE_URL}/portfolio/${self.id}/pieChart`,
+        `${Config.BASE_URL}/portfolio/${self.information.id}/pieChart`,
         UserStore.user.token
       );
       if (res instanceof HttpError) {
@@ -366,9 +367,8 @@ export const PortfolioDetailStore = types
       self.deleteResponse.errorMessage = '';
     };
 
-    const assignInfo = (id: number, name: string) => {
-      self.id = id;
-      self.name = name;
+    const assignInfo = (portfolio: IPortfolio) => {
+      self.information = { ...portfolio };
     };
 
     const cleanUp = () => {
@@ -408,8 +408,13 @@ export const PortfolioDetailStore = types
     };
   })
   .create({
-    id: 0,
-    name: '',
+    information: {
+      id: 0,
+      name: '',
+      initialCash: 0,
+      initialCurrency: '',
+      sum: 0,
+    },
     loading: false,
     loadingCreateCrypto: false,
     loadingCreateStockAsset: false,

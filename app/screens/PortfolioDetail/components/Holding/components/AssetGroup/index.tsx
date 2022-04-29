@@ -1,7 +1,7 @@
 import { observer } from 'mobx-react-lite';
 import React from 'react';
 import { RefreshControl, ScrollView } from 'react-native';
-import { View } from 'react-native-ui-lib';
+import { SkeletonView, View } from 'react-native-ui-lib';
 import { SCREEN_CONTENT } from 'screens/PortfolioDetail/constants';
 import { TextContainer } from 'shared/components';
 import { PortfolioDetailStore } from 'shared/stores';
@@ -37,7 +37,7 @@ export const AssetGroup = observer(() => {
       showsVerticalScrollIndicator={false}
     >
       <View style={{ flex: 1, paddingBottom: 100 }}>
-        <View>
+        <View style={styleProvider.assetGroup}>
           <TextContainer
             style={styleProvider.assetGroupName}
             bold
@@ -45,12 +45,21 @@ export const AssetGroup = observer(() => {
           >
             {GROUP_NAMES.cash}
           </TextContainer>
-          {currencyAssetList.map((currency) => (
-            <CashCard key={currency.id} info={currency} />
-          ))}
+          {loading ? (
+            <SkeletonView
+              template={SkeletonView.templates.LIST_ITEM}
+              showContent={true}
+            />
+          ) : (
+            <>
+              {currencyAssetList.map((currency) => (
+                <CashCard key={currency.id} info={currency} />
+              ))}
+            </>
+          )}
         </View>
 
-        <View>
+        <View style={styleProvider.assetGroup}>
           <TextContainer
             style={styleProvider.assetGroupName}
             bold
@@ -58,11 +67,20 @@ export const AssetGroup = observer(() => {
           >
             {GROUP_NAMES.nft}
           </TextContainer>
-          {cryptoAssetList.map((crypto) => (
-            <CryptoCard key={crypto.id} item={crypto} />
-          ))}
+          {loading ? (
+            <SkeletonView
+              template={SkeletonView.templates.LIST_ITEM}
+              showContent={true}
+            />
+          ) : (
+            <>
+              {cryptoAssetList.map((crypto) => (
+                <CryptoCard key={crypto.id} item={crypto} />
+              ))}
+            </>
+          )}
         </View>
-        <View>
+        <View style={styleProvider.assetGroup}>
           <TextContainer
             style={styleProvider.assetGroupName}
             bold
@@ -70,11 +88,20 @@ export const AssetGroup = observer(() => {
           >
             {GROUP_NAMES.stock}
           </TextContainer>
-          {stockAssetList.map((stock) => (
-            <StockCard key={stock.id} item={stock} />
-          ))}
+          {loading ? (
+            <SkeletonView
+              template={SkeletonView.templates.LIST_ITEM}
+              showContent={true}
+            />
+          ) : (
+            <>
+              {stockAssetList.map((stock) => (
+                <StockCard key={stock.id} item={stock} />
+              ))}
+            </>
+          )}
         </View>
-        <View>
+        <View style={styleProvider.assetGroup}>
           <TextContainer
             style={styleProvider.assetGroupName}
             bold
@@ -82,12 +109,20 @@ export const AssetGroup = observer(() => {
           >
             {GROUP_NAMES.realEstate}
           </TextContainer>
-
-          {realEstateAssetList.map((item) => (
-            <RealEstateCard key={item.id} item={item} />
-          ))}
+          {loading ? (
+            <SkeletonView
+              template={SkeletonView.templates.LIST_ITEM}
+              showContent={true}
+            />
+          ) : (
+            <>
+              {realEstateAssetList.map((item) => (
+                <RealEstateCard key={item.id} item={item} />
+              ))}
+            </>
+          )}
         </View>
-        <View>
+        <View style={styleProvider.assetGroup}>
           <TextContainer
             style={styleProvider.assetGroupName}
             bold
@@ -95,12 +130,21 @@ export const AssetGroup = observer(() => {
           >
             {GROUP_NAMES.banking}
           </TextContainer>
-          {bankAssetList.map((item) => (
-            <BankingCard key={item.id} item={item} />
-          ))}
+          {loading ? (
+            <SkeletonView
+              template={SkeletonView.templates.LIST_ITEM}
+              showContent={true}
+            />
+          ) : (
+            <>
+              {bankAssetList.map((item) => (
+                <BankingCard key={item.id} item={item} />
+              ))}
+            </>
+          )}
         </View>
         {customAssetList.map((listItem) => (
-          <View key={listItem.categoryId}>
+          <View style={styleProvider.assetGroup} key={listItem.categoryId}>
             <TextContainer
               style={styleProvider.assetGroupName}
               bold
@@ -108,9 +152,18 @@ export const AssetGroup = observer(() => {
             >
               {listItem.categoryName}
             </TextContainer>
-            {listItem.assets.map((item) => (
-              <OtherCard key={item.id} item={item} />
-            ))}
+            {loading ? (
+              <SkeletonView
+                template={SkeletonView.templates.LIST_ITEM}
+                showContent={true}
+              />
+            ) : (
+              <>
+                {listItem.assets.map((item) => (
+                  <OtherCard key={item.id} item={item} />
+                ))}
+              </>
+            )}
           </View>
         ))}
       </View>

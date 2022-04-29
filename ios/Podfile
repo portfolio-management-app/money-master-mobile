@@ -22,6 +22,8 @@ target 'moneymastermobile' do
 
   pod 'react-native-notifications', :path => '../node_modules/react-native-notifications'
 
+  pod 'BVLinearGradient', :path => '../node_modules/react-native-linear-gradient'
+
   target 'moneymastermobileTests' do
     inherit! :complete
     # Pods for testing
