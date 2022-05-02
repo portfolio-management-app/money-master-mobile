@@ -1,3 +1,4 @@
+import { SellCurrency } from './SellScreen/SellCurrency/index';
 import { SellStock } from './SellScreen/SellStock/index';
 import { SellCrypto } from './SellScreen/SellCrypto/index';
 import { CurrencyTransfer } from './InvestFundTransfer/CurrencyTransfer/index';
@@ -46,6 +47,7 @@ export {
   BuySilver,
   SellCrypto,
   SellStock,
+  SellCurrency,
   CryptoAssetDetail,
   StockAssetDetail,
   RealEstateAssetDetail,

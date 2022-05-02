@@ -20,6 +20,13 @@ export const ButtonGroup = () => {
       actionType: 'BUY',
     });
   };
+
+  const handleOnSellPress = () => {
+    navigation.navigate('PortfolioPicker', {
+      type: 'CURRENCY',
+      actionType: 'SELL',
+    });
+  };
   return (
     <View style={styles.container}>
       <BaseButton
@@ -28,7 +35,12 @@ export const ButtonGroup = () => {
         enableShadow
         label={CONTENT.buy}
       />
-      <BaseButton style={styles.sellBtn} enableShadow label={CONTENT.sell} />
+      <BaseButton
+        onPress={handleOnSellPress}
+        style={styles.sellBtn}
+        enableShadow
+        label={CONTENT.sell}
+      />
     </View>
   );
 };

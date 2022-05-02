@@ -34,7 +34,8 @@ export const PortfolioPicker = observer(() => {
         else navigation.navigate('SellStock');
         break;
       case 'CURRENCY':
-        navigation.navigate('BuyCurrency');
+        if (actionType === 'BUY') navigation.navigate('BuyCurrency');
+        else navigation.navigate('SellCurrency');
         break;
       case 'METAL':
         if (routeProps.params.metalType === 'gold') {

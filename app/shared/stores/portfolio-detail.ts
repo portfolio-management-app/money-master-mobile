@@ -44,6 +44,7 @@ export const PortfolioDetailStore = types
     loadingCreateCurrencyAsset: types.boolean,
     doneLoadingCryptoAsset: types.boolean,
     doneLoadingStockAsset: types.boolean,
+    doneLoadingCurrencyAsset: types.boolean,
     deleteResponse: DeleteResponse,
   })
   .views((self) => ({
@@ -54,6 +55,11 @@ export const PortfolioDetailStore = types
     },
     getStockBySymbol(symbol: string) {
       return self.stockAssetList.filter((stock) => stock.stockCode === symbol);
+    },
+    getCurrencyByCode(code: string) {
+      return self.currencyAssetList.filter(
+        (currency) => currency.currencyCode === code
+      );
     },
   }))
   .actions((self) => {
@@ -215,6 +221,7 @@ export const PortfolioDetailStore = types
       self.doneLoadingStockAsset = true;
     });
     const getCurrencyAsset = flow(function* () {
+      self.doneLoadingCurrencyAsset = false;
       const res = yield httpRequest.sendGet(
         `${Config.BASE_URL}/portfolio/${self.information.id}/cash`,
         UserStore.user.token
@@ -225,6 +232,7 @@ export const PortfolioDetailStore = types
       } else {
         self.currencyAssetList = res;
       }
+      self.doneLoadingCurrencyAsset = true;
     });
     const getCustomAsset = flow(function* () {
       const res = yield httpRequest.sendGet(
@@ -402,6 +410,7 @@ export const PortfolioDetailStore = types
       getPieChart,
       getCryptoAsset,
       getBankingAsset,
+      getCurrencyAsset,
       deleteBankAsset,
       deleteCryptoAsset,
       deleteRealEstateAsset,
@@ -427,6 +436,7 @@ export const PortfolioDetailStore = types
     loadingCreateCurrencyAsset: false,
     doneLoadingCryptoAsset: false,
     doneLoadingStockAsset: false,
+    doneLoadingCurrencyAsset: false,
     deleteResponse: {
       isError: false,
       isSuccess: false,
