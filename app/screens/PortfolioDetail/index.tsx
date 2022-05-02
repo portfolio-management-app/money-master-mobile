@@ -15,6 +15,7 @@ export const PortfolioDetail = observer(() => {
   React.useEffect(() => {
     PortfolioDetailStore.assignInfo(routeProps.params.info);
     InvestFundStore.assignPortfolioId(routeProps.params.info.id);
+    InvestFundStore.getFund();
     PortfolioDetailStore.getAllAsset();
     return () => PortfolioDetailStore.cleanUp();
   }, [routeProps]);

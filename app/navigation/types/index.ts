@@ -45,6 +45,7 @@ export type RootStackParamList = {
   BuyGold: undefined;
   BuySilver: undefined;
   SellCrypto: undefined;
+  SellStock: undefined;
   CryptoTransfer: { info: ICryptoAsset };
   StockTransfer: { info: IStockAsset };
   CustomTransfer: { info: ICustomAsset };

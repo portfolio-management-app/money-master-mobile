@@ -30,7 +30,8 @@ export const PortfolioPicker = observer(() => {
         else navigation.navigate('SellCrypto');
         break;
       case 'STOCK':
-        navigation.navigate('BuyStock');
+        if (actionType === 'BUY') navigation.navigate('BuyStock');
+        else navigation.navigate('SellStock');
         break;
       case 'CURRENCY':
         navigation.navigate('BuyCurrency');

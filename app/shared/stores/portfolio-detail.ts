@@ -43,6 +43,7 @@ export const PortfolioDetailStore = types
     loadingCreateStockAsset: types.boolean,
     loadingCreateCurrencyAsset: types.boolean,
     doneLoadingCryptoAsset: types.boolean,
+    doneLoadingStockAsset: types.boolean,
     deleteResponse: DeleteResponse,
   })
   .views((self) => ({
@@ -50,6 +51,9 @@ export const PortfolioDetailStore = types
       return self.cryptoAssetList.filter(
         (coin) => coin.cryptoCoinCode === code
       );
+    },
+    getStockBySymbol(symbol: string) {
+      return self.stockAssetList.filter((stock) => stock.stockCode === symbol);
     },
   }))
   .actions((self) => {
@@ -197,6 +201,7 @@ export const PortfolioDetailStore = types
     });
 
     const getStockAsset = flow(function* () {
+      self.doneLoadingStockAsset = false;
       const res = yield httpRequest.sendGet(
         `${Config.BASE_URL}/portfolio/${self.information.id}/stock`,
         UserStore.user.token
@@ -207,6 +212,7 @@ export const PortfolioDetailStore = types
       } else {
         self.stockAssetList = res;
       }
+      self.doneLoadingStockAsset = true;
     });
     const getCurrencyAsset = flow(function* () {
       const res = yield httpRequest.sendGet(
@@ -420,6 +426,7 @@ export const PortfolioDetailStore = types
     loadingCreateStockAsset: false,
     loadingCreateCurrencyAsset: false,
     doneLoadingCryptoAsset: false,
+    doneLoadingStockAsset: false,
     deleteResponse: {
       isError: false,
       isSuccess: false,
