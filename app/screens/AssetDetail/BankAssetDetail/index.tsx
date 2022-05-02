@@ -16,16 +16,11 @@ import {
   TransferOptions,
   TransparentLoading,
 } from 'shared/components';
-import { ASSET_DETAIL_CONTENT } from 'shared/constants';
-import { PortfolioDetailStore } from 'shared/stores';
+import { APP_CONTENT, ASSET_DETAIL_CONTENT } from 'shared/constants';
+import { InvestFundStore, PortfolioDetailStore } from 'shared/stores';
 import { colorScheme, styleProvider } from 'shared/styles';
 import { AssetActionType } from 'shared/types';
-import {
-  Information,
-  TransactionList,
-  PopoverMenu,
-  EditModal,
-} from './components';
+import { Information, Transaction, PopoverMenu, EditModal } from './components';
 import { BankAssetDetailStore } from './store';
 
 export const BankAssetDetail = observer(() => {
@@ -34,9 +29,19 @@ export const BankAssetDetail = observer(() => {
   const navigation = useNavigation<MainStackNavigationProp>();
   const [showModal, setShowModal] = React.useState(false);
   const [showConfirm, setShowConfirm] = React.useState(false);
+  const [showConfirmTransfer, setShowConfirmTransfer] = React.useState(false);
   const [showTransferOption, setShowTransferOption] = React.useState(false);
-  const { deleteResponse, deleteBankAsset, clearDeleteError } =
+  const { deleteResponse, deleteBankAsset, clearDeleteError, information } =
     PortfolioDetailStore;
+  const {
+    loading,
+    transferToFund,
+    isError,
+    isSuccess,
+    errorMessage,
+    dispatchSuccess,
+    clearError,
+  } = InvestFundStore;
 
   React.useEffect(() => {
     BankAssetDetailStore.assignInfo(routeProps.params.info.id);
@@ -63,7 +68,14 @@ export const BankAssetDetail = observer(() => {
   };
 
   const handleTransferToFund = () => {
-    navigation.navigate('BankTransfer', { info: routeProps.params.info });
+    transferToFund(information.id, {
+      referentialAssetId: routeProps.params.info.id,
+      referentialAssetType: 'bankSaving',
+      isTransferringAll: true,
+      amount: 0,
+      currencyCode: routeProps.params.info.inputCurrency,
+    });
+    setShowConfirmTransfer(!showConfirmTransfer);
   };
 
   const handleConfirmDelete = async () => {
@@ -77,6 +89,11 @@ export const BankAssetDetail = observer(() => {
     setShowConfirm(!showConfirm);
   };
 
+  const handleCancelTransfer = () => {
+    setShowTransferOption(false);
+    setShowConfirmTransfer(!showConfirmTransfer);
+  };
+
   return (
     <PlatformView style={styleProvider.body}>
       <StatusBar backgroundColor={colorScheme.bg} barStyle="dark-content" />
@@ -87,7 +104,7 @@ export const BankAssetDetail = observer(() => {
       <View style={styleProvider.container}>
         <Information info={routeProps.params.info} />
       </View>
-      <TransactionList />
+      <Transaction />
       <EditModal
         onEdit={handleEditInformation}
         item={routeProps.params.info}
@@ -95,7 +112,7 @@ export const BankAssetDetail = observer(() => {
         onClose={() => setShowModal(!showModal)}
       />
       <TransferOptions
-        onTransferToFund={handleTransferToFund}
+        onTransferToFund={handleCancelTransfer}
         onTransferPortfolio={handleTransferToPortfolio}
         show={showTransferOption}
         onClose={() => setShowTransferOption(!showTransferOption)}
@@ -110,12 +127,30 @@ export const BankAssetDetail = observer(() => {
         onCancel={handleCancelDelete}
         show={showConfirm}
       />
-      <TransparentLoading show={deleteResponse.pending} />
+      <ConfirmSheet
+        show={showConfirmTransfer}
+        title={ASSET_DETAIL_CONTENT.transferConfirm}
+        onConfirm={handleTransferToFund}
+        onCancel={handleCancelTransfer}
+        onClose={handleCancelTransfer}
+      />
+      <TransparentLoading show={deleteResponse.pending || loading} />
       <CustomToast
         variant="error"
         onDismiss={clearDeleteError}
         message={deleteResponse.errorMessage}
         show={deleteResponse.isError}
+      />
+      <CustomToast
+        variant="error"
+        onDismiss={clearError}
+        message={errorMessage}
+        show={isError}
+      />
+      <CustomToast
+        onDismiss={dispatchSuccess}
+        message={APP_CONTENT.transferToFund.success}
+        show={isSuccess}
       />
     </PlatformView>
   );

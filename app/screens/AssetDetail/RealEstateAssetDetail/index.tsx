@@ -16,16 +16,11 @@ import {
   TransferOptions,
   TransparentLoading,
 } from 'shared/components';
-import { ASSET_DETAIL_CONTENT } from 'shared/constants';
-import { PortfolioDetailStore } from 'shared/stores';
+import { APP_CONTENT, ASSET_DETAIL_CONTENT } from 'shared/constants';
+import { InvestFundStore, PortfolioDetailStore } from 'shared/stores';
 import { colorScheme, styleProvider } from 'shared/styles';
 import { AssetActionType } from 'shared/types';
-import {
-  Information,
-  TransactionList,
-  PopoverMenu,
-  EditModal,
-} from './components';
+import { Information, Transaction, PopoverMenu, EditModal } from './components';
 import { RealEstateAssetDetailStore } from './store';
 
 export const RealEstateAssetDetail = observer(() => {
@@ -34,18 +29,25 @@ export const RealEstateAssetDetail = observer(() => {
   const navigation = useNavigation<MainStackNavigationProp>();
   const [showModal, setShowModal] = React.useState(false);
   const [showConfirm, setShowConfirm] = React.useState(false);
+  const [showConfirmTransfer, setShowConfirmTransfer] = React.useState(false);
   const [showTransferOption, setShowTransferOption] = React.useState(false);
-  const { deleteResponse, deleteRealEstateAsset, clearDeleteError } =
+  const { deleteResponse, deleteBankAsset, clearDeleteError, information } =
     PortfolioDetailStore;
+  const {
+    loading,
+    transferToFund,
+    isError,
+    isSuccess,
+    errorMessage,
+    dispatchSuccess,
+    clearError,
+  } = InvestFundStore;
 
   React.useEffect(() => {
     RealEstateAssetDetailStore.assignInfo(routeProps.params.info.id);
     RealEstateAssetDetailStore.getTransactionList();
   }, [routeProps]);
 
-  const handleTransferToPortfolio = () => {
-    setShowTransferOption(!setShowTransferOption);
-  };
   const handleMenuItemPress = (type: AssetActionType) => {
     switch (type) {
       case 'edit':
@@ -58,22 +60,38 @@ export const RealEstateAssetDetail = observer(() => {
   };
 
   const handleEditInformation = (newData: any) => {
-    console.log('on edit');
     RealEstateAssetDetailStore.editAsset(newData);
   };
-  const handleTransferToInvestFund = () => {
-    navigation.navigate('RealEstateTransfer', { info: routeProps.params.info });
+
+  const handleTransferToPortfolio = () => {
+    console.log('Do thing');
+  };
+
+  const handleTransferToFund = () => {
+    transferToFund(information.id, {
+      referentialAssetId: routeProps.params.info.id,
+      referentialAssetType: 'realEstate',
+      isTransferringAll: true,
+      amount: 0,
+      currencyCode: routeProps.params.info.inputCurrency,
+    });
+    setShowConfirmTransfer(!showConfirmTransfer);
   };
 
   const handleConfirmDelete = async () => {
     setShowConfirm(!showConfirm);
-    const res = await deleteRealEstateAsset(routeProps.params.info.id);
+    const res = await deleteBankAsset(routeProps.params.info.id);
     if (res) {
       navigation.goBack();
     }
   };
   const handleCancelDelete = () => {
     setShowConfirm(!showConfirm);
+  };
+
+  const handleCancelTransfer = () => {
+    setShowTransferOption(false);
+    setShowConfirmTransfer(!showConfirmTransfer);
   };
 
   return (
@@ -86,21 +104,21 @@ export const RealEstateAssetDetail = observer(() => {
       <View style={styleProvider.container}>
         <Information info={routeProps.params.info} />
       </View>
-      <TransactionList />
+      <Transaction />
       <EditModal
         onEdit={handleEditInformation}
         item={routeProps.params.info}
         open={showModal}
         onClose={() => setShowModal(!showModal)}
       />
-      <AssetSpeedDialButton
-        onTransfer={() => setShowTransferOption(!showTransferOption)}
-      />
       <TransferOptions
+        onTransferToFund={handleCancelTransfer}
         onTransferPortfolio={handleTransferToPortfolio}
-        onTransferToFund={handleTransferToInvestFund}
         show={showTransferOption}
         onClose={() => setShowTransferOption(!showTransferOption)}
+      />
+      <AssetSpeedDialButton
+        onTransfer={() => setShowTransferOption(!showTransferOption)}
       />
       <ConfirmSheet
         title={ASSET_DETAIL_CONTENT.deleteTitle}
@@ -109,12 +127,30 @@ export const RealEstateAssetDetail = observer(() => {
         onCancel={handleCancelDelete}
         show={showConfirm}
       />
-      <TransparentLoading show={deleteResponse.pending} />
+      <ConfirmSheet
+        show={showConfirmTransfer}
+        title={ASSET_DETAIL_CONTENT.transferConfirm}
+        onConfirm={handleTransferToFund}
+        onCancel={handleCancelTransfer}
+        onClose={handleCancelTransfer}
+      />
+      <TransparentLoading show={deleteResponse.pending || loading} />
       <CustomToast
         variant="error"
         onDismiss={clearDeleteError}
         message={deleteResponse.errorMessage}
         show={deleteResponse.isError}
+      />
+      <CustomToast
+        variant="error"
+        onDismiss={clearError}
+        message={errorMessage}
+        show={isError}
+      />
+      <CustomToast
+        onDismiss={dispatchSuccess}
+        message={APP_CONTENT.transferToFund.success}
+        show={isSuccess}
       />
     </PlatformView>
   );

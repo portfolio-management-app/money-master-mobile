@@ -188,6 +188,7 @@ export const en = {
       fund: 'Invest fund',
     },
     profit: 'Profit',
+    transferConfirm: 'Transfer all to fund ?',
   },
 
   confirmModal: {
@@ -358,5 +359,15 @@ export const en = {
     purchasePrice: 'Purchase price',
     createSuccess: 'Transaction success',
     noAsset: 'There are no assets of this kind in this portfolio',
+  },
+  transactionDetail: {
+    amount: 'Money amount',
+    type: 'Transaction type',
+    date: 'Transaction date',
+    assetType: 'Asset type',
+    newAsset: 'Buy',
+    sell: 'Sell',
+    add: 'Add',
+    draw: 'Draw',
   },
 };

@@ -34,7 +34,8 @@ export const InvestFundStore = types
         makeError(res);
       } else {
         dispatchSuccess();
-        PortfolioDetailStore.getCryptoAsset();
+        yield getFund();
+        yield PortfolioDetailStore.getAllAsset();
       }
       self.loading = false;
     });

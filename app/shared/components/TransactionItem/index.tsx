@@ -15,7 +15,7 @@ interface IProps {
 
 const MARGIN = 10;
 
-export const TransactionDetail = ({ info, onPress }: IProps) => {
+const Component = ({ info, onPress }: IProps) => {
   switch (info.singleAssetTransactionType) {
     case 'newAsset':
       return (
@@ -44,7 +44,7 @@ export const TransactionDetail = ({ info, onPress }: IProps) => {
       return <></>;
   }
 };
-
+export const TransactionDetail = React.memo(Component);
 const styles = StyleSheet.create({
   transactionItem: {
     paddingHorizontal: 20,

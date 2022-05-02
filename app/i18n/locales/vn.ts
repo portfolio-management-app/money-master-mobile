@@ -182,6 +182,7 @@ export const vn = {
       fund: 'Quỹ đầu tư',
     },
     profit: 'Lợi nhuận',
+    transferConfirm: 'Chuyển tất cả đến quỹ đầu tư?',
   },
   confirmModal: {
     confirm: 'OK',
@@ -351,5 +352,15 @@ export const vn = {
     purchasePrice: 'Purchase price',
     createSuccess: 'Transaction success',
     noAsset: 'Không tìm thấy tài sản phù hợp',
+  },
+  transactionDetail: {
+    amount: 'Money amount',
+    type: 'Transaction type',
+    date: 'Transaction date',
+    assetType: 'Asset type',
+    newAsset: 'Buy',
+    sell: 'Sell',
+    add: 'Add',
+    draw: 'Draw',
   },
 };

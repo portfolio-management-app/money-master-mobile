@@ -12,6 +12,7 @@ import {
   AssetSpeedDialButton,
   ConfirmSheet,
   CustomToast,
+  DrawAssetSheet,
   PlatformView,
   TransferOptions,
   TransparentLoading,
@@ -20,12 +21,7 @@ import { APP_CONTENT } from 'shared/constants';
 import { PortfolioDetailStore } from 'shared/stores';
 import { colorScheme, styleProvider } from 'shared/styles';
 import { AssetActionType } from 'shared/types';
-import {
-  Information,
-  TransactionList,
-  PopoverMenu,
-  EditModal,
-} from './components';
+import { Information, Transaction, PopoverMenu, EditModal } from './components';
 import { CryptoAssetDetailStore } from './store';
 
 const CONTENT = APP_CONTENT.assetDetail;
@@ -36,6 +32,7 @@ export const CryptoAssetDetail = observer(() => {
     useRoute<RootStackScreenProps<'CoinAssetDetail'>['route']>();
   const [showModal, setShowModal] = React.useState(false);
   const [showConfirm, setShowConfirm] = React.useState(false);
+  const [showDraw, setShowDraw] = React.useState(false);
   const [showTransferOption, setShowTransferOption] = React.useState(false);
 
   const { getTransactionList, assignInfo } = CryptoAssetDetailStore;
@@ -96,7 +93,7 @@ export const CryptoAssetDetail = observer(() => {
       <View style={styleProvider.container}>
         <Information info={routeProps.params.info} />
       </View>
-      <TransactionList />
+      <Transaction />
       <EditModal
         onEdit={handleEditInformation}
         item={routeProps.params.info}
@@ -104,6 +101,7 @@ export const CryptoAssetDetail = observer(() => {
         onClose={() => setShowModal(!showModal)}
       />
       <AssetSpeedDialButton
+        onDraw={() => setShowDraw(!showDraw)}
         onTransfer={() => setShowTransferOption(!showTransferOption)}
       />
       <TransferOptions
@@ -126,6 +124,7 @@ export const CryptoAssetDetail = observer(() => {
         message={deleteResponse.errorMessage}
         show={deleteResponse.isError}
       />
+      <DrawAssetSheet show={showDraw} onClose={() => setShowDraw(!showDraw)} />
     </PlatformView>
   );
 });

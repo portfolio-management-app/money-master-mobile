@@ -4,12 +4,7 @@ import { ScrollView } from 'react-native-gesture-handler';
 import { View } from 'react-native-ui-lib';
 import { FocusAwareStatusBar, PlatformView } from 'shared/components';
 import { colorScheme, styleProvider } from 'shared/styles';
-import {
-  CreateModal,
-  PortfolioCard,
-  SearchFilterBar,
-  SumUpCard,
-} from './components';
+import { CreateModal, PortfolioCard, SearchFilterBar } from './components';
 import { PortfolioListStore } from 'shared/stores';
 import { RefreshControl } from 'react-native';
 
@@ -28,7 +23,6 @@ export const Portfolios = observer(() => {
 
       <View style={styleProvider.container}>
         <SearchFilterBar />
-        <SumUpCard />
       </View>
       <ScrollView
         style={styleProvider.container}

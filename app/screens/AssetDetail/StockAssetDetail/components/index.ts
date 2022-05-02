@@ -1,6 +1,6 @@
 import { EditModal } from './EditModal';
 import { PopoverMenu } from './PopoverMenu';
-import { TransactionList } from './TransactionList';
+import { Transaction } from './Transaction';
 import { Information } from './Information';
 
-export { Information, TransactionList, PopoverMenu, EditModal };
+export { Information, Transaction, PopoverMenu, EditModal };

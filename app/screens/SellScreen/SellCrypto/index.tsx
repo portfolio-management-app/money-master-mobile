@@ -11,7 +11,7 @@ import {
 } from 'shared/components';
 import { APP_CONTENT } from 'shared/constants';
 import { CoinDetailStore, PortfolioDetailStore } from 'shared/stores';
-import { colorScheme, styleProvider } from 'shared/styles';
+import { styleProvider } from 'shared/styles';
 
 const CONTENT = APP_CONTENT.sellScreen;
 

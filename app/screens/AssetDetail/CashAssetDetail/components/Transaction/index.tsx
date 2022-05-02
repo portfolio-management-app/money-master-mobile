@@ -1,25 +1,37 @@
 import { observer } from 'mobx-react-lite';
 import React from 'react';
-import { ScrollView, RefreshControl } from 'react-native';
 import { ExpandableSection } from 'react-native-ui-lib';
-import { AssetSectionHeader, TransactionDetail } from 'shared/components';
+import {
+  AssetSectionHeader,
+  TransactionDetailModal,
+  TransactionList,
+} from 'shared/components';
 import { ASSET_DETAIL_CONTENT } from 'shared/constants';
-import { StockAssetDetailStore } from '../../store';
-import { DetailModal } from './components';
+import { ITransactionItem } from 'shared/models';
+import { CurrencyAssetDetailStore } from '../../store';
 
-export const TransactionList = observer(() => {
+export const Transaction = observer(() => {
   const [open, setOpen] = React.useState(true);
-
   const [openModal, setOpenModal] = React.useState(false);
+  const [selectedTransaction, setSelectedTransaction] = React.useState<
+    ITransactionItem | undefined
+  >(undefined);
+
   const { transactionList, getTransactionList, loading } =
-    StockAssetDetailStore;
+    CurrencyAssetDetailStore;
+
+  const handleTransactionPress = (transaction: ITransactionItem) => {
+    setSelectedTransaction(transaction);
+    setOpenModal(!openModal);
+  };
 
   return (
     <>
-      <DetailModal
+      <TransactionDetailModal
         onClose={() => {
           setOpenModal(false);
         }}
+        info={selectedTransaction}
         open={openModal}
       />
       <ExpandableSection
@@ -35,22 +47,12 @@ export const TransactionList = observer(() => {
           />
         }
       >
-        <ScrollView
-          refreshControl={
-            <RefreshControl
-              refreshing={loading}
-              onRefresh={() => getTransactionList()}
-            />
-          }
-        >
-          {transactionList.map((item) => (
-            <TransactionDetail
-              onPress={() => setOpenModal(true)}
-              key={item.id}
-              info={item}
-            />
-          ))}
-        </ScrollView>
+        <TransactionList
+          refreshing={loading}
+          data={transactionList}
+          onItemPress={handleTransactionPress}
+          onRefresh={() => getTransactionList}
+        />
       </ExpandableSection>
     </>
   );

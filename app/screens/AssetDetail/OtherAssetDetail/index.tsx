@@ -20,12 +20,7 @@ import { ASSET_DETAIL_CONTENT } from 'shared/constants';
 import { PortfolioDetailStore } from 'shared/stores';
 import { colorScheme, styleProvider } from 'shared/styles';
 import { AssetActionType } from 'shared/types';
-import {
-  Information,
-  TransactionList,
-  PopoverMenu,
-  EditModal,
-} from './components';
+import { Information, Transaction, PopoverMenu, EditModal } from './components';
 import { CustomAssetDetailStore } from './store';
 export const CustomAssetDetail = observer(() => {
   const routeProps =
@@ -82,7 +77,7 @@ export const CustomAssetDetail = observer(() => {
       <View style={styleProvider.container}>
         <Information info={routeProps.params.info} />
       </View>
-      <TransactionList />
+      <Transaction />
       <EditModal
         onEdit={handleEditInformation}
         item={routeProps.params.info}
