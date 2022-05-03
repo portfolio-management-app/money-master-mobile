@@ -185,7 +185,13 @@ export const en = {
     transferOption: {
       title: 'Transfer to',
       portfolio: 'Other portfolio',
+      otherAsset: 'Other asset',
       fund: 'Invest fund',
+    },
+    drawOption: {
+      title: 'Draw to',
+      cash: 'Cash',
+      investFund: 'Invest fund',
     },
     profit: 'Profit',
     transferConfirm: 'Transfer all to fund ?',
@@ -369,5 +375,8 @@ export const en = {
     sell: 'Sell',
     add: 'Add',
     draw: 'Draw',
+  },
+  cashAssetPicker: {
+    title: 'Choose cash asset to draw',
   },
 };

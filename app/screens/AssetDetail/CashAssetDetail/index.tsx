@@ -17,11 +17,10 @@ import {
   TransparentLoading,
 } from 'shared/components';
 import { ASSET_DETAIL_CONTENT } from 'shared/constants';
-import { PortfolioDetailStore } from 'shared/stores';
+import { CashAssetStore, PortfolioDetailStore } from 'shared/stores';
 import { colorScheme, styleProvider } from 'shared/styles';
 import { AssetActionType } from 'shared/types';
 import { Information, Transaction, PopoverMenu, EditModal } from './components';
-import { CurrencyAssetDetailStore } from './store';
 
 export const CurrencyAssetDetail = observer(() => {
   const routeProps =
@@ -38,8 +37,8 @@ export const CurrencyAssetDetail = observer(() => {
   };
 
   React.useEffect(() => {
-    CurrencyAssetDetailStore.assignInfo(routeProps.params.info.id);
-    CurrencyAssetDetailStore.getTransactionList();
+    CashAssetStore.assignInfo(routeProps.params.info.id);
+    CashAssetStore.getTransactionList();
   }, [routeProps]);
 
   const handleMenuItemPress = (type: AssetActionType) => {
@@ -55,7 +54,7 @@ export const CurrencyAssetDetail = observer(() => {
 
   const handleEditInformation = (newData: any) => {
     console.log('on edit');
-    CurrencyAssetDetailStore.editAsset(newData);
+    CashAssetStore.editAsset(newData);
   };
   const handleTransferToInvestFund = () => {
     navigation.navigate('CurrencyTransfer', { info: routeProps.params.info });

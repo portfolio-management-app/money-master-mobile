@@ -17,11 +17,14 @@ import {
   TransparentLoading,
 } from 'shared/components';
 import { APP_CONTENT, ASSET_DETAIL_CONTENT } from 'shared/constants';
-import { InvestFundStore, PortfolioDetailStore } from 'shared/stores';
+import {
+  BankAssetStore,
+  InvestFundStore,
+  PortfolioDetailStore,
+} from 'shared/stores';
 import { colorScheme, styleProvider } from 'shared/styles';
 import { AssetActionType } from 'shared/types';
 import { Information, Transaction, PopoverMenu, EditModal } from './components';
-import { BankAssetDetailStore } from './store';
 
 export const BankAssetDetail = observer(() => {
   const routeProps =
@@ -44,8 +47,8 @@ export const BankAssetDetail = observer(() => {
   } = InvestFundStore;
 
   React.useEffect(() => {
-    BankAssetDetailStore.assignInfo(routeProps.params.info.id);
-    BankAssetDetailStore.getTransactionList();
+    BankAssetStore.assignInfo(routeProps.params.info.id);
+    BankAssetStore.getTransactionList();
   }, [routeProps]);
 
   const handleMenuItemPress = (type: AssetActionType) => {
@@ -60,7 +63,7 @@ export const BankAssetDetail = observer(() => {
   };
 
   const handleEditInformation = (newData: any) => {
-    BankAssetDetailStore.editBankAsset(newData);
+    BankAssetStore.editAsset(newData);
   };
 
   const handleTransferToPortfolio = () => {

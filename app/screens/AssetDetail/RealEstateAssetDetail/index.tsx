@@ -17,11 +17,14 @@ import {
   TransparentLoading,
 } from 'shared/components';
 import { APP_CONTENT, ASSET_DETAIL_CONTENT } from 'shared/constants';
-import { InvestFundStore, PortfolioDetailStore } from 'shared/stores';
+import {
+  InvestFundStore,
+  PortfolioDetailStore,
+  RealEstateAssetStore,
+} from 'shared/stores';
 import { colorScheme, styleProvider } from 'shared/styles';
 import { AssetActionType } from 'shared/types';
 import { Information, Transaction, PopoverMenu, EditModal } from './components';
-import { RealEstateAssetDetailStore } from './store';
 
 export const RealEstateAssetDetail = observer(() => {
   const routeProps =
@@ -31,8 +34,12 @@ export const RealEstateAssetDetail = observer(() => {
   const [showConfirm, setShowConfirm] = React.useState(false);
   const [showConfirmTransfer, setShowConfirmTransfer] = React.useState(false);
   const [showTransferOption, setShowTransferOption] = React.useState(false);
-  const { deleteResponse, deleteBankAsset, clearDeleteError, information } =
-    PortfolioDetailStore;
+  const {
+    deleteResponse,
+    deleteRealEstateAsset,
+    clearDeleteError,
+    information,
+  } = PortfolioDetailStore;
   const {
     loading,
     transferToFund,
@@ -44,8 +51,8 @@ export const RealEstateAssetDetail = observer(() => {
   } = InvestFundStore;
 
   React.useEffect(() => {
-    RealEstateAssetDetailStore.assignInfo(routeProps.params.info.id);
-    RealEstateAssetDetailStore.getTransactionList();
+    RealEstateAssetStore.assignInfo(routeProps.params.info.id);
+    RealEstateAssetStore.getTransactionList();
   }, [routeProps]);
 
   const handleMenuItemPress = (type: AssetActionType) => {
@@ -60,7 +67,7 @@ export const RealEstateAssetDetail = observer(() => {
   };
 
   const handleEditInformation = (newData: any) => {
-    RealEstateAssetDetailStore.editAsset(newData);
+    RealEstateAssetStore.editAsset(newData);
   };
 
   const handleTransferToPortfolio = () => {
@@ -80,7 +87,7 @@ export const RealEstateAssetDetail = observer(() => {
 
   const handleConfirmDelete = async () => {
     setShowConfirm(!showConfirm);
-    const res = await deleteBankAsset(routeProps.params.info.id);
+    const res = await deleteRealEstateAsset(routeProps.params.info.id);
     if (res) {
       navigation.goBack();
     }

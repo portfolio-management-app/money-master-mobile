@@ -1,3 +1,5 @@
+import { DrawScreen } from './DrawScreen/index';
+import { CashAssetPicker } from './CashAssetPicker/index';
 import { SellCurrency } from './SellScreen/SellCurrency/index';
 import { SellStock } from './SellScreen/SellStock/index';
 import { SellCrypto } from './SellScreen/SellCrypto/index';
@@ -39,11 +41,13 @@ import { ForgetPassword, Login, Register } from './Authentication';
 
 export {
   BankTransfer,
+  DrawScreen,
   CustomTransfer,
   CurrencyAssetDetail,
   RealEstateTransfer,
   BuyStock,
   BuyGold,
+  CashAssetPicker,
   BuySilver,
   SellCrypto,
   SellStock,

@@ -8,7 +8,7 @@ import {
 import { ASSET_DETAIL_CONTENT } from 'shared/constants';
 import { ITransactionItem } from 'shared/models';
 import { observer } from 'mobx-react-lite';
-import { CryptoAssetDetailStore } from '../../store';
+import { CryptoAssetStore } from 'shared/stores';
 
 export const Transaction = observer(() => {
   const [open, setOpen] = React.useState(true);
@@ -19,8 +19,7 @@ export const Transaction = observer(() => {
     ITransactionItem | undefined
   >(undefined);
 
-  const { transactionList, loading, getTransactionList } =
-    CryptoAssetDetailStore;
+  const { transactionList, loading, getTransactionList } = CryptoAssetStore;
 
   const handleItemPress = (e: ITransactionItem) => {
     setSelectedTransaction(e);

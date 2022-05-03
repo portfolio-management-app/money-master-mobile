@@ -17,11 +17,11 @@ import {
   TransparentLoading,
 } from 'shared/components';
 import { ASSET_DETAIL_CONTENT } from 'shared/constants';
-import { PortfolioDetailStore } from 'shared/stores';
+import { CustomAssetStore, PortfolioDetailStore } from 'shared/stores';
 import { colorScheme, styleProvider } from 'shared/styles';
 import { AssetActionType } from 'shared/types';
 import { Information, Transaction, PopoverMenu, EditModal } from './components';
-import { CustomAssetDetailStore } from './store';
+
 export const CustomAssetDetail = observer(() => {
   const routeProps =
     useRoute<RootStackScreenProps<'CustomAssetDetail'>['route']>();
@@ -34,8 +34,8 @@ export const CustomAssetDetail = observer(() => {
     PortfolioDetailStore;
 
   React.useEffect(() => {
-    CustomAssetDetailStore.assignInfo(routeProps.params.info.id);
-    CustomAssetDetailStore.getTransactionList();
+    CustomAssetStore.assignInfo(routeProps.params.info.id);
+    CustomAssetStore.getTransactionList();
   }, [routeProps]);
 
   const handleMenuItemPress = (type: AssetActionType) => {

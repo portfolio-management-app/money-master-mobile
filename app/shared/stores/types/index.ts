@@ -1,3 +1,4 @@
+import { ApiAssetType } from 'shared/types';
 export type CreateOtherAssetBody = {
   name: string;
   inputDay: string;
@@ -36,13 +37,15 @@ export type CreateStockAssetBody = {
 
 export type TransferToInvestFundBody = {
   referentialAssetId: number;
-  referentialAssetType:
-    | 'bankSaving'
-    | 'cash'
-    | 'crypto'
-    | 'custom'
-    | 'realEstate'
-    | 'stock';
+  referentialAssetType: ApiAssetType;
+  amount: number;
+  currencyCode: string;
+  isTransferringAll: boolean;
+};
+
+export type TransferToOtherAssetBody = {
+  destinationAssetId: number;
+  destinationAssetType: ApiAssetType;
   amount: number;
   currencyCode: string;
   isTransferringAll: boolean;

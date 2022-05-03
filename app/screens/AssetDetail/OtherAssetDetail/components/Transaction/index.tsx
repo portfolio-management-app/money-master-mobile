@@ -8,7 +8,7 @@ import {
 } from 'shared/components';
 import { ASSET_DETAIL_CONTENT } from 'shared/constants';
 import { ITransactionItem } from 'shared/models';
-import { CustomAssetDetailStore } from '../../store';
+import { CustomAssetStore } from 'shared/stores';
 
 export const Transaction = observer(() => {
   const [open, setOpen] = React.useState(true);
@@ -17,8 +17,7 @@ export const Transaction = observer(() => {
     ITransactionItem | undefined
   >(undefined);
 
-  const { transactionList, getTransactionList, loading } =
-    CustomAssetDetailStore;
+  const { transactionList, getTransactionList, loading } = CustomAssetStore;
 
   const handleTransactionPress = (transaction: ITransactionItem) => {
     setSelectedTransaction(transaction);

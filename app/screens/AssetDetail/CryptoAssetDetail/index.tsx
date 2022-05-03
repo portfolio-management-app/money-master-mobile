@@ -12,17 +12,15 @@ import {
   AssetSpeedDialButton,
   ConfirmSheet,
   CustomToast,
-  DrawAssetSheet,
   PlatformView,
   TransferOptions,
   TransparentLoading,
 } from 'shared/components';
 import { APP_CONTENT } from 'shared/constants';
-import { PortfolioDetailStore } from 'shared/stores';
+import { CryptoAssetStore, PortfolioDetailStore } from 'shared/stores';
 import { colorScheme, styleProvider } from 'shared/styles';
 import { AssetActionType } from 'shared/types';
 import { Information, Transaction, PopoverMenu, EditModal } from './components';
-import { CryptoAssetDetailStore } from './store';
 
 const CONTENT = APP_CONTENT.assetDetail;
 
@@ -32,10 +30,9 @@ export const CryptoAssetDetail = observer(() => {
     useRoute<RootStackScreenProps<'CoinAssetDetail'>['route']>();
   const [showModal, setShowModal] = React.useState(false);
   const [showConfirm, setShowConfirm] = React.useState(false);
-  const [showDraw, setShowDraw] = React.useState(false);
   const [showTransferOption, setShowTransferOption] = React.useState(false);
 
-  const { getTransactionList, assignInfo } = CryptoAssetDetailStore;
+  const { getTransactionList, assignInfo } = CryptoAssetStore;
   const { deleteResponse, deleteCryptoAsset, clearDeleteError } =
     PortfolioDetailStore;
 
@@ -83,6 +80,14 @@ export const CryptoAssetDetail = observer(() => {
     setShowConfirm(!showConfirm);
   };
 
+  const handleDraw = () => {
+    console.log('draw asset');
+    navigation.navigate('CashAssetPicker', {
+      type: 'CRYPTO',
+      sourceId: routeProps.params.info.id,
+    });
+  };
+
   return (
     <PlatformView style={styleProvider.body}>
       <StatusBar backgroundColor={colorScheme.bg} barStyle="dark-content" />
@@ -101,7 +106,7 @@ export const CryptoAssetDetail = observer(() => {
         onClose={() => setShowModal(!showModal)}
       />
       <AssetSpeedDialButton
-        onDraw={() => setShowDraw(!showDraw)}
+        onDraw={handleDraw}
         onTransfer={() => setShowTransferOption(!showTransferOption)}
       />
       <TransferOptions
@@ -124,7 +129,6 @@ export const CryptoAssetDetail = observer(() => {
         message={deleteResponse.errorMessage}
         show={deleteResponse.isError}
       />
-      <DrawAssetSheet show={showDraw} onClose={() => setShowDraw(!showDraw)} />
     </PlatformView>
   );
 });

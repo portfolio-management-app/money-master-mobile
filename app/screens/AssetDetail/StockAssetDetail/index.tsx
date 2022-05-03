@@ -17,11 +17,10 @@ import {
   TransparentLoading,
 } from 'shared/components';
 import { APP_CONTENT } from 'shared/constants';
-import { PortfolioDetailStore } from 'shared/stores';
+import { PortfolioDetailStore, StockAssetStore } from 'shared/stores';
 import { colorScheme, styleProvider } from 'shared/styles';
 import { AssetActionType } from 'shared/types';
 import { Information, Transaction, PopoverMenu, EditModal } from './components';
-import { StockAssetDetailStore } from './store';
 
 const CONTENT = APP_CONTENT.assetDetail;
 
@@ -37,8 +36,8 @@ export const StockAssetDetail = observer(() => {
     PortfolioDetailStore;
 
   React.useEffect(() => {
-    StockAssetDetailStore.assignInfo(routeProps.params.info.id);
-    StockAssetDetailStore.getTransactionList();
+    StockAssetStore.assignInfo(routeProps.params.info.id);
+    StockAssetStore.getTransactionList();
   }, [routeProps]);
 
   const handleMenuItemPress = (type: AssetActionType) => {

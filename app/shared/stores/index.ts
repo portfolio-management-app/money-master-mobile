@@ -1,3 +1,9 @@
+import { CustomAssetStore } from './custom-asset';
+import { CashAssetStore } from './cash-asset';
+import { RealEstateAssetStore } from './real-estate-asset';
+import { StockAssetStore } from './stock-asset';
+import { CryptoAssetStore } from './crypto-asset';
+import { BankAssetStore } from './bank-asset';
 import { InvestFundStore } from './invest-fund';
 import { MetalStore } from './metal-store';
 import { CurrencyDetailStore } from './currency-detail';
@@ -19,4 +25,10 @@ export {
   CurrencyDetailStore,
   MetalStore,
   InvestFundStore,
+  BankAssetStore,
+  CryptoAssetStore,
+  StockAssetStore,
+  RealEstateAssetStore,
+  CashAssetStore,
+  CustomAssetStore,
 };

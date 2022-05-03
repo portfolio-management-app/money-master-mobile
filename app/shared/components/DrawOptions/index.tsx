@@ -69,14 +69,14 @@ const Component = ({
         }
       }}
       options={[
-        { label: ASSET_DETAIL_CONTENT.transferOption.otherAsset },
-        { label: ASSET_DETAIL_CONTENT.transferOption.fund },
+        { label: ASSET_DETAIL_CONTENT.drawOption.cash },
+        { label: ASSET_DETAIL_CONTENT.drawOption.investFund },
       ]}
     />
   );
 };
 
-export const TransferOptions = React.memo(Component);
+export const DrawOptions = React.memo(Component);
 
 const styles = StyleSheet.create({
   optionButton: {

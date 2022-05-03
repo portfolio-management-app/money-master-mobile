@@ -1,3 +1,4 @@
+import { TransferToOtherAssetBody } from './types/index';
 import { Config } from 'config';
 import { HttpError } from 'errors/base';
 import { cast, flow, types } from 'mobx-state-tree';
@@ -28,6 +29,13 @@ const DeleteResponse = types.model({
   pending: types.boolean,
 });
 
+const TransferResponse = types.model({
+  isSuccess: types.boolean,
+  isError: types.boolean,
+  errorMessage: types.string,
+  pending: types.boolean,
+});
+
 export const PortfolioDetailStore = types
   .model({
     information: PortfolioInformation,
@@ -46,6 +54,7 @@ export const PortfolioDetailStore = types
     doneLoadingStockAsset: types.boolean,
     doneLoadingCurrencyAsset: types.boolean,
     deleteResponse: DeleteResponse,
+    transferResponse: TransferResponse,
   })
   .views((self) => ({
     getCoinByCode(code: string) {
@@ -351,6 +360,7 @@ export const PortfolioDetailStore = types
         return true;
       }
     });
+
     const getPieChart = flow(function* () {
       const res = yield httpRequest.sendGet(
         `${Config.BASE_URL}/portfolio/${self.information.id}/pieChart`,
@@ -438,6 +448,12 @@ export const PortfolioDetailStore = types
     doneLoadingStockAsset: false,
     doneLoadingCurrencyAsset: false,
     deleteResponse: {
+      isError: false,
+      isSuccess: false,
+      errorMessage: '',
+      pending: false,
+    },
+    transferResponse: {
       isError: false,
       isSuccess: false,
       errorMessage: '',

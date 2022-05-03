@@ -9,6 +9,7 @@ import {
   IStockAsset,
 } from 'shared/models';
 import {
+  AssetType,
   BuyScreenRouteProps,
   CreateAssetRouteProps,
   MetalDetailScreenProps,
@@ -47,6 +48,7 @@ export type RootStackParamList = {
   SellCrypto: undefined;
   SellStock: undefined;
   SellCurrency: undefined;
+  CashAssetPicker: { type: AssetType; sourceId: number };
   CryptoTransfer: { info: ICryptoAsset };
   StockTransfer: { info: IStockAsset };
   CustomTransfer: { info: ICustomAsset };

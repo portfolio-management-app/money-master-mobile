@@ -1,4 +1,5 @@
 import { HttpError } from 'errors/base';
+import { ApiAssetType, TransactionType } from './api';
 import {
   ModalProps,
   TextContainerProps,
@@ -16,6 +17,7 @@ import {
   CreateAssetRouteProps,
   BuyScreenRouteProps,
   MetalDetailScreenProps,
+  AssetType,
 } from './route-props';
 
 export type {
@@ -31,6 +33,9 @@ export type {
   CreateAssetRouteProps,
   BuyScreenRouteProps,
   MetalDetailScreenProps,
+  ApiAssetType,
+  TransactionType,
+  AssetType,
 };
 
 export type HttpRequestResponse = {
