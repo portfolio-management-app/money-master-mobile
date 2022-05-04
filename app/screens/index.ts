@@ -3,12 +3,12 @@ import { CashAssetPicker } from './CashAssetPicker/index';
 import { SellCurrency } from './SellScreen/SellCurrency/index';
 import { SellStock } from './SellScreen/SellStock/index';
 import { SellCrypto } from './SellScreen/SellCrypto/index';
-import { CurrencyTransfer } from './InvestFundTransfer/CurrencyTransfer/index';
+import { CurrencyTransfer } from './Transfer/CurrencyTransfer/index';
 import { CurrencyAssetDetail } from './AssetDetail/CashAssetDetail/index';
-import { RealEstateTransfer } from './InvestFundTransfer/RealEstateTransfer/index';
-import { CustomTransfer } from './InvestFundTransfer/CustomTransfer/index';
-import { BankTransfer } from './InvestFundTransfer/BankTransfer/index';
-import { StockTransfer, CryptoTransfer } from './InvestFundTransfer';
+import { RealEstateTransfer } from './Transfer/RealEstateTransfer/index';
+import { CustomTransfer } from './Transfer/CustomTransfer/index';
+import { BankTransfer } from './Transfer/BankTransfer/index';
+import { StockTransfer, CryptoTransfer } from './Transfer';
 
 import {
   BuyCurrency,

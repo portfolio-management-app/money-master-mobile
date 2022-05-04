@@ -32,9 +32,11 @@ export const CryptoTransfer = observer(() => {
     loading,
   } = InvestFundStore;
 
+  console.log(info);
+
   const handleTransfer = React.useCallback(
     (amount: number) => {
-      transferToFund(PortfolioDetailStore.id, {
+      transferToFund(PortfolioDetailStore.information.id, {
         referentialAssetId: info.id,
         amount: amount,
         referentialAssetType: 'crypto',

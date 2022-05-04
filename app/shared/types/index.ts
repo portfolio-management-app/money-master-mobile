@@ -7,6 +7,8 @@ import {
   RadioPickerProps,
   ErrorBounderProps,
   Variant,
+  HorizontalBarChartProps,
+  IPieData,
 } from './component-props';
 import {
   StockTimeSupport,
@@ -36,6 +38,8 @@ export type {
   ApiAssetType,
   TransactionType,
   AssetType,
+  HorizontalBarChartProps,
+  IPieData,
 };
 
 export type HttpRequestResponse = {

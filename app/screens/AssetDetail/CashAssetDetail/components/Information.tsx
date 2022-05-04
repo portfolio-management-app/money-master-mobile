@@ -11,7 +11,6 @@ import { formatCurrency } from 'utils/number';
 interface IProps {
   info: ICurrencyAsset;
 }
-const SCREEN_CONTENT = APP_CONTENT.realEstateAssetDetail;
 
 export const Information = ({ info }: IProps) => {
   const [open, setOpen] = React.useState(true);

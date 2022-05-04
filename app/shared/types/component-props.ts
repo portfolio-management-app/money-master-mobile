@@ -43,3 +43,21 @@ export interface RadioPickerProps {
   titleStyle?: TextContainerProps;
   size?: number;
 }
+
+export interface HorizontalBarChartProps {
+  data: Array<{
+    value: number;
+    label: string;
+    percent: number;
+    color: string;
+  }>;
+}
+
+export interface IPieData {
+  value: number;
+  svg: {
+    fill: string;
+  };
+  key: string;
+  name: string;
+}

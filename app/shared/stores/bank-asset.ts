@@ -3,7 +3,7 @@ import { HttpError } from 'errors/base';
 import { Config } from 'config';
 import { types, flow } from 'mobx-state-tree';
 import { httpRequest } from 'services/http';
-import { PortfolioDetailStore, UserStore } from 'shared/stores';
+import { UserStore } from 'shared/stores';
 import { log } from 'services/log';
 import { TransferToOtherAssetBody } from './types';
 
@@ -17,7 +17,7 @@ export const BankAssetStore = types
   .actions((self) => {
     const editAsset = flow(function* (body: any) {
       const res = yield httpRequest.sendPut(
-        `${Config.BASE_URL}/portfolio/${PortfolioDetailStore.information.id}/bankSaving/${self.id}`,
+        `${Config.BASE_URL}/portfolio/${self.portfolioId}/bankSaving/${self.id}`,
         body,
         UserStore.user.token
       );
@@ -29,11 +29,11 @@ export const BankAssetStore = types
     const getTransactionList = flow(function* () {
       self.loading = true;
       const res = yield httpRequest.sendGet(
-        `${Config.BASE_URL}/portfolio/${PortfolioDetailStore.information.id}/bankSaving/${self.id}/transactions`,
+        `${Config.BASE_URL}/portfolio/${self.portfolioId}/bankSaving/${self.id}/transactions`,
         UserStore.user.token
       );
       if (res instanceof HttpError) {
-        log('Error when get cash transaction list', res);
+        log('Error when get bank asset transaction list', res);
       } else {
         self.transactionList = res;
       }

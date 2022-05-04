@@ -1,46 +1,81 @@
 import { observer } from 'mobx-react-lite';
 import React from 'react';
-import { PieChart } from 'react-native-chart-kit';
-import { View } from 'react-native-ui-lib';
-import { Empty, PlatformView } from 'shared/components';
+import { RefreshControl, ScrollView } from 'react-native';
+import { ExpandableSection } from 'react-native-ui-lib';
+import {
+  AssetSectionHeader,
+  Empty,
+  HorizontalBarChart,
+  PlatformView,
+} from 'shared/components';
+import { ASSET_DETAIL_CONTENT } from 'shared/constants';
 import { PortfolioDetailStore } from 'shared/stores';
-import { dimensionProvider, styleProvider } from 'shared/styles';
-import { buildPieChartData } from './helper';
+import { styleProvider } from 'shared/styles';
+import { PieChartAsset } from './components';
+import { buildNewPieChartData, calculationPercent } from './helper';
 
 export const Brief = observer(() => {
-  const { pieChartInformation, getPieChart } = PortfolioDetailStore;
-
-  const data = buildPieChartData(pieChartInformation);
-  // const dataBarChart = buildBarChartData(pieChartInformation);
+  const [showAllocation, setShowAllocation] = React.useState(true);
+  const [showDetail, setShowDetail] = React.useState(true);
+  const { pieChartInformation, getPieChart, information, loadingGetPieChart } =
+    PortfolioDetailStore;
+  console.log(pieChartInformation);
   React.useEffect(() => {
     getPieChart();
   }, [getPieChart]);
+  const pies = React.useMemo(() => {
+    return buildNewPieChartData(pieChartInformation);
+  }, [pieChartInformation]);
 
+  const renderLabels = React.useMemo(() => {
+    return calculationPercent(pies);
+  }, [pies]);
+  console.log(renderLabels);
   return (
     <PlatformView style={styleProvider.body}>
-      {data.length ? (
-        <PieChart
-          data={data}
-          width={dimensionProvider.width}
-          height={200}
-          accessor={'value'}
-          backgroundColor={'transparent'}
-          paddingLeft={'0'}
-          chartConfig={{
-            // optional, defaults to 2dp
-            color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
-            labelColor: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
-          }}
-          center={[0, 0]}
-        />
-      ) : (
-        <View
-          flex
-          style={[styleProvider.centerVertical, { justifyContent: 'center' }]}
+      <RefreshControl
+        refreshing={loadingGetPieChart}
+        onRefresh={() => getPieChart()}
+      />
+      <ScrollView>
+        <ExpandableSection
+          expanded={showAllocation}
+          onPress={() => setShowAllocation(!showAllocation)}
+          sectionHeader={
+            <AssetSectionHeader
+              style={{ marginHorizontal: 20 }}
+              open={showAllocation}
+              title={ASSET_DETAIL_CONTENT.assetAllocation}
+            />
+          }
         >
-          <Empty />
-        </View>
-      )}
+          {pies.length ? (
+            <PieChartAsset renderLabels={renderLabels} data={pies} />
+          ) : (
+            <Empty />
+          )}
+        </ExpandableSection>
+        <ExpandableSection
+          expanded={showDetail}
+          onPress={() => setShowDetail(!showDetail)}
+          sectionHeader={
+            <AssetSectionHeader
+              style={{ marginHorizontal: 20 }}
+              open={showDetail}
+              title={ASSET_DETAIL_CONTENT.detail}
+            />
+          }
+        >
+          {renderLabels.length ? (
+            <HorizontalBarChart
+              currency={information.initialCurrency}
+              data={renderLabels}
+            />
+          ) : (
+            <Empty />
+          )}
+        </ExpandableSection>
+      </ScrollView>
     </PlatformView>
   );
 });

@@ -34,7 +34,7 @@ export const CustomTransfer = observer(() => {
   const handleTransfer = React.useCallback(
     (amount: number) => {
       const { id, inputCurrency } = routeProps.params.info;
-      transferToFund(PortfolioDetailStore.id, {
+      transferToFund(PortfolioDetailStore.information.id, {
         referentialAssetId: id,
         amount: amount,
         referentialAssetType: 'custom',

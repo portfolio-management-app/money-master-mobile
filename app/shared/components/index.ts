@@ -1,3 +1,5 @@
+import { HorizontalBarChart } from './HorizontalBarChart/index';
+import { SellOptions } from './SellOption/index';
 import { TransactionList } from './TransactionList';
 import { DrawAssetSheet } from './DrawAsset/index';
 import { TransactionDetailModal } from './TransactionDetail/index';
@@ -44,10 +46,14 @@ import { ErrorDialog } from './ErrorDialog';
 import { MetalPrice } from './MetalPrice';
 import { AssetSpeedDialButton } from './AssetSpeedDialButton';
 import { ConfirmSheet } from './ConfirmSheet';
+import { Skeleton } from './Skeleton';
 
 export {
   PlatformView,
+  Skeleton,
+  SellOptions,
   TransactionDetailModal,
+  HorizontalBarChart,
   DrawAssetSheet,
   TransferOptions,
   AssetSpeedDialButton,

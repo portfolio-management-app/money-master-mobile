@@ -1,4 +1,3 @@
-import { TransferToOtherAssetBody } from './types/index';
 import { Config } from 'config';
 import { HttpError } from 'errors/base';
 import { cast, flow, types } from 'mobx-state-tree';
@@ -50,6 +49,7 @@ export const PortfolioDetailStore = types
     loadingCreateCrypto: types.boolean,
     loadingCreateStockAsset: types.boolean,
     loadingCreateCurrencyAsset: types.boolean,
+    loadingGetPieChart: types.boolean,
     doneLoadingCryptoAsset: types.boolean,
     doneLoadingStockAsset: types.boolean,
     doneLoadingCurrencyAsset: types.boolean,
@@ -69,6 +69,13 @@ export const PortfolioDetailStore = types
       return self.currencyAssetList.filter(
         (currency) => currency.currencyCode === code
       );
+    },
+    getTotalMoney() {
+      let sum = 0;
+      for (let i = 0; i < self.pieChartInformation.length; i++) {
+        sum += self.pieChartInformation[i].sumValue;
+      }
+      return sum;
     },
   }))
   .actions((self) => {
@@ -362,6 +369,7 @@ export const PortfolioDetailStore = types
     });
 
     const getPieChart = flow(function* () {
+      self.loadingGetPieChart = true;
       const res = yield httpRequest.sendGet(
         `${Config.BASE_URL}/portfolio/${self.information.id}/pieChart`,
         UserStore.user.token
@@ -371,6 +379,7 @@ export const PortfolioDetailStore = types
       } else {
         self.pieChartInformation = res;
       }
+      self.loadingGetPieChart = false;
     });
 
     const makeDeleteError = (error: HttpError) => {
@@ -447,6 +456,7 @@ export const PortfolioDetailStore = types
     doneLoadingCryptoAsset: false,
     doneLoadingStockAsset: false,
     doneLoadingCurrencyAsset: false,
+    loadingGetPieChart: false,
     deleteResponse: {
       isError: false,
       isSuccess: false,

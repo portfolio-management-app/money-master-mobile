@@ -189,6 +189,8 @@ export const vn = {
       cash: 'Cash',
       investFund: 'Invest fund',
     },
+    assetAllocation: 'Asset allocation',
+    detail: 'Detail',
   },
   confirmModal: {
     confirm: 'OK',
@@ -358,6 +360,11 @@ export const vn = {
     purchasePrice: 'Purchase price',
     createSuccess: 'Transaction success',
     noAsset: 'Không tìm thấy tài sản phù hợp',
+    sellTo: {
+      title: 'Sell to ?',
+      toCash: 'To cash',
+      toInvestFund: 'To invest fund',
+    },
   },
   transactionDetail: {
     amount: 'Số tiền',
