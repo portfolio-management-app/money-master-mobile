@@ -4,6 +4,7 @@ import { HttpError } from 'errors/base';
 import { httpRequest } from 'services/http';
 import { UserStore } from './user';
 import { PortfolioInformation } from '../models';
+import { log } from 'services/log';
 
 export type AddNewBody = {
   name: string;
@@ -24,7 +25,7 @@ export const PortfolioListStore = types
         UserStore.user.token
       );
       if (res instanceof HttpError) {
-        console.log(res);
+        log('Error when create new portfolio', res);
       } else {
         yield getPortfolioList();
       }
@@ -37,7 +38,7 @@ export const PortfolioListStore = types
         UserStore.user.token
       );
       if (res instanceof HttpError) {
-        console.log(res);
+        log('Error when get portfolio list', res);
       } else {
         self.portfolioList = res;
       }

@@ -56,7 +56,7 @@ export const CustomTextField = ({
 
       <TextContainer
         type="extra-small"
-        style={{ marginVertical: 10 }}
+        style={{ marginVertical: 5 }}
         color={colorScheme.red500}
       >
         {errorMessage}

@@ -121,7 +121,7 @@ export const en = {
       banking: 'Banking',
       realEstate: 'Real estate',
       other: 'Other',
-      cash: 'Currency',
+      cash: 'Cash',
       metal: 'Metal',
     },
     createOtherModal: {
@@ -181,7 +181,7 @@ export const en = {
     buyDate: 'Buy date',
     amountHolding: 'Holding amount',
     stockCode: 'Stock symbol',
-    name: 'name',
+    name: 'Name',
     transferOption: {
       title: 'Transfer to',
       portfolio: 'Other portfolio',
@@ -382,8 +382,21 @@ export const en = {
     sell: 'Sell',
     add: 'Add',
     draw: 'Draw',
+    to: 'To',
+    destinationAssetType: 'Destination asset type',
   },
   cashAssetPicker: {
     title: 'Choose cash asset to draw',
+  },
+  drawScreen: {
+    header: 'to',
+    buttonContent: 'Draw',
+    inputPlaceHolder: 'Money amount to draw',
+    drawConfirm: {
+      title: 'Draw this asset?',
+    },
+  },
+  buyFromInvestFund: {
+    title: 'Buy from invest fund',
   },
 };

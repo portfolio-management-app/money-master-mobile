@@ -1,7 +1,16 @@
+import { Formik } from 'formik';
 import React from 'react';
+import { ScrollView } from 'react-native';
 import { Modal } from 'react-native-ui-lib';
+import {
+  CreateModalHeader,
+  CustomTextField,
+  DatePicker,
+} from 'shared/components';
 import { APP_CONTENT } from 'shared/constants';
 import { ICurrencyAsset } from 'shared/models';
+import { styleProvider } from 'shared/styles';
+import { CreateRealEstateAssetSchema } from 'shared/validator';
 
 interface IProps {
   open: boolean;
@@ -16,14 +25,14 @@ const SCREEN_CONTENT = APP_CONTENT.realEstateAssetDetail.editModal;
 export const EditModal = ({ open, item, onClose, onEdit }: IProps) => {
   return (
     <Modal visible={open} animationType="fade">
-      {/* <Formik
+      <Formik
         validationSchema={CreateRealEstateAssetSchema}
         initialValues={{
           name: item.name,
           inputDay: item.inputDay,
-          inputMoneyAmount: item.inputMoneyAmount,
-          inputCurrency: item.inputCurrency,
-          currentPrice: item.currentPrice,
+          inputMoneyAmount: 0,
+          inputCurrency: 'USD',
+          currentPrice: 0,
           description: item.description,
         }}
         onSubmit={(values) => {
@@ -83,14 +92,6 @@ export const EditModal = ({ open, item, onClose, onEdit }: IProps) => {
                   placeholder={SCREEN_CONTENT.currentPrice}
                   value={values.currentPrice.toString()}
                 />
-                <CurrencyPicker
-                  errorMessage={
-                    touched.inputCurrency ? errors.inputCurrency : ''
-                  }
-                  initVal={item.inputCurrency}
-                  onChange={handleChange('inputCurrency')}
-                  renderPicker={renderPickerForPortfolio}
-                />
 
                 <DatePicker
                   initDate={new Date(item.inputDay)}
@@ -101,7 +102,7 @@ export const EditModal = ({ open, item, onClose, onEdit }: IProps) => {
             </>
           );
         }}
-      </Formik> */}
+      </Formik>
     </Modal>
   );
 };

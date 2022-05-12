@@ -6,13 +6,20 @@ import {
   RootStackScreenProps,
 } from 'navigation/types';
 import React from 'react';
-import { ScrollView } from 'react-native';
+import { RefreshControl, ScrollView } from 'react-native';
 import { TouchableOpacity } from 'react-native-ui-lib';
-import { PlatformView, TextContainer } from 'shared/components';
+import {
+  Empty,
+  PlatformView,
+  Skeleton,
+  SkeletonLoadable,
+  TextContainer,
+} from 'shared/components';
 import { APP_CONTENT } from 'shared/constants';
 import { IPortfolio } from 'shared/models';
 import { PortfolioDetailStore, PortfolioListStore } from 'shared/stores';
 import { styleProvider } from 'shared/styles';
+import { assignPortfolioIdToAssetStore } from 'utils/store';
 
 const CONTENT = APP_CONTENT.portfolioPicker;
 
@@ -20,9 +27,10 @@ export const PortfolioPicker = observer(() => {
   const navigation = useNavigation<MainStackNavigationProp>();
   const routeProps =
     useRoute<RootStackScreenProps<'PortfolioPicker'>['route']>();
-  const { portfolioList } = PortfolioListStore;
+  const { portfolioList, loading, getPortfolioList } = PortfolioListStore;
   const handlePortfolioPress = (portfolio: IPortfolio) => {
     PortfolioDetailStore.assignInfo(portfolio);
+    assignPortfolioIdToAssetStore(portfolio.id);
     const { actionType } = routeProps.params;
     switch (routeProps.params.type) {
       case 'CRYPTO':
@@ -48,17 +56,32 @@ export const PortfolioPicker = observer(() => {
   return (
     <PlatformView style={styleProvider.body}>
       <NavigationHeader title={CONTENT.header} />
-      <ScrollView>
-        {portfolioList.map((portfolio) => (
-          <TouchableOpacity
-            onPress={() => handlePortfolioPress(portfolio)}
-            key={portfolio.id}
-            style={styleProvider.card}
+      <SkeletonLoadable
+        loading={loading}
+        isDataEmpty={portfolioList.length === 0}
+        skeleton={<Skeleton times={5} />}
+        dataComponent={
+          <ScrollView
+            refreshControl={
+              <RefreshControl
+                refreshing={loading}
+                onRefresh={() => getPortfolioList()}
+              />
+            }
           >
-            <TextContainer>{portfolio.name}</TextContainer>
-          </TouchableOpacity>
-        ))}
-      </ScrollView>
+            {portfolioList.map((portfolio) => (
+              <TouchableOpacity
+                onPress={() => handlePortfolioPress(portfolio)}
+                key={portfolio.id}
+                style={styleProvider.card}
+              >
+                <TextContainer>{portfolio.name}</TextContainer>
+              </TouchableOpacity>
+            ))}
+          </ScrollView>
+        }
+        emptyComponent={<Empty />}
+      />
     </PlatformView>
   );
 });

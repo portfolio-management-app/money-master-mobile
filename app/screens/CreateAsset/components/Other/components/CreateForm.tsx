@@ -6,35 +6,40 @@ import {
   CurrencyPicker,
   CustomTextField,
   DatePicker,
+  InvestFundBuy,
   renderPickerForPortfolio,
 } from 'shared/components';
 import { APP_CONTENT } from 'shared/constants';
+import { CreateOtherAssetBody } from 'shared/stores/types';
 import { CreateAssetSchema } from './validator';
 
 interface IProps {
-  onSubmit: (data: any) => void;
+  onSubmit: (data: CreateOtherAssetBody) => void;
   onClose: () => void;
   header?: string;
 }
 const FORM_CONTENT = APP_CONTENT.portfolioDetail.createOtherModal;
 
 const Component = ({ onSubmit, onClose, header }: IProps) => {
+  const [buyFromFund, setBuyFromFund] = React.useState(false);
   return (
     <Formik
       validationSchema={CreateAssetSchema}
       initialValues={{
         name: '',
-        inputDay: new Date(),
+        inputDay: new Date().toISOString(),
         inputMoneyAmount: 0,
         inputCurrency: '',
         description: '',
         interestRate: 0,
         termRange: 0,
+        isUsingInvestFund: false,
       }}
       onSubmit={(values) => {
         values.inputMoneyAmount = 1 * values.inputMoneyAmount;
         values.interestRate = 1 * values.interestRate;
         values.termRange = 1 * values.termRange;
+        values.isUsingInvestFund = buyFromFund;
         onSubmit(values);
         onClose();
       }}
@@ -81,7 +86,14 @@ const Component = ({ onSubmit, onClose, header }: IProps) => {
                 keyBoardType="decimal-pad"
                 placeholder={FORM_CONTENT.termRange}
               />
-              <DatePicker label={FORM_CONTENT.startDate} />
+              <InvestFundBuy
+                buy={buyFromFund}
+                onToggle={() => setBuyFromFund(!buyFromFund)}
+              />
+              <DatePicker
+                onISOStringChange={handleChange('inputDay')}
+                label={FORM_CONTENT.startDate}
+              />
             </ScrollView>
           </>
         );

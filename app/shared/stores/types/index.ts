@@ -1,3 +1,4 @@
+import { TransactionType } from './../../types/api';
 import { ApiAssetType } from 'shared/types';
 export type CreateOtherAssetBody = {
   name: string;
@@ -7,6 +8,7 @@ export type CreateOtherAssetBody = {
   description: string;
   interestRate: number;
   termRange: number;
+  isUsingInvestFund: boolean;
 };
 
 export type AuthenResponse = {
@@ -14,7 +16,7 @@ export type AuthenResponse = {
   token: string;
 };
 
-export type CryptoAssetBody = {
+export type CreateCryptoAssetBody = {
   name: string;
   inputDay: string;
   currentAmountHolding: number;
@@ -22,6 +24,7 @@ export type CryptoAssetBody = {
   purchasePrice: number;
   currencyCode: string;
   cryptoCoinCode: string;
+  isUsingInvestFund: boolean;
 };
 
 export type CreateStockAssetBody = {
@@ -33,8 +36,41 @@ export type CreateStockAssetBody = {
   marketCode: string;
   purchasePrice: number;
   currencyCode: string;
+  isUsingInvestFund: boolean;
 };
 
+export type CreateCurrencyAssetBody = {
+  currencyCode: string;
+  amount: number;
+  name: string;
+  inputDay: string;
+  description: string;
+  isUsingInvestFund: boolean;
+};
+
+export type CreateBankAssetBody = {
+  name: string;
+  bankCode: string;
+  inputDay: string;
+  inputMoneyAmount: number;
+  inputCurrency: string;
+  isGoingToReinState: boolean;
+  description: string;
+  interestRate: number;
+  termRange: number;
+  isUsingInvestFund: boolean;
+};
+
+export type CreateRealEstateAssetBody = {
+  name: string;
+  inputDay: string;
+  inputMoneyAmount: number;
+  inputCurrency: string;
+  buyPrice: number;
+  currentPrice: number;
+  description: string;
+  isUsingInvestFund: boolean;
+};
 export type TransferToInvestFundBody = {
   referentialAssetId: number;
   referentialAssetType: ApiAssetType;
@@ -49,4 +85,5 @@ export type TransferToOtherAssetBody = {
   amount: number;
   currencyCode: string;
   isTransferringAll: boolean;
+  transactionType: TransactionType;
 };

@@ -10,6 +10,7 @@ export const Skeleton = ({ times }: IProps) => {
   for (let i = 0; i < times; i++) {
     renderItems.push(
       <SkeletonView
+        key={i}
         times={10}
         showContent={true}
         template={SkeletonView.templates.LIST_ITEM}

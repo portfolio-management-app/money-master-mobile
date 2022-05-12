@@ -10,9 +10,15 @@ const CONTENT = APP_CONTENT.transferToFund;
 
 interface IProps {
   onTransfer?: (amount: number) => void;
+  buttonContent?: string;
+  inputPlaceHolder?: string;
 }
 
-export const TransferForm = ({ onTransfer }: IProps) => {
+export const TransferForm = ({
+  onTransfer,
+  buttonContent = CONTENT.transfer,
+  inputPlaceHolder = CONTENT.amount,
+}: IProps) => {
   return (
     <Formik
       validationSchema={TransferToFundAssetSchema}
@@ -24,18 +30,18 @@ export const TransferForm = ({ onTransfer }: IProps) => {
       {({ errors, touched, handleBlur, handleChange, handleSubmit }) => {
         return (
           <>
-            <View style={styleProvider.container}>
+            <View style={[styleProvider.container, { marginTop: 20 }]}>
               <CustomTextField
                 onChangeText={handleChange('amount')}
                 onBlur={handleBlur('amount')}
                 keyBoardType="decimal-pad"
                 errorMessage={touched.amount ? errors.amount : ''}
-                placeholder={CONTENT.amount}
+                placeholder={inputPlaceHolder}
               />
               <BaseButton
                 onPress={handleSubmit}
                 backgroundColor={colorScheme.theme}
-                label={CONTENT.transfer}
+                label={buttonContent}
               />
             </View>
           </>

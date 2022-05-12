@@ -17,7 +17,7 @@ export const ReinStateCheckBox = ({ reinState, onToggle }: IProps) => {
         value={reinState}
         onValueChange={() => onToggle()}
         label={SCREEN_CONTENT.bankingModal.reinState}
-        labelStyle={{ fontFamily: fontProvider.openSans, fontSize: 16 }}
+        labelStyle={{ fontFamily: fontProvider.openSans, fontSize: 14 }}
         color={colorScheme.theme}
       />
       <CustomHint

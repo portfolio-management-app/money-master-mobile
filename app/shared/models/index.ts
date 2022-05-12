@@ -38,6 +38,7 @@ import {
   ICurrencyAsset,
 } from './types';
 import { MetalInformation } from './metal-information';
+import { TransactionResponse } from './response';
 export {
   User,
   CoinInformation,
@@ -56,6 +57,7 @@ export {
   PieChartItem,
   TransactionItem,
   InvestFundInformation,
+  TransactionResponse,
 };
 
 export type {

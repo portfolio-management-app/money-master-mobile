@@ -1,4 +1,8 @@
-import { DrawScreen } from './DrawScreen/index';
+import { DrawRealEstate } from './DrawScreen/DrawRealEstate/index';
+import { DrawBank } from './DrawScreen/DrawBank/index';
+import { DrawStock } from './DrawScreen/DrawStock/index';
+import { DrawCash } from './DrawScreen/DrawCurrency/index';
+import { DrawCrypto } from './DrawScreen/index';
 import { CashAssetPicker } from './CashAssetPicker/index';
 import { SellCurrency } from './SellScreen/SellCurrency/index';
 import { SellStock } from './SellScreen/SellStock/index';
@@ -9,7 +13,6 @@ import { RealEstateTransfer } from './Transfer/RealEstateTransfer/index';
 import { CustomTransfer } from './Transfer/CustomTransfer/index';
 import { BankTransfer } from './Transfer/BankTransfer/index';
 import { StockTransfer, CryptoTransfer } from './Transfer';
-
 import {
   BuyCurrency,
   BuyCrypto,
@@ -41,7 +44,7 @@ import { ForgetPassword, Login, Register } from './Authentication';
 
 export {
   BankTransfer,
-  DrawScreen,
+  DrawCrypto,
   CustomTransfer,
   CurrencyAssetDetail,
   RealEstateTransfer,
@@ -78,4 +81,8 @@ export {
   CurrencyDetail,
   PortfolioPicker,
   BuyCrypto,
+  DrawCash,
+  DrawStock,
+  DrawBank,
+  DrawRealEstate,
 };

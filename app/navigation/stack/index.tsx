@@ -35,6 +35,11 @@ import {
   SellStock,
   SellCurrency,
   CashAssetPicker,
+  DrawCrypto,
+  DrawCash,
+  DrawStock,
+  DrawBank,
+  DrawRealEstate,
 } from 'screens';
 import { StatusBar } from 'react-native';
 import { colorScheme } from 'shared/styles';
@@ -97,6 +102,11 @@ export const NavigationStack = () => {
         <Stack.Screen name="SellStock" component={SellStock} />
         <Stack.Screen name="SellCurrency" component={SellCurrency} />
         <Stack.Screen name="CashAssetPicker" component={CashAssetPicker} />
+        <Stack.Screen name="DrawCrypto" component={DrawCrypto} />
+        <Stack.Screen name="DrawCash" component={DrawCash} />
+        <Stack.Screen name="DrawStock" component={DrawStock} />
+        <Stack.Screen name="DrawBank" component={DrawBank} />
+        <Stack.Screen name="DrawRealEstate" component={DrawRealEstate} />
       </Stack.Navigator>
     </NavigationContainer>
   );

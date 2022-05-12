@@ -4,17 +4,9 @@ import { RootStackScreenProps } from 'navigation/types';
 import React from 'react';
 import { StatusBar } from 'react-native';
 import { PlatformView } from 'shared/components';
-import {
-  InvestFundStore,
-  PortfolioDetailStore,
-  BankAssetStore,
-  CryptoAssetStore,
-  StockAssetStore,
-  CashAssetStore,
-  CustomAssetStore,
-  RealEstateAssetStore,
-} from 'shared/stores';
+import { InvestFundStore, PortfolioDetailStore } from 'shared/stores';
 import { colorScheme, styleProvider } from 'shared/styles';
+import { assignPortfolioIdToAssetStore } from 'utils/store';
 import { Header, TabBarView } from './components';
 
 export const PortfolioDetail = observer(() => {
@@ -25,14 +17,10 @@ export const PortfolioDetail = observer(() => {
     const { id } = routeProps.params.info;
     PortfolioDetailStore.assignInfo(routeProps.params.info);
     PortfolioDetailStore.getAllAsset();
+    PortfolioDetailStore.getPieChart();
     InvestFundStore.assignPortfolioId(id);
-    BankAssetStore.assignPortfolioId(id);
-    CryptoAssetStore.assignPortfolioId(id);
-    StockAssetStore.assignPortfolioId(id);
-    CustomAssetStore.assignPortfolioId(id);
-    RealEstateAssetStore.assignPortfolioId(id);
-    CashAssetStore.assignPortfolioId(id);
     InvestFundStore.getFund();
+    assignPortfolioIdToAssetStore(id);
     return () => PortfolioDetailStore.cleanUp();
   }, [routeProps]);
 

@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 export const usePrevious = <T>(value: T): T | undefined => {
   const ref = useRef<T>();
@@ -6,4 +6,13 @@ export const usePrevious = <T>(value: T): T | undefined => {
     ref.current = value;
   });
   return ref.current;
+};
+
+export const useConfirmSheet = () => {
+  const [show, setShow] = useState(false);
+  const toggle = () => {
+    setShow(!show);
+  };
+
+  return { show, toggle };
 };

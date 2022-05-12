@@ -74,11 +74,6 @@ export const Start = observer(() => {
                   onPress={() => navigation.navigate('Login')}
                   label={START_CONTENT.login}
                 />
-                <BaseButton
-                  style={{ width: '100%', marginTop: 20 }}
-                  label="Demo"
-                  onPress={() => navigation.navigate('Home')}
-                />
               </View>
             </PlatformView>
           ) : (

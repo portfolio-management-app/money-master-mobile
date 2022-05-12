@@ -3,11 +3,10 @@ import { observer } from 'mobx-react-lite';
 import { NavigationHeader } from 'navigation/header';
 import { RootStackScreenProps } from 'navigation/types';
 import React from 'react';
-import { View } from 'react-native';
 import {
+  CashInformationCard,
   CustomToast,
   PlatformView,
-  TextContainer,
   TransferForm,
   TransparentLoading,
 } from 'shared/components';
@@ -34,7 +33,7 @@ export const CurrencyTransfer = observer(() => {
   const handleTransfer = React.useCallback(
     (amount: number) => {
       const { id, currencyCode } = routeProps.params.info;
-      transferToFund(PortfolioDetailStore.id, {
+      transferToFund(PortfolioDetailStore.information.id, {
         referentialAssetId: id,
         amount: amount,
         referentialAssetType: 'cash',
@@ -47,9 +46,7 @@ export const CurrencyTransfer = observer(() => {
   return (
     <PlatformView style={styleProvider.body}>
       <NavigationHeader title={CONTENT.header} />
-      <View>
-        <TextContainer></TextContainer>
-      </View>
+      <CashInformationCard asset={routeProps.params.info} />
       <TransferForm onTransfer={handleTransfer} />
       <CustomToast
         show={isSuccess}

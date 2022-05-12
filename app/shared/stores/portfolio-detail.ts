@@ -6,7 +6,10 @@ import { log } from 'services/log';
 import {
   CreateOtherAssetBody,
   CreateStockAssetBody,
-  CryptoAssetBody,
+  CreateCryptoAssetBody,
+  CreateCurrencyAssetBody,
+  CreateBankAssetBody,
+  CreateRealEstateAssetBody,
 } from './types';
 import { UserStore } from './user';
 import {
@@ -20,6 +23,7 @@ import {
   PortfolioInformation,
   IPortfolio,
 } from './../models';
+import { InvestFundStore } from './invest-fund';
 
 const DeleteResponse = types.model({
   isSuccess: types.boolean,
@@ -55,6 +59,7 @@ export const PortfolioDetailStore = types
     doneLoadingCurrencyAsset: types.boolean,
     deleteResponse: DeleteResponse,
     transferResponse: TransferResponse,
+    pieChartCount: 0,
   })
   .views((self) => ({
     getCoinByCode(code: string) {
@@ -77,9 +82,13 @@ export const PortfolioDetailStore = types
       }
       return sum;
     },
+    getCurrencyById(id: number) {
+      const find = self.currencyAssetList.find((e) => e.id === id);
+      return find;
+    },
   }))
   .actions((self) => {
-    const createCurrencyAsset = flow(function* (body: any) {
+    const createCurrencyAsset = flow(function* (body: CreateCurrencyAssetBody) {
       self.loadingCreateCurrencyAsset = true;
       const res = yield httpRequest.sendPost(
         `${Config.BASE_URL}/portfolio/${self.information.id}/cash`,
@@ -91,11 +100,15 @@ export const PortfolioDetailStore = types
         return false;
       } else {
         getCurrencyAsset();
+        if (body.isUsingInvestFund) {
+          revalidateInvestFund();
+        }
       }
       self.loadingCreateCurrencyAsset = false;
+
       return true;
     });
-    const createCryptoAsset = flow(function* (body: CryptoAssetBody) {
+    const createCryptoAsset = flow(function* (body: CreateCryptoAssetBody) {
       self.loadingCreateCrypto = true;
       const res = yield httpRequest.sendPost(
         `${Config.BASE_URL}/portfolio/${self.information.id}/crypto`,
@@ -107,8 +120,12 @@ export const PortfolioDetailStore = types
         return false;
       } else {
         getCryptoAsset();
+        if (body.isUsingInvestFund) {
+          revalidateInvestFund();
+        }
       }
       self.loadingCreateCrypto = false;
+
       return true;
     });
     const createStockAsset = flow(function* (body: CreateStockAssetBody) {
@@ -123,6 +140,9 @@ export const PortfolioDetailStore = types
         return false;
       } else {
         getStockAsset();
+        if (body.isUsingInvestFund) {
+          revalidateInvestFund();
+        }
       }
       self.loadingCreateStockAsset = false;
       return true;
@@ -137,13 +157,16 @@ export const PortfolioDetailStore = types
         UserStore.user.token
       );
       if (res instanceof HttpError) {
-        console.log(res);
+        log('Error when create other asset', res);
       } else {
         getCustomAsset();
+        if (body.isUsingInvestFund) {
+          revalidateInvestFund();
+        }
       }
     });
 
-    const createBankAsset = flow(function* (body: any) {
+    const createBankAsset = flow(function* (body: CreateBankAssetBody) {
       const res = yield httpRequest.sendPost(
         `${Config.BASE_URL}/portfolio/${self.information.id}/bankSaving`,
         body,
@@ -153,10 +176,15 @@ export const PortfolioDetailStore = types
         log('error when create bank', res);
       } else {
         getBankingAsset();
+        if (body.isUsingInvestFund) {
+          revalidateInvestFund();
+        }
       }
     });
 
-    const createRealEstateAsset = flow(function* (body: any) {
+    const createRealEstateAsset = flow(function* (
+      body: CreateRealEstateAssetBody
+    ) {
       const res = yield httpRequest.sendPost(
         `${Config.BASE_URL}/portfolio/${self.information.id}/realEstate`,
         body,
@@ -166,6 +194,9 @@ export const PortfolioDetailStore = types
         log('error when create real estate', res);
       } else {
         getRealEstateAsset();
+        if (body.isUsingInvestFund) {
+          revalidateInvestFund();
+        }
       }
     });
 
@@ -378,6 +409,7 @@ export const PortfolioDetailStore = types
         log('error when get pie chart', res);
       } else {
         self.pieChartInformation = res;
+        self.pieChartCount = self.pieChartCount + 1;
       }
       self.loadingGetPieChart = false;
     });
@@ -414,6 +446,10 @@ export const PortfolioDetailStore = types
       self.loadingCreateCrypto = false;
       self.loadingCreateCurrencyAsset = false;
       self.loadingCreateStockAsset = false;
+    };
+
+    const revalidateInvestFund = () => {
+      InvestFundStore.getFund();
     };
 
     return {

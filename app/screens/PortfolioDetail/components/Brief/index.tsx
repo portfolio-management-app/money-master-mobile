@@ -17,20 +17,23 @@ import { buildNewPieChartData, calculationPercent } from './helper';
 export const Brief = observer(() => {
   const [showAllocation, setShowAllocation] = React.useState(true);
   const [showDetail, setShowDetail] = React.useState(true);
-  const { pieChartInformation, getPieChart, information, loadingGetPieChart } =
-    PortfolioDetailStore;
-  console.log(pieChartInformation);
-  React.useEffect(() => {
-    getPieChart();
-  }, [getPieChart]);
+  const {
+    pieChartInformation,
+    getPieChart,
+    information,
+    loadingGetPieChart,
+    pieChartCount,
+  } = PortfolioDetailStore;
+
   const pies = React.useMemo(() => {
+    console.log('PIE CHART COUNT', pieChartCount);
     return buildNewPieChartData(pieChartInformation);
-  }, [pieChartInformation]);
+  }, [pieChartCount, pieChartInformation]);
 
   const renderLabels = React.useMemo(() => {
     return calculationPercent(pies);
   }, [pies]);
-  console.log(renderLabels);
+
   return (
     <PlatformView style={styleProvider.body}>
       <RefreshControl

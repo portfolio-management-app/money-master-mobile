@@ -1,4 +1,4 @@
-import { TransactionItem } from 'shared/models';
+import { TransactionItem, TransactionResponse } from 'shared/models';
 import { HttpError } from 'errors/base';
 import { Config } from 'config';
 import { types, flow } from 'mobx-state-tree';
@@ -13,6 +13,7 @@ export const RealEstateAssetStore = types
     transactionList: types.array(TransactionItem),
     loading: types.boolean,
     portfolioId: types.number,
+    transactionResponse: TransactionResponse,
   })
   .actions((self) => {
     const editAsset = flow(function* (body: any) {
@@ -46,7 +47,7 @@ export const RealEstateAssetStore = types
     const assignPortfolioId = (id: number) => {
       self.portfolioId = id;
     };
-    const transferCryptoAsset = flow(function* (
+    const transferAsset = flow(function* (
       body: TransferToOtherAssetBody,
       assetId: number
     ) {
@@ -56,7 +57,10 @@ export const RealEstateAssetStore = types
         UserStore.user.token
       );
       if (res instanceof HttpError) {
+        self.transactionResponse.makeError(res);
         log('Error when transfer real estate asset', res);
+      } else {
+        self.transactionResponse.makeSuccess();
       }
     });
 
@@ -65,11 +69,16 @@ export const RealEstateAssetStore = types
       assignInfo,
       getTransactionList,
       assignPortfolioId,
-      transferCryptoAsset,
+      transferAsset,
     };
   })
   .create({
     id: 0,
     loading: false,
     portfolioId: 0,
+    transactionResponse: {
+      isError: false,
+      isSuccess: false,
+      errorMessage: '',
+    },
   });

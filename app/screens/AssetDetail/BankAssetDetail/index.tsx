@@ -97,6 +97,13 @@ export const BankAssetDetail = observer(() => {
     setShowConfirmTransfer(!showConfirmTransfer);
   };
 
+  const handleDraw = () => {
+    navigation.navigate('CashAssetPicker', {
+      type: 'BANKING',
+      source: routeProps.params.info,
+    });
+  };
+
   return (
     <PlatformView style={styleProvider.body}>
       <StatusBar backgroundColor={colorScheme.bg} barStyle="dark-content" />
@@ -121,6 +128,7 @@ export const BankAssetDetail = observer(() => {
         onClose={() => setShowTransferOption(!showTransferOption)}
       />
       <AssetSpeedDialButton
+        onDraw={handleDraw}
         onTransfer={() => setShowTransferOption(!showTransferOption)}
       />
       <ConfirmSheet

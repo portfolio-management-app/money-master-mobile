@@ -71,6 +71,13 @@ export const CurrencyAssetDetail = observer(() => {
     setShowConfirm(!showConfirm);
   };
 
+  const handleDraw = () => {
+    navigation.navigate('CashAssetPicker', {
+      type: 'CASH',
+      source: routeProps.params.info,
+    });
+  };
+
   return (
     <PlatformView style={styleProvider.body}>
       <StatusBar backgroundColor={colorScheme.bg} barStyle="dark-content" />
@@ -89,6 +96,7 @@ export const CurrencyAssetDetail = observer(() => {
         onClose={() => setShowModal(!showModal)}
       />
       <AssetSpeedDialButton
+        onDraw={handleDraw}
         onTransfer={() => setShowTransferOption(!showTransferOption)}
       />
       <TransferOptions

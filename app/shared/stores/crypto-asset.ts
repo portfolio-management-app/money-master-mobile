@@ -3,7 +3,7 @@ import { Config } from 'config';
 import { types, flow } from 'mobx-state-tree';
 import { httpRequest } from 'services/http';
 import { UserStore } from 'shared/stores';
-import { TransactionItem } from 'shared/models';
+import { TransactionItem, TransactionResponse } from 'shared/models';
 import { log } from 'services/log';
 import { TransferToOtherAssetBody } from './types';
 
@@ -13,6 +13,7 @@ export const CryptoAssetStore = types
     transactionList: types.array(TransactionItem),
     loading: types.boolean,
     portfolioId: types.number,
+    transactionResponse: TransactionResponse,
   })
   .actions((self) => {
     const editAsset = flow(function* (body: any) {
@@ -41,7 +42,7 @@ export const CryptoAssetStore = types
       self.loading = false;
     });
 
-    const transferCryptoAsset = flow(function* (
+    const transferAsset = flow(function* (
       body: TransferToOtherAssetBody,
       assetId: number
     ) {
@@ -52,6 +53,9 @@ export const CryptoAssetStore = types
       );
       if (res instanceof HttpError) {
         log('Error when transfer crypto asset', res);
+        self.transactionResponse.makeError(res);
+      } else {
+        self.transactionResponse.makeSuccess();
       }
     });
     const assignInfo = (id: number) => {
@@ -66,7 +70,7 @@ export const CryptoAssetStore = types
       editAsset,
       assignInfo,
       getTransactionList,
-      transferCryptoAsset,
+      transferAsset,
       assignPortfolioId,
     };
   })
@@ -74,4 +78,9 @@ export const CryptoAssetStore = types
     id: 0,
     loading: false,
     portfolioId: 0,
+    transactionResponse: {
+      isError: false,
+      isSuccess: false,
+      errorMessage: '',
+    },
   });

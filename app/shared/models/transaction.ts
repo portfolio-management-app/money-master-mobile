@@ -5,7 +5,8 @@ export const TransactionItem = types.model('TransactionItem', {
     types.literal('newAsset'),
     types.literal('addValue'),
     types.literal('withdrawValue'),
-    types.literal('sellAsset')
+    types.literal('sellAsset'),
+    types.literal('moveToFund')
   ),
   id: types.number,
   referentialAssetId: types.maybeNull(types.number),
@@ -15,6 +16,8 @@ export const TransactionItem = types.model('TransactionItem', {
     types.literal('bankSaving'),
     types.literal('realEstate'),
     types.literal('custom'),
+    types.literal('cash'),
+    types.literal('fund'),
     types.null
   ),
   destinationAssetId: types.maybeNull(types.number),
@@ -24,6 +27,8 @@ export const TransactionItem = types.model('TransactionItem', {
     types.literal('bankSaving'),
     types.literal('realEstate'),
     types.literal('custom'),
+    types.literal('fund'),
+    types.literal('cash'),
     types.null
   ),
   amount: types.number,

@@ -51,6 +51,13 @@ export const StockAssetDetail = observer(() => {
     }
   };
 
+  const handleDraw = () => {
+    navigation.navigate('CashAssetPicker', {
+      type: 'STOCK',
+      source: routeProps.params.info,
+    });
+  };
+
   const handleEditInformation = (newData: any) => {
     console.log('edit stock asset', newData);
   };
@@ -89,6 +96,7 @@ export const StockAssetDetail = observer(() => {
         onClose={() => setShowModal(!showModal)}
       />
       <AssetSpeedDialButton
+        onDraw={handleDraw}
         onTransfer={() => setShowTransferOption(!showTransferOption)}
       />
       <TransferOptions

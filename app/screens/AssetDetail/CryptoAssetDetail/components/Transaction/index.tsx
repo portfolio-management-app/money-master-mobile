@@ -47,14 +47,13 @@ export const Transaction = observer(() => {
             title={ASSET_DETAIL_CONTENT.transaction}
           />
         }
-      >
-        <TransactionList
-          onRefresh={() => getTransactionList()}
-          data={transactionList}
-          refreshing={loading}
-          onItemPress={handleItemPress}
-        />
-      </ExpandableSection>
+      ></ExpandableSection>
+      <TransactionList
+        onRefresh={() => getTransactionList()}
+        data={transactionList}
+        refreshing={loading}
+        onItemPress={handleItemPress}
+      />
     </>
   );
 });

@@ -4,10 +4,12 @@ export type ApiAssetType =
   | 'crypto'
   | 'custom'
   | 'realEstate'
-  | 'stock';
+  | 'stock'
+  | 'fund';
 
 export type TransactionType =
   | 'newAsset'
   | 'addValue'
   | 'withdrawValue'
-  | 'sellAsset';
+  | 'sellAsset'
+  | 'moveToFund';

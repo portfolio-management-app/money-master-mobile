@@ -3,11 +3,10 @@ import { observer } from 'mobx-react-lite';
 import { NavigationHeader } from 'navigation/header';
 import { RootStackScreenProps } from 'navigation/types';
 import React from 'react';
-import { View } from 'react-native';
 import {
+  CustomAssetInformationCard,
   CustomToast,
   PlatformView,
-  TextContainer,
   TransferForm,
   TransparentLoading,
 } from 'shared/components';
@@ -47,9 +46,7 @@ export const CustomTransfer = observer(() => {
   return (
     <PlatformView style={styleProvider.body}>
       <NavigationHeader title={CONTENT.header} />
-      <View>
-        <TextContainer></TextContainer>
-      </View>
+      <CustomAssetInformationCard asset={routeProps.params.info} />
       <TransferForm onTransfer={handleTransfer} />
       <CustomToast
         show={isSuccess}

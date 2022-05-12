@@ -18,9 +18,11 @@ export const translateTransactionType = (
   }
 };
 
-export const translateAssetType = (type: string) => {
+export const translateAssetType = (
+  type: ITransactionItem['destinationAssetType'] | null
+) => {
   switch (type) {
     default:
-      return type;
+      return type !== null ? type : '';
   }
 };

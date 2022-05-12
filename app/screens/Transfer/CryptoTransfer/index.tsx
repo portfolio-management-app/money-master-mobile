@@ -3,18 +3,16 @@ import { observer } from 'mobx-react-lite';
 import { NavigationHeader } from 'navigation/header';
 import { RootStackScreenProps } from 'navigation/types';
 import React from 'react';
-import { View } from 'react-native';
 import {
+  CryptoInformationCard,
   CustomToast,
   PlatformView,
-  TextContainer,
   TransferForm,
   TransparentLoading,
 } from 'shared/components';
 import { APP_CONTENT } from 'shared/constants';
 import { InvestFundStore, PortfolioDetailStore } from 'shared/stores';
 import { styleProvider } from 'shared/styles';
-import { formatCurrency } from 'utils/number';
 
 const CONTENT = APP_CONTENT.transferToFund;
 
@@ -49,18 +47,7 @@ export const CryptoTransfer = observer(() => {
   return (
     <PlatformView style={styleProvider.body}>
       <NavigationHeader title={CONTENT.header} />
-      <View style={styleProvider.centerVertical}>
-        <View>
-          <TextContainer mb={10}>
-            {CONTENT.currentHolding}:{' '}
-            {formatCurrency(info.currentAmountInCurrency, info.currencyCode)}
-          </TextContainer>
-          <TextContainer>
-            {CONTENT.currentPrice}:{' '}
-            {formatCurrency(info.currentPrice, info.currencyCode)}
-          </TextContainer>
-        </View>
-      </View>
+      <CryptoInformationCard asset={routeProps.params.info} />
       <TransferForm onTransfer={handleTransfer} />
       <CustomToast
         show={isSuccess}

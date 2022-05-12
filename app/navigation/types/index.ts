@@ -48,13 +48,26 @@ export type RootStackParamList = {
   SellCrypto: undefined;
   SellStock: undefined;
   SellCurrency: undefined;
-  CashAssetPicker: { type: AssetType; sourceId: number };
+  CashAssetPicker: {
+    type: AssetType;
+    source:
+      | ICryptoAsset
+      | ICurrencyAsset
+      | IStockAsset
+      | IBankAsset
+      | IRealEstateAsset;
+  };
   CryptoTransfer: { info: ICryptoAsset };
   StockTransfer: { info: IStockAsset };
   CustomTransfer: { info: ICustomAsset };
   BankTransfer: { info: IBankAsset };
   CurrencyTransfer: { info: ICurrencyAsset };
   RealEstateTransfer: { info: IRealEstateAsset };
+  DrawCrypto: { source: ICryptoAsset; cashDestination: ICurrencyAsset };
+  DrawStock: { source: IStockAsset; cashDestination: ICurrencyAsset };
+  DrawCash: { source: ICurrencyAsset; cashDestination: ICurrencyAsset };
+  DrawBank: { source: IBankAsset; cashDestination: ICurrencyAsset };
+  DrawRealEstate: { source: IRealEstateAsset; cashDestination: ICurrencyAsset };
 };
 
 export type BottomStackParamStack = {

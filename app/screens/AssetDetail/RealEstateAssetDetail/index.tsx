@@ -101,6 +101,13 @@ export const RealEstateAssetDetail = observer(() => {
     setShowConfirmTransfer(!showConfirmTransfer);
   };
 
+  const handleDraw = () => {
+    navigation.navigate('CashAssetPicker', {
+      type: 'REAL-ESTATE',
+      source: routeProps.params.info,
+    });
+  };
+
   return (
     <PlatformView style={styleProvider.body}>
       <StatusBar backgroundColor={colorScheme.bg} barStyle="dark-content" />
@@ -125,6 +132,7 @@ export const RealEstateAssetDetail = observer(() => {
         onClose={() => setShowTransferOption(!showTransferOption)}
       />
       <AssetSpeedDialButton
+        onDraw={handleDraw}
         onTransfer={() => setShowTransferOption(!showTransferOption)}
       />
       <ConfirmSheet

@@ -9,12 +9,14 @@ import {
   CustomTextField,
   CustomToast,
   DatePicker,
+  InvestFundBuy,
   PlatformView,
   TextContainer,
   TransparentLoading,
 } from 'shared/components';
 import { APP_CONTENT } from 'shared/constants';
 import { CoinDetailStore, PortfolioDetailStore } from 'shared/stores';
+import { CreateCryptoAssetBody } from 'shared/stores/types';
 import { colorScheme, styleProvider } from 'shared/styles';
 import { CreateCryptoAssetSchema } from 'shared/validator';
 import { formatCurrency } from 'utils/number';
@@ -23,11 +25,12 @@ const CONTENT = APP_CONTENT.buyScreen;
 
 export const BuyCrypto = observer(() => {
   const [success, setSuccess] = React.useState(false);
+  const [buyFromFund, setBuyFromFund] = React.useState(false);
   const { coinInfo, currency } = CoinDetailStore;
   const { loadingCreateCrypto, createCryptoAsset } = PortfolioDetailStore;
 
   const handleCreate = React.useCallback(
-    async (values: any) => {
+    async (values: CreateCryptoAssetBody) => {
       const isSuccess = await createCryptoAsset(values);
       if (isSuccess) {
         setSuccess(true);
@@ -51,6 +54,7 @@ export const BuyCrypto = observer(() => {
         onSubmit={(values) => {
           values.purchasePrice = 1 * values.purchasePrice;
           values.currentAmountHolding = 1 * values.currentAmountHolding;
+          values.isUsingInvestFund = buyFromFund;
           handleCreate(values);
         }}
         initialValues={{
@@ -61,6 +65,7 @@ export const BuyCrypto = observer(() => {
           purchasePrice: 0,
           currencyCode: currency,
           cryptoCoinCode: coinInfo.id,
+          isUsingInvestFund: buyFromFund,
         }}
       >
         {({
@@ -120,10 +125,15 @@ export const BuyCrypto = observer(() => {
                 onChange={handleChange('currencyCode')}
                 initVal={currency.toUpperCase()}
               />
+              <InvestFundBuy
+                buy={buyFromFund}
+                onToggle={() => setBuyFromFund(!buyFromFund)}
+              />
               <DatePicker
                 onISOStringChange={handleChange('inputDay')}
                 label={CONTENT.startDate}
               />
+
               <BaseButton
                 onPress={handleSubmit}
                 label={CONTENT.buy}

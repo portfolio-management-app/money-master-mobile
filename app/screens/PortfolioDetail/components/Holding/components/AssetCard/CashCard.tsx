@@ -4,7 +4,8 @@ import React from 'react';
 import { TouchableOpacity, View } from 'react-native-ui-lib';
 import { TextContainer } from 'shared/components';
 import { ICurrencyAsset } from 'shared/models';
-import { styleProvider } from 'shared/styles';
+import { colorScheme, styleProvider } from 'shared/styles';
+import { formatCurrency } from 'utils/number';
 
 interface IProps {
   info: ICurrencyAsset;
@@ -20,6 +21,11 @@ export const CashCard = ({ info }: IProps) => {
       <View>
         <TextContainer>{info.name}</TextContainer>
         <TextContainer>{info.description}</TextContainer>
+      </View>
+      <View>
+        <TextContainer color={colorScheme.assetPrice}>
+          {formatCurrency(info.amount, info.currencyCode)}
+        </TextContainer>
       </View>
     </TouchableOpacity>
   );

@@ -9,18 +9,21 @@ import {
   DatePicker,
   renderPickerForPortfolio,
   ReinStateCheckBox,
+  InvestFundBuy,
 } from 'shared/components';
+import { CreateBankAssetBody } from 'shared/stores/types';
 
 import { CreateAssetSchema } from './validator';
 
 interface IProps {
-  onSubmit: (data: any) => void;
+  onSubmit: (data: CreateBankAssetBody) => void;
   onClose: () => void;
 }
 const FORM_CONTENT = SCREEN_CONTENT.createOtherModal;
 
 const Component = ({ onSubmit, onClose }: IProps) => {
   const [reinState, setReinState] = React.useState(false);
+  const [buyFromFund, setBuyFromFund] = React.useState(false);
   return (
     <Formik
       validationSchema={CreateAssetSchema}
@@ -34,12 +37,14 @@ const Component = ({ onSubmit, onClose }: IProps) => {
         description: '',
         interestRate: 0,
         termRange: 0,
+        isUsingInvestFund: false,
       }}
       onSubmit={(values) => {
         values.inputMoneyAmount = 1 * values.inputMoneyAmount;
         values.interestRate = 1 * values.interestRate;
         values.termRange = 1 * values.termRange;
         values.isGoingToReinState = reinState;
+        values.isUsingInvestFund = buyFromFund;
         onSubmit(values);
         onClose();
       }}
@@ -74,11 +79,13 @@ const Component = ({ onSubmit, onClose }: IProps) => {
                 keyBoardType="decimal-pad"
                 placeholder={FORM_CONTENT.balance}
               />
+
               <CurrencyPicker
                 errorMessage={touched.inputCurrency ? errors.inputCurrency : ''}
                 onChange={handleChange('inputCurrency')}
                 renderPicker={renderPickerForPortfolio}
               />
+
               <CustomTextField
                 onChangeText={handleChange('interestRate')}
                 onBlur={handleBlur('interestRate')}
@@ -97,7 +104,10 @@ const Component = ({ onSubmit, onClose }: IProps) => {
                 reinState={reinState}
                 onToggle={() => setReinState(!reinState)}
               />
-
+              <InvestFundBuy
+                buy={buyFromFund}
+                onToggle={() => setBuyFromFund(!buyFromFund)}
+              />
               <DatePicker
                 onISOStringChange={handleChange('inputDay')}
                 label={FORM_CONTENT.startDate}

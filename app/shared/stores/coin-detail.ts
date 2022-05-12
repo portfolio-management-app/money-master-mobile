@@ -3,6 +3,8 @@ import { CryptoTimeSupport } from 'shared/types';
 import { cryptoService } from 'services/crypto';
 import { CoinInformation } from '../models';
 
+
+
 const Store = types
   .model('CoinDataStore', {
     coinInfo: CoinInformation,

@@ -81,10 +81,9 @@ export const CryptoAssetDetail = observer(() => {
   };
 
   const handleDraw = () => {
-    console.log('draw asset');
     navigation.navigate('CashAssetPicker', {
       type: 'CRYPTO',
-      sourceId: routeProps.params.info.id,
+      source: routeProps.params.info,
     });
   };
 

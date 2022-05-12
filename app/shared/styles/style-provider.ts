@@ -135,4 +135,9 @@ export const styleProvider = StyleSheet.create({
   assetGroup: {
     paddingVertical: 10,
   },
+  flexCenter: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
 });

@@ -1,3 +1,4 @@
+import { TransactionResponse } from './../models';
 import { TransactionItem } from 'shared/models';
 import { HttpError } from 'errors/base';
 import { Config } from 'config';
@@ -13,6 +14,7 @@ export const CashAssetStore = types
     transactionList: types.array(TransactionItem),
     loading: types.boolean,
     portfolioId: types.number,
+    transactionResponse: TransactionResponse,
   })
   .actions((self) => {
     const editAsset = flow(function* (body: any) {
@@ -46,7 +48,7 @@ export const CashAssetStore = types
     const assignPortfolioId = (id: number) => {
       self.portfolioId = id;
     };
-    const transferCryptoAsset = flow(function* (
+    const transferAsset = flow(function* (
       body: TransferToOtherAssetBody,
       assetId: number
     ) {
@@ -57,6 +59,9 @@ export const CashAssetStore = types
       );
       if (res instanceof HttpError) {
         log('Error when transfer cash asset', res);
+        self.transactionResponse.makeError(res);
+      } else {
+        self.transactionResponse.makeSuccess();
       }
     });
 
@@ -65,11 +70,16 @@ export const CashAssetStore = types
       assignInfo,
       getTransactionList,
       assignPortfolioId,
-      transferCryptoAsset,
+      transferAsset,
     };
   })
   .create({
     id: 0,
     loading: false,
     portfolioId: 0,
+    transactionResponse: {
+      isError: false,
+      isSuccess: false,
+      errorMessage: '',
+    },
   });

@@ -8,12 +8,14 @@ import {
   CustomTextField,
   CustomToast,
   DatePicker,
+  InvestFundBuy,
   PlatformView,
   TextContainer,
   TransparentLoading,
 } from 'shared/components';
 import { APP_CONTENT } from 'shared/constants';
 import { PortfolioDetailStore, StockDetailStore } from 'shared/stores';
+import { CreateStockAssetBody } from 'shared/stores/types';
 import { styleProvider, colorScheme } from 'shared/styles';
 import { CreateStockAssetSchema } from 'shared/validator';
 import { formatCurrency } from 'utils/number';
@@ -21,11 +23,12 @@ const CONTENT = APP_CONTENT.buyScreen;
 
 export const BuyStock = observer(() => {
   const [success, setSuccess] = React.useState(false);
+  const [buyFromFund, setBuyFromFund] = React.useState(false);
   const { stockInformation, symbol } = StockDetailStore;
   const { createStockAsset, loadingCreateStockAsset } = PortfolioDetailStore;
 
   const handleCreate = React.useCallback(
-    async (values: any) => {
+    async (values: CreateStockAssetBody) => {
       const isSuccess = await createStockAsset(values);
       if (isSuccess) {
         setSuccess(true);
@@ -46,7 +49,10 @@ export const BuyStock = observer(() => {
       />
       <Formik
         validationSchema={CreateStockAssetSchema}
-        onSubmit={(values) => handleCreate(values)}
+        onSubmit={(values) => {
+          values.isUsingInvestFund = buyFromFund;
+          handleCreate(values);
+        }}
         initialValues={{
           name: '',
           inputDay: new Date().toISOString(),
@@ -56,6 +62,7 @@ export const BuyStock = observer(() => {
           marketCode: '',
           purchasePrice: 0,
           currencyCode: 'USD',
+          isUsingInvestFund: false,
         }}
       >
         {({
@@ -108,6 +115,10 @@ export const BuyStock = observer(() => {
                 onChangeText={handleChange('purchasePrice')}
                 placeholder={CONTENT.purchasePrice}
                 errorMessage={touched.purchasePrice ? errors.purchasePrice : ''}
+              />
+              <InvestFundBuy
+                buy={buyFromFund}
+                onToggle={() => setBuyFromFund(!buyFromFund)}
               />
               <DatePicker
                 onISOStringChange={handleChange('inputDay')}

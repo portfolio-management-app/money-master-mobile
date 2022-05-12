@@ -1,34 +1,8 @@
 import { APP_CONTENT } from 'shared/constants';
 import { IPieChartItem } from 'shared/models';
 import { HorizontalBarChartProps, IPieData } from 'shared/types';
-import { randomPieChartColor } from 'utils/random';
 
 const CONTENT = APP_CONTENT.portfolioDetail.assetPicker;
-
-export const buildPieChartData = (data: Array<IPieChartItem>) => {
-  const res: Array<{
-    name: string;
-    value: number;
-    color: string;
-    legendFontColor: string;
-    legendFontSize: number;
-  }> = [];
-  if (checkIsEmpty(data)) {
-    return [];
-  }
-
-  for (let i = 0; i < data.length; i++) {
-    res.push({
-      name: getLabel(data[i].assetType),
-      value: data[i].sumValue,
-      color: randomPieChartColor(),
-      legendFontColor: '#000000',
-      legendFontSize: 15,
-    });
-  }
-
-  return res;
-};
 
 export const calculationPercent = (data: Array<IPieData>) => {
   const res: HorizontalBarChartProps['data'] = [];
@@ -65,6 +39,7 @@ export const buildNewPieChartData = (data: Array<IPieChartItem>) => {
         name: getLabel(data[i].assetType),
       });
   }
+
   return res;
 };
 
@@ -97,11 +72,4 @@ const getLabel = (s: string) => {
     default:
       return s;
   }
-};
-
-const checkIsEmpty = (data: Array<IPieChartItem>) => {
-  for (let i = 0; i < data.length; i++) {
-    if (data[i].sumValue !== 0) return false;
-  }
-  return true;
 };

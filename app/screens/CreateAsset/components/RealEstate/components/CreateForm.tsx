@@ -8,16 +8,19 @@ import {
   CurrencyPicker,
   CustomTextField,
   DatePicker,
+  InvestFundBuy,
   renderPickerForPortfolio,
 } from 'shared/components';
+import { CreateRealEstateAssetBody } from 'shared/stores/types';
 import { CreateAssetSchema } from './validator';
 
 interface IProps {
-  onSubmit: (data: any) => void;
+  onSubmit: (data: CreateRealEstateAssetBody) => void;
   onClose: () => void;
 }
 const FORM_CONTENT = SCREEN_CONTENT.realEstateModal;
 const Component = ({ onSubmit, onClose }: IProps) => {
+  const [buyFromFund, setBuyFromFund] = React.useState(false);
   return (
     <Formik
       validationSchema={CreateAssetSchema}
@@ -29,11 +32,13 @@ const Component = ({ onSubmit, onClose }: IProps) => {
         buyPrice: 0,
         currentPrice: 0,
         description: '',
+        isUsingInvestFund: false,
       }}
       onSubmit={(values) => {
         values.buyPrice = 1 * values.buyPrice;
         values.currentPrice = 1 * values.currentPrice;
         values.inputMoneyAmount = values.buyPrice;
+        values.isUsingInvestFund = buyFromFund;
         onSubmit(values);
         onClose();
       }}
@@ -72,6 +77,10 @@ const Component = ({ onSubmit, onClose }: IProps) => {
                 errorMessage={touched.buyPrice ? errors.buyPrice : ''}
                 keyBoardType="decimal-pad"
                 placeholder={FORM_CONTENT.buyPrice}
+              />
+              <InvestFundBuy
+                buy={buyFromFund}
+                onToggle={() => setBuyFromFund(!buyFromFund)}
               />
               <CurrencyPicker
                 errorMessage={touched.inputCurrency ? errors.inputCurrency : ''}

@@ -3,14 +3,14 @@ import { observer } from 'mobx-react-lite';
 import { NavigationHeader } from 'navigation/header';
 import { MainStackNavigationProp } from 'navigation/types';
 import React from 'react';
-import { View } from 'react-native';
 import { TouchableOpacity } from 'react-native-ui-lib';
 import {
   Empty,
   PlatformView,
   SellOptions,
+  Skeleton,
+  SkeletonLoadable,
   TextContainer,
-  TransparentLoading,
 } from 'shared/components';
 import { APP_CONTENT } from 'shared/constants';
 import { ICryptoAsset } from 'shared/models';
@@ -43,7 +43,7 @@ export const SellCrypto = observer(() => {
     if (selectedAsset)
       navigation.navigate('CashAssetPicker', {
         type: 'CRYPTO',
-        sourceId: selectedAsset.id,
+        source: selectedAsset,
       });
   };
 
@@ -60,23 +60,26 @@ export const SellCrypto = observer(() => {
   return (
     <PlatformView style={styleProvider.body}>
       <NavigationHeader title={CONTENT.title} />
-      {filteredCoin.length === 0 && doneLoadingCryptoAsset && (
-        <View
-          style={{ justifyContent: 'center', alignItems: 'center', flex: 1 }}
-        >
-          <Empty message={CONTENT.noAsset} />
-        </View>
-      )}
-      {filteredCoin.map((coin) => (
-        <TouchableOpacity
-          onPress={() => handleAssetPress(coin)}
-          style={styleProvider.card}
-          key={coin.id}
-        >
-          <TextContainer>{coin.name}</TextContainer>
-        </TouchableOpacity>
-      ))}
-      <TransparentLoading show={!doneLoadingCryptoAsset} />
+      <SkeletonLoadable
+        loading={!doneLoadingCryptoAsset}
+        skeleton={<Skeleton times={5} />}
+        isDataEmpty={filteredCoin.length === 0}
+        dataComponent={
+          <>
+            {filteredCoin.map((coin) => (
+              <TouchableOpacity
+                onPress={() => handleAssetPress(coin)}
+                style={styleProvider.card}
+                key={coin.id}
+              >
+                <TextContainer>{coin.name}</TextContainer>
+              </TouchableOpacity>
+            ))}
+          </>
+        }
+        emptyComponent={<Empty message={CONTENT.noAsset} />}
+      />
+
       <SellOptions
         onSellToCash={handleSellToCash}
         onSellToInvestFund={handleSellToFund}
