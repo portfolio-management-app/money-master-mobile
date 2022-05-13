@@ -1,41 +1,41 @@
 {
   "project_info": {
-    "project_number": "511417762868",
-    "project_id": "moneymastermobile",
-    "storage_bucket": "moneymastermobile.appspot.com"
+    "project_number": "440213221151",
+    "project_id": "moneymaster-a2471",
+    "storage_bucket": "moneymaster-a2471.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:511417762868:android:c8f7c1464386f02f6af661",
+        "mobilesdk_app_id": "1:440213221151:android:59fc237453a425a0d70a2a",
         "android_client_info": {
           "package_name": "com.moneymastermobile"
         }
       },
       "oauth_client": [
         {
-          "client_id": "511417762868-4pdbhsgsadv81tkth5eo62ea207u6cel.apps.googleusercontent.com",
+          "client_id": "440213221151-cpkg2h91nbmk728ugfsj1r3k883unv0r.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.moneymastermobile",
-            "certificate_hash": "8f8ef3b8f9bad3df0f4dc7f63674369c292f2ff5"
+            "certificate_hash": "8863fd63fe4b0d365484cef596e1636f5e5724fc"
           }
         },
         {
-          "client_id": "511417762868-an9ak0crrtra3c4l0rqebt5bmuuo5aqp.apps.googleusercontent.com",
+          "client_id": "440213221151-sq1vmgkg40rlmi1ib8cd51m9n55li747.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyAjkBfwi46TxcJrDuH7d8_b5lxLHsAbhGQ"
+          "current_key": "AIzaSyB_HDUzAXlnjPCcEjNPPHB1qHHg9TfH-_g"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "511417762868-an9ak0crrtra3c4l0rqebt5bmuuo5aqp.apps.googleusercontent.com",
+              "client_id": "440213221151-sq1vmgkg40rlmi1ib8cd51m9n55li747.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

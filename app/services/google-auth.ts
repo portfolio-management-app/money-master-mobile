@@ -10,7 +10,8 @@ export const googleSignIn = async () => {
   try {
     await GoogleSignin.hasPlayServices();
     const userInfo = await GoogleSignin.signIn();
-    return userInfo;
+    const token = await getToken();
+    return { userInfo, token };
   } catch (error) {
     console.log(error);
     return null;
@@ -23,4 +24,9 @@ export const clearToken = (token: string | null) => {
 
 export const googleSignOut = async () => {
   await GoogleSignin.signOut();
+};
+
+export const getToken = async () => {
+  const token = await GoogleSignin.getTokens();
+  return token;
 };
