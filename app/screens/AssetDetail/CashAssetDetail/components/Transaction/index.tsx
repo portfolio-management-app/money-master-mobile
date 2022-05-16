@@ -35,7 +35,7 @@ export const Transaction = observer(() => {
         refreshing={loading}
         data={transactionList}
         onItemPress={handleTransactionPress}
-        onRefresh={() => getTransactionList}
+        onRefresh={() => getTransactionList()}
       />
     </>
   );

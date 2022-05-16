@@ -21,7 +21,7 @@ export const Other = observer(({ onClose, header, id }: IProps) => {
   );
   return (
     <>
-      <CreateForm header={header} onSubmit={onCreate} onClose={onClose} />{' '}
+      <CreateForm header={header} onSubmit={onCreate} onClose={onClose} />
       <CustomToast
         variant="error"
         show={createResponse.isError}

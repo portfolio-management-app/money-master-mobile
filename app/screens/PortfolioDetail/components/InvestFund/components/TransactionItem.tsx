@@ -29,7 +29,7 @@ export const TransactionItem = ({ item }: IProps) => {
               size={20}
             />
             <TextContainer ml={MARGIN} semiBold type="small">
-              {APP_CONTENT.buy}
+              {APP_CONTENT.transactionDetail.in}
             </TextContainer>
           </View>
           <Source item={item} />

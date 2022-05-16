@@ -25,7 +25,7 @@ export const InvestFundBuy = ({ buy, onToggle }: IProps) => {
       <CustomHint
         show={showHint}
         onPress={() => setShowHint(!showHint)}
-        message={APP_CONTENT.buyFromInvestFund.title}
+        message={APP_CONTENT.buyFromInvestFund.explain}
       >
         <Icon.MaterialCommunity
           onPress={() => setShowHint(!showHint)}

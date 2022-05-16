@@ -97,6 +97,37 @@ const Item = ({ info }: { info: ITransactionItem }) => {
           </TextContainer>
         </View>
       );
+    case 'moveToFund':
+      return (
+        <View style={{ paddingHorizontal: 30, marginVertical: 30 }}>
+          <TextContainer mb={10}>
+            <TextContainer semiBold>
+              {TRANSACTION_DETAIL_CONTENT.amount}:{' '}
+            </TextContainer>
+
+            {formatCurrency(info.amount, info.currencyCode)}
+          </TextContainer>
+          <TextContainer mb={10}>
+            <TextContainer semiBold>
+              {TRANSACTION_DETAIL_CONTENT.date}:{' '}
+            </TextContainer>
+
+            {parseToString(new Date(info.createdAt))}
+          </TextContainer>
+          <TextContainer mb={10}>
+            <TextContainer semiBold>
+              {TRANSACTION_DETAIL_CONTENT.type}:{' '}
+            </TextContainer>
+            {translateTransactionType(info.singleAssetTransactionType)}
+          </TextContainer>
+          <TextContainer mb={10}>
+            <TextContainer semiBold>
+              {TRANSACTION_DETAIL_CONTENT.destinationAssetType}:{' '}
+            </TextContainer>
+            {translateAssetType(info.destinationAssetType)}
+          </TextContainer>
+        </View>
+      );
     default:
       return <></>;
   }

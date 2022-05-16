@@ -115,7 +115,7 @@ export const vn = {
       banking: 'Ngân hàng',
       realEstate: 'Bất động sản',
       other: 'Khác',
-      cash: 'Ngoại tệ',
+      cash: 'Tiền mặt',
       metal: 'Kim loại quý',
     },
     createOtherModal: {
@@ -185,12 +185,12 @@ export const vn = {
     profit: 'Lợi nhuận',
     transferConfirm: 'Chuyển tất cả đến quỹ đầu tư ?',
     drawOption: {
-      title: 'Draw to',
-      cash: 'Cash',
-      investFund: 'Invest fund',
+      title: 'Rút về',
+      cash: 'Tiền mặt',
+      investFund: 'Quỹ đầu tư',
     },
-    assetAllocation: 'Asset allocation',
-    detail: 'Detail',
+    assetAllocation: 'Phân bố tài sản',
+    detail: 'Chi tiết',
   },
   confirmModal: {
     confirm: 'OK',
@@ -378,6 +378,15 @@ export const vn = {
     to: 'Tới',
     destinationAssetType: 'Loại tài sản chuyển tới',
     from: 'Từ',
+    moveToFund: 'Chuyển tới quỹ đầu tư',
+    crypto: 'Tiền ảo',
+    fund: 'Vốn đầu tư',
+    stock: 'Cổ phiếu',
+    bank: 'Ngân hàng',
+    realEstate: 'Bất động sản',
+    cash: 'Tiền mặt',
+    in: 'Vào',
+    out: 'Ra',
   },
   cashAssetPicker: {
     title: 'Chọn tài sản để rút về',
@@ -392,5 +401,6 @@ export const vn = {
   },
   buyFromInvestFund: {
     title: 'Sử dụng tiền của quỹ đầu tư để mua',
+    explain: 'Sử dụng tiền cuả quỹ đầu tư để mua tài sản này',
   },
 };

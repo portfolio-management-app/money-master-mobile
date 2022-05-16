@@ -385,6 +385,15 @@ export const en = {
     to: 'To',
     destinationAssetType: 'Destination asset type',
     from: 'From',
+    moveToFund: 'Move to fund',
+    crypto: 'Crypto',
+    fund: 'Invest fund',
+    stock: 'Stock',
+    bank: 'Banking',
+    realEstate: 'Real estate',
+    cash: 'Cash',
+    in: 'In',
+    out: 'Out',
   },
   cashAssetPicker: {
     title: 'Choose cash asset to draw',
@@ -399,5 +408,6 @@ export const en = {
   },
   buyFromInvestFund: {
     title: 'Buy from invest fund',
+    explain: 'Use invest fund money to buy this asset',
   },
 };

@@ -3,7 +3,7 @@ import React from 'react';
 import { StyleSheet } from 'react-native';
 import { TouchableOpacity, View } from 'react-native-ui-lib';
 import { Icon, TextContainer } from 'shared/components';
-import { APP_CONTENT } from 'shared/constants';
+import { APP_CONTENT, TRANSACTION_DETAIL_CONTENT } from 'shared/constants';
 import { ITransactionItem } from 'shared/models';
 import { PortfolioDetailStore } from 'shared/stores';
 import { styleProvider, colorScheme } from 'shared/styles';
@@ -92,6 +92,7 @@ export const TransactionDetail = observer(({ info, onPress }: IProps) => {
               </View>
               <TextContainer mt={10} type="small">
                 {APP_CONTENT.transactionDetail.to}:{' '}
+                {TRANSACTION_DETAIL_CONTENT.fund}
               </TextContainer>
             </View>
             <TextContainer color={colorScheme.red500}>
