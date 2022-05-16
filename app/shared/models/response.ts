@@ -1,11 +1,12 @@
 import { HttpError } from 'errors/base';
 import { types } from 'mobx-state-tree';
 
-export const TransactionResponse = types
+export const Response = types
   .model({
     errorMessage: types.string,
     isError: types.boolean,
     isSuccess: types.boolean,
+    pending: types.boolean,
   })
   .actions((self) => {
     const makeSuccess = () => {

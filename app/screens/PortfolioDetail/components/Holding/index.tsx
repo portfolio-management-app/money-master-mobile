@@ -15,7 +15,7 @@ import { AssetGroup } from './components';
 
 export const Holding = observer(() => {
   const navigation = useNavigation<MainStackNavigationProp>();
-  const { deleteResponse, clearDeleteSuccess } = PortfolioDetailStore;
+  const { deleteResponse } = PortfolioDetailStore;
 
   const toggle = () => {
     navigation.navigate('AssetTypePicker');
@@ -33,7 +33,7 @@ export const Holding = observer(() => {
       <CustomToast
         message={APP_CONTENT.assetDetail.deleteSuccess}
         show={deleteResponse.isSuccess}
-        onDismiss={clearDeleteSuccess}
+        onDismiss={deleteResponse.deleteSuccess}
       />
     </PlatformView>
   );

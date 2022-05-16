@@ -36,3 +36,26 @@ export const TransactionItem = types.model('TransactionItem', {
   createdAt: types.string,
   lastChanged: types.string,
 });
+
+export const InvestFundTransactionItem = types.model(
+  'InvestFundTransactionItem',
+  {
+    id: types.number,
+    referentialAssetId: types.number,
+    referentialAssetType: types.union(
+      types.literal('crypto'),
+      types.literal('stock'),
+      types.literal('bankSaving'),
+      types.literal('realEstate'),
+      types.literal('custom'),
+      types.literal('cash'),
+      types.literal('fund')
+    ),
+    amount: types.number,
+    currencyCode: types.string,
+    createdAt: types.string,
+    lastChanged: types.string,
+    investFundId: types.number,
+    isIngoing: types.boolean,
+  }
+);

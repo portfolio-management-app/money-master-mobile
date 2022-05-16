@@ -1,4 +1,4 @@
-import { TransactionItem, TransactionResponse } from 'shared/models';
+import { TransactionItem, Response } from 'shared/models';
 import { HttpError } from 'errors/base';
 import { Config } from 'config';
 import { types, flow } from 'mobx-state-tree';
@@ -13,7 +13,7 @@ export const BankAssetStore = types
     transactionList: types.array(TransactionItem),
     loading: types.boolean,
     portfolioId: types.number,
-    transactionResponse: TransactionResponse,
+    transactionResponse: Response,
   })
   .actions((self) => {
     const editAsset = flow(function* (body: any) {
@@ -80,5 +80,6 @@ export const BankAssetStore = types
       isError: false,
       isSuccess: false,
       errorMessage: '',
+      pending: false,
     },
   });

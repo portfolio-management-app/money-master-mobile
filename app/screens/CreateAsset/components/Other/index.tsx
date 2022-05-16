@@ -1,4 +1,7 @@
+import { observer } from 'mobx-react-lite';
 import React from 'react';
+import { CustomToast } from 'shared/components';
+import { APP_CONTENT } from 'shared/constants';
 import { PortfolioDetailStore } from 'shared/stores';
 import { CreateOtherAssetBody } from 'shared/stores/types';
 import { ModalProps } from 'shared/types';
@@ -8,14 +11,28 @@ interface IProps extends ModalProps {
   id: number;
 }
 
-const Component = ({ onClose, header, id }: IProps) => {
+export const Other = observer(({ onClose, header, id }: IProps) => {
+  const { createOtherAsset, createResponse } = PortfolioDetailStore;
   const onCreate = React.useCallback(
     (data: CreateOtherAssetBody) => {
-      PortfolioDetailStore.createOtherAsset(data, id);
+      createOtherAsset(data, id);
     },
-    [id]
+    [id, createOtherAsset]
   );
-  return <CreateForm header={header} onSubmit={onCreate} onClose={onClose} />;
-};
-
-export const Other = React.memo(Component);
+  return (
+    <>
+      <CreateForm header={header} onSubmit={onCreate} onClose={onClose} />{' '}
+      <CustomToast
+        variant="error"
+        show={createResponse.isError}
+        onDismiss={createResponse.deleteError}
+        message={createResponse.errorMessage}
+      />
+      <CustomToast
+        onDismiss={createResponse.deleteSuccess}
+        show={createResponse.isSuccess}
+        message={APP_CONTENT.transferToFund.success}
+      />
+    </>
+  );
+});

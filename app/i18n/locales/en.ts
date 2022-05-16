@@ -384,6 +384,7 @@ export const en = {
     draw: 'Draw',
     to: 'To',
     destinationAssetType: 'Destination asset type',
+    from: 'From',
   },
   cashAssetPicker: {
     title: 'Choose cash asset to draw',

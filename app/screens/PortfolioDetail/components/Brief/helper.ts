@@ -16,7 +16,10 @@ export const calculationPercent = (data: Array<IPieData>) => {
         res.push({
           value: data[i].value,
           label: data[i].name,
-          percent: Math.round((data[i].value * 100) / sum),
+          percent:
+            (data[i].value * 100) / sum > 1
+              ? Math.floor((data[i].value * 100) / sum)
+              : 1,
           color: data[i].svg.fill,
         });
       }

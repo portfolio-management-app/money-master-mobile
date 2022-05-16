@@ -1,4 +1,4 @@
-import { TransactionResponse } from './../models';
+import { Response } from './../models';
 import { TransactionItem } from 'shared/models';
 import { HttpError } from 'errors/base';
 import { Config } from 'config';
@@ -14,7 +14,7 @@ export const CashAssetStore = types
     transactionList: types.array(TransactionItem),
     loading: types.boolean,
     portfolioId: types.number,
-    transactionResponse: TransactionResponse,
+    transactionResponse: Response,
   })
   .actions((self) => {
     const editAsset = flow(function* (body: any) {
@@ -81,5 +81,6 @@ export const CashAssetStore = types
       isError: false,
       isSuccess: false,
       errorMessage: '',
+      pending: false,
     },
   });

@@ -24,17 +24,14 @@ import { formatCurrency } from 'utils/number';
 const CONTENT = APP_CONTENT.buyScreen;
 
 export const BuyCrypto = observer(() => {
-  const [success, setSuccess] = React.useState(false);
   const [buyFromFund, setBuyFromFund] = React.useState(false);
   const { coinInfo, currency } = CoinDetailStore;
-  const { loadingCreateCrypto, createCryptoAsset } = PortfolioDetailStore;
+  const { loadingCreateCrypto, createCryptoAsset, createResponse } =
+    PortfolioDetailStore;
 
   const handleCreate = React.useCallback(
-    async (values: CreateCryptoAssetBody) => {
-      const isSuccess = await createCryptoAsset(values);
-      if (isSuccess) {
-        setSuccess(true);
-      }
+    (values: CreateCryptoAssetBody) => {
+      createCryptoAsset(values);
     },
     [createCryptoAsset]
   );
@@ -43,12 +40,7 @@ export const BuyCrypto = observer(() => {
     <PlatformView style={styleProvider.body}>
       <NavigationHeader title={coinInfo.name} />
       <TransparentLoading show={loadingCreateCrypto} />
-      <CustomToast
-        variant="success"
-        message={CONTENT.createSuccess}
-        show={success}
-        onDismiss={() => setSuccess(false)}
-      />
+
       <Formik
         validationSchema={CreateCryptoAssetSchema}
         onSubmit={(values) => {
@@ -144,6 +136,17 @@ export const BuyCrypto = observer(() => {
           );
         }}
       </Formik>
+      <CustomToast
+        variant="error"
+        show={createResponse.isError}
+        onDismiss={createResponse.deleteError}
+        message={createResponse.errorMessage}
+      />
+      <CustomToast
+        onDismiss={createResponse.deleteSuccess}
+        show={createResponse.isSuccess}
+        message={APP_CONTENT.transferToFund.success}
+      />
     </PlatformView>
   );
 });

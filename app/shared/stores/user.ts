@@ -6,6 +6,7 @@ import { types, flow } from 'mobx-state-tree';
 import { HttpRequestResponse } from 'shared/types';
 import { Config } from 'config';
 import { AuthenResponse } from './types';
+import { log } from 'services/log';
 
 export const UserStore = types
   .model('UserStore', {
@@ -86,6 +87,24 @@ export const UserStore = types
       }
     });
 
+    const googleLogin = flow(function* (token: string) {
+      const res = yield httpRequest.sendPost(
+        `${Config.BASE_URL}/authentication/google`,
+        { provider: 'google', externalToken: token }
+      );
+      if (res instanceof HttpError) {
+        log('Error when loggin with google', res);
+        return { isError: true, response: res };
+      } else {
+        storage.set(TOKEN_KEY, res.token);
+        self.user.email = res.email;
+        self.user.isLoggedIn = true;
+        self.user.token = `Bearer ${res.token}`;
+        console.log('Saved token');
+        return { isError: false, response: res };
+      }
+    });
+
     const logout = () => {
       self.user.email = '';
       self.user.isLoggedIn = false;
@@ -93,7 +112,7 @@ export const UserStore = types
       console.log('removed token');
     };
 
-    return { register, logout, login, initUser };
+    return { register, logout, login, initUser, googleLogin };
   })
   .create({
     user: {

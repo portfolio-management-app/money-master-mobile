@@ -1,3 +1,4 @@
+import { TransactionHeader } from './TransactionHeader/index';
 import { CustomAssetInformationCard } from './AssetInformationCard/Custom';
 import { CashInformationCard } from './AssetInformationCard/Cash';
 import { BankInformationCard } from './AssetInformationCard/Bank';
@@ -64,6 +65,7 @@ export {
   HorizontalBarChart,
   DrawAssetSheet,
   TransferOptions,
+  TransactionHeader,
   AssetSpeedDialButton,
   AssetActionSheet,
   SearchForData,

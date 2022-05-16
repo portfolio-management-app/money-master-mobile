@@ -3,7 +3,7 @@ import { Config } from 'config';
 import { types, flow } from 'mobx-state-tree';
 import { httpRequest } from 'services/http';
 import { UserStore } from 'shared/stores';
-import { TransactionItem, TransactionResponse } from 'shared/models';
+import { TransactionItem, Response } from 'shared/models';
 import { log } from 'services/log';
 import { TransferToOtherAssetBody } from './types';
 
@@ -13,7 +13,7 @@ export const CryptoAssetStore = types
     transactionList: types.array(TransactionItem),
     loading: types.boolean,
     portfolioId: types.number,
-    transactionResponse: TransactionResponse,
+    transactionResponse: Response,
   })
   .actions((self) => {
     const editAsset = flow(function* (body: any) {
@@ -82,5 +82,6 @@ export const CryptoAssetStore = types
       isError: false,
       isSuccess: false,
       errorMessage: '',
+      pending: false,
     },
   });

@@ -1,11 +1,12 @@
 import { InvestFundInformation } from './invest-fund';
-import { TransactionItem } from './transaction';
+import { TransactionItem, InvestFundTransactionItem } from './transaction';
 import { PieChartItem } from './portfolio-report';
 import {
   ICustomAsset,
   IPieChartItem,
   ITransactionItem,
   IInvestFundInformation,
+  IInvestFundTransactionItem,
 } from './types/index';
 import { CategoryAssetList } from './custom-asset';
 import {
@@ -38,7 +39,7 @@ import {
   ICurrencyAsset,
 } from './types';
 import { MetalInformation } from './metal-information';
-import { TransactionResponse } from './response';
+import { Response } from './response';
 export {
   User,
   CoinInformation,
@@ -57,7 +58,8 @@ export {
   PieChartItem,
   TransactionItem,
   InvestFundInformation,
-  TransactionResponse,
+  Response,
+  InvestFundTransactionItem,
 };
 
 export type {
@@ -77,4 +79,5 @@ export type {
   IPieChartItem,
   ITransactionItem,
   IInvestFundInformation,
+  IInvestFundTransactionItem,
 };

@@ -23,19 +23,15 @@ import { formatCurrency } from 'utils/number';
 const CONTENT = APP_CONTENT.buyScreen;
 
 export const BuyCurrency = observer(() => {
-  const [success, setSuccess] = React.useState(false);
   const [buyFromFund, setBuyFromFund] = React.useState(false);
   const { currencyInformation } = CurrencyDetailStore;
-  const { createCurrencyAsset, loadingCreateCurrencyAsset } =
+  const { createCurrencyAsset, loadingCreateCurrencyAsset, createResponse } =
     PortfolioDetailStore;
   const tokens = currencyInformation.s.split('/');
 
   const onCreate = React.useCallback(
-    async (values: CreateCurrencyAssetBody) => {
-      const isSuccess = await createCurrencyAsset(values);
-      if (isSuccess) {
-        setSuccess(true);
-      }
+    (values: CreateCurrencyAssetBody) => {
+      createCurrencyAsset(values);
     },
     [createCurrencyAsset]
   );
@@ -43,12 +39,6 @@ export const BuyCurrency = observer(() => {
     <PlatformView style={styleProvider.body}>
       <NavigationHeader title={currencyInformation.s} />
       <TransparentLoading show={loadingCreateCurrencyAsset} />
-      <CustomToast
-        variant="success"
-        message={CONTENT.createSuccess}
-        show={success}
-        onDismiss={() => setSuccess(false)}
-      />
       <Formik
         validationSchema={CreateCurrencyAssetSchema}
         onSubmit={(values) => {
@@ -120,6 +110,17 @@ export const BuyCurrency = observer(() => {
           );
         }}
       </Formik>
+      <CustomToast
+        variant="error"
+        show={createResponse.isError}
+        onDismiss={createResponse.deleteError}
+        message={createResponse.errorMessage}
+      />
+      <CustomToast
+        onDismiss={createResponse.deleteSuccess}
+        show={createResponse.isSuccess}
+        message={APP_CONTENT.transferToFund.success}
+      />
     </PlatformView>
   );
 });

@@ -34,8 +34,7 @@ export const BankAssetDetail = observer(() => {
   const [showConfirm, setShowConfirm] = React.useState(false);
   const [showConfirmTransfer, setShowConfirmTransfer] = React.useState(false);
   const [showTransferOption, setShowTransferOption] = React.useState(false);
-  const { deleteResponse, deleteBankAsset, clearDeleteError, information } =
-    PortfolioDetailStore;
+  const { deleteResponse, deleteBankAsset, information } = PortfolioDetailStore;
   const {
     loading,
     transferToFund,
@@ -148,7 +147,7 @@ export const BankAssetDetail = observer(() => {
       <TransparentLoading show={deleteResponse.pending || loading} />
       <CustomToast
         variant="error"
-        onDismiss={clearDeleteError}
+        onDismiss={deleteResponse.deleteError}
         message={deleteResponse.errorMessage}
         show={deleteResponse.isError}
       />

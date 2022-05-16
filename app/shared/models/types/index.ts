@@ -1,6 +1,6 @@
 import { InvestFundInformation } from './../invest-fund';
-import { TransactionItem } from './../transaction';
-import { SnapshotOut } from 'mobx-state-tree';
+import { TransactionItem, InvestFundTransactionItem } from './../transaction';
+import { SnapshotOut, types } from 'mobx-state-tree';
 import {
   CurrencyTimeSeries,
   CurrencyInformation,
@@ -48,3 +48,7 @@ export type IMetalInformation = SnapshotOut<typeof MetalInformation>;
 export type ITransactionItem = SnapshotOut<typeof TransactionItem>;
 
 export type IInvestFundInformation = SnapshotOut<typeof InvestFundInformation>;
+
+export type IInvestFundTransactionItem = SnapshotOut<
+  typeof InvestFundTransactionItem
+>;

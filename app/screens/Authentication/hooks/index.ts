@@ -1,10 +1,11 @@
-import { googleSignIn } from 'services/google-auth';
+import { getGoogleToken, googleSignIn } from 'services/google-auth';
 import {
   facebookLogin,
   getProfile,
   getAccessToken,
 } from 'services/facebook-auth';
 import { useCallback, useState } from 'react';
+import { UserStore } from 'shared/stores';
 
 export const useSocialLogin = () => {
   const [loading, setIsLoading] = useState(false);
@@ -19,10 +20,10 @@ export const useSocialLogin = () => {
   }, []);
 
   const handleGoogleLogin = useCallback(async () => {
-    setIsLoading(true);
-    const user = await googleSignIn();
-    console.log(user);
-    setIsLoading(false);
+    await googleSignIn();
+    const token = await getGoogleToken();
+
+    return token;
   }, []);
 
   return [

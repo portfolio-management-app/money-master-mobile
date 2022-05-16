@@ -13,6 +13,7 @@ interface IProps {
 const Component = ({ data, onRefresh, refreshing, onItemPress }: IProps) => {
   return (
     <FlatList
+      style={{ marginBottom: 50 }}
       data={data}
       refreshControl={
         <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />

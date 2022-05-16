@@ -12,7 +12,11 @@ import { Report } from './Report';
 
 const TAB_CONTENT = SCREEN_CONTENT.tabs;
 
-const Component = () => {
+interface IProps {
+  onChangeView?: (index: number) => void;
+}
+
+const Component = ({ onChangeView }: IProps) => {
   const [routes] = React.useState([
     { key: 'holding', title: TAB_CONTENT.holding },
     { key: 'investFund', title: TAB_CONTENT.investFund },
@@ -31,6 +35,7 @@ const Component = () => {
   });
   return (
     <ScrollTabView
+      onChangeView={onChangeView}
       enableScroll
       tabWidth={110}
       indicatorStyle={{ backgroundColor: colorScheme.white }}

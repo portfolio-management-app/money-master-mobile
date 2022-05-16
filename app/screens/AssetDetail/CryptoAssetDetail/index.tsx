@@ -33,8 +33,7 @@ export const CryptoAssetDetail = observer(() => {
   const [showTransferOption, setShowTransferOption] = React.useState(false);
 
   const { getTransactionList, assignInfo } = CryptoAssetStore;
-  const { deleteResponse, deleteCryptoAsset, clearDeleteError } =
-    PortfolioDetailStore;
+  const { deleteResponse, deleteCryptoAsset } = PortfolioDetailStore;
 
   React.useEffect(() => {
     assignInfo(routeProps.params.info.id);
@@ -124,7 +123,7 @@ export const CryptoAssetDetail = observer(() => {
       <TransparentLoading show={deleteResponse.pending} />
       <CustomToast
         variant="error"
-        onDismiss={clearDeleteError}
+        onDismiss={deleteResponse.deleteError}
         message={deleteResponse.errorMessage}
         show={deleteResponse.isError}
       />

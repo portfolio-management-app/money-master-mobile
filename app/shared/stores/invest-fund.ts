@@ -7,7 +7,7 @@ import { httpRequest } from 'services/http';
 import { log } from 'services/log';
 import { TransferToInvestFundBody } from './types';
 import { UserStore } from './user';
-import { InvestFundInformation } from './../models';
+import { InvestFundInformation, InvestFundTransactionItem } from './../models';
 
 export const InvestFundStore = types
   .model('InvestFundStore', {
@@ -17,6 +17,7 @@ export const InvestFundStore = types
     isSuccess: types.boolean,
     portfolioId: types.number,
     information: InvestFundInformation,
+    transactionList: types.array(InvestFundTransactionItem),
   })
   .actions((self) => {
     const transferToFund = flow(function* (
@@ -52,6 +53,20 @@ export const InvestFundStore = types
       }
     });
 
+    const getTransactionList = flow(function* () {
+      self.loading = true;
+      const res = yield httpRequest.sendGet(
+        `${Config.BASE_URL}/portfolio/${self.portfolioId}/investFund/transactions`,
+        UserStore.user.token
+      );
+      if (res instanceof HttpError) {
+        log('Error when get invest fund transaction list', res);
+      } else {
+        self.transactionList = res;
+      }
+      self.loading = false;
+    });
+
     const assignPortfolioId = (id: number) => {
       self.portfolioId = id;
     };
@@ -74,6 +89,7 @@ export const InvestFundStore = types
       clearError,
       assignPortfolioId,
       getFund,
+      getTransactionList,
     };
   })
   .create({

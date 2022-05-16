@@ -22,22 +22,9 @@ import {
   PieChartItem,
   PortfolioInformation,
   IPortfolio,
+  Response,
 } from './../models';
 import { InvestFundStore } from './invest-fund';
-
-const DeleteResponse = types.model({
-  isSuccess: types.boolean,
-  isError: types.boolean,
-  errorMessage: types.string,
-  pending: types.boolean,
-});
-
-const TransferResponse = types.model({
-  isSuccess: types.boolean,
-  isError: types.boolean,
-  errorMessage: types.string,
-  pending: types.boolean,
-});
 
 export const PortfolioDetailStore = types
   .model({
@@ -57,8 +44,9 @@ export const PortfolioDetailStore = types
     doneLoadingCryptoAsset: types.boolean,
     doneLoadingStockAsset: types.boolean,
     doneLoadingCurrencyAsset: types.boolean,
-    deleteResponse: DeleteResponse,
-    transferResponse: TransferResponse,
+    deleteResponse: Response,
+    transferResponse: Response,
+    createResponse: Response,
     pieChartCount: 0,
   })
   .views((self) => ({
@@ -86,6 +74,24 @@ export const PortfolioDetailStore = types
       const find = self.currencyAssetList.find((e) => e.id === id);
       return find;
     },
+    getStockById(id: number) {
+      const find = self.stockAssetList.find((e) => e.id === id);
+      return find;
+    },
+    getCryptoById(id: number) {
+      const find = self.cryptoAssetList.find((e) => e.id === id);
+      console.log(find);
+      return find;
+    },
+    getBankById(id: number) {
+      const find = self.bankAssetList.find((e) => e.id === id);
+      return find;
+    },
+    getRealEstateById(id: number) {
+      const find = self.realEstateAssetList.find((e) => e.id === id);
+      console.log(find);
+      return find;
+    },
   }))
   .actions((self) => {
     const createCurrencyAsset = flow(function* (body: CreateCurrencyAssetBody) {
@@ -97,12 +103,13 @@ export const PortfolioDetailStore = types
       );
       if (res instanceof HttpError) {
         log('Error when create currency asset', res);
-        return false;
+        self.createResponse.makeError(res);
       } else {
         getCurrencyAsset();
         if (body.isUsingInvestFund) {
           revalidateInvestFund();
         }
+        self.createResponse.makeSuccess();
       }
       self.loadingCreateCurrencyAsset = false;
 
@@ -117,12 +124,13 @@ export const PortfolioDetailStore = types
       );
       if (res instanceof HttpError) {
         log('Error when create crypto asset', res);
-        return false;
+        self.createResponse.makeError(res);
       } else {
         getCryptoAsset();
         if (body.isUsingInvestFund) {
           revalidateInvestFund();
         }
+        self.createResponse.makeSuccess();
       }
       self.loadingCreateCrypto = false;
 
@@ -137,12 +145,13 @@ export const PortfolioDetailStore = types
       );
       if (res instanceof HttpError) {
         log('Error when create stock asset', res);
-        return false;
+        self.createResponse.makeError(res);
       } else {
         getStockAsset();
         if (body.isUsingInvestFund) {
           revalidateInvestFund();
         }
+        self.createResponse.makeSuccess();
       }
       self.loadingCreateStockAsset = false;
       return true;
@@ -158,11 +167,13 @@ export const PortfolioDetailStore = types
       );
       if (res instanceof HttpError) {
         log('Error when create other asset', res);
+        self.createResponse.makeError(res);
       } else {
         getCustomAsset();
         if (body.isUsingInvestFund) {
           revalidateInvestFund();
         }
+        self.createResponse.makeSuccess();
       }
     });
 
@@ -174,11 +185,13 @@ export const PortfolioDetailStore = types
       );
       if (res instanceof HttpError) {
         log('error when create bank', res);
+        self.createResponse.makeError(res);
       } else {
         getBankingAsset();
         if (body.isUsingInvestFund) {
           revalidateInvestFund();
         }
+        self.createResponse.makeSuccess();
       }
     });
 
@@ -192,11 +205,13 @@ export const PortfolioDetailStore = types
       );
       if (res instanceof HttpError) {
         log('error when create real estate', res);
+        self.createResponse.makeError(res);
       } else {
         getRealEstateAsset();
         if (body.isUsingInvestFund) {
           revalidateInvestFund();
         }
+        self.createResponse.makeSuccess();
       }
     });
 
@@ -301,12 +316,12 @@ export const PortfolioDetailStore = types
       );
       self.deleteResponse.pending = false;
       if (res instanceof HttpError) {
-        makeDeleteError(res);
+        self.deleteResponse.makeError(res);
         log('Error when delete crypto asset', res);
         return false;
       } else {
         getCryptoAsset();
-        dispatchDeleteSuccess();
+        self.deleteResponse.makeSuccess();
         return true;
       }
     });
@@ -318,12 +333,12 @@ export const PortfolioDetailStore = types
       );
       self.deleteResponse.pending = false;
       if (res instanceof HttpError) {
-        makeDeleteError(res);
+        self.deleteResponse.makeError(res);
         log('Error when delete stock asset', res);
         return false;
       } else {
         getStockAsset();
-        dispatchDeleteSuccess();
+        self.deleteResponse.makeSuccess();
         return true;
       }
     });
@@ -336,12 +351,12 @@ export const PortfolioDetailStore = types
       self.deleteResponse.pending = false;
 
       if (res instanceof HttpError) {
-        makeDeleteError(res);
+        self.deleteResponse.makeError(res);
         log('Error when delete bank asset', res);
         return false;
       } else {
         getBankingAsset();
-        dispatchDeleteSuccess();
+        self.deleteResponse.makeSuccess();
         return true;
       }
     });
@@ -353,12 +368,12 @@ export const PortfolioDetailStore = types
       );
       self.deleteResponse.pending = false;
       if (res instanceof HttpError) {
-        makeDeleteError(res);
+        self.deleteResponse.makeError(res);
         log('Error when delete real estate asset', res);
         return false;
       } else {
         getRealEstateAsset();
-        dispatchDeleteSuccess();
+        self.deleteResponse.makeSuccess();
         return true;
       }
     });
@@ -371,12 +386,12 @@ export const PortfolioDetailStore = types
       );
       self.deleteResponse.pending = false;
       if (res instanceof HttpError) {
-        makeDeleteError(res);
+        self.deleteResponse.makeError(res);
         log('Error when delete cash asset', res);
         return false;
       } else {
         getCurrencyAsset();
-        dispatchDeleteSuccess();
+        self.deleteResponse.makeSuccess();
         return true;
       }
     });
@@ -389,12 +404,12 @@ export const PortfolioDetailStore = types
       );
       self.deleteResponse.pending = false;
       if (res instanceof HttpError) {
-        makeDeleteError(res);
+        self.deleteResponse.makeError(res);
         log('Error when delete custom asset', res);
         return false;
       } else {
         getCustomAsset();
-        dispatchDeleteSuccess();
+        self.deleteResponse.makeSuccess();
         return true;
       }
     });
@@ -413,24 +428,6 @@ export const PortfolioDetailStore = types
       }
       self.loadingGetPieChart = false;
     });
-
-    const makeDeleteError = (error: HttpError) => {
-      self.deleteResponse.errorMessage = error.getMessage();
-      self.deleteResponse.isError = true;
-    };
-
-    const dispatchDeleteSuccess = () => {
-      self.deleteResponse.isSuccess = true;
-    };
-
-    const clearDeleteSuccess = () => {
-      self.deleteResponse.isSuccess = false;
-    };
-
-    const clearDeleteError = () => {
-      self.deleteResponse.isError = false;
-      self.deleteResponse.errorMessage = '';
-    };
 
     const assignInfo = (portfolio: IPortfolio) => {
       self.information = { ...portfolio };
@@ -472,8 +469,6 @@ export const PortfolioDetailStore = types
       deleteStockAsset,
       deleteCashAsset,
       cleanUp,
-      clearDeleteError,
-      clearDeleteSuccess,
       deleteCustomAsset,
     };
   })
@@ -500,6 +495,12 @@ export const PortfolioDetailStore = types
       pending: false,
     },
     transferResponse: {
+      isError: false,
+      isSuccess: false,
+      errorMessage: '',
+      pending: false,
+    },
+    createResponse: {
       isError: false,
       isSuccess: false,
       errorMessage: '',

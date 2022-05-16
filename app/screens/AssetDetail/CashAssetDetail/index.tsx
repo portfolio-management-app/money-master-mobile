@@ -29,8 +29,7 @@ export const CurrencyAssetDetail = observer(() => {
   const [showModal, setShowModal] = React.useState(false);
   const [showConfirm, setShowConfirm] = React.useState(false);
   const [showTransferOption, setShowTransferOption] = React.useState(false);
-  const { deleteResponse, deleteCashAsset, clearDeleteError } =
-    PortfolioDetailStore;
+  const { deleteResponse, deleteCashAsset } = PortfolioDetailStore;
 
   const handleTransferToPortfolio = () => {
     setShowTransferOption(!setShowTransferOption);
@@ -114,7 +113,7 @@ export const CurrencyAssetDetail = observer(() => {
       />
       <TransparentLoading show={deleteResponse.pending} />
       <CustomToast
-        onDismiss={clearDeleteError}
+        onDismiss={deleteResponse.deleteError}
         variant="error"
         message={deleteResponse.errorMessage}
         show={deleteResponse.isError}

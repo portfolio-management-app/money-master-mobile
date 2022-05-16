@@ -377,6 +377,7 @@ export const vn = {
     draw: 'Rút',
     to: 'Tới',
     destinationAssetType: 'Loại tài sản chuyển tới',
+    from: 'Từ',
   },
   cashAssetPicker: {
     title: 'Chọn tài sản để rút về',

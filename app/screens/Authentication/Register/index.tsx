@@ -41,14 +41,29 @@ export const Register = () => {
     if (res) {
       if (res.isError)
         setApiResponse({ isError: res.isError, response: res.response });
-      else
-        navigation.dispatch(
-          CommonActions.reset({
-            index: 0,
-            routes: [{ name: 'Home' }],
-          })
-        );
+      else dispatchNavigate();
     }
+  };
+
+  const onGoogleLogin = async () => {
+    setLoading(true);
+    const token = await handleGoogleLogin();
+    const res = await UserStore.googleLogin(token.idToken);
+    setLoading(false);
+    if (res) {
+      if (res.isError)
+        setApiResponse({ isError: true, response: res.response });
+      else dispatchNavigate();
+    }
+  };
+
+  const dispatchNavigate = () => {
+    navigation.dispatch(
+      CommonActions.reset({
+        index: 0,
+        routes: [{ name: 'Home' }],
+      })
+    );
   };
 
   return (
@@ -107,7 +122,7 @@ export const Register = () => {
             iconStyle={styleProvider.buttonIcon}
             style={styles.googleButton}
             label={REGISTER_CONTENT.google}
-            onPress={handleGoogleLogin}
+            onPress={onGoogleLogin}
           />
           <BaseButton
             iconStyle={styleProvider.buttonIcon}

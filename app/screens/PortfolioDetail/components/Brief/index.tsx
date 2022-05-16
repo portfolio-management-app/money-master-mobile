@@ -1,12 +1,14 @@
 import { observer } from 'mobx-react-lite';
 import React from 'react';
-import { RefreshControl, ScrollView } from 'react-native';
-import { ExpandableSection } from 'react-native-ui-lib';
+import { RefreshControl, ScrollView, View } from 'react-native';
+import { ExpandableSection, SkeletonView } from 'react-native-ui-lib';
 import {
   AssetSectionHeader,
   Empty,
   HorizontalBarChart,
   PlatformView,
+  Skeleton,
+  SkeletonLoadable,
 } from 'shared/components';
 import { ASSET_DETAIL_CONTENT } from 'shared/constants';
 import { PortfolioDetailStore } from 'shared/stores';
@@ -52,11 +54,23 @@ export const Brief = observer(() => {
             />
           }
         >
-          {pies.length ? (
-            <PieChartAsset renderLabels={renderLabels} data={pies} />
-          ) : (
-            <Empty />
-          )}
+          <SkeletonLoadable
+            skeleton={
+              <View>
+                <View style={styleProvider.centerVertical}>
+                  <SkeletonView circle width={80} height={80} />
+                </View>
+
+                <Skeleton times={3} />
+              </View>
+            }
+            isDataEmpty={pies.length === 0}
+            dataComponent={
+              <PieChartAsset renderLabels={renderLabels} data={pies} />
+            }
+            loading={loadingGetPieChart}
+            emptyComponent={<Empty />}
+          />
         </ExpandableSection>
         <ExpandableSection
           expanded={showDetail}
@@ -69,14 +83,18 @@ export const Brief = observer(() => {
             />
           }
         >
-          {renderLabels.length ? (
-            <HorizontalBarChart
-              currency={information.initialCurrency}
-              data={renderLabels}
-            />
-          ) : (
-            <Empty />
-          )}
+          <SkeletonLoadable
+            skeleton={<Skeleton times={3} />}
+            isDataEmpty={renderLabels.length === 0}
+            dataComponent={
+              <HorizontalBarChart
+                currency={information.initialCurrency}
+                data={renderLabels}
+              />
+            }
+            loading={loadingGetPieChart}
+            emptyComponent={<Empty />}
+          />
         </ExpandableSection>
       </ScrollView>
     </PlatformView>

@@ -32,8 +32,7 @@ export const StockAssetDetail = observer(() => {
   const [showConfirm, setShowConfirm] = React.useState(false);
   const [showTransferOption, setShowTransferOption] = React.useState(false);
 
-  const { deleteResponse, deleteStockAsset, clearDeleteError } =
-    PortfolioDetailStore;
+  const { deleteResponse, deleteStockAsset } = PortfolioDetailStore;
 
   React.useEffect(() => {
     StockAssetStore.assignInfo(routeProps.params.info.id);
@@ -114,7 +113,7 @@ export const StockAssetDetail = observer(() => {
       <TransparentLoading show={deleteResponse.pending} />
       <CustomToast
         variant="error"
-        onDismiss={clearDeleteError}
+        onDismiss={deleteResponse.deleteError}
         message={deleteResponse.errorMessage}
         show={deleteResponse.isError}
       />
