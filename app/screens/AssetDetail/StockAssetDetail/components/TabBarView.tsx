@@ -30,7 +30,7 @@ const Component = ({ onViewChange }: IProps) => {
       indicatorStyle={{ backgroundColor: colorScheme.theme }}
       enableScroll
       onChangeView={onViewChange}
-      tabWidth={130}
+      tabWidth={150}
       renderScene={renderScene}
       routes={routes}
     />

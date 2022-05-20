@@ -1,11 +1,7 @@
 import { observer } from 'mobx-react-lite';
 import React from 'react';
 
-import {
-  TransactionDetailModal,
-  TransactionHeader,
-  TransactionList,
-} from 'shared/components';
+import { TransactionDetailModal, TransactionList } from 'shared/components';
 import { ITransactionItem } from 'shared/models';
 import { RealEstateAssetStore } from 'shared/stores';
 

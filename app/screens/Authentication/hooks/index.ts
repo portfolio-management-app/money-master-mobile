@@ -5,7 +5,6 @@ import {
   getAccessToken,
 } from 'services/facebook-auth';
 import { useCallback, useState } from 'react';
-import { UserStore } from 'shared/stores';
 
 export const useSocialLogin = () => {
   const [loading, setIsLoading] = useState(false);
