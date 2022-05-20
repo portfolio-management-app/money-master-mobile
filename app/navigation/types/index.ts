@@ -55,7 +55,8 @@ export type RootStackParamList = {
       | ICurrencyAsset
       | IStockAsset
       | IBankAsset
-      | IRealEstateAsset;
+      | IRealEstateAsset
+      | ICustomAsset;
   };
   CryptoTransfer: { info: ICryptoAsset };
   StockTransfer: { info: IStockAsset };
@@ -68,6 +69,7 @@ export type RootStackParamList = {
   DrawCash: { source: ICurrencyAsset; cashDestination: ICurrencyAsset };
   DrawBank: { source: IBankAsset; cashDestination: ICurrencyAsset };
   DrawRealEstate: { source: IRealEstateAsset; cashDestination: ICurrencyAsset };
+  DrawOtherAsset: { source: ICustomAsset; cashDestination: ICurrencyAsset };
 };
 
 export type BottomStackParamStack = {

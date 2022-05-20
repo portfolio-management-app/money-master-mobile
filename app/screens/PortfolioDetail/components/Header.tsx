@@ -14,13 +14,11 @@ export const Header = ({ title }: IProps) => {
       bgColor={colorScheme.theme}
       headerStyle="light-content"
       title={title}
-      renderRightItem={() => {
-        return (
-          <View style={{ flexDirection: 'row' }}>
-            <PopoverMenu />
-          </View>
-        );
-      }}
+      renderRightItem={
+        <View style={{ flexDirection: 'row' }}>
+          <PopoverMenu />
+        </View>
+      }
     />
   );
 };

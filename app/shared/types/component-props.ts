@@ -61,3 +61,8 @@ export interface IPieData {
   key: string;
   name: string;
 }
+
+export type SceneRoute = {
+  key: string;
+  title: string;
+};

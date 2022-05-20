@@ -19,6 +19,8 @@ interface IProps {
     jumpTo,
     position,
   }: SceneRendererProps & { route: any }) => JSX.Element;
+  activeColor?: string;
+  inactiveColor?: string;
 }
 
 export const ScrollTabView = ({
@@ -29,6 +31,8 @@ export const ScrollTabView = ({
   indicatorStyle,
   style,
   onChangeView,
+  activeColor,
+  inactiveColor,
 }: IProps) => {
   const layout = useWindowDimensions();
 
@@ -36,6 +40,7 @@ export const ScrollTabView = ({
 
   return (
     <TabView
+      lazy
       navigationState={{ index, routes }}
       renderScene={renderScene}
       onIndexChange={(index: number) => {
@@ -44,6 +49,8 @@ export const ScrollTabView = ({
       }}
       renderTabBar={(props) => (
         <TabBar
+          activeColor={activeColor}
+          inactiveColor={inactiveColor}
           tabStyle={{ width: tabWidth }}
           scrollEnabled={enableScroll}
           renderLabel={({ route, color }) => (

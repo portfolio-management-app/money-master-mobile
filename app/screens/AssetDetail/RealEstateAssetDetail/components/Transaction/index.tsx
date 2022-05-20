@@ -31,7 +31,6 @@ export const Transaction = observer(() => {
         info={selectedTransaction}
         open={openModal}
       />
-      <TransactionHeader />
       <TransactionList
         refreshing={loading}
         data={transactionList}

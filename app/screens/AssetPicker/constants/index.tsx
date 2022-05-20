@@ -68,16 +68,4 @@ export const ITEMS = [
       />
     ),
   },
-  {
-    id: -6,
-    label: PICKER_LABEL.metal,
-    icon: (
-      <Icon.MaterialCommunity
-        style={{ width: SIZE }}
-        size={SIZE}
-        color={COLOR}
-        name="gold"
-      />
-    ),
-  },
 ];

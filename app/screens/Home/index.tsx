@@ -23,13 +23,22 @@ export const Home = () => {
       }
     );
     Notifications.events().registerNotificationReceivedForeground(
-      (notif, completion) => {
+      (notification, completion) => {
         if (Platform.OS === 'android') {
-          Notifications.postLocalNotification(notif.payload);
+          Notifications.postLocalNotification(notification.payload);
         }
 
         // Calling completion on iOS with `alert: true` will present the native iOS inApp notification.
         completion({ alert: true, sound: true, badge: false });
+      }
+    );
+    Notifications.events().registerNotificationOpened(
+      (notification, completion: () => void, action) => {
+        console.log('Notification opened by device user', notification.payload);
+        console.log(
+          `Notification opened with an action identifier: ${action?.identifier} and response text: ${action?.text}`
+        );
+        completion();
       }
     );
   }, []);

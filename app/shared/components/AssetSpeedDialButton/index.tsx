@@ -72,13 +72,7 @@ export const AssetSpeedDialButton = ({
   );
 };
 
-const SpeedDialItems = ({
-  onBuy,
-  onDraw,
-  onExport,
-  onImport,
-  onTransfer,
-}: IProps) => {
+const SpeedDialItems = ({ onBuy, onExport, onImport, onTransfer }: IProps) => {
   return (
     <>
       <View style={styleProvider.speedDialWrapper}>
@@ -123,21 +117,6 @@ const SpeedDialItems = ({
             size={25}
             color={colorScheme.white}
             name="transfer"
-          />
-        </TouchableOpacity>
-      </View>
-      <View style={styleProvider.speedDialWrapper}>
-        <View style={styleProvider.speedDialTooltip}>
-          <TextContainer>{ASSET_DETAIL_CONTENT.draw}</TextContainer>
-        </View>
-        <TouchableOpacity
-          onPress={onDraw}
-          style={styleProvider.speedDialButton}
-        >
-          <Icon.MaterialCommunity
-            size={20}
-            color={colorScheme.white}
-            name="minus-box"
           />
         </TouchableOpacity>
       </View>

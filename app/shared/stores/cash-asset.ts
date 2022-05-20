@@ -1,5 +1,9 @@
-import { Response } from './../models';
-import { TransactionItem } from 'shared/models';
+import {
+  CurrencyAsset,
+  ICurrencyAsset,
+  Response,
+  TransactionItem,
+} from 'shared/models';
 import { HttpError } from 'errors/base';
 import { Config } from 'config';
 import { types, flow } from 'mobx-state-tree';
@@ -10,7 +14,7 @@ import { TransferToOtherAssetBody } from './types';
 
 export const CashAssetStore = types
   .model({
-    id: types.number,
+    information: CurrencyAsset,
     transactionList: types.array(TransactionItem),
     loading: types.boolean,
     portfolioId: types.number,
@@ -19,7 +23,7 @@ export const CashAssetStore = types
   .actions((self) => {
     const editAsset = flow(function* (body: any) {
       const res = yield httpRequest.sendPut(
-        `${Config.BASE_URL}/portfolio/${self.portfolioId}/cash/${self.id}`,
+        `${Config.BASE_URL}/portfolio/${self.portfolioId}/cash/${self.information.id}`,
         body,
         UserStore.user.token
       );
@@ -31,7 +35,7 @@ export const CashAssetStore = types
     const getTransactionList = flow(function* () {
       self.loading = true;
       const res = yield httpRequest.sendGet(
-        `${Config.BASE_URL}/portfolio/${self.portfolioId}/cash/${self.id}/transactions`,
+        `${Config.BASE_URL}/portfolio/${self.portfolioId}/cash/${self.information.id}/transactions`,
         UserStore.user.token
       );
       if (res instanceof HttpError) {
@@ -42,8 +46,8 @@ export const CashAssetStore = types
       self.loading = false;
     });
 
-    const assignInfo = (id: number) => {
-      self.id = id;
+    const assignInfo = (info: ICurrencyAsset) => {
+      self.information = { ...info };
     };
     const assignPortfolioId = (id: number) => {
       self.portfolioId = id;
@@ -62,6 +66,7 @@ export const CashAssetStore = types
         self.transactionResponse.makeError(res);
       } else {
         self.transactionResponse.makeSuccess();
+        getTransactionList();
       }
     });
 
@@ -74,7 +79,16 @@ export const CashAssetStore = types
     };
   })
   .create({
-    id: 0,
+    information: {
+      id: 0,
+      amount: 0,
+      currencyCode: 'USD',
+      name: '',
+      inputDay: '',
+      lastChanged: '',
+      portfolioId: 0,
+      description: '',
+    },
     loading: false,
     portfolioId: 0,
     transactionResponse: {

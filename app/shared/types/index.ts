@@ -9,6 +9,7 @@ import {
   Variant,
   HorizontalBarChartProps,
   IPieData,
+  SceneRoute,
 } from './component-props';
 import {
   StockTimeSupport,
@@ -40,6 +41,7 @@ export type {
   AssetType,
   HorizontalBarChartProps,
   IPieData,
+  SceneRoute,
 };
 
 export type HttpRequestResponse = {

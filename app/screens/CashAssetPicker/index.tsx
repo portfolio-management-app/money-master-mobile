@@ -20,6 +20,7 @@ import {
   IBankAsset,
   ICryptoAsset,
   ICurrencyAsset,
+  ICustomAsset,
   IRealEstateAsset,
   IStockAsset,
 } from 'shared/models';
@@ -75,6 +76,12 @@ export const CashAssetPicker = observer(() => {
       case 'REAL-ESTATE':
         navigation.navigate('DrawRealEstate', {
           source: routeProps.params.source as IRealEstateAsset,
+          cashDestination: cash,
+        });
+        break;
+      case 'OTHER':
+        navigation.navigate('DrawOtherAsset', {
+          source: routeProps.params.source as ICustomAsset,
           cashDestination: cash,
         });
         break;

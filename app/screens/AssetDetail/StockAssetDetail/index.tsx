@@ -7,7 +7,6 @@ import {
 } from 'navigation/types';
 import React from 'react';
 import { StatusBar } from 'react-native';
-import { View } from 'react-native-ui-lib';
 import {
   AssetSpeedDialButton,
   ConfirmSheet,
@@ -20,7 +19,7 @@ import { APP_CONTENT } from 'shared/constants';
 import { PortfolioDetailStore, StockAssetStore } from 'shared/stores';
 import { colorScheme, styleProvider } from 'shared/styles';
 import { AssetActionType } from 'shared/types';
-import { Information, Transaction, PopoverMenu, EditModal } from './components';
+import { PopoverMenu, EditModal, TabBarView } from './components';
 
 const CONTENT = APP_CONTENT.assetDetail;
 
@@ -35,7 +34,7 @@ export const StockAssetDetail = observer(() => {
   const { deleteResponse, deleteStockAsset } = PortfolioDetailStore;
 
   React.useEffect(() => {
-    StockAssetStore.assignInfo(routeProps.params.info.id);
+    StockAssetStore.assignInfo(routeProps.params.info);
     StockAssetStore.getTransactionList();
   }, [routeProps]);
 
@@ -50,13 +49,12 @@ export const StockAssetDetail = observer(() => {
     }
   };
 
-  const handleDraw = () => {
+  const handleTransferToCash = () => {
     navigation.navigate('CashAssetPicker', {
       type: 'STOCK',
       source: routeProps.params.info,
     });
   };
-
   const handleEditInformation = (newData: any) => {
     console.log('edit stock asset', newData);
   };
@@ -82,12 +80,9 @@ export const StockAssetDetail = observer(() => {
       <StatusBar backgroundColor={colorScheme.bg} barStyle="dark-content" />
       <NavigationHeader
         title={routeProps.params.info.name}
-        renderRightItem={() => <PopoverMenu onPress={handleMenuItemPress} />}
+        renderRightItem={<PopoverMenu onPress={handleMenuItemPress} />}
       />
-      <View style={styleProvider.container}>
-        <Information info={routeProps.params.info} />
-      </View>
-      <Transaction />
+      <TabBarView />
       <EditModal
         onEdit={handleEditInformation}
         item={routeProps.params.info}
@@ -95,10 +90,10 @@ export const StockAssetDetail = observer(() => {
         onClose={() => setShowModal(!showModal)}
       />
       <AssetSpeedDialButton
-        onDraw={handleDraw}
         onTransfer={() => setShowTransferOption(!showTransferOption)}
       />
       <TransferOptions
+        onTransferToCash={handleTransferToCash}
         onTransferToFund={handleTransferToInvestFund}
         show={showTransferOption}
         onClose={() => setShowTransferOption(!showTransferOption)}

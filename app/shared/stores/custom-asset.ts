@@ -1,4 +1,4 @@
-import { TransactionItem } from 'shared/models';
+import { CustomAsset, ICustomAsset, TransactionItem } from 'shared/models';
 import { HttpError } from 'errors/base';
 import { Config } from 'config';
 import { types, flow } from 'mobx-state-tree';
@@ -9,7 +9,7 @@ import { TransferToOtherAssetBody } from './types';
 
 export const CustomAssetStore = types
   .model({
-    id: types.number,
+    information: CustomAsset,
     transactionList: types.array(TransactionItem),
     loading: types.boolean,
     portfolioId: types.number,
@@ -17,7 +17,7 @@ export const CustomAssetStore = types
   .actions((self) => {
     const editAsset = flow(function* (body: any) {
       const res = yield httpRequest.sendPut(
-        `${Config.BASE_URL}/portfolio/${self.portfolioId}/custom/${self.id}`,
+        `${Config.BASE_URL}/portfolio/${self.portfolioId}/custom/${self.information.id}`,
         body,
         UserStore.user.token
       );
@@ -29,7 +29,7 @@ export const CustomAssetStore = types
     const getTransactionList = flow(function* () {
       self.loading = true;
       const res = yield httpRequest.sendGet(
-        `${Config.BASE_URL}/portfolio/${self.portfolioId}/custom/${self.id}/transactions`,
+        `${Config.BASE_URL}/portfolio/${self.portfolioId}/custom/${self.information.id}/transactions`,
         UserStore.user.token
       );
       if (res instanceof HttpError) {
@@ -40,8 +40,8 @@ export const CustomAssetStore = types
       self.loading = false;
     });
 
-    const assignInfo = (id: number) => {
-      self.id = id;
+    const assignInfo = (info: ICustomAsset) => {
+      self.information = { ...info };
     };
     const assignPortfolioId = (id: number) => {
       self.portfolioId = id;
@@ -57,6 +57,8 @@ export const CustomAssetStore = types
       );
       if (res instanceof HttpError) {
         log('Error when transfer custom asset', res);
+      } else {
+        getTransactionList();
       }
     });
 
@@ -69,7 +71,16 @@ export const CustomAssetStore = types
     };
   })
   .create({
-    id: 0,
+    information: {
+      id: 0,
+      name: '',
+      inputDay: '',
+      inputMoneyAmount: 0,
+      inputCurrency: '',
+      description: '',
+      interestRate: 0,
+      termRange: 0,
+    },
     loading: false,
     portfolioId: 0,
   });

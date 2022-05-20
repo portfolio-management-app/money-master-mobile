@@ -1,10 +1,6 @@
 import { observer } from 'mobx-react-lite';
 import React from 'react';
-import {
-  TransactionDetailModal,
-  TransactionHeader,
-  TransactionList,
-} from 'shared/components';
+import { TransactionDetailModal, TransactionList } from 'shared/components';
 import { ITransactionItem } from 'shared/models';
 import { StockAssetStore } from 'shared/stores';
 
@@ -30,7 +26,6 @@ export const Transaction = observer(() => {
         info={selectedTransaction}
         open={openModal}
       />
-      <TransactionHeader />
       <TransactionList
         refreshing={loading}
         data={transactionList}

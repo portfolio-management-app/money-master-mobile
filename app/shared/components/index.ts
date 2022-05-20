@@ -50,7 +50,6 @@ import { Loading } from './Loading';
 import { TextContainer } from './TextContainer';
 import { PlatformView } from './PlatformView';
 import { ErrorDialog } from './ErrorDialog';
-import { MetalPrice } from './MetalPrice';
 import { AssetSpeedDialButton } from './AssetSpeedDialButton';
 import { ConfirmSheet } from './ConfirmSheet';
 import { Skeleton } from './Skeleton';
@@ -109,7 +108,6 @@ export {
   CryptoSearchResult,
   StockSearchResult,
   CustomHint,
-  MetalPrice,
   TransactionDetail,
   StockInformationCard,
   BankInformationCard,

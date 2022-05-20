@@ -8,7 +8,7 @@ import {
   IInvestFundInformation,
   IInvestFundTransactionItem,
 } from './types/index';
-import { CategoryAssetList } from './custom-asset';
+import { CategoryAssetList, CustomAsset } from './custom-asset';
 import {
   CurrencyTimeSeries,
   CurrencyInformation,
@@ -32,13 +32,10 @@ import {
   IStockTimeSeries,
   ICurrencyInformation,
   ICurrencyTimeSeries,
-  IMetalInformation,
-  IMetalItem,
   ICryptoAsset,
   IStockAsset,
   ICurrencyAsset,
 } from './types';
-import { MetalInformation } from './metal-information';
 import { Response } from './response';
 export {
   User,
@@ -51,7 +48,6 @@ export {
   CryptoAsset,
   CurrencyInformation,
   CurrencyTimeSeries,
-  MetalInformation,
   StockAsset,
   CurrencyAsset,
   CategoryAssetList,
@@ -60,6 +56,7 @@ export {
   InvestFundInformation,
   Response,
   InvestFundTransactionItem,
+  CustomAsset,
 };
 
 export type {
@@ -70,8 +67,6 @@ export type {
   IRealEstateAsset,
   ICurrencyInformation,
   ICurrencyTimeSeries,
-  IMetalInformation,
-  IMetalItem,
   ICryptoAsset,
   IStockAsset,
   ICurrencyAsset,

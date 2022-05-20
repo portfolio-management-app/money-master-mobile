@@ -58,7 +58,7 @@ export const TransactionDetail = observer(({ info, onPress }: IProps) => {
                   size={20}
                 />
                 <TextContainer ml={MARGIN} semiBold type="small">
-                  {APP_CONTENT.sell}
+                  {APP_CONTENT.draw}
                 </TextContainer>
               </View>
               <TextContainer mt={10} type="small">
@@ -87,7 +87,7 @@ export const TransactionDetail = observer(({ info, onPress }: IProps) => {
                   size={20}
                 />
                 <TextContainer ml={MARGIN} semiBold type="small">
-                  {APP_CONTENT.sell}
+                  {APP_CONTENT.draw}
                 </TextContainer>
               </View>
               <TextContainer mt={10} type="small">

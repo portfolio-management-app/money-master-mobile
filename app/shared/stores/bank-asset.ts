@@ -1,4 +1,9 @@
-import { TransactionItem, Response } from 'shared/models';
+import {
+  TransactionItem,
+  Response,
+  BankAsset,
+  IBankAsset,
+} from 'shared/models';
 import { HttpError } from 'errors/base';
 import { Config } from 'config';
 import { types, flow } from 'mobx-state-tree';
@@ -9,16 +14,16 @@ import { TransferToOtherAssetBody } from './types';
 
 export const BankAssetStore = types
   .model({
-    id: types.number,
     transactionList: types.array(TransactionItem),
     loading: types.boolean,
     portfolioId: types.number,
     transactionResponse: Response,
+    information: BankAsset,
   })
   .actions((self) => {
     const editAsset = flow(function* (body: any) {
       const res = yield httpRequest.sendPut(
-        `${Config.BASE_URL}/portfolio/${self.portfolioId}/bankSaving/${self.id}`,
+        `${Config.BASE_URL}/portfolio/${self.portfolioId}/bankSaving/${self.information.id}`,
         body,
         UserStore.user.token
       );
@@ -30,7 +35,7 @@ export const BankAssetStore = types
     const getTransactionList = flow(function* () {
       self.loading = true;
       const res = yield httpRequest.sendGet(
-        `${Config.BASE_URL}/portfolio/${self.portfolioId}/bankSaving/${self.id}/transactions`,
+        `${Config.BASE_URL}/portfolio/${self.portfolioId}/bankSaving/${self.information.id}/transactions`,
         UserStore.user.token
       );
       if (res instanceof HttpError) {
@@ -41,8 +46,8 @@ export const BankAssetStore = types
       self.loading = false;
     });
 
-    const assignInfo = (id: number) => {
-      self.id = id;
+    const assignInfo = (info: IBankAsset) => {
+      self.information = { ...info };
     };
     const assignPortfolioId = (id: number) => {
       self.portfolioId = id;
@@ -73,7 +78,18 @@ export const BankAssetStore = types
     };
   })
   .create({
-    id: 0,
+    information: {
+      id: 0,
+      name: '',
+      inputDay: '',
+      inputMoneyAmount: 0,
+      inputCurrency: 'USD',
+      lastChanged: '',
+      description: '',
+      interestRate: 0,
+      termRange: 0,
+      isGoingToReinState: false,
+    },
     loading: false,
     portfolioId: 0,
     transactionResponse: {

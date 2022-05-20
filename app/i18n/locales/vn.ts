@@ -180,7 +180,7 @@ export const vn = {
       title: 'Chuyển tới',
       portfolio: 'Khoản đầu tư khác',
       fund: 'Quỹ đầu tư',
-      otherAsset: 'Other asset',
+      otherAsset: 'Tiền mặt',
     },
     profit: 'Lợi nhuận',
     transferConfirm: 'Chuyển tất cả đến quỹ đầu tư ?',
@@ -191,6 +191,11 @@ export const vn = {
     },
     assetAllocation: 'Phân bố tài sản',
     detail: 'Chi tiết',
+    tabContent: {
+      information: 'Thông tin',
+      transaction: 'Giao dịch',
+      profit: 'Lợi nhuận',
+    },
   },
   confirmModal: {
     confirm: 'OK',
@@ -403,4 +408,5 @@ export const vn = {
     title: 'Sử dụng tiền của quỹ đầu tư để mua',
     explain: 'Sử dụng tiền cuả quỹ đầu tư để mua tài sản này',
   },
+  draw: 'Rút',
 };

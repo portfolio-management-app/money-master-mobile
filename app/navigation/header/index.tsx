@@ -8,7 +8,7 @@ interface IProps {
   title?: string;
   headerStyle?: 'light-content' | 'dark-content';
   bgColor?: string;
-  renderRightItem?: () => JSX.Element;
+  renderRightItem?: JSX.Element;
 }
 
 export const NavigationHeader = ({
@@ -42,7 +42,7 @@ export const NavigationHeader = ({
         </TextContainer>
       </View>
 
-      {renderRightItem && renderRightItem()}
+      {renderRightItem && renderRightItem}
     </PlatformView>
   );
 };

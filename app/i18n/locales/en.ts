@@ -185,7 +185,7 @@ export const en = {
     transferOption: {
       title: 'Transfer to',
       portfolio: 'Other portfolio',
-      otherAsset: 'Other asset',
+      otherAsset: 'Cash asset',
       fund: 'Invest fund',
     },
     drawOption: {
@@ -197,6 +197,11 @@ export const en = {
     transferConfirm: 'Transfer all to fund ?',
     assetAllocation: 'Asset allocation',
     detail: 'Detail',
+    tabContent: {
+      information: 'Information',
+      transaction: 'Transaction',
+      profit: 'Profit',
+    },
   },
 
   confirmModal: {
@@ -410,4 +415,5 @@ export const en = {
     title: 'Buy from invest fund',
     explain: 'Use invest fund money to buy this asset',
   },
+  draw: 'Draw',
 };

@@ -1,4 +1,9 @@
-import { TransactionItem, Response } from 'shared/models';
+import {
+  TransactionItem,
+  Response,
+  RealEstateAsset,
+  IRealEstateAsset,
+} from 'shared/models';
 import { HttpError } from 'errors/base';
 import { Config } from 'config';
 import { types, flow } from 'mobx-state-tree';
@@ -9,7 +14,7 @@ import { TransferToOtherAssetBody } from './types';
 
 export const RealEstateAssetStore = types
   .model({
-    id: types.number,
+    information: RealEstateAsset,
     transactionList: types.array(TransactionItem),
     loading: types.boolean,
     portfolioId: types.number,
@@ -18,7 +23,7 @@ export const RealEstateAssetStore = types
   .actions((self) => {
     const editAsset = flow(function* (body: any) {
       const res = yield httpRequest.sendPut(
-        `${Config.BASE_URL}/portfolio/${self.portfolioId}/realEstate/${self.id}`,
+        `${Config.BASE_URL}/portfolio/${self.portfolioId}/realEstate/${self.information.id}`,
         body,
         UserStore.user.token
       );
@@ -30,7 +35,7 @@ export const RealEstateAssetStore = types
     const getTransactionList = flow(function* () {
       self.loading = true;
       const res = yield httpRequest.sendGet(
-        `${Config.BASE_URL}/portfolio/${self.portfolioId}/realEstate/${self.id}/transactions`,
+        `${Config.BASE_URL}/portfolio/${self.portfolioId}/realEstate/${self.information.id}/transactions`,
         UserStore.user.token
       );
       if (res instanceof HttpError) {
@@ -41,8 +46,8 @@ export const RealEstateAssetStore = types
       self.loading = false;
     });
 
-    const assignInfo = (id: number) => {
-      self.id = id;
+    const assignInfo = (info: IRealEstateAsset) => {
+      self.information = { ...info };
     };
     const assignPortfolioId = (id: number) => {
       self.portfolioId = id;
@@ -61,6 +66,7 @@ export const RealEstateAssetStore = types
         log('Error when transfer real estate asset', res);
       } else {
         self.transactionResponse.makeSuccess();
+        getTransactionList();
       }
     });
 
@@ -73,7 +79,16 @@ export const RealEstateAssetStore = types
     };
   })
   .create({
-    id: 0,
+    information: {
+      id: 0,
+      name: '',
+      inputDay: '',
+      inputMoneyAmount: 0,
+      inputCurrency: 'USD',
+      lastChanged: '',
+      description: '',
+      currentPrice: 0,
+    },
     loading: false,
     portfolioId: 0,
     transactionResponse: {

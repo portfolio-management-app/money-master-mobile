@@ -5,7 +5,6 @@ import { colorScheme } from 'shared/styles';
 import { SCREEN_CONTENT } from '../constant';
 import { CryptoMarket } from './Crypto';
 import { CurrencyMarket } from './Currency';
-import { MetalMarket } from './Metal';
 import { StockMarket } from './Stock';
 
 interface IProps {
@@ -16,13 +15,11 @@ const Component = ({ onViewChange }: IProps) => {
   const [routes] = React.useState([
     { key: 'crypto', title: SCREEN_CONTENT.crypto },
     { key: 'stock', title: SCREEN_CONTENT.stock },
-    { key: 'metal', title: SCREEN_CONTENT.metal },
     { key: 'currency', title: SCREEN_CONTENT.currency },
   ]);
   const renderScene = SceneMap({
     crypto: CryptoMarket,
     stock: StockMarket,
-    metal: MetalMarket,
     currency: CurrencyMarket,
   });
   return (

@@ -7,7 +7,6 @@ import {
 } from 'navigation/types';
 import React from 'react';
 import { StatusBar } from 'react-native';
-import { View } from 'react-native-ui-lib';
 import {
   AssetSpeedDialButton,
   ConfirmSheet,
@@ -20,7 +19,7 @@ import { ASSET_DETAIL_CONTENT } from 'shared/constants';
 import { CustomAssetStore, PortfolioDetailStore } from 'shared/stores';
 import { colorScheme, styleProvider } from 'shared/styles';
 import { AssetActionType } from 'shared/types';
-import { Information, Transaction, PopoverMenu, EditModal } from './components';
+import { PopoverMenu, EditModal, TabBarView } from './components';
 
 export const CustomAssetDetail = observer(() => {
   const routeProps =
@@ -33,7 +32,7 @@ export const CustomAssetDetail = observer(() => {
   const { deleteResponse, deleteCustomAsset } = PortfolioDetailStore;
 
   React.useEffect(() => {
-    CustomAssetStore.assignInfo(routeProps.params.info.id);
+    CustomAssetStore.assignInfo(routeProps.params.info);
     CustomAssetStore.getTransactionList();
   }, [routeProps]);
 
@@ -66,17 +65,21 @@ export const CustomAssetDetail = observer(() => {
     setShowConfirm(!showConfirm);
   };
 
+  const handleTransferToCash = () => {
+    navigation.navigate('CashAssetPicker', {
+      type: 'OTHER',
+      source: routeProps.params.info,
+    });
+  };
+
   return (
     <PlatformView style={styleProvider.body}>
       <StatusBar backgroundColor={colorScheme.bg} barStyle="dark-content" />
       <NavigationHeader
         title={routeProps.params.info.name}
-        renderRightItem={() => <PopoverMenu onPress={handleMenuItemPress} />}
+        renderRightItem={<PopoverMenu onPress={handleMenuItemPress} />}
       />
-      <View style={styleProvider.container}>
-        <Information info={routeProps.params.info} />
-      </View>
-      <Transaction />
+      <TabBarView />
       <EditModal
         onEdit={handleEditInformation}
         item={routeProps.params.info}
@@ -87,6 +90,7 @@ export const CustomAssetDetail = observer(() => {
         onTransfer={() => setShowTransferOption(!showTransferOption)}
       />
       <TransferOptions
+        onTransferToCash={handleTransferToCash}
         show={showTransferOption}
         onTransferToFund={handleTransferToInvestFund}
         onClose={() => setShowTransferOption(!showTransferOption)}

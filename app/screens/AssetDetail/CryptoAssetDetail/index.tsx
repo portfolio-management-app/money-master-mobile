@@ -7,7 +7,6 @@ import {
 } from 'navigation/types';
 import React from 'react';
 import { StatusBar } from 'react-native';
-import { View } from 'react-native-ui-lib';
 import {
   AssetSpeedDialButton,
   ConfirmSheet,
@@ -20,7 +19,7 @@ import { APP_CONTENT } from 'shared/constants';
 import { CryptoAssetStore, PortfolioDetailStore } from 'shared/stores';
 import { colorScheme, styleProvider } from 'shared/styles';
 import { AssetActionType } from 'shared/types';
-import { Information, Transaction, PopoverMenu, EditModal } from './components';
+import { EditModal, PopoverMenu, TabBarView } from './components';
 
 const CONTENT = APP_CONTENT.assetDetail;
 
@@ -36,7 +35,7 @@ export const CryptoAssetDetail = observer(() => {
   const { deleteResponse, deleteCryptoAsset } = PortfolioDetailStore;
 
   React.useEffect(() => {
-    assignInfo(routeProps.params.info.id);
+    assignInfo(routeProps.params.info);
     getTransactionList();
   }, [assignInfo, getTransactionList, routeProps]);
 
@@ -79,7 +78,7 @@ export const CryptoAssetDetail = observer(() => {
     setShowConfirm(!showConfirm);
   };
 
-  const handleDraw = () => {
+  const handleTransferToCash = () => {
     navigation.navigate('CashAssetPicker', {
       type: 'CRYPTO',
       source: routeProps.params.info,
@@ -91,12 +90,8 @@ export const CryptoAssetDetail = observer(() => {
       <StatusBar backgroundColor={colorScheme.bg} barStyle="dark-content" />
       <NavigationHeader
         title={routeProps.params.info.name}
-        renderRightItem={() => <PopoverMenu onPress={handleMenuItemPress} />}
+        renderRightItem={<PopoverMenu onPress={handleMenuItemPress} />}
       />
-      <View style={styleProvider.container}>
-        <Information info={routeProps.params.info} />
-      </View>
-      <Transaction />
       <EditModal
         onEdit={handleEditInformation}
         item={routeProps.params.info}
@@ -104,12 +99,13 @@ export const CryptoAssetDetail = observer(() => {
         onClose={() => setShowModal(!showModal)}
       />
       <AssetSpeedDialButton
-        onDraw={handleDraw}
         onTransfer={() => setShowTransferOption(!showTransferOption)}
       />
+      <TabBarView />
       <TransferOptions
         onTransferPortfolio={handleTransferToPortfolio}
         onTransferToFund={handleTransferToInvestFund}
+        onTransferToCash={handleTransferToCash}
         show={showTransferOption}
         onClose={() => setShowTransferOption(!showTransferOption)}
       />

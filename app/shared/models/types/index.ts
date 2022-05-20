@@ -1,12 +1,11 @@
 import { InvestFundInformation } from './../invest-fund';
 import { TransactionItem, InvestFundTransactionItem } from './../transaction';
-import { SnapshotOut, types } from 'mobx-state-tree';
+import { SnapshotOut } from 'mobx-state-tree';
 import {
   CurrencyTimeSeries,
   CurrencyInformation,
 } from '../currency-information';
 import { CustomAsset } from '../custom-asset';
-import { MetalItem, MetalInformation } from '../metal-information';
 import {
   BankAsset,
   RealEstateAsset,
@@ -39,11 +38,7 @@ export type ICurrencyAsset = SnapshotOut<typeof CurrencyAsset>;
 
 export type ICustomAsset = SnapshotOut<typeof CustomAsset>;
 
-export type IMetalItem = SnapshotOut<typeof MetalItem>;
-
 export type IPieChartItem = SnapshotOut<typeof PieChartItem>;
-
-export type IMetalInformation = SnapshotOut<typeof MetalInformation>;
 
 export type ITransactionItem = SnapshotOut<typeof TransactionItem>;
 

@@ -7,7 +7,6 @@ import {
 } from 'navigation/types';
 import React from 'react';
 import { StatusBar } from 'react-native';
-import { View } from 'react-native-ui-lib';
 import {
   AssetSpeedDialButton,
   ConfirmSheet,
@@ -24,7 +23,7 @@ import {
 } from 'shared/stores';
 import { colorScheme, styleProvider } from 'shared/styles';
 import { AssetActionType } from 'shared/types';
-import { Information, Transaction, PopoverMenu, EditModal } from './components';
+import { PopoverMenu, EditModal, TabBarView } from './components';
 
 export const RealEstateAssetDetail = observer(() => {
   const routeProps =
@@ -47,7 +46,7 @@ export const RealEstateAssetDetail = observer(() => {
   } = InvestFundStore;
 
   React.useEffect(() => {
-    RealEstateAssetStore.assignInfo(routeProps.params.info.id);
+    RealEstateAssetStore.assignInfo(routeProps.params.info);
     RealEstateAssetStore.getTransactionList();
   }, [routeProps]);
 
@@ -64,10 +63,6 @@ export const RealEstateAssetDetail = observer(() => {
 
   const handleEditInformation = (newData: any) => {
     RealEstateAssetStore.editAsset(newData);
-  };
-
-  const handleTransferToPortfolio = () => {
-    console.log('Do thing');
   };
 
   const handleTransferToFund = () => {
@@ -97,7 +92,7 @@ export const RealEstateAssetDetail = observer(() => {
     setShowConfirmTransfer(!showConfirmTransfer);
   };
 
-  const handleDraw = () => {
+  const handleTransferToCash = () => {
     navigation.navigate('CashAssetPicker', {
       type: 'REAL-ESTATE',
       source: routeProps.params.info,
@@ -109,12 +104,9 @@ export const RealEstateAssetDetail = observer(() => {
       <StatusBar backgroundColor={colorScheme.bg} barStyle="dark-content" />
       <NavigationHeader
         title={routeProps.params.info.name}
-        renderRightItem={() => <PopoverMenu onPress={handleMenuItemPress} />}
+        renderRightItem={<PopoverMenu onPress={handleMenuItemPress} />}
       />
-      <View style={styleProvider.container}>
-        <Information info={routeProps.params.info} />
-      </View>
-      <Transaction />
+      <TabBarView />
       <EditModal
         onEdit={handleEditInformation}
         item={routeProps.params.info}
@@ -123,12 +115,11 @@ export const RealEstateAssetDetail = observer(() => {
       />
       <TransferOptions
         onTransferToFund={handleCancelTransfer}
-        onTransferPortfolio={handleTransferToPortfolio}
+        onTransferToCash={handleTransferToCash}
         show={showTransferOption}
         onClose={() => setShowTransferOption(!showTransferOption)}
       />
       <AssetSpeedDialButton
-        onDraw={handleDraw}
         onTransfer={() => setShowTransferOption(!showTransferOption)}
       />
       <ConfirmSheet

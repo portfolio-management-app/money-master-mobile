@@ -6,7 +6,7 @@ import {
   PlatformView,
 } from 'shared/components';
 import { APP_CONTENT } from 'shared/constants';
-import { SearchModalMarket, MetalStore } from 'shared/stores';
+import { SearchModalMarket } from 'shared/stores';
 import { colorScheme, styleProvider } from 'shared/styles';
 import { TabBarView } from './components';
 
@@ -27,13 +27,6 @@ const Component = () => {
   };
   const handleTabChange = React.useCallback((index: number) => {
     setTabIndex(index);
-    switch (index) {
-      case 0:
-        break;
-      case 2:
-        MetalStore.getMetalData('USD');
-        break;
-    }
   }, []);
   return (
     <PlatformView style={styleProvider.body}>

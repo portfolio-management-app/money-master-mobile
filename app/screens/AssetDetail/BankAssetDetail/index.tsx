@@ -7,7 +7,6 @@ import {
 } from 'navigation/types';
 import React from 'react';
 import { StatusBar } from 'react-native';
-import { View } from 'react-native-ui-lib';
 import {
   AssetSpeedDialButton,
   ConfirmSheet,
@@ -24,7 +23,8 @@ import {
 } from 'shared/stores';
 import { colorScheme, styleProvider } from 'shared/styles';
 import { AssetActionType } from 'shared/types';
-import { Information, Transaction, PopoverMenu, EditModal } from './components';
+import { fileService } from 'services/file-service';
+import { PopoverMenu, EditModal, TabBarView } from './components';
 
 export const BankAssetDetail = observer(() => {
   const routeProps =
@@ -46,7 +46,7 @@ export const BankAssetDetail = observer(() => {
   } = InvestFundStore;
 
   React.useEffect(() => {
-    BankAssetStore.assignInfo(routeProps.params.info.id);
+    BankAssetStore.assignInfo(routeProps.params.info);
     BankAssetStore.getTransactionList();
   }, [routeProps]);
 
@@ -96,11 +96,15 @@ export const BankAssetDetail = observer(() => {
     setShowConfirmTransfer(!showConfirmTransfer);
   };
 
-  const handleDraw = () => {
+  const handleTransferToCash = () => {
     navigation.navigate('CashAssetPicker', {
       type: 'BANKING',
       source: routeProps.params.info,
     });
+  };
+  const handleExportFile = () => {
+    console.log('export');
+    fileService.saveFile();
   };
 
   return (
@@ -108,12 +112,9 @@ export const BankAssetDetail = observer(() => {
       <StatusBar backgroundColor={colorScheme.bg} barStyle="dark-content" />
       <NavigationHeader
         title={routeProps.params.info.name}
-        renderRightItem={() => <PopoverMenu onPress={handleMenuItemPress} />}
+        renderRightItem={<PopoverMenu onPress={handleMenuItemPress} />}
       />
-      <View style={styleProvider.container}>
-        <Information info={routeProps.params.info} />
-      </View>
-      <Transaction />
+      <TabBarView />
       <EditModal
         onEdit={handleEditInformation}
         item={routeProps.params.info}
@@ -123,12 +124,13 @@ export const BankAssetDetail = observer(() => {
       <TransferOptions
         onTransferToFund={handleCancelTransfer}
         onTransferPortfolio={handleTransferToPortfolio}
+        onTransferToCash={handleTransferToCash}
         show={showTransferOption}
         onClose={() => setShowTransferOption(!showTransferOption)}
       />
       <AssetSpeedDialButton
-        onDraw={handleDraw}
         onTransfer={() => setShowTransferOption(!showTransferOption)}
+        onExport={handleExportFile}
       />
       <ConfirmSheet
         title={ASSET_DETAIL_CONTENT.deleteTitle}

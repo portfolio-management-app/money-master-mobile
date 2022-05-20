@@ -5,7 +5,6 @@ import { StockAssetStore } from './stock-asset';
 import { CryptoAssetStore } from './crypto-asset';
 import { BankAssetStore } from './bank-asset';
 import { InvestFundStore } from './invest-fund';
-import { MetalStore } from './metal-store';
 import { CurrencyDetailStore } from './currency-detail';
 import { PortfolioDetailStore } from './portfolio-detail';
 import { PortfolioListStore } from './portfolio-list';
@@ -23,7 +22,6 @@ export {
   PortfolioListStore,
   PortfolioDetailStore,
   CurrencyDetailStore,
-  MetalStore,
   InvestFundStore,
   BankAssetStore,
   CryptoAssetStore,

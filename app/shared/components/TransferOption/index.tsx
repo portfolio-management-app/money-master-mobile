@@ -15,7 +15,7 @@ interface IProps {
   onClose?: () => void;
   onTransferPortfolio?: () => void;
   onTransferToFund?: () => void;
-  onTransferToOtherAsset?: () => void;
+  onTransferToCash?: () => void;
 }
 
 const ML = 10;
@@ -24,7 +24,7 @@ const Component = ({
   show,
   onClose,
   onTransferToFund,
-  onTransferToOtherAsset,
+  onTransferToCash,
 }: IProps) => {
   return (
     <ActionSheet
@@ -38,7 +38,7 @@ const Component = ({
             return (
               <TouchableOpacity
                 key={index}
-                onPress={onTransferToOtherAsset}
+                onPress={onTransferToCash}
                 style={styles.optionButton}
               >
                 <Icon.FontAwesome5
