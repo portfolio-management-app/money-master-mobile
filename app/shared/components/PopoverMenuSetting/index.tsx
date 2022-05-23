@@ -13,9 +13,10 @@ import { AssetActionType } from 'shared/types';
 
 interface IProps {
   onPress: (type: AssetActionType) => void;
+  buttonColor?: string;
 }
 
-export const PopoverMenu = ({ onPress }: IProps) => {
+const Component = ({ onPress, buttonColor = colorScheme.black200 }: IProps) => {
   return (
     <Menu>
       <MenuTrigger>
@@ -23,7 +24,7 @@ export const PopoverMenu = ({ onPress }: IProps) => {
           name="settings"
           size={25}
           style={{ marginRight: 10 }}
-          color={colorScheme.black200}
+          color={buttonColor}
         />
       </MenuTrigger>
       <MenuOptions
@@ -54,6 +55,8 @@ export const PopoverMenu = ({ onPress }: IProps) => {
     </Menu>
   );
 };
+
+export const PopoverMenuSetting = React.memo(Component);
 
 const styles = StyleSheet.create({
   menuItem: {

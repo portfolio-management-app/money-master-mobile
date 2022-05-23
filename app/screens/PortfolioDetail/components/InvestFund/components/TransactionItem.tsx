@@ -1,10 +1,8 @@
-import { observer } from 'mobx-react-lite';
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { Icon, TextContainer } from 'shared/components';
 import { APP_CONTENT } from 'shared/constants';
 import { IInvestFundTransactionItem } from 'shared/models';
-import { PortfolioDetailStore } from 'shared/stores';
 import { colorScheme, styleProvider } from 'shared/styles';
 import { parseToString } from 'utils/date';
 import { formatCurrency } from 'utils/number';
@@ -42,39 +40,36 @@ export const TransactionItem = ({ item }: IProps) => {
   );
 };
 
-const Source = observer(({ item }: IProps) => {
-  const { getCryptoById, getStockById, getBankById, getRealEstateById } =
-    PortfolioDetailStore;
+const Source = ({ item }: IProps) => {
   switch (item.referentialAssetType) {
     case 'crypto':
       return (
         <TextContainer mt={10} type="small">
-          {APP_CONTENT.transactionDetail.from}: {getCryptoById(item.id)?.name}
+          {APP_CONTENT.transactionDetail.from}: {item.referentialAssetName}
         </TextContainer>
       );
     case 'bankSaving':
       return (
         <TextContainer mt={10} type="small">
-          {APP_CONTENT.transactionDetail.from}: {getBankById(item.id)?.name}
+          {APP_CONTENT.transactionDetail.from}: {item.referentialAssetName}
         </TextContainer>
       );
     case 'realEstate':
       return (
         <TextContainer mt={10} type="small">
-          {APP_CONTENT.transactionDetail.from}:
-          {getRealEstateById(item.id)?.name}
+          {APP_CONTENT.transactionDetail.from}: {item.referentialAssetName}
         </TextContainer>
       );
     case 'stock':
       return (
         <TextContainer mt={10} type="small">
-          {APP_CONTENT.transactionDetail.from}: {getStockById(item.id)?.name}
+          {APP_CONTENT.transactionDetail.from}: {item.referentialAssetName}
         </TextContainer>
       );
     default:
       return <></>;
   }
-});
+};
 
 const styles = StyleSheet.create({
   transactionItem: {

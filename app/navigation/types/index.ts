@@ -70,6 +70,20 @@ export type RootStackParamList = {
   DrawBank: { source: IBankAsset; cashDestination: ICurrencyAsset };
   DrawRealEstate: { source: IRealEstateAsset; cashDestination: ICurrencyAsset };
   DrawOtherAsset: { source: ICustomAsset; cashDestination: ICurrencyAsset };
+  EditPortfolio: {
+    portfolio: IPortfolio;
+    editFrom: 'PortfolioList' | 'PortfolioDetail';
+  };
+  NotificationSetting: {
+    asset:
+      | ICryptoAsset
+      | ICurrencyAsset
+      | IStockAsset
+      | IBankAsset
+      | IRealEstateAsset
+      | ICustomAsset;
+    type: AssetType;
+  };
 };
 
 export type BottomStackParamStack = {

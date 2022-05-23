@@ -1,3 +1,4 @@
+import { parseToString } from 'utils/date';
 import { HttpError } from 'errors/base';
 import { Config } from 'config';
 import { types, flow } from 'mobx-state-tree';
@@ -11,6 +12,8 @@ import {
 } from 'shared/models';
 import { log } from 'services/log';
 import { TransferToOtherAssetBody } from './types';
+import { translateInvestFundError } from 'utils/translation';
+import { EXCEL_COLUMNS } from 'shared/constants';
 
 export const CryptoAssetStore = types
   .model({
@@ -19,6 +22,25 @@ export const CryptoAssetStore = types
     transactionResponse: Response,
     information: CryptoAsset,
   })
+  .views((self) => ({
+    getExcelData() {
+      const object: any = {};
+      object[EXCEL_COLUMNS.assetName] = self.information.name;
+      object[EXCEL_COLUMNS.coinCode] = self.information.cryptoCoinCode;
+      if (self.information.description !== '') {
+        object[EXCEL_COLUMNS.description] = self.information.description;
+      }
+      object[EXCEL_COLUMNS.amount] = self.information.currentAmountInCurrency;
+      object[EXCEL_COLUMNS.amountHolding] =
+        self.information.currentAmountHolding;
+      object[EXCEL_COLUMNS.buyPrice] = self.information.purchasePrice;
+      object[EXCEL_COLUMNS.currency] = self.information.currencyCode;
+      object[EXCEL_COLUMNS.buyDate] = parseToString(
+        new Date(self.information.inputDay)
+      );
+      return [object];
+    },
+  }))
   .actions((self) => {
     const editAsset = flow(function* (body: any) {
       const res = yield httpRequest.sendPut(
@@ -57,6 +79,7 @@ export const CryptoAssetStore = types
       );
       if (res instanceof HttpError) {
         log('Error when transfer crypto asset', res);
+        res.setMessage(translateInvestFundError(res));
         self.transactionResponse.makeError(res);
       } else {
         self.transactionResponse.makeSuccess();

@@ -1,11 +1,17 @@
-import { writeFile } from 'react-native-fs';
-import RNFS from 'react-native-fs';
+import { APP_CONTENT } from 'shared/constants';
+import { writeFile, DownloadDirectoryPath } from 'react-native-fs';
 import XLSX from 'xlsx';
-import { PermissionsAndroid } from 'react-native';
+import { Alert, PermissionsAndroid } from 'react-native';
 import { log } from './log';
 
+const CONTENT = APP_CONTENT.exportInfo;
+
 class FileService {
-  async saveFile() {
+  async saveAssetDataFile(
+    transactionData: any,
+    assetData: any,
+    fileName: string
+  ) {
     try {
       await PermissionsAndroid.requestMultiple([
         PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
@@ -24,23 +30,24 @@ class FileService {
       console.log('Read and write permissions have not been granted');
       return;
     }
-    const data = [
-      { name: 'John', city: 'Seattle' },
-      { name: 'Mike', city: 'Los Angeles' },
-      { name: 'Zach', city: 'New York' },
-    ];
 
-    const ws = XLSX.utils.json_to_sheet(data);
+    const ws1 = XLSX.utils.json_to_sheet(transactionData);
+    const ws2 = XLSX.utils.json_to_sheet(assetData);
 
     const wb = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(wb, ws, 'Prova');
+    XLSX.utils.book_append_sheet(wb, ws1, CONTENT.transaction);
+    XLSX.utils.book_append_sheet(wb, ws2, CONTENT.assetInformation);
 
     const wbout = XLSX.write(wb, { type: 'binary', bookType: 'xlsx' });
 
-    const file = RNFS.DownloadDirectoryPath + '/test.xlsx';
+    const file = DownloadDirectoryPath + `/${fileName}.xlsx`;
     writeFile(file, wbout, 'ascii')
       .then((r) => {
         log('Save file success', r);
+        Alert.alert(
+          CONTENT.title,
+          `${CONTENT.message} ${DownloadDirectoryPath}/${fileName}.xlsx`
+        );
       })
       .catch((e) => {
         log('Error when save file', e);

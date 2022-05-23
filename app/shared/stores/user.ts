@@ -112,7 +112,18 @@ export const UserStore = types
       console.log('removed token');
     };
 
-    return { register, logout, login, initUser, googleLogin };
+    const registerDeviceToken = (deviceToken: string) => {
+      console.log(deviceToken);
+    };
+
+    return {
+      register,
+      logout,
+      login,
+      initUser,
+      googleLogin,
+      registerDeviceToken,
+    };
   })
   .create({
     user: {

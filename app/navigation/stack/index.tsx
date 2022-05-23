@@ -40,6 +40,7 @@ import {
   DrawStock,
   DrawBank,
   DrawRealEstate,
+  EditPortfolio,
 } from 'screens';
 import { StatusBar } from 'react-native';
 import { colorScheme } from 'shared/styles';
@@ -107,6 +108,7 @@ export const NavigationStack = () => {
         <Stack.Screen name="DrawStock" component={DrawStock} />
         <Stack.Screen name="DrawBank" component={DrawBank} />
         <Stack.Screen name="DrawRealEstate" component={DrawRealEstate} />
+        <Stack.Screen name="EditPortfolio" component={EditPortfolio} />
       </Stack.Navigator>
     </NavigationContainer>
   );

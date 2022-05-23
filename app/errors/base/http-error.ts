@@ -21,4 +21,7 @@ export class HttpError {
   getDefaultMessage() {
     return '';
   }
+  setMessage(message: string) {
+    this.message = message;
+  }
 }

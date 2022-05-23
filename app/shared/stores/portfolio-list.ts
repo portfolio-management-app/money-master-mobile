@@ -5,6 +5,7 @@ import { httpRequest } from 'services/http';
 import { UserStore } from './user';
 import { PortfolioInformation } from '../models';
 import { log } from 'services/log';
+import { EditPortfolioBody } from './types';
 
 export type AddNewBody = {
   name: string;
@@ -44,8 +45,21 @@ export const PortfolioListStore = types
       }
       self.loading = false;
     });
+    const editPortfolio = flow(function* (body: EditPortfolioBody, id: number) {
+      const res = yield httpRequest.sendPut(
+        `${Config.BASE_URL}/portfolio/${id}`,
+        body,
+        UserStore.user.token
+      );
 
-    return { addNewPortfolio, getPortfolioList };
+      if (res instanceof HttpError) {
+        log('Error when edit portfolio in portfolio list', res);
+      } else {
+        getPortfolioList();
+      }
+    });
+
+    return { addNewPortfolio, getPortfolioList, editPortfolio };
   })
   .create({
     portfolioList: [],

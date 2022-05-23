@@ -7,11 +7,13 @@ import {
 } from 'navigation/types';
 import React from 'react';
 import { StatusBar } from 'react-native';
+import { fileService } from 'services/file-service';
 import {
   AssetSpeedDialButton,
   ConfirmSheet,
   CustomToast,
   PlatformView,
+  PopoverMenuSetting,
   TransferOptions,
   TransparentLoading,
 } from 'shared/components';
@@ -19,7 +21,8 @@ import { APP_CONTENT } from 'shared/constants';
 import { PortfolioDetailStore, StockAssetStore } from 'shared/stores';
 import { colorScheme, styleProvider } from 'shared/styles';
 import { AssetActionType } from 'shared/types';
-import { PopoverMenu, EditModal, TabBarView } from './components';
+import { buildTransactionJSONForExcelFile } from 'utils/file';
+import { EditModal, TabBarView } from './components';
 
 const CONTENT = APP_CONTENT.assetDetail;
 
@@ -74,13 +77,21 @@ export const StockAssetDetail = observer(() => {
   const handleCancelDelete = () => {
     setShowConfirm(!showConfirm);
   };
+  const handleExportFile = () => {
+    console.log('export');
+    fileService.saveAssetDataFile(
+      buildTransactionJSONForExcelFile(StockAssetStore.transactionList),
+      StockAssetStore.getExcelData(),
+      `${APP_CONTENT.transactionRecord} ${routeProps.params.info.name}`
+    );
+  };
 
   return (
     <PlatformView style={styleProvider.body}>
       <StatusBar backgroundColor={colorScheme.bg} barStyle="dark-content" />
       <NavigationHeader
         title={routeProps.params.info.name}
-        renderRightItem={<PopoverMenu onPress={handleMenuItemPress} />}
+        renderRightItem={<PopoverMenuSetting onPress={handleMenuItemPress} />}
       />
       <TabBarView />
       <EditModal
@@ -90,6 +101,7 @@ export const StockAssetDetail = observer(() => {
         onClose={() => setShowModal(!showModal)}
       />
       <AssetSpeedDialButton
+        onExport={handleExportFile}
         onTransfer={() => setShowTransferOption(!showTransferOption)}
       />
       <TransferOptions

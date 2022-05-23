@@ -12,6 +12,7 @@ import {
   ConfirmSheet,
   CustomToast,
   PlatformView,
+  PopoverMenuSetting,
   TransferOptions,
   TransparentLoading,
 } from 'shared/components';
@@ -24,7 +25,8 @@ import {
 import { colorScheme, styleProvider } from 'shared/styles';
 import { AssetActionType } from 'shared/types';
 import { fileService } from 'services/file-service';
-import { PopoverMenu, EditModal, TabBarView } from './components';
+import { EditModal, TabBarView } from './components';
+import { buildTransactionJSONForExcelFile } from 'utils/file';
 
 export const BankAssetDetail = observer(() => {
   const routeProps =
@@ -104,7 +106,11 @@ export const BankAssetDetail = observer(() => {
   };
   const handleExportFile = () => {
     console.log('export');
-    fileService.saveFile();
+    fileService.saveAssetDataFile(
+      buildTransactionJSONForExcelFile(BankAssetStore.transactionList),
+      [],
+      `${APP_CONTENT.transactionRecord} ${routeProps.params.info.name}`
+    );
   };
 
   return (
@@ -112,7 +118,7 @@ export const BankAssetDetail = observer(() => {
       <StatusBar backgroundColor={colorScheme.bg} barStyle="dark-content" />
       <NavigationHeader
         title={routeProps.params.info.name}
-        renderRightItem={<PopoverMenu onPress={handleMenuItemPress} />}
+        renderRightItem={<PopoverMenuSetting onPress={handleMenuItemPress} />}
       />
       <TabBarView />
       <EditModal

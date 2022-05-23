@@ -20,6 +20,7 @@ export const TransactionItem = types.model('TransactionItem', {
     types.literal('fund'),
     types.null
   ),
+  referentialAssetName: types.maybeNull(types.string),
   destinationAssetId: types.maybeNull(types.number),
   destinationAssetType: types.union(
     types.literal('crypto'),
@@ -31,6 +32,7 @@ export const TransactionItem = types.model('TransactionItem', {
     types.literal('cash'),
     types.null
   ),
+  destinationAssetName: types.maybeNull(types.string),
   amount: types.number,
   currencyCode: types.string,
   createdAt: types.string,
@@ -51,6 +53,7 @@ export const InvestFundTransactionItem = types.model(
       types.literal('cash'),
       types.literal('fund')
     ),
+    referentialAssetName: types.maybeNull(types.string),
     amount: types.number,
     currencyCode: types.string,
     createdAt: types.string,

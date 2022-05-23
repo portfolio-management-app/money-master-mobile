@@ -1,11 +1,9 @@
-import { observer } from 'mobx-react-lite';
 import React from 'react';
 import { StyleSheet } from 'react-native';
 import { TouchableOpacity, View } from 'react-native-ui-lib';
 import { Icon, TextContainer } from 'shared/components';
 import { APP_CONTENT, TRANSACTION_DETAIL_CONTENT } from 'shared/constants';
 import { ITransactionItem } from 'shared/models';
-import { PortfolioDetailStore } from 'shared/stores';
 import { styleProvider, colorScheme } from 'shared/styles';
 import { parseToString } from 'utils/date';
 import { formatCurrency } from 'utils/number';
@@ -17,8 +15,7 @@ interface IProps {
 
 const MARGIN = 10;
 
-export const TransactionDetail = observer(({ info, onPress }: IProps) => {
-  const { getCurrencyById } = PortfolioDetailStore;
+export const TransactionDetail = ({ info, onPress }: IProps) => {
   switch (info.singleAssetTransactionType) {
     case 'newAsset':
       return (
@@ -62,8 +59,7 @@ export const TransactionDetail = observer(({ info, onPress }: IProps) => {
                 </TextContainer>
               </View>
               <TextContainer mt={10} type="small">
-                {APP_CONTENT.transactionDetail.to}:{' '}
-                {getCurrencyById(info.destinationAssetId || 0)?.name}
+                {APP_CONTENT.transactionDetail.to}: {info.destinationAssetName}
               </TextContainer>
             </View>
             <TextContainer color={colorScheme.red500}>
@@ -105,7 +101,7 @@ export const TransactionDetail = observer(({ info, onPress }: IProps) => {
     default:
       return <></>;
   }
-});
+};
 
 const styles = StyleSheet.create({
   transactionItem: {

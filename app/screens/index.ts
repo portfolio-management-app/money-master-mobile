@@ -1,3 +1,4 @@
+import { EditPortfolio } from './EditPortfolio/index';
 import { DrawRealEstate } from './DrawScreen/DrawRealEstate/index';
 import { DrawBank } from './DrawScreen/DrawBank/index';
 import { DrawStock } from './DrawScreen/DrawStock/index';
@@ -63,6 +64,7 @@ export {
   CryptoTransfer,
   StockTransfer,
   CurrencyTransfer,
+  EditPortfolio,
   Home,
   Login,
   Start,

@@ -11,6 +11,9 @@ import { httpRequest } from 'services/http';
 import { UserStore } from 'shared/stores';
 import { log } from 'services/log';
 import { TransferToOtherAssetBody } from './types';
+import { translateInvestFundError } from 'utils/translation';
+import { EXCEL_COLUMNS } from 'shared/constants';
+import { parseToString } from 'utils/date';
 
 export const RealEstateAssetStore = types
   .model({
@@ -20,6 +23,22 @@ export const RealEstateAssetStore = types
     portfolioId: types.number,
     transactionResponse: Response,
   })
+  .views((self) => ({
+    getExcelData() {
+      const object: any = {};
+      object[EXCEL_COLUMNS.assetName] = self.information.name;
+      if (self.information.description !== '') {
+        object[EXCEL_COLUMNS.description] = self.information.description;
+      }
+      object[EXCEL_COLUMNS.buyPrice] = self.information.inputMoneyAmount;
+      object[EXCEL_COLUMNS.currentPrice] = self.information.currentPrice;
+      object[EXCEL_COLUMNS.currency] = self.information.inputCurrency;
+      object[EXCEL_COLUMNS.buyDate] = parseToString(
+        new Date(self.information.inputDay)
+      );
+      return [object];
+    },
+  }))
   .actions((self) => {
     const editAsset = flow(function* (body: any) {
       const res = yield httpRequest.sendPut(
@@ -62,6 +81,7 @@ export const RealEstateAssetStore = types
         UserStore.user.token
       );
       if (res instanceof HttpError) {
+        res.setMessage(translateInvestFundError(res));
         self.transactionResponse.makeError(res);
         log('Error when transfer real estate asset', res);
       } else {

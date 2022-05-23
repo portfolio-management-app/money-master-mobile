@@ -11,6 +11,8 @@ import { httpRequest } from 'services/http';
 import { UserStore } from 'shared/stores';
 import { log } from 'services/log';
 import { TransferToOtherAssetBody } from './types';
+import { EXCEL_COLUMNS } from 'shared/constants';
+import { parseToString } from 'utils/date';
 
 export const BankAssetStore = types
   .model({
@@ -20,6 +22,23 @@ export const BankAssetStore = types
     transactionResponse: Response,
     information: BankAsset,
   })
+  .views((self) => ({
+    getExcelData() {
+      const object: any = {};
+      object[EXCEL_COLUMNS.assetName] = self.information.name;
+      if (self.information.description !== '') {
+        object[EXCEL_COLUMNS.description] = self.information.description;
+      }
+      object[EXCEL_COLUMNS.inputMoney] = self.information.inputMoneyAmount;
+      object[EXCEL_COLUMNS.currency] = self.information.inputCurrency;
+      object[EXCEL_COLUMNS.interestRate] = self.information.interestRate;
+      object[EXCEL_COLUMNS.termRange] = self.information.termRange;
+      object[EXCEL_COLUMNS.startDate] = parseToString(
+        new Date(self.information.inputDay)
+      );
+      return [object];
+    },
+  }))
   .actions((self) => {
     const editAsset = flow(function* (body: any) {
       const res = yield httpRequest.sendPut(

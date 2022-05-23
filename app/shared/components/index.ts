@@ -1,3 +1,4 @@
+import { PopoverMenuSetting } from './PopoverMenuSetting/index';
 import { TransactionHeader } from './TransactionHeader/index';
 import { CustomAssetInformationCard } from './AssetInformationCard/Custom';
 import { CashInformationCard } from './AssetInformationCard/Cash';
@@ -55,9 +56,11 @@ import { ConfirmSheet } from './ConfirmSheet';
 import { Skeleton } from './Skeleton';
 import { SkeletonLoadable } from './SkeletonLoadable';
 import { StockInformationCard } from './AssetInformationCard/Stock';
+import { EditDeleteActionSheet } from './EditDeleteActionSheet';
 
 export {
   PlatformView,
+  EditDeleteActionSheet,
   Skeleton,
   SellOptions,
   TransactionDetailModal,
@@ -101,6 +104,7 @@ export {
   SpeedDial,
   GreetingLoading,
   AssetSectionHeader,
+  PopoverMenuSetting,
   BottomSheet,
   DialogPicker,
   ConfirmModal,

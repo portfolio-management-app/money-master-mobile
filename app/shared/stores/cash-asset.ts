@@ -1,3 +1,4 @@
+import { translateInvestFundError } from 'utils/translation';
 import {
   CurrencyAsset,
   ICurrencyAsset,
@@ -11,6 +12,8 @@ import { httpRequest } from 'services/http';
 import { UserStore } from 'shared/stores';
 import { log } from 'services/log';
 import { TransferToOtherAssetBody } from './types';
+import { EXCEL_COLUMNS } from 'shared/constants';
+import { parseToString } from 'utils/date';
 
 export const CashAssetStore = types
   .model({
@@ -20,6 +23,21 @@ export const CashAssetStore = types
     portfolioId: types.number,
     transactionResponse: Response,
   })
+  .views((self) => ({
+    getExcelData() {
+      const object: any = {};
+      object[EXCEL_COLUMNS.assetName] = self.information.name;
+      if (self.information.description !== '') {
+        object[EXCEL_COLUMNS.description] = self.information.description;
+      }
+      object[EXCEL_COLUMNS.amount] = self.information.amount;
+      object[EXCEL_COLUMNS.currency] = self.information.currencyCode;
+      object[EXCEL_COLUMNS.buyDate] = parseToString(
+        new Date(self.information.inputDay)
+      );
+      return [object];
+    },
+  }))
   .actions((self) => {
     const editAsset = flow(function* (body: any) {
       const res = yield httpRequest.sendPut(
@@ -63,6 +81,7 @@ export const CashAssetStore = types
       );
       if (res instanceof HttpError) {
         log('Error when transfer cash asset', res);
+        res.setMessage(translateInvestFundError(res));
         self.transactionResponse.makeError(res);
       } else {
         self.transactionResponse.makeSuccess();

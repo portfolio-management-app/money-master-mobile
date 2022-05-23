@@ -17,15 +17,16 @@ export const PortfolioDetail = observer(() => {
     isFetchInvestFund: false,
     isFetchedPieChart: false,
   });
+  const { assignInfo, getAllAsset, cleanUp } = PortfolioDetailStore;
 
   React.useEffect(() => {
     const { id } = routeProps.params.info;
-    PortfolioDetailStore.assignInfo(routeProps.params.info);
-    PortfolioDetailStore.getAllAsset();
+    assignInfo(routeProps.params.info);
+    getAllAsset();
     InvestFundStore.assignPortfolioId(id);
     assignPortfolioIdToAssetStore(id);
-    return () => PortfolioDetailStore.cleanUp();
-  }, [routeProps]);
+    return () => cleanUp();
+  }, [routeProps, assignInfo, cleanUp, getAllAsset]);
 
   const handleViewChange = (index: number) => {
     switch (index) {
@@ -50,7 +51,7 @@ export const PortfolioDetail = observer(() => {
   return (
     <PlatformView style={styleProvider.body}>
       <StatusBar backgroundColor={colorScheme.theme} barStyle="light-content" />
-      <Header title={routeProps.params.info.name} />
+      <Header portfolio={PortfolioDetailStore.information} />
       <TabBarView onChangeView={handleViewChange} />
     </PlatformView>
   );

@@ -9,3 +9,5 @@ export const SEARCH_BAR_CONTENT = i18n[localeKey].searchBar;
 export const APP_CONTENT = i18n[localeKey];
 
 export const TRANSACTION_DETAIL_CONTENT = APP_CONTENT.transactionDetail;
+
+export const EXCEL_COLUMNS = APP_CONTENT.exportExcelColumns;

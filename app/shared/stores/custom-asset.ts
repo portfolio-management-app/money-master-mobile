@@ -6,6 +6,7 @@ import { httpRequest } from 'services/http';
 import { UserStore } from 'shared/stores';
 import { log } from 'services/log';
 import { TransferToOtherAssetBody } from './types';
+import { translateInvestFundError } from 'utils/translation';
 
 export const CustomAssetStore = types
   .model({
@@ -46,7 +47,7 @@ export const CustomAssetStore = types
     const assignPortfolioId = (id: number) => {
       self.portfolioId = id;
     };
-    const transferCryptoAsset = flow(function* (
+    const transferAsset = flow(function* (
       body: TransferToOtherAssetBody,
       assetId: number
     ) {
@@ -57,6 +58,7 @@ export const CustomAssetStore = types
       );
       if (res instanceof HttpError) {
         log('Error when transfer custom asset', res);
+        res.setMessage(translateInvestFundError(res));
       } else {
         getTransactionList();
       }
@@ -67,7 +69,7 @@ export const CustomAssetStore = types
       assignInfo,
       getTransactionList,
       assignPortfolioId,
-      transferCryptoAsset,
+      transferAsset,
     };
   })
   .create({

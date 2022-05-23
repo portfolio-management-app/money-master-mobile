@@ -7,11 +7,13 @@ import {
 } from 'navigation/types';
 import React from 'react';
 import { StatusBar } from 'react-native';
+import { fileService } from 'services/file-service';
 import {
   AssetSpeedDialButton,
   ConfirmSheet,
   CustomToast,
   PlatformView,
+  PopoverMenuSetting,
   TransferOptions,
   TransparentLoading,
 } from 'shared/components';
@@ -23,7 +25,8 @@ import {
 } from 'shared/stores';
 import { colorScheme, styleProvider } from 'shared/styles';
 import { AssetActionType } from 'shared/types';
-import { PopoverMenu, EditModal, TabBarView } from './components';
+import { buildTransactionJSONForExcelFile } from 'utils/file';
+import { EditModal, TabBarView } from './components';
 
 export const RealEstateAssetDetail = observer(() => {
   const routeProps =
@@ -99,12 +102,21 @@ export const RealEstateAssetDetail = observer(() => {
     });
   };
 
+  const handleExportFile = () => {
+    console.log('export');
+    fileService.saveAssetDataFile(
+      buildTransactionJSONForExcelFile(RealEstateAssetStore.transactionList),
+      RealEstateAssetStore.getExcelData(),
+      `${APP_CONTENT.transactionRecord} ${routeProps.params.info.name}`
+    );
+  };
+
   return (
     <PlatformView style={styleProvider.body}>
       <StatusBar backgroundColor={colorScheme.bg} barStyle="dark-content" />
       <NavigationHeader
         title={routeProps.params.info.name}
-        renderRightItem={<PopoverMenu onPress={handleMenuItemPress} />}
+        renderRightItem={<PopoverMenuSetting onPress={handleMenuItemPress} />}
       />
       <TabBarView />
       <EditModal
@@ -120,6 +132,7 @@ export const RealEstateAssetDetail = observer(() => {
         onClose={() => setShowTransferOption(!showTransferOption)}
       />
       <AssetSpeedDialButton
+        onExport={handleExportFile}
         onTransfer={() => setShowTransferOption(!showTransferOption)}
       />
       <ConfirmSheet

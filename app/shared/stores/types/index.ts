@@ -87,3 +87,8 @@ export type TransferToOtherAssetBody = {
   isTransferringAll: boolean;
   transactionType: TransactionType;
 };
+
+export type EditPortfolioBody = {
+  newName: string;
+  newCurrency: string;
+};

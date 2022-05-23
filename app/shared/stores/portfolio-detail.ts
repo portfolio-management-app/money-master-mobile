@@ -10,6 +10,7 @@ import {
   CreateCurrencyAssetBody,
   CreateBankAssetBody,
   CreateRealEstateAssetBody,
+  EditPortfolioBody,
 } from './types';
 import { UserStore } from './user';
 import {
@@ -449,8 +450,27 @@ export const PortfolioDetailStore = types
       InvestFundStore.getFund();
     };
 
+    const editPortfolio = flow(function* (body: EditPortfolioBody, id: number) {
+      const res = yield httpRequest.sendPut(
+        `${Config.BASE_URL}/portfolio/${id}`,
+        body,
+        UserStore.user.token
+      );
+
+      if (res instanceof HttpError) {
+        log('Error when edit portfolio', res);
+      } else {
+        self.information = {
+          ...self.information,
+          name: body.newName,
+          initialCurrency: body.newCurrency,
+        };
+      }
+    });
+
     return {
       createOtherAsset,
+      editPortfolio,
       assignInfo,
       createBankAsset,
       createRealEstateAsset,

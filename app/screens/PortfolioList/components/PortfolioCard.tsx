@@ -3,7 +3,7 @@ import { MainStackNavigationProp } from 'navigation/types';
 import React from 'react';
 import { StyleSheet } from 'react-native';
 import { TouchableOpacity } from 'react-native-ui-lib';
-import { TextContainer } from 'shared/components';
+import { EditDeleteActionSheet, TextContainer } from 'shared/components';
 import { IPortfolio } from 'shared/models';
 import { colorScheme } from 'shared/styles';
 import { formatCurrency } from 'utils/number';
@@ -13,18 +13,37 @@ interface IProps {
 }
 
 export const PortfolioCard = ({ item }: IProps) => {
+  const [showSheet, setShowSheet] = React.useState(false);
   const navigation = useNavigation<MainStackNavigationProp>();
 
   const gotoDetail = () => {
     navigation.navigate('PortfolioDetail', { info: item });
   };
+
+  const handleEditPress = () => {
+    navigation.navigate('EditPortfolio', {
+      portfolio: item,
+      editFrom: 'PortfolioList',
+    });
+  };
   return (
-    <TouchableOpacity onPress={gotoDetail} style={styles.container}>
-      <TextContainer>{item.name}</TextContainer>
-      <TextContainer color={colorScheme.theme} style={styles.textContainer}>
-        {formatCurrency(item.sum, item.initialCurrency)}
-      </TextContainer>
-    </TouchableOpacity>
+    <>
+      <TouchableOpacity
+        onLongPress={() => setShowSheet(true)}
+        onPress={gotoDetail}
+        style={styles.container}
+      >
+        <TextContainer>{item.name}</TextContainer>
+        <TextContainer color={colorScheme.theme} style={styles.textContainer}>
+          {formatCurrency(item.sum, item.initialCurrency)}
+        </TextContainer>
+      </TouchableOpacity>
+      <EditDeleteActionSheet
+        onEditPress={handleEditPress}
+        show={showSheet}
+        onClose={() => setShowSheet(false)}
+      />
+    </>
   );
 };
 
