@@ -23,5 +23,18 @@ export const Response = types
       self.isError = false;
       self.errorMessage = '';
     };
-    return { makeError, makeSuccess, deleteError, deleteSuccess };
+    const makePending = () => {
+      self.pending = true;
+    };
+    const stopPending = () => {
+      self.pending = false;
+    };
+    return {
+      makeError,
+      makeSuccess,
+      deleteError,
+      deleteSuccess,
+      makePending,
+      stopPending,
+    };
   });

@@ -11,7 +11,7 @@ import { types, flow } from 'mobx-state-tree';
 import { httpRequest } from 'services/http';
 import { UserStore } from 'shared/stores';
 import { log } from 'services/log';
-import { TransferToOtherAssetBody } from './types';
+import { TransferToInvestFundBody, TransferToOtherAssetBody } from './types';
 import { EXCEL_COLUMNS } from 'shared/constants';
 import { parseToString } from 'utils/date';
 
@@ -89,12 +89,33 @@ export const CashAssetStore = types
       }
     });
 
+    const transferToFund = flow(function* (
+      portfolioId: number,
+      body: TransferToInvestFundBody
+    ) {
+      self.transactionResponse.makePending();
+      const res = yield httpRequest.sendPost(
+        `${Config.BASE_URL}/portfolio/${portfolioId}/fund`,
+        body,
+        UserStore.user.token
+      );
+      if (res instanceof HttpError) {
+        console.log('Error when transfer asset to invest fund', res);
+        self.transactionResponse.stopPending();
+        self.transactionResponse.makeError(res);
+      } else {
+        self.transactionResponse.stopPending();
+        self.transactionResponse.makeSuccess();
+      }
+    });
+
     return {
       editAsset,
       assignInfo,
       getTransactionList,
       assignPortfolioId,
       transferAsset,
+      transferToFund,
     };
   })
   .create({

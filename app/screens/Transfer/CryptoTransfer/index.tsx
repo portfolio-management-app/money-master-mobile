@@ -11,7 +11,7 @@ import {
   TransparentLoading,
 } from 'shared/components';
 import { APP_CONTENT } from 'shared/constants';
-import { InvestFundStore, PortfolioDetailStore } from 'shared/stores';
+import { CryptoAssetStore, PortfolioDetailStore } from 'shared/stores';
 import { styleProvider } from 'shared/styles';
 
 const CONTENT = APP_CONTENT.transferToFund;
@@ -20,17 +20,7 @@ export const CryptoTransfer = observer(() => {
   const routeProps =
     useRoute<RootStackScreenProps<'CryptoTransfer'>['route']>();
   const { info } = routeProps.params;
-  const {
-    transferToFund,
-    clearError,
-    dispatchSuccess,
-    errorMessage,
-    isSuccess,
-    isError,
-    loading,
-  } = InvestFundStore;
-
-  console.log(info);
+  const { transferToFund, transactionResponse } = CryptoAssetStore;
 
   const handleTransfer = React.useCallback(
     (amount: number) => {
@@ -50,17 +40,17 @@ export const CryptoTransfer = observer(() => {
       <CryptoInformationCard asset={routeProps.params.info} />
       <TransferForm onTransfer={handleTransfer} />
       <CustomToast
-        show={isSuccess}
+        show={transactionResponse.isSuccess}
         message={CONTENT.success}
-        onDismiss={() => dispatchSuccess()}
+        onDismiss={transactionResponse.deleteSuccess}
       />
       <CustomToast
         variant="error"
-        show={isError}
-        message={errorMessage}
-        onDismiss={() => clearError()}
+        show={transactionResponse.isError}
+        message={transactionResponse.errorMessage}
+        onDismiss={transactionResponse.deleteError}
       />
-      <TransparentLoading show={loading} />
+      <TransparentLoading show={transactionResponse.pending} />
     </PlatformView>
   );
 });

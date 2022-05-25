@@ -18,11 +18,7 @@ import {
   TransparentLoading,
 } from 'shared/components';
 import { APP_CONTENT, ASSET_DETAIL_CONTENT } from 'shared/constants';
-import {
-  InvestFundStore,
-  PortfolioDetailStore,
-  RealEstateAssetStore,
-} from 'shared/stores';
+import { PortfolioDetailStore, RealEstateAssetStore } from 'shared/stores';
 import { colorScheme, styleProvider } from 'shared/styles';
 import { AssetActionType } from 'shared/types';
 import { buildTransactionJSONForExcelFile } from 'utils/file';
@@ -38,15 +34,7 @@ export const RealEstateAssetDetail = observer(() => {
   const [showTransferOption, setShowTransferOption] = React.useState(false);
   const { deleteResponse, deleteRealEstateAsset, information } =
     PortfolioDetailStore;
-  const {
-    loading,
-    transferToFund,
-    isError,
-    isSuccess,
-    errorMessage,
-    dispatchSuccess,
-    clearError,
-  } = InvestFundStore;
+  const { transferToFund, transactionResponse } = RealEstateAssetStore;
 
   React.useEffect(() => {
     RealEstateAssetStore.assignInfo(routeProps.params.info);
@@ -149,7 +137,9 @@ export const RealEstateAssetDetail = observer(() => {
         onCancel={handleCancelTransfer}
         onClose={handleCancelTransfer}
       />
-      <TransparentLoading show={deleteResponse.pending || loading} />
+      <TransparentLoading
+        show={deleteResponse.pending || transactionResponse.pending}
+      />
       <CustomToast
         variant="error"
         onDismiss={deleteResponse.deleteError}
@@ -158,14 +148,14 @@ export const RealEstateAssetDetail = observer(() => {
       />
       <CustomToast
         variant="error"
-        onDismiss={clearError}
-        message={errorMessage}
-        show={isError}
+        onDismiss={transactionResponse.deleteError}
+        message={transactionResponse.errorMessage}
+        show={transactionResponse.isError}
       />
       <CustomToast
-        onDismiss={dispatchSuccess}
+        onDismiss={transactionResponse.deleteSuccess}
         message={APP_CONTENT.transferToFund.success}
-        show={isSuccess}
+        show={transactionResponse.isSuccess}
       />
     </PlatformView>
   );

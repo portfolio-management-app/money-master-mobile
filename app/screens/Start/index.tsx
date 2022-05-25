@@ -14,7 +14,6 @@ import { colorScheme, dimensionProvider } from 'shared/styles';
 import { UserStore } from 'shared/stores';
 import { storage, TOKEN_KEY } from 'services/storage';
 import { APP_CONTENT } from 'shared/constants';
-import { fileService } from 'services/file-service';
 
 const START_CONTENT = APP_CONTENT.greetingPage;
 
@@ -74,10 +73,6 @@ export const Start = observer(() => {
                   labelStyle={{ color: colorScheme.theme }}
                   onPress={() => navigation.navigate('Login')}
                   label={START_CONTENT.login}
-                />
-                <BaseButton
-                  label="Test save file"
-                  onPress={fileService.saveFile}
                 />
               </View>
             </PlatformView>

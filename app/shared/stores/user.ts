@@ -112,9 +112,18 @@ export const UserStore = types
       console.log('removed token');
     };
 
-    const registerDeviceToken = (deviceToken: string) => {
-      console.log(deviceToken);
-    };
+    const registerDeviceToken = flow(function* (deviceToken: string) {
+      const res = yield httpRequest.sendPost(
+        `${Config.BASE_URL}/user/me/fcm`,
+        { fcmCode: deviceToken },
+        self.user.token
+      );
+      if (res instanceof HttpError) {
+        log('Error when register device token', res);
+      } else {
+        log('Device token registered', deviceToken);
+      }
+    });
 
     return {
       register,

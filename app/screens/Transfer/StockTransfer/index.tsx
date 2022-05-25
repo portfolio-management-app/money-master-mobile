@@ -11,7 +11,7 @@ import {
   TransparentLoading,
 } from 'shared/components';
 import { APP_CONTENT } from 'shared/constants';
-import { InvestFundStore, PortfolioDetailStore } from 'shared/stores';
+import { PortfolioDetailStore, StockAssetStore } from 'shared/stores';
 import { styleProvider } from 'shared/styles';
 
 const CONTENT = APP_CONTENT.transferToFund;
@@ -19,15 +19,7 @@ const CONTENT = APP_CONTENT.transferToFund;
 export const StockTransfer = observer(() => {
   const routeProps = useRoute<RootStackScreenProps<'StockTransfer'>['route']>();
 
-  const {
-    transferToFund,
-    clearError,
-    dispatchSuccess,
-    errorMessage,
-    isSuccess,
-    isError,
-    loading,
-  } = InvestFundStore;
+  const { transferToFund, transactionResponse } = StockAssetStore;
 
   const handleTransfer = React.useCallback(
     (amount: number) => {
@@ -48,17 +40,17 @@ export const StockTransfer = observer(() => {
       <StockInformationCard asset={routeProps.params.info} />
       <TransferForm onTransfer={handleTransfer} />
       <CustomToast
-        show={isSuccess}
-        message={APP_CONTENT.transferToFund.success}
-        onDismiss={() => dispatchSuccess()}
+        show={transactionResponse.isSuccess}
+        message={CONTENT.success}
+        onDismiss={transactionResponse.deleteSuccess}
       />
       <CustomToast
         variant="error"
-        show={isError}
-        message={errorMessage}
-        onDismiss={() => clearError()}
+        show={transactionResponse.isError}
+        message={transactionResponse.errorMessage}
+        onDismiss={transactionResponse.deleteError}
       />
-      <TransparentLoading show={loading} />
+      <TransparentLoading show={transactionResponse.pending} />
     </PlatformView>
   );
 });

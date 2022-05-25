@@ -17,11 +17,7 @@ import {
   TransparentLoading,
 } from 'shared/components';
 import { APP_CONTENT, ASSET_DETAIL_CONTENT } from 'shared/constants';
-import {
-  BankAssetStore,
-  InvestFundStore,
-  PortfolioDetailStore,
-} from 'shared/stores';
+import { BankAssetStore, PortfolioDetailStore } from 'shared/stores';
 import { colorScheme, styleProvider } from 'shared/styles';
 import { AssetActionType } from 'shared/types';
 import { fileService } from 'services/file-service';
@@ -38,19 +34,18 @@ export const BankAssetDetail = observer(() => {
   const [showTransferOption, setShowTransferOption] = React.useState(false);
   const { deleteResponse, deleteBankAsset, information } = PortfolioDetailStore;
   const {
-    loading,
+    assignInfo,
+    getTransactionList,
+    transactionList,
+    transactionResponse,
     transferToFund,
-    isError,
-    isSuccess,
-    errorMessage,
-    dispatchSuccess,
-    clearError,
-  } = InvestFundStore;
+    editAsset,
+  } = BankAssetStore;
 
   React.useEffect(() => {
-    BankAssetStore.assignInfo(routeProps.params.info);
-    BankAssetStore.getTransactionList();
-  }, [routeProps]);
+    assignInfo(routeProps.params.info);
+    getTransactionList();
+  }, [routeProps, assignInfo, getTransactionList]);
 
   const handleMenuItemPress = (type: AssetActionType) => {
     switch (type) {
@@ -64,7 +59,7 @@ export const BankAssetDetail = observer(() => {
   };
 
   const handleEditInformation = (newData: any) => {
-    BankAssetStore.editAsset(newData);
+    editAsset(newData);
   };
 
   const handleTransferToPortfolio = () => {
@@ -107,7 +102,7 @@ export const BankAssetDetail = observer(() => {
   const handleExportFile = () => {
     console.log('export');
     fileService.saveAssetDataFile(
-      buildTransactionJSONForExcelFile(BankAssetStore.transactionList),
+      buildTransactionJSONForExcelFile(transactionList),
       [],
       `${APP_CONTENT.transactionRecord} ${routeProps.params.info.name}`
     );
@@ -152,7 +147,9 @@ export const BankAssetDetail = observer(() => {
         onCancel={handleCancelTransfer}
         onClose={handleCancelTransfer}
       />
-      <TransparentLoading show={deleteResponse.pending || loading} />
+      <TransparentLoading
+        show={deleteResponse.pending || transactionResponse.pending}
+      />
       <CustomToast
         variant="error"
         onDismiss={deleteResponse.deleteError}
@@ -161,14 +158,14 @@ export const BankAssetDetail = observer(() => {
       />
       <CustomToast
         variant="error"
-        onDismiss={clearError}
-        message={errorMessage}
-        show={isError}
+        onDismiss={transactionResponse.deleteError}
+        message={transactionResponse.errorMessage}
+        show={transactionResponse.isError}
       />
       <CustomToast
-        onDismiss={dispatchSuccess}
+        onDismiss={transactionResponse.deleteSuccess}
         message={APP_CONTENT.transferToFund.success}
-        show={isSuccess}
+        show={transactionResponse.isSuccess}
       />
     </PlatformView>
   );

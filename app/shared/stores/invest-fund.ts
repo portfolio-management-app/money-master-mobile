@@ -1,4 +1,3 @@
-import { PortfolioDetailStore } from 'shared/stores';
 import { translateInvestFundError } from 'utils/translation';
 import { Config } from 'config';
 import { HttpError } from 'errors/base';
@@ -35,8 +34,6 @@ export const InvestFundStore = types
         makeError(res);
       } else {
         dispatchSuccess();
-        yield getFund();
-        yield PortfolioDetailStore.getAllAsset();
       }
       self.loading = false;
     });
@@ -67,6 +64,10 @@ export const InvestFundStore = types
       self.loading = false;
     });
 
+    const getAllInformation = flow(function* () {
+      yield Promise.all([getFund(), getTransactionList()]);
+    });
+
     const assignPortfolioId = (id: number) => {
       self.portfolioId = id;
     };
@@ -90,6 +91,7 @@ export const InvestFundStore = types
       assignPortfolioId,
       getFund,
       getTransactionList,
+      getAllInformation,
     };
   })
   .create({

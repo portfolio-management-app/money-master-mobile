@@ -2,6 +2,7 @@ import { types } from 'mobx-state-tree';
 
 export const BankAsset = types.model('BankAsset', {
   id: types.number,
+  portfolioId: types.number,
   name: types.string,
   inputDay: types.string,
   inputMoneyAmount: types.number,
@@ -15,6 +16,7 @@ export const BankAsset = types.model('BankAsset', {
 
 export const RealEstateAsset = types.model('RealEstateAsset', {
   id: types.number,
+  portfolioId: types.number,
   name: types.string,
   inputDay: types.string,
   inputMoneyAmount: types.number,
@@ -41,6 +43,7 @@ export const CryptoAsset = types.model('CryptoAsset', {
 
 export const StockAsset = types.model('StockAsset', {
   id: types.number,
+  portfolioId: types.number,
   name: types.string,
   inputDay: types.string,
   lastChanged: types.string,

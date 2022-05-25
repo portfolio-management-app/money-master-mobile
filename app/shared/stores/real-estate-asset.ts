@@ -10,7 +10,7 @@ import { types, flow } from 'mobx-state-tree';
 import { httpRequest } from 'services/http';
 import { UserStore } from 'shared/stores';
 import { log } from 'services/log';
-import { TransferToOtherAssetBody } from './types';
+import { TransferToInvestFundBody, TransferToOtherAssetBody } from './types';
 import { translateInvestFundError } from 'utils/translation';
 import { EXCEL_COLUMNS } from 'shared/constants';
 import { parseToString } from 'utils/date';
@@ -89,6 +89,25 @@ export const RealEstateAssetStore = types
         getTransactionList();
       }
     });
+    const transferToFund = flow(function* (
+      portfolioId: number,
+      body: TransferToInvestFundBody
+    ) {
+      self.transactionResponse.makePending();
+      const res = yield httpRequest.sendPost(
+        `${Config.BASE_URL}/portfolio/${portfolioId}/fund`,
+        body,
+        UserStore.user.token
+      );
+      if (res instanceof HttpError) {
+        console.log('Error when transfer asset to invest fund', res);
+        self.transactionResponse.stopPending();
+        self.transactionResponse.makeError(res);
+      } else {
+        self.transactionResponse.stopPending();
+        self.transactionResponse.makeSuccess();
+      }
+    });
 
     return {
       editAsset,
@@ -96,6 +115,7 @@ export const RealEstateAssetStore = types
       getTransactionList,
       assignPortfolioId,
       transferAsset,
+      transferToFund,
     };
   })
   .create({
@@ -108,6 +128,7 @@ export const RealEstateAssetStore = types
       lastChanged: '',
       description: '',
       currentPrice: 0,
+      portfolioId: 0,
     },
     loading: false,
     portfolioId: 0,

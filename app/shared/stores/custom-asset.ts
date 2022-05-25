@@ -82,6 +82,7 @@ export const CustomAssetStore = types
       description: '',
       interestRate: 0,
       termRange: 0,
+      portfolioId: 0,
     },
     loading: false,
     portfolioId: 0,

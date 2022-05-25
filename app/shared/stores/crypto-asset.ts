@@ -11,7 +11,7 @@ import {
   ICryptoAsset,
 } from 'shared/models';
 import { log } from 'services/log';
-import { TransferToOtherAssetBody } from './types';
+import { TransferToInvestFundBody, TransferToOtherAssetBody } from './types';
 import { translateInvestFundError } from 'utils/translation';
 import { EXCEL_COLUMNS } from 'shared/constants';
 
@@ -86,6 +86,26 @@ export const CryptoAssetStore = types
         getTransactionList();
       }
     });
+    const transferToFund = flow(function* (
+      portfolioId: number,
+      body: TransferToInvestFundBody
+    ) {
+      self.transactionResponse.makePending();
+      const res = yield httpRequest.sendPost(
+        `${Config.BASE_URL}/portfolio/${portfolioId}/fund`,
+        body,
+        UserStore.user.token
+      );
+      if (res instanceof HttpError) {
+        console.log('Error when transfer asset to invest fund', res);
+        self.transactionResponse.stopPending();
+        self.transactionResponse.makeError(res);
+      } else {
+        self.transactionResponse.stopPending();
+        self.transactionResponse.makeSuccess();
+        getTransactionList();
+      }
+    });
     const assignInfo = (info: ICryptoAsset) => {
       self.information = { ...info };
     };
@@ -95,6 +115,7 @@ export const CryptoAssetStore = types
       assignInfo,
       getTransactionList,
       transferAsset,
+      transferToFund,
     };
   })
   .create({

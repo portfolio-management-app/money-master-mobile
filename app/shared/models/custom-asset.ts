@@ -2,6 +2,7 @@ import { types } from 'mobx-state-tree';
 
 export const CustomAsset = types.model('CustomAsset', {
   id: types.number,
+  portfolioId: types.number,
   name: types.string,
   inputDay: types.string,
   inputMoneyAmount: types.number,

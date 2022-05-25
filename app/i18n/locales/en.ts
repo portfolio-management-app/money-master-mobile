@@ -446,4 +446,11 @@ export const en = {
     currentPrice: 'Current price',
   },
   transactionRecord: 'Asset record of',
+  exportInfo: {
+    title: "Saved filed",
+    message: "File save at",
+    transaction: "Transaction record",
+    assetInformation: "Asset information",
+    
+  }
 };
