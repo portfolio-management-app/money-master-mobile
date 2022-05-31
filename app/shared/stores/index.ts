@@ -1,3 +1,4 @@
+import { SourceBuyStore } from './source-buy';
 import { CustomAssetStore } from './custom-asset';
 import { CashAssetStore } from './cash-asset';
 import { RealEstateAssetStore } from './real-estate-asset';
@@ -29,4 +30,5 @@ export {
   RealEstateAssetStore,
   CashAssetStore,
   CustomAssetStore,
+  SourceBuyStore,
 };

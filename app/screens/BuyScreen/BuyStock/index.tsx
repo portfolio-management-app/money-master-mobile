@@ -1,28 +1,31 @@
+import { useNavigation } from '@react-navigation/native';
 import { Formik } from 'formik';
 import { observer } from 'mobx-react-lite';
-import { NavigationHeader } from 'navigation/header';
 import React from 'react';
-import { View } from 'react-native';
+import { ScrollView, View } from 'react-native';
 import {
-  BaseButton,
+  CreateModalHeader,
   CustomTextField,
   CustomToast,
   DatePicker,
-  InvestFundBuy,
   PlatformView,
   TextContainer,
   TransparentLoading,
 } from 'shared/components';
 import { APP_CONTENT } from 'shared/constants';
-import { PortfolioDetailStore, StockDetailStore } from 'shared/stores';
+import {
+  PortfolioDetailStore,
+  SourceBuyStore,
+  StockDetailStore,
+} from 'shared/stores';
 import { CreateStockAssetBody } from 'shared/stores/types';
-import { styleProvider, colorScheme } from 'shared/styles';
+import { styleProvider } from 'shared/styles';
 import { CreateStockAssetSchema } from 'shared/validator';
 import { formatCurrency } from 'utils/number';
 const CONTENT = APP_CONTENT.buyScreen;
 
 export const BuyStock = observer(() => {
-  const [buyFromFund, setBuyFromFund] = React.useState(false);
+  const navigation = useNavigation();
   const { stockInformation, symbol } = StockDetailStore;
   const { createStockAsset, loadingCreateStockAsset, createResponse } =
     PortfolioDetailStore;
@@ -36,13 +39,14 @@ export const BuyStock = observer(() => {
 
   return (
     <PlatformView style={styleProvider.body}>
-      <NavigationHeader title={symbol} />
       <TransparentLoading show={loadingCreateStockAsset} />
-
       <Formik
         validationSchema={CreateStockAssetSchema}
         onSubmit={(values) => {
-          values.isUsingInvestFund = buyFromFund;
+          values.fee = 1 * values.fee;
+          values.tax = 1 * values.tax;
+          values.currentAmountHolding = 1 * values.currentAmountHolding;
+          values.purchasePrice = 1 * values.currentAmountHolding;
           handleCreate(values);
         }}
         initialValues={{
@@ -54,7 +58,11 @@ export const BuyStock = observer(() => {
           marketCode: '',
           purchasePrice: 0,
           currencyCode: 'USD',
-          isUsingInvestFund: false,
+          isUsingInvestFund: SourceBuyStore.usingFund,
+          isUsingCash: SourceBuyStore.usingCash,
+          usingCashId: SourceBuyStore.cashId,
+          fee: 0,
+          tax: 0,
         }}
       >
         {({
@@ -65,64 +73,81 @@ export const BuyStock = observer(() => {
           touched,
           errors,
         }) => {
-          console.log(errors);
           return (
-            <View style={styleProvider.formBody}>
-              <View style={styleProvider.centerHorizontal}>
-                <TextContainer mb={20} bold>
-                  {CONTENT.currencyPrice}:{' '}
-                </TextContainer>
-                <TextContainer mb={20}>
-                  {formatCurrency(stockInformation.c, values.currencyCode)}
-                </TextContainer>
-              </View>
-              <CustomTextField
-                onBlur={handleBlur('name')}
-                value={values.name}
-                onChangeText={handleChange('name')}
-                placeholder={CONTENT.name}
-                errorMessage={touched.name ? errors.name : ''}
+            <>
+              <CreateModalHeader
+                title={symbol}
+                buttonLabel={APP_CONTENT.createAssetType.create}
+                onClose={() => navigation.goBack()}
+                onCreate={handleSubmit}
               />
-              <CustomTextField
-                onBlur={handleBlur('description')}
-                value={values.description}
-                onChangeText={handleChange('description')}
-                placeholder={CONTENT.description}
-              />
+              <ScrollView>
+                <View style={styleProvider.formBody}>
+                  <View style={styleProvider.centerHorizontal}>
+                    <TextContainer mb={20} bold>
+                      {CONTENT.currencyPrice}:{' '}
+                    </TextContainer>
+                    <TextContainer mb={20}>
+                      {formatCurrency(stockInformation.c, values.currencyCode)}
+                    </TextContainer>
+                  </View>
+                  <CustomTextField
+                    onBlur={handleBlur('name')}
+                    value={values.name}
+                    onChangeText={handleChange('name')}
+                    placeholder={CONTENT.name}
+                    errorMessage={touched.name ? errors.name : ''}
+                  />
+                  <CustomTextField
+                    onBlur={handleBlur('description')}
+                    value={values.description}
+                    onChangeText={handleChange('description')}
+                    placeholder={CONTENT.description}
+                  />
 
-              <CustomTextField
-                onBlur={handleBlur('currentAmountHolding')}
-                value={values.currentAmountHolding.toString()}
-                onChangeText={handleChange('currentAmountHolding')}
-                placeholder={CONTENT.amount}
-                errorMessage={
-                  touched.currentAmountHolding
-                    ? errors.currentAmountHolding
-                    : ''
-                }
-              />
-              <CustomTextField
-                onBlur={handleBlur('purchasePrice')}
-                value={values.purchasePrice.toString()}
-                onChangeText={handleChange('purchasePrice')}
-                placeholder={CONTENT.purchasePrice}
-                errorMessage={touched.purchasePrice ? errors.purchasePrice : ''}
-              />
-              <InvestFundBuy
-                buy={buyFromFund}
-                onToggle={() => setBuyFromFund(!buyFromFund)}
-              />
-              <DatePicker
-                onISOStringChange={handleChange('inputDay')}
-                label={CONTENT.startDate}
-              />
-
-              <BaseButton
-                onPress={handleSubmit}
-                label={CONTENT.buy}
-                backgroundColor={colorScheme.theme}
-              />
-            </View>
+                  <CustomTextField
+                    onBlur={handleBlur('currentAmountHolding')}
+                    value={values.currentAmountHolding.toString()}
+                    onChangeText={handleChange('currentAmountHolding')}
+                    placeholder={CONTENT.amount}
+                    errorMessage={
+                      touched.currentAmountHolding
+                        ? errors.currentAmountHolding
+                        : ''
+                    }
+                  />
+                  <CustomTextField
+                    onBlur={handleBlur('purchasePrice')}
+                    value={values.purchasePrice.toString()}
+                    onChangeText={handleChange('purchasePrice')}
+                    placeholder={CONTENT.purchasePrice}
+                    errorMessage={
+                      touched.purchasePrice ? errors.purchasePrice : ''
+                    }
+                  />
+                  <CustomTextField
+                    onChangeText={handleChange('fee')}
+                    onBlur={handleBlur('fee')}
+                    keyBoardType="decimal-pad"
+                    placeholder={`${APP_CONTENT.fee} (%)`}
+                    value={values.fee.toString()}
+                    errorMessage={touched.fee ? errors.fee : ''}
+                  />
+                  <CustomTextField
+                    onChangeText={handleChange('tax')}
+                    onBlur={handleBlur('tax')}
+                    keyBoardType="decimal-pad"
+                    placeholder={`${APP_CONTENT.tax} (%)`}
+                    value={values.tax.toString()}
+                    errorMessage={touched.tax ? errors.tax : ''}
+                  />
+                  <DatePicker
+                    onISOStringChange={handleChange('inputDay')}
+                    label={CONTENT.startDate}
+                  />
+                </View>
+              </ScrollView>
+            </>
           );
         }}
       </Formik>
@@ -135,7 +160,7 @@ export const BuyStock = observer(() => {
       <CustomToast
         onDismiss={createResponse.deleteSuccess}
         show={createResponse.isSuccess}
-        message={APP_CONTENT.transferToFund.success}
+        message={APP_CONTENT.buyScreen.createSuccess}
       />
     </PlatformView>
   );

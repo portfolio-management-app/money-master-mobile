@@ -14,7 +14,6 @@ import {
   CustomToast,
   PlatformView,
   PopoverMenuSetting,
-  TransferOptions,
   TransparentLoading,
 } from 'shared/components';
 import { APP_CONTENT } from 'shared/constants';
@@ -32,10 +31,15 @@ export const CryptoAssetDetail = observer(() => {
     useRoute<RootStackScreenProps<'CoinAssetDetail'>['route']>();
   const [showModal, setShowModal] = React.useState(false);
   const [showConfirm, setShowConfirm] = React.useState(false);
-  const [showTransferOption, setShowTransferOption] = React.useState(false);
 
-  const { getTransactionList, assignInfo, transactionList, getExcelData } =
-    CryptoAssetStore;
+  const {
+    getTransactionList,
+    assignInfo,
+    transactionList,
+    getExcelData,
+    information,
+    editAsset,
+  } = CryptoAssetStore;
   const { deleteResponse, deleteCryptoAsset } = PortfolioDetailStore;
 
   React.useEffect(() => {
@@ -55,19 +59,10 @@ export const CryptoAssetDetail = observer(() => {
   };
 
   const handleEditInformation = (newData: any) => {
-    console.log('edit crypto asset', newData);
-  };
-
-  const handleTransferToPortfolio = () => {
-    setShowTransferOption(!setShowTransferOption);
-    navigation.navigate('PortfolioPicker', {
-      type: 'TRANSFER',
-      actionType: 'SELL',
-    });
+    editAsset(newData);
   };
 
   const handleTransferToInvestFund = () => {
-    setShowTransferOption(!setShowTransferOption);
     navigation.navigate('CryptoTransfer', { info: routeProps.params.info });
   };
 
@@ -86,6 +81,7 @@ export const CryptoAssetDetail = observer(() => {
     navigation.navigate('CashAssetPicker', {
       type: 'CRYPTO',
       source: routeProps.params.info,
+      actionType: 'SELL',
     });
   };
   const handleExportFile = () => {
@@ -100,27 +96,22 @@ export const CryptoAssetDetail = observer(() => {
     <PlatformView style={styleProvider.body}>
       <StatusBar backgroundColor={colorScheme.bg} barStyle="dark-content" />
       <NavigationHeader
-        title={routeProps.params.info.name}
+        title={information.name}
         renderRightItem={<PopoverMenuSetting onPress={handleMenuItemPress} />}
       />
       <EditModal
         onEdit={handleEditInformation}
-        item={routeProps.params.info}
+        item={information}
         open={showModal}
         onClose={() => setShowModal(!showModal)}
       />
       <AssetSpeedDialButton
         onExport={handleExportFile}
-        onTransfer={() => setShowTransferOption(!showTransferOption)}
+        onTransfer={handleTransferToInvestFund}
+        onSell={handleTransferToCash}
       />
       <TabBarView />
-      <TransferOptions
-        onTransferPortfolio={handleTransferToPortfolio}
-        onTransferToFund={handleTransferToInvestFund}
-        onTransferToCash={handleTransferToCash}
-        show={showTransferOption}
-        onClose={() => setShowTransferOption(!showTransferOption)}
-      />
+
       <ConfirmSheet
         title={CONTENT.deleteTitle}
         onConfirm={handleConfirmDelete}

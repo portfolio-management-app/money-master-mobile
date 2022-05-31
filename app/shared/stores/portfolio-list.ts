@@ -46,6 +46,7 @@ export const PortfolioListStore = types
       self.loading = false;
     });
     const editPortfolio = flow(function* (body: EditPortfolioBody, id: number) {
+      self.loading = true;
       const res = yield httpRequest.sendPut(
         `${Config.BASE_URL}/portfolio/${id}`,
         body,
@@ -57,6 +58,7 @@ export const PortfolioListStore = types
       } else {
         getPortfolioList();
       }
+      self.loading = false;
     });
 
     return { addNewPortfolio, getPortfolioList, editPortfolio };

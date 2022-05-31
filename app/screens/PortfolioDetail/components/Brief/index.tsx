@@ -93,7 +93,11 @@ export const Brief = observer(() => {
               />
             }
             loading={loadingGetPieChart}
-            emptyComponent={<Empty />}
+            emptyComponent={
+              <View style={styleProvider.flexCenter}>
+                <Empty />
+              </View>
+            }
           />
         </ExpandableSection>
       </ScrollView>

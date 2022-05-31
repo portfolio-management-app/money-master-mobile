@@ -19,7 +19,6 @@ import { APP_CONTENT } from 'shared/constants';
 import { IPortfolio } from 'shared/models';
 import { PortfolioDetailStore, PortfolioListStore } from 'shared/stores';
 import { styleProvider } from 'shared/styles';
-import { assignPortfolioIdToAssetStore } from 'utils/store';
 
 const CONTENT = APP_CONTENT.portfolioPicker;
 
@@ -30,7 +29,6 @@ export const PortfolioPicker = observer(() => {
   const { portfolioList, loading, getPortfolioList } = PortfolioListStore;
   const handlePortfolioPress = (portfolio: IPortfolio) => {
     PortfolioDetailStore.assignInfo(portfolio);
-    assignPortfolioIdToAssetStore(portfolio.id);
     const { actionType } = routeProps.params;
     switch (routeProps.params.type) {
       case 'CRYPTO':
@@ -45,12 +43,6 @@ export const PortfolioPicker = observer(() => {
         if (actionType === 'BUY') navigation.navigate('BuyCurrency');
         else navigation.navigate('SellCurrency');
         break;
-      case 'METAL':
-        if (routeProps.params.metalType === 'gold') {
-          navigation.navigate('BuyGold');
-        } else {
-          navigation.navigate('BuySilver');
-        }
     }
   };
   return (

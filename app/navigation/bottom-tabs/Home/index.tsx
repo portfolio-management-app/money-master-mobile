@@ -15,7 +15,7 @@ export const BOTTOM_TAB_CONTENT = APP_CONTENT.bottomTab;
 
 const Tab = createBottomTabNavigator<BottomStackParamStack>();
 
-export const HomeBottomTab = () => {
+const Component = () => {
   return (
     <Tab.Navigator
       initialRouteName="Dashboard"
@@ -69,3 +69,5 @@ export const HomeBottomTab = () => {
     </Tab.Navigator>
   );
 };
+
+export const HomeBottomTab = React.memo(Component);

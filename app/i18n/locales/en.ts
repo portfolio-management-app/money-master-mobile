@@ -136,6 +136,7 @@ export const en = {
       startDate: 'Start date',
       update: 'Update',
     },
+
     bankingModal: {
       name: 'Bank Name',
       description: 'Description',
@@ -159,7 +160,7 @@ export const en = {
     headerRealEaster: 'Real estate information',
     headerOther: 'Asset information',
     buy: 'Buy',
-    transfer: 'Transfer',
+    transfer: 'Transfer to fund',
     deleteSuccess: 'Delete success',
     import: 'Import',
     export: 'Export',
@@ -167,6 +168,7 @@ export const en = {
     transaction: 'Transaction history',
     edit: 'Edit',
     draw: 'Draw',
+    sell: 'Sell to cash',
     startDate: 'Start date',
     deleteTitle: 'Delete this asset ?',
     bankName: 'Bank name',
@@ -334,12 +336,21 @@ export const en = {
       currentPrice: 'Current price',
     },
   },
+  cashAssetDetail: {
+    editModal: {
+      title: 'Edit asset',
+      name: 'Name',
+      amount: 'Amount',
+      Description: 'Description',
+    },
+  },
   cryptoAssetDetail: {
     header: 'Crypto asset information',
     editModal: {
       title: 'Edit crypto estate',
       name: 'Name',
-      buyPrice: 'Buy price',
+      amount: 'Current amount holding',
+      description: 'Description',
     },
   },
   emptyData: 'No data',
@@ -401,14 +412,15 @@ export const en = {
     out: 'Out',
   },
   cashAssetPicker: {
-    title: 'Choose cash asset to draw',
+    title: 'Choose cash asset to sell',
+    titleBuy: 'Choose cash asset to draw',
   },
   drawScreen: {
     header: 'to',
-    buttonContent: 'Draw',
-    inputPlaceHolder: 'Money amount to draw',
+    buttonContent: 'Sell',
+    inputPlaceHolder: 'Money amount to sell',
     drawConfirm: {
-      title: 'Draw this asset?',
+      title: 'Sell this asset?',
     },
   },
   buyFromInvestFund: {
@@ -447,10 +459,32 @@ export const en = {
   },
   transactionRecord: 'Asset record of',
   exportInfo: {
-    title: "Saved filed",
-    message: "File save at",
-    transaction: "Transaction record",
-    assetInformation: "Asset information",
-    
-  }
+    title: 'Saved filed',
+    message: 'File save at',
+    transaction: 'Transaction record',
+    assetInformation: 'Asset information',
+  },
+  sellToCash: {
+    fee: 'Fee(%)',
+    tax: 'Tax(%)',
+    sell: 'Sell',
+    amount: 'Money amount to sell',
+  },
+  buySource: {
+    outside: 'Outside',
+    fund: 'Invest fund',
+    cash: 'Cash',
+    header: 'Choose the money source',
+  },
+  fee: 'Fee',
+  tax: 'Tax',
+  updateSuccess: 'Update success',
+  createSuccess: 'Create success',
+  dashboard: {
+    new: 'News',
+    openNew: {
+      error: 'Error',
+      errorMessage: "Can't open this new now",
+    },
+  },
 };

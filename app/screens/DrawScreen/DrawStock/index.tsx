@@ -7,38 +7,49 @@ import {
   ConfirmSheet,
   CustomToast,
   PlatformView,
+  SellForm,
   StockInformationCard,
-  TransferForm,
 } from 'shared/components';
 import { APP_CONTENT } from 'shared/constants';
 import { useConfirmSheet } from 'shared/hooks';
 import { StockAssetStore } from 'shared/stores';
 import { styleProvider } from 'shared/styles';
+import { SellDataCallBack } from 'shared/types';
 
 export const DrawStock = observer(() => {
-  const [amount, setAmount] = React.useState(0);
+  const [apiData, setApiData] = React.useState<SellDataCallBack>({
+    amount: 0,
+    fee: 0,
+    tax: 0,
+  });
   const routeProps = useRoute<RootStackScreenProps<'DrawStock'>['route']>();
   const { show, toggle } = useConfirmSheet();
-  const { transferAsset, transactionResponse } = StockAssetStore;
-  console.log(routeProps);
+  const { sellToCash, transactionResponse, information, assignInfo } =
+    StockAssetStore;
 
-  const handleTransfer = () => {
+  React.useEffect(() => {
+    assignInfo(routeProps.params.source);
+  }, [routeProps.params.source, assignInfo]);
+
+  const handleSellToCash = () => {
     toggle();
-    transferAsset(
-      {
-        destinationAssetId: routeProps.params.cashDestination.id,
-        destinationAssetType: 'cash',
-        isTransferringAll: false,
-        amount: amount,
-        currencyCode: routeProps.params.cashDestination.currencyCode,
-        transactionType: 'withdrawValue',
-      },
-      routeProps.params.source.id
-    );
+    sellToCash({
+      destinationAssetId: routeProps.params.cashDestination.id,
+      destinationAssetType: 'cash',
+      referentialAssetId: information.id,
+      referentialAssetType: 'crypto',
+      isTransferringAll: false,
+      amountInDestinationAssetUnit: 0,
+      amount: apiData.fee,
+      currencyCode: information.currencyCode,
+      transactionType: 'withdrawToCash',
+      fee: apiData.fee,
+      tax: apiData.tax,
+    });
   };
 
-  const handleSubmit = (amount: number) => {
-    setAmount(amount);
+  const handleSubmit = (data: SellDataCallBack) => {
+    setApiData(data);
     toggle();
   };
   return (
@@ -47,16 +58,16 @@ export const DrawStock = observer(() => {
         title={`${routeProps.params.source.name} ${APP_CONTENT.drawScreen.header} ${routeProps.params.cashDestination.name}`}
       />
       <StockInformationCard asset={routeProps.params.source} />
-      <TransferForm
+      <SellForm
         buttonContent={APP_CONTENT.drawScreen.buttonContent}
         inputPlaceHolder={APP_CONTENT.drawScreen.inputPlaceHolder}
-        onTransfer={handleSubmit}
+        onSell={handleSubmit}
       />
       <ConfirmSheet
         show={show}
         onCancel={toggle}
         onClose={toggle}
-        onConfirm={handleTransfer}
+        onConfirm={handleSellToCash}
         title={APP_CONTENT.drawScreen.drawConfirm.title}
       />
       <CustomToast

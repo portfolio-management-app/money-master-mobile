@@ -7,7 +7,7 @@ const FORM_ERROR = APP_CONTENT.formErrors;
 export const CreateAssetSchema = Yup.object().shape({
   name: Yup.string().required(FORM_ERROR.requiredFiled),
   inputCurrency: Yup.string().required(FORM_ERROR.requiredFiled),
-  buyPrice: Yup.number()
+  inputMoneyAmount: Yup.number()
     .transform(yupParserNumber)
     .required(FORM_ERROR.requiredFiled)
     .positive(FORM_ERROR.mustBeANumber),

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Dialog, PanningProvider, View } from 'react-native-ui-lib';
 import { TextContainer } from 'shared/components';
-import { TRANSACTION_DETAIL_CONTENT } from 'shared/constants';
+import { APP_CONTENT, TRANSACTION_DETAIL_CONTENT } from 'shared/constants';
 import { ITransactionItem } from 'shared/models';
 import { dimensionProvider, colorScheme } from 'shared/styles';
 import { parseToString } from 'utils/date';
@@ -34,103 +34,39 @@ const Component = ({ open, onClose, info }: IProps) => {
 };
 
 const Item = ({ info }: { info: ITransactionItem }) => {
-  switch (info.singleAssetTransactionType) {
-    case 'newAsset':
-      return (
-        <View style={{ paddingHorizontal: 30, marginVertical: 30 }}>
-          <TextContainer mb={10}>
-            <TextContainer semiBold>
-              {TRANSACTION_DETAIL_CONTENT.amount}:{' '}
-            </TextContainer>
+  return (
+    <View style={{ paddingHorizontal: 30, marginVertical: 30 }}>
+      <TextContainer mb={10}>
+        <TextContainer semiBold>
+          {TRANSACTION_DETAIL_CONTENT.amount}:{' '}
+        </TextContainer>
 
-            {formatCurrency(info.amount, info.currencyCode)}
-          </TextContainer>
-          <TextContainer mb={10}>
-            <TextContainer semiBold>
-              {TRANSACTION_DETAIL_CONTENT.date}:{' '}
-            </TextContainer>
+        {formatCurrency(info.amount, info.currencyCode)}
+      </TextContainer>
+      <TextContainer mb={10}>
+        <TextContainer semiBold>
+          {TRANSACTION_DETAIL_CONTENT.date}:{' '}
+        </TextContainer>
 
-            {parseToString(new Date(info.createdAt))}
-          </TextContainer>
-          <TextContainer mb={10}>
-            <TextContainer semiBold>
-              {TRANSACTION_DETAIL_CONTENT.type}:{' '}
-            </TextContainer>
-            {translateTransactionType(info.singleAssetTransactionType)}
-          </TextContainer>
-          <TextContainer mb={10}>
-            <TextContainer semiBold>
-              {TRANSACTION_DETAIL_CONTENT.assetType}:{' '}
-            </TextContainer>
-            {translateAssetType(info.referentialAssetType)}
-          </TextContainer>
-        </View>
-      );
-    case 'withdrawValue':
-      return (
-        <View style={{ paddingHorizontal: 30, marginVertical: 30 }}>
-          <TextContainer mb={10}>
-            <TextContainer semiBold>
-              {TRANSACTION_DETAIL_CONTENT.amount}:{' '}
-            </TextContainer>
+        {parseToString(new Date(info.createdAt))}
+      </TextContainer>
+      <TextContainer mb={10}>
+        <TextContainer semiBold>
+          {TRANSACTION_DETAIL_CONTENT.type}:{' '}
+        </TextContainer>
+        {translateTransactionType(info.singleAssetTransactionType)}
+      </TextContainer>
 
-            {formatCurrency(info.amount, info.currencyCode)}
-          </TextContainer>
-          <TextContainer mb={10}>
-            <TextContainer semiBold>
-              {TRANSACTION_DETAIL_CONTENT.date}:{' '}
-            </TextContainer>
-
-            {parseToString(new Date(info.createdAt))}
-          </TextContainer>
-          <TextContainer mb={10}>
-            <TextContainer semiBold>
-              {TRANSACTION_DETAIL_CONTENT.type}:{' '}
-            </TextContainer>
-            {translateTransactionType(info.singleAssetTransactionType)}
-          </TextContainer>
-          <TextContainer mb={10}>
-            <TextContainer semiBold>
-              {TRANSACTION_DETAIL_CONTENT.destinationAssetType}:{' '}
-            </TextContainer>
-            {translateAssetType(info.destinationAssetType)}
-          </TextContainer>
-        </View>
-      );
-    case 'moveToFund':
-      return (
-        <View style={{ paddingHorizontal: 30, marginVertical: 30 }}>
-          <TextContainer mb={10}>
-            <TextContainer semiBold>
-              {TRANSACTION_DETAIL_CONTENT.amount}:{' '}
-            </TextContainer>
-
-            {formatCurrency(info.amount, info.currencyCode)}
-          </TextContainer>
-          <TextContainer mb={10}>
-            <TextContainer semiBold>
-              {TRANSACTION_DETAIL_CONTENT.date}:{' '}
-            </TextContainer>
-
-            {parseToString(new Date(info.createdAt))}
-          </TextContainer>
-          <TextContainer mb={10}>
-            <TextContainer semiBold>
-              {TRANSACTION_DETAIL_CONTENT.type}:{' '}
-            </TextContainer>
-            {translateTransactionType(info.singleAssetTransactionType)}
-          </TextContainer>
-          <TextContainer mb={10}>
-            <TextContainer semiBold>
-              {TRANSACTION_DETAIL_CONTENT.destinationAssetType}:{' '}
-            </TextContainer>
-            {translateAssetType(info.destinationAssetType)}
-          </TextContainer>
-        </View>
-      );
-    default:
-      return <></>;
-  }
+      <TextContainer mb={10}>
+        <TextContainer semiBold>{APP_CONTENT.fee}: </TextContainer>
+        {info.fee} (%)
+      </TextContainer>
+      <TextContainer mb={10}>
+        <TextContainer semiBold>{APP_CONTENT.tax}: </TextContainer>
+        {info.tax} (%)
+      </TextContainer>
+    </View>
+  );
 };
 
 export const TransactionDetailModal = React.memo(Component);

@@ -10,7 +10,7 @@ import { types, flow } from 'mobx-state-tree';
 import { httpRequest } from 'services/http';
 import { UserStore } from 'shared/stores';
 import { log } from 'services/log';
-import { TransferToInvestFundBody, TransferToOtherAssetBody } from './types';
+import { TransferToInvestFundBody, SellToCashBody } from './types';
 import { translateInvestFundError } from 'utils/translation';
 import { EXCEL_COLUMNS } from 'shared/constants';
 import { parseToString } from 'utils/date';
@@ -20,8 +20,8 @@ export const RealEstateAssetStore = types
     information: RealEstateAsset,
     transactionList: types.array(TransactionItem),
     loading: types.boolean,
-    portfolioId: types.number,
     transactionResponse: Response,
+    editResponse: Response,
   })
   .views((self) => ({
     getExcelData() {
@@ -41,20 +41,27 @@ export const RealEstateAssetStore = types
   }))
   .actions((self) => {
     const editAsset = flow(function* (body: any) {
+      self.editResponse.makePending();
       const res = yield httpRequest.sendPut(
-        `${Config.BASE_URL}/portfolio/${self.portfolioId}/realEstate/${self.information.id}`,
+        `${Config.BASE_URL}/portfolio/${self.information.portfolioId}/realEstate/${self.information.id}`,
         body,
         UserStore.user.token
       );
 
       if (res instanceof HttpError) {
         log('Error when edit real estate asset', res);
+        self.editResponse.stopPending();
+        self.editResponse.makeError(res);
+      } else {
+        self.editResponse.stopPending();
+        self.information = res;
+        self.editResponse.makeSuccess();
       }
     });
     const getTransactionList = flow(function* () {
       self.loading = true;
       const res = yield httpRequest.sendGet(
-        `${Config.BASE_URL}/portfolio/${self.portfolioId}/realEstate/${self.information.id}/transactions`,
+        `${Config.BASE_URL}/portfolio/${self.information.portfolioId}/realEstate/${self.information.id}/transactions`,
         UserStore.user.token
       );
       if (res instanceof HttpError) {
@@ -68,15 +75,10 @@ export const RealEstateAssetStore = types
     const assignInfo = (info: IRealEstateAsset) => {
       self.information = { ...info };
     };
-    const assignPortfolioId = (id: number) => {
-      self.portfolioId = id;
-    };
-    const transferAsset = flow(function* (
-      body: TransferToOtherAssetBody,
-      assetId: number
-    ) {
+
+    const sellToCash = flow(function* (body: SellToCashBody) {
       const res = yield httpRequest.sendPost(
-        `${Config.BASE_URL}/portfolio/${self.portfolioId}/realEstate/${assetId}/transaction`,
+        `${Config.BASE_URL}/portfolio/${self.information.portfolioId}/transactions`,
         body,
         UserStore.user.token
       );
@@ -89,13 +91,10 @@ export const RealEstateAssetStore = types
         getTransactionList();
       }
     });
-    const transferToFund = flow(function* (
-      portfolioId: number,
-      body: TransferToInvestFundBody
-    ) {
+    const transferToFund = flow(function* (body: TransferToInvestFundBody) {
       self.transactionResponse.makePending();
       const res = yield httpRequest.sendPost(
-        `${Config.BASE_URL}/portfolio/${portfolioId}/fund`,
+        `${Config.BASE_URL}/portfolio/${self.information.portfolioId}/fund`,
         body,
         UserStore.user.token
       );
@@ -113,8 +112,7 @@ export const RealEstateAssetStore = types
       editAsset,
       assignInfo,
       getTransactionList,
-      assignPortfolioId,
-      transferAsset,
+      sellToCash,
       transferToFund,
     };
   })
@@ -131,8 +129,14 @@ export const RealEstateAssetStore = types
       portfolioId: 0,
     },
     loading: false,
-    portfolioId: 0,
+
     transactionResponse: {
+      isError: false,
+      isSuccess: false,
+      errorMessage: '',
+      pending: false,
+    },
+    editResponse: {
       isError: false,
       isSuccess: false,
       errorMessage: '',

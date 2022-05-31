@@ -2,11 +2,13 @@ import { types } from 'mobx-state-tree';
 
 export const TransactionItem = types.model('TransactionItem', {
   singleAssetTransactionType: types.union(
-    types.literal('newAsset'),
-    types.literal('addValue'),
-    types.literal('withdrawValue'),
-    types.literal('sellAsset'),
-    types.literal('moveToFund')
+    types.literal('buyFromFund'),
+    types.literal('buyFromCash'),
+    types.literal('buyFromOutside'),
+    types.literal('withdrawToCash'),
+    types.literal('withdrawToOutside'),
+    types.literal('moveToFund'),
+    types.literal('addValue')
   ),
   id: types.number,
   referentialAssetId: types.maybeNull(types.number),
@@ -33,10 +35,14 @@ export const TransactionItem = types.model('TransactionItem', {
     types.null
   ),
   destinationAssetName: types.maybeNull(types.string),
+  destinationAmount: types.number,
+  destinationCurrency: types.string,
   amount: types.number,
   currencyCode: types.string,
   createdAt: types.string,
   lastChanged: types.string,
+  fee: types.number,
+  tax: types.number,
 });
 
 export const InvestFundTransactionItem = types.model(

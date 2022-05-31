@@ -11,7 +11,7 @@ import {
   TransparentLoading,
 } from 'shared/components';
 import { APP_CONTENT } from 'shared/constants';
-import { CashAssetStore, PortfolioDetailStore } from 'shared/stores';
+import { CashAssetStore } from 'shared/stores';
 import { styleProvider } from 'shared/styles';
 
 const CONTENT = APP_CONTENT.transferToFund;
@@ -24,7 +24,7 @@ export const CurrencyTransfer = observer(() => {
   const handleTransfer = React.useCallback(
     (amount: number) => {
       const { id, currencyCode } = routeProps.params.info;
-      transferToFund(PortfolioDetailStore.information.id, {
+      transferToFund({
         referentialAssetId: id,
         amount: amount,
         referentialAssetType: 'cash',

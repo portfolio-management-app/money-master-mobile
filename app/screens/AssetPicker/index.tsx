@@ -47,6 +47,7 @@ export const AssetPicker = () => {
         break;
       case -3:
         param.type = 'BANKING';
+
         break;
       case -4:
         param.type = 'REAL-ESTATE';
@@ -55,7 +56,10 @@ export const AssetPicker = () => {
         param.type = 'CASH';
         break;
     }
-    navigation.navigate('CreateAsset', { props: param });
+    navigation.navigate('ChooseBuySource', {
+      type: param.type,
+      otherAssetInfo: { name: param.name, id: param.id },
+    });
   };
 
   return (

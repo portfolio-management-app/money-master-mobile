@@ -1,4 +1,5 @@
 import { Formik } from 'formik';
+import { observer } from 'mobx-react-lite';
 import React from 'react';
 import { ScrollView } from 'react-native';
 import { Modal } from 'react-native-ui-lib';
@@ -6,11 +7,14 @@ import {
   CreateModalHeader,
   CurrencyPicker,
   CustomTextField,
+  CustomToast,
   DatePicker,
   renderPickerForPortfolio,
+  TransparentLoading,
 } from 'shared/components';
 import { APP_CONTENT } from 'shared/constants';
 import { IRealEstateAsset } from 'shared/models';
+import { RealEstateAssetStore } from 'shared/stores';
 import { styleProvider } from 'shared/styles';
 import { CreateRealEstateAssetSchema } from 'shared/validator';
 
@@ -24,7 +28,8 @@ interface IProps {
 const FORM_CONTENT = APP_CONTENT.portfolioDetail.createOtherModal;
 const SCREEN_CONTENT = APP_CONTENT.realEstateAssetDetail.editModal;
 
-const Component = ({ open, item, onClose, onEdit }: IProps) => {
+export const EditModal = observer(({ open, item, onClose, onEdit }: IProps) => {
+  const { editResponse } = RealEstateAssetStore;
   return (
     <Modal visible={open} animationType="fade">
       <Formik
@@ -39,9 +44,7 @@ const Component = ({ open, item, onClose, onEdit }: IProps) => {
         }}
         onSubmit={(values) => {
           values.inputMoneyAmount = 1 * values.inputMoneyAmount;
-
           onEdit(values);
-          onClose();
         }}
       >
         {({
@@ -113,7 +116,18 @@ const Component = ({ open, item, onClose, onEdit }: IProps) => {
           );
         }}
       </Formik>
+      <CustomToast
+        show={editResponse.isError}
+        variant="error"
+        message={editResponse.errorMessage}
+        onDismiss={editResponse.deleteError}
+      />
+      <CustomToast
+        show={editResponse.isSuccess}
+        message={APP_CONTENT.updateSuccess}
+        onDismiss={editResponse.deleteSuccess}
+      />
+      <TransparentLoading show={editResponse.pending} />
     </Modal>
   );
-};
-export const EditModal = React.memo(Component);
+});

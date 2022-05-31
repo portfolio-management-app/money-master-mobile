@@ -27,7 +27,7 @@ export const RealEstate = observer(({ onClose }: ModalProps) => {
       <CustomToast
         onDismiss={createResponse.deleteSuccess}
         show={createResponse.isSuccess}
-        message={APP_CONTENT.transferToFund.success}
+        message={APP_CONTENT.buyScreen.createSuccess}
       />
     </>
   );

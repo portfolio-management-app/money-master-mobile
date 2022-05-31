@@ -14,7 +14,6 @@ import {
   CustomToast,
   PlatformView,
   PopoverMenuSetting,
-  TransferOptions,
   TransparentLoading,
 } from 'shared/components';
 import { APP_CONTENT, ASSET_DETAIL_CONTENT } from 'shared/constants';
@@ -30,12 +29,8 @@ export const CurrencyAssetDetail = observer(() => {
   const navigation = useNavigation<MainStackNavigationProp>();
   const [showModal, setShowModal] = React.useState(false);
   const [showConfirm, setShowConfirm] = React.useState(false);
-  const [showTransferOption, setShowTransferOption] = React.useState(false);
-  const { deleteResponse, deleteCashAsset } = PortfolioDetailStore;
 
-  const handleTransferToPortfolio = () => {
-    setShowTransferOption(!setShowTransferOption);
-  };
+  const { deleteResponse, deleteCashAsset } = PortfolioDetailStore;
 
   React.useEffect(() => {
     CashAssetStore.assignInfo(routeProps.params.info);
@@ -54,7 +49,6 @@ export const CurrencyAssetDetail = observer(() => {
   };
 
   const handleEditInformation = (newData: any) => {
-    console.log('on edit');
     CashAssetStore.editAsset(newData);
   };
   const handleTransferToInvestFund = () => {
@@ -76,6 +70,7 @@ export const CurrencyAssetDetail = observer(() => {
     navigation.navigate('CashAssetPicker', {
       type: 'CASH',
       source: routeProps.params.info,
+      actionType: 'SELL',
     });
   };
 
@@ -92,27 +87,22 @@ export const CurrencyAssetDetail = observer(() => {
     <PlatformView style={styleProvider.body}>
       <StatusBar backgroundColor={colorScheme.bg} barStyle="dark-content" />
       <NavigationHeader
-        title={routeProps.params.info.name}
+        title={CashAssetStore.information.name}
         renderRightItem={<PopoverMenuSetting onPress={handleMenuItemPress} />}
       />
       <TabBarView />
       <EditModal
         onEdit={handleEditInformation}
-        item={routeProps.params.info}
+        item={CashAssetStore.information}
         open={showModal}
         onClose={() => setShowModal(!showModal)}
       />
       <AssetSpeedDialButton
         onExport={handleExportFile}
-        onTransfer={() => setShowTransferOption(!showTransferOption)}
+        onTransfer={handleTransferToInvestFund}
+        onSell={handleTransferToCash}
       />
-      <TransferOptions
-        onTransferPortfolio={handleTransferToPortfolio}
-        onTransferToFund={handleTransferToInvestFund}
-        onTransferToCash={handleTransferToCash}
-        show={showTransferOption}
-        onClose={() => setShowTransferOption(!showTransferOption)}
-      />
+
       <ConfirmSheet
         title={ASSET_DETAIL_CONTENT.deleteTitle}
         onConfirm={handleConfirmDelete}

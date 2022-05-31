@@ -14,7 +14,6 @@ import {
   CustomToast,
   PlatformView,
   PopoverMenuSetting,
-  TransferOptions,
   TransparentLoading,
 } from 'shared/components';
 import { APP_CONTENT, ASSET_DETAIL_CONTENT } from 'shared/constants';
@@ -30,7 +29,6 @@ export const CustomAssetDetail = observer(() => {
   const navigation = useNavigation<MainStackNavigationProp>();
   const [showModal, setShowModal] = React.useState(false);
   const [showConfirm, setShowConfirm] = React.useState(false);
-  const [showTransferOption, setShowTransferOption] = React.useState(false);
 
   const { deleteResponse, deleteCustomAsset } = PortfolioDetailStore;
 
@@ -72,6 +70,7 @@ export const CustomAssetDetail = observer(() => {
     navigation.navigate('CashAssetPicker', {
       type: 'OTHER',
       source: routeProps.params.info,
+      actionType: 'SELL',
     });
   };
 
@@ -79,7 +78,7 @@ export const CustomAssetDetail = observer(() => {
     console.log('export');
     fileService.saveAssetDataFile(
       buildTransactionJSONForExcelFile(CustomAssetStore.transactionList),
-      [],
+      CustomAssetStore.getExcelData(),
       `${APP_CONTENT.transactionRecord} ${routeProps.params.info.name}`
     );
   };
@@ -100,14 +99,10 @@ export const CustomAssetDetail = observer(() => {
       />
       <AssetSpeedDialButton
         onExport={handleExportFile}
-        onTransfer={() => setShowTransferOption(!showTransferOption)}
+        onTransfer={handleTransferToInvestFund}
+        onSell={handleTransferToCash}
       />
-      <TransferOptions
-        onTransferToCash={handleTransferToCash}
-        show={showTransferOption}
-        onTransferToFund={handleTransferToInvestFund}
-        onClose={() => setShowTransferOption(!showTransferOption)}
-      />
+
       <ConfirmSheet
         title={ASSET_DETAIL_CONTENT.deleteTitle}
         onConfirm={handleConfirmDelete}

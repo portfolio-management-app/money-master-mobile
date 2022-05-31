@@ -11,7 +11,7 @@ import {
   TransparentLoading,
 } from 'shared/components';
 import { APP_CONTENT } from 'shared/constants';
-import { CryptoAssetStore, PortfolioDetailStore } from 'shared/stores';
+import { CryptoAssetStore } from 'shared/stores';
 import { styleProvider } from 'shared/styles';
 
 const CONTENT = APP_CONTENT.transferToFund;
@@ -24,7 +24,7 @@ export const CryptoTransfer = observer(() => {
 
   const handleTransfer = React.useCallback(
     (amount: number) => {
-      transferToFund(PortfolioDetailStore.information.id, {
+      transferToFund({
         referentialAssetId: info.id,
         amount: amount,
         referentialAssetType: 'crypto',

@@ -19,8 +19,6 @@ import {
   BuyStock,
   BuyCurrency,
   RealEstateAssetDetail,
-  BuyGold,
-  BuySilver,
   CryptoAssetDetail,
   StockAssetDetail,
   CustomAssetDetail,
@@ -41,6 +39,8 @@ import {
   DrawBank,
   DrawRealEstate,
   EditPortfolio,
+  ChooseBuySource,
+  DrawCustom,
 } from 'screens';
 import { StatusBar } from 'react-native';
 import { colorScheme } from 'shared/styles';
@@ -72,8 +72,6 @@ export const NavigationStack = () => {
         <Stack.Screen name={'BuyCrypto'} component={BuyCrypto} />
         <Stack.Screen name={'BuyStock'} component={BuyStock} />
         <Stack.Screen name={'BuyCurrency'} component={BuyCurrency} />
-        <Stack.Screen name={'BuyGold'} component={BuyGold} />
-        <Stack.Screen name={'BuySilver'} component={BuySilver} />
 
         <Stack.Screen
           name={'RealEstateAssetDetail'}
@@ -107,8 +105,10 @@ export const NavigationStack = () => {
         <Stack.Screen name="DrawCash" component={DrawCash} />
         <Stack.Screen name="DrawStock" component={DrawStock} />
         <Stack.Screen name="DrawBank" component={DrawBank} />
+        <Stack.Screen name="DrawCustomAsset" component={DrawCustom} />
         <Stack.Screen name="DrawRealEstate" component={DrawRealEstate} />
         <Stack.Screen name="EditPortfolio" component={EditPortfolio} />
+        <Stack.Screen name="ChooseBuySource" component={ChooseBuySource} />
       </Stack.Navigator>
     </NavigationContainer>
   );

@@ -1,10 +1,17 @@
 import { Formik } from 'formik';
+import { observer } from 'mobx-react-lite';
 import React from 'react';
 import { ScrollView } from 'react-native';
 import { Modal } from 'react-native-ui-lib';
-import { CreateModalHeader, DatePicker } from 'shared/components';
+import {
+  CreateModalHeader,
+  CustomToast,
+  DatePicker,
+  TransparentLoading,
+} from 'shared/components';
 import { APP_CONTENT } from 'shared/constants';
 import { IStockAsset } from 'shared/models';
+import { StockAssetStore } from 'shared/stores';
 import { styleProvider } from 'shared/styles';
 import { CreateRealEstateAssetSchema } from 'shared/validator';
 
@@ -18,7 +25,8 @@ interface IProps {
 const FORM_CONTENT = APP_CONTENT.portfolioDetail.createOtherModal;
 const SCREEN_CONTENT = APP_CONTENT.cryptoAssetDetail.editModal;
 
-const Component = ({ open, item, onClose }: IProps) => {
+export const EditModal = observer(({ open, item, onClose }: IProps) => {
+  const { editResponse } = StockAssetStore;
   return (
     <Modal visible={open} animationType="fade">
       <Formik
@@ -90,7 +98,18 @@ const Component = ({ open, item, onClose }: IProps) => {
           );
         }}
       </Formik>
+      <CustomToast
+        show={editResponse.isError}
+        variant="error"
+        message={editResponse.errorMessage}
+        onDismiss={editResponse.deleteError}
+      />
+      <CustomToast
+        show={editResponse.isSuccess}
+        message={APP_CONTENT.updateSuccess}
+        onDismiss={editResponse.deleteSuccess}
+      />
+      <TransparentLoading show={editResponse.pending} />
     </Modal>
   );
-};
-export const EditModal = React.memo(Component);
+});

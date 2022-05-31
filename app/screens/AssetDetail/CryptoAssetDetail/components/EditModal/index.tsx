@@ -1,12 +1,19 @@
 import { Formik } from 'formik';
+import { observer } from 'mobx-react-lite';
 import React from 'react';
 import { ScrollView } from 'react-native';
 import { Modal } from 'react-native-ui-lib';
-import { CreateModalHeader, DatePicker } from 'shared/components';
+import {
+  CreateModalHeader,
+  CustomTextField,
+  CustomToast,
+  TransparentLoading,
+} from 'shared/components';
 import { APP_CONTENT } from 'shared/constants';
 import { ICryptoAsset } from 'shared/models';
+import { CryptoAssetStore } from 'shared/stores';
 import { styleProvider } from 'shared/styles';
-import { CreateRealEstateAssetSchema } from 'shared/validator';
+import { EditCryptoAssetSchema } from 'shared/validator';
 
 interface IProps {
   open: boolean;
@@ -18,18 +25,29 @@ interface IProps {
 const FORM_CONTENT = APP_CONTENT.portfolioDetail.createOtherModal;
 const SCREEN_CONTENT = APP_CONTENT.cryptoAssetDetail.editModal;
 
-const Component = ({ open, item, onClose }: IProps) => {
+export const EditModal = observer(({ open, item, onClose, onEdit }: IProps) => {
+  const { editResponse } = CryptoAssetStore;
   return (
     <Modal visible={open} animationType="fade">
       <Formik
-        validationSchema={CreateRealEstateAssetSchema}
-        initialValues={{}}
+        validationSchema={EditCryptoAssetSchema}
+        initialValues={{
+          name: item.name,
+          currentAmountHolding: item.currentAmountHolding,
+          description: item.description,
+        }}
         onSubmit={(values) => {
-          console.log(values);
-          onClose();
+          onEdit(values);
         }}
       >
-        {({ handleChange, handleSubmit }) => {
+        {({
+          handleChange,
+          handleSubmit,
+          touched,
+          errors,
+          values,
+          handleBlur,
+        }) => {
           return (
             <>
               <CreateModalHeader
@@ -39,7 +57,7 @@ const Component = ({ open, item, onClose }: IProps) => {
                 title={SCREEN_CONTENT.title}
               />
               <ScrollView style={styleProvider.container}>
-                {/* <CustomTextField
+                <CustomTextField
                   onChangeText={handleChange('name')}
                   onBlur={handleBlur('name')}
                   errorMessage={touched.name ? errors.name : ''}
@@ -47,50 +65,34 @@ const Component = ({ open, item, onClose }: IProps) => {
                   placeholder={SCREEN_CONTENT.name}
                 />
                 <CustomTextField
+                  onChangeText={handleChange('currentAmountHolding')}
+                  onBlur={handleBlur('currentAmountHolding')}
+                  value={values.currentAmountHolding.toString()}
+                  placeholder={SCREEN_CONTENT.amount}
+                />
+                <CustomTextField
                   onChangeText={handleChange('description')}
                   onBlur={handleBlur('description')}
-                  placeholder={FORM_CONTENT.description}
                   value={values.description}
-                />
-                <CustomTextField
-                  onChangeText={handleChange('inputMoneyAmount')}
-                  onBlur={handleBlur('inputMoneyAmount')}
-                  errorMessage={
-                    touched.inputMoneyAmount ? errors.inputMoneyAmount : ''
-                  }
-                  keyBoardType="decimal-pad"
-                  placeholder={FORM_CONTENT.balance}
-                  value={values.inputMoneyAmount.toString()}
-                />
-
-                <CustomTextField
-                  onChangeText={handleChange('currentPrice')}
-                  onBlur={handleBlur('currentPrice')}
-                  errorMessage={touched.currentPrice ? errors.currentPrice : ''}
-                  keyBoardType="decimal-pad"
-                  placeholder={SCREEN_CONTENT.currentPrice}
-                  value={values.currentPrice.toString()}
-                />
-                <CurrencyPicker
-                  errorMessage={
-                    touched.inputCurrency ? errors.inputCurrency : ''
-                  }
-                  initVal={item.inputCurrency}
-                  onChange={handleChange('inputCurrency')}
-                  renderPicker={renderPickerForPortfolio}
-                /> */}
-
-                <DatePicker
-                  initDate={new Date(item.inputDay)}
-                  onISOStringChange={handleChange('inputDay')}
-                  label={FORM_CONTENT.startDate}
+                  placeholder={SCREEN_CONTENT.description}
                 />
               </ScrollView>
             </>
           );
         }}
       </Formik>
+      <CustomToast
+        show={editResponse.isError}
+        variant="error"
+        message={editResponse.errorMessage}
+        onDismiss={editResponse.deleteError}
+      />
+      <CustomToast
+        show={editResponse.isSuccess}
+        message={APP_CONTENT.updateSuccess}
+        onDismiss={editResponse.deleteSuccess}
+      />
+      <TransparentLoading show={editResponse.pending} />
     </Modal>
   );
-};
-export const EditModal = React.memo(Component);
+});

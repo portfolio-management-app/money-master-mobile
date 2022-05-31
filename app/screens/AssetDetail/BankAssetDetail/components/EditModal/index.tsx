@@ -1,4 +1,5 @@
 import { Formik } from 'formik';
+import { observer } from 'mobx-react-lite';
 import React from 'react';
 import { ScrollView } from 'react-native';
 import { Modal } from 'react-native-ui-lib';
@@ -6,12 +7,15 @@ import {
   CreateModalHeader,
   CurrencyPicker,
   CustomTextField,
+  CustomToast,
   DatePicker,
   ReinStateCheckBox,
   renderPickerForPortfolio,
+  TransparentLoading,
 } from 'shared/components';
 import { APP_CONTENT } from 'shared/constants';
 import { IBankAsset } from 'shared/models';
+import { BankAssetStore } from 'shared/stores';
 import { styleProvider } from 'shared/styles';
 import { CreateBankAssetSchema } from 'shared/validator';
 
@@ -25,8 +29,9 @@ interface IProps {
 const FORM_CONTENT = APP_CONTENT.portfolioDetail.createOtherModal;
 const SCREEN_CONTENT = APP_CONTENT.portfolioDetail;
 
-const Component = ({ open, item, onClose, onEdit }: IProps) => {
+export const EditModal = observer(({ open, item, onClose, onEdit }: IProps) => {
   const [reinState, setReinState] = React.useState(item.isGoingToReinState);
+  const { editResponse } = BankAssetStore;
   return (
     <Modal visible={open} animationType="fade">
       <Formik
@@ -47,9 +52,7 @@ const Component = ({ open, item, onClose, onEdit }: IProps) => {
           values.inputMoneyAmount = 1 * values.inputMoneyAmount;
           values.interestRate = 1 * values.interestRate;
           values.termRange = 1 * values.termRange;
-
           onEdit(values);
-          onClose();
         }}
       >
         {({
@@ -130,7 +133,18 @@ const Component = ({ open, item, onClose, onEdit }: IProps) => {
           );
         }}
       </Formik>
+      <CustomToast
+        show={editResponse.isError}
+        variant="error"
+        message={editResponse.errorMessage}
+        onDismiss={editResponse.deleteError}
+      />
+      <CustomToast
+        show={editResponse.isSuccess}
+        message={APP_CONTENT.updateSuccess}
+        onDismiss={editResponse.deleteSuccess}
+      />
+      <TransparentLoading show={editResponse.pending} />
     </Modal>
   );
-};
-export const EditModal = React.memo(Component);
+});

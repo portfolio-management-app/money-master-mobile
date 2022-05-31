@@ -46,6 +46,7 @@ export const InvestFundStore = types
       if (res instanceof HttpError) {
         log('Error when get invest fund', res);
       } else {
+        console.log('get invest fund info');
         self.information = res;
       }
     });

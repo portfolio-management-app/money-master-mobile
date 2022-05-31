@@ -1,4 +1,5 @@
 import { Formik } from 'formik';
+import { observer } from 'mobx-react-lite';
 import React from 'react';
 import { ScrollView, StyleSheet } from 'react-native';
 import {
@@ -6,10 +7,10 @@ import {
   CurrencyPicker,
   CustomTextField,
   DatePicker,
-  InvestFundBuy,
   renderPickerForPortfolio,
 } from 'shared/components';
 import { APP_CONTENT } from 'shared/constants';
+import { SourceBuyStore } from 'shared/stores';
 import { CreateOtherAssetBody } from 'shared/stores/types';
 import { CreateAssetSchema } from './validator';
 
@@ -20,8 +21,7 @@ interface IProps {
 }
 const FORM_CONTENT = APP_CONTENT.portfolioDetail.createOtherModal;
 
-const Component = ({ onSubmit, onClose, header }: IProps) => {
-  const [buyFromFund, setBuyFromFund] = React.useState(false);
+export const CreateForm = observer(({ onSubmit, onClose, header }: IProps) => {
   return (
     <Formik
       validationSchema={CreateAssetSchema}
@@ -33,18 +33,29 @@ const Component = ({ onSubmit, onClose, header }: IProps) => {
         description: '',
         interestRate: 0,
         termRange: 0,
-        isUsingInvestFund: false,
+        isUsingInvestFund: SourceBuyStore.usingFund,
+        isUsingCash: SourceBuyStore.usingCash,
+        usingCashId: SourceBuyStore.cashId,
+        fee: 0,
+        tax: 0,
       }}
       onSubmit={(values) => {
+        values.fee = 1 * values.fee;
+        values.tax = 1 * values.tax;
         values.inputMoneyAmount = 1 * values.inputMoneyAmount;
         values.interestRate = 1 * values.interestRate;
         values.termRange = 1 * values.termRange;
-        values.isUsingInvestFund = buyFromFund;
         onSubmit(values);
-        onClose();
       }}
     >
-      {({ errors, touched, handleBlur, handleChange, handleSubmit }) => {
+      {({
+        errors,
+        touched,
+        handleBlur,
+        handleChange,
+        handleSubmit,
+        values,
+      }) => {
         return (
           <>
             <CreateModalHeader
@@ -86,9 +97,21 @@ const Component = ({ onSubmit, onClose, header }: IProps) => {
                 keyBoardType="decimal-pad"
                 placeholder={FORM_CONTENT.termRange}
               />
-              <InvestFundBuy
-                buy={buyFromFund}
-                onToggle={() => setBuyFromFund(!buyFromFund)}
+              <CustomTextField
+                onChangeText={handleChange('fee')}
+                onBlur={handleBlur('fee')}
+                keyBoardType="decimal-pad"
+                placeholder={`${APP_CONTENT.fee} (%)`}
+                value={values.fee.toString()}
+                errorMessage={touched.fee ? errors.fee : ''}
+              />
+              <CustomTextField
+                onChangeText={handleChange('tax')}
+                onBlur={handleBlur('tax')}
+                keyBoardType="decimal-pad"
+                placeholder={`${APP_CONTENT.tax} (%)`}
+                value={values.tax.toString()}
+                errorMessage={touched.tax ? errors.tax : ''}
               />
               <DatePicker
                 onISOStringChange={handleChange('inputDay')}
@@ -100,9 +123,7 @@ const Component = ({ onSubmit, onClose, header }: IProps) => {
       }}
     </Formik>
   );
-};
-
-export const CreateForm = React.memo(Component);
+});
 
 const styles = StyleSheet.create({
   formContainer: {

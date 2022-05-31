@@ -1,5 +1,5 @@
 import { HttpError } from 'errors/base';
-import { ApiAssetType, TransactionType } from './api';
+import { ApiAssetType, TransactionType, SellDataCallBack } from './api';
 import {
   ModalProps,
   TextContainerProps,
@@ -42,6 +42,7 @@ export type {
   HorizontalBarChartProps,
   IPieData,
   SceneRoute,
+  SellDataCallBack,
 };
 
 export type HttpRequestResponse = {

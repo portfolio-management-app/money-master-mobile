@@ -153,7 +153,8 @@ export const vn = {
     headerRealEaster: 'Thông tin bất động sản',
     headerOther: 'Thông tin tài sản',
     buy: 'Mua',
-    transfer: 'Chuyển',
+    transfer: 'Chuyển tới quỹ đầu tư',
+    sell: 'Bán tới tiền mặt',
     import: 'Import',
     export: 'Export',
     information: 'Thông tin',
@@ -330,9 +331,10 @@ export const vn = {
   cryptoAssetDetail: {
     header: 'Thông tin tiền điện tử',
     editModal: {
-      title: 'Chỉnh sửa',
+      title: 'Cập nhật thông tin tài sản',
       name: 'Tên',
-      buyPrice: 'Giá mua',
+      amount: 'Số lượng nắm giữ',
+      description: 'Mô tả',
     },
   },
   emptyData: 'Không có dữ liệu',
@@ -394,14 +396,15 @@ export const vn = {
     out: 'Ra',
   },
   cashAssetPicker: {
-    title: 'Chọn tài sản để rút về',
+    title: 'Chọn tài sản để bán về',
+    titleBuy: 'Chọn tài sản để rút ra',
   },
   drawScreen: {
     header: 'tới',
-    buttonContent: 'Rút',
-    inputPlaceHolder: 'Số tiền rút',
+    buttonContent: 'Bán',
+    inputPlaceHolder: 'Số tiền bán',
     drawConfirm: {
-      title: 'Rút tài sản này?',
+      title: 'Bán tài sản này?',
     },
   },
   buyFromInvestFund: {
@@ -444,5 +447,36 @@ export const vn = {
     message: 'File lưu tại',
     transaction: 'Lịch sử giao dịch',
     assetInformation: 'Thông tin tài sản',
+  },
+  sellToCash: {
+    fee: 'Phí(%)',
+    tax: 'Thuế(%)',
+    sell: 'Bán',
+    amount: 'Số tiền bán',
+  },
+  buySource: {
+    outside: 'Bên ngoài',
+    fund: 'Quỹ đầu tư',
+    cash: 'Tiền mặt',
+    header: 'Chọn nguồn tiền',
+  },
+  fee: 'Phí',
+  tax: 'Thuế',
+  cashAssetDetail: {
+    editModal: {
+      title: 'Chỉnh sửa tài sản',
+      name: 'Tên',
+      amount: 'Số lượng',
+      Description: 'Mô tả',
+    },
+  },
+  updateSuccess: 'Cập nhật thành công',
+  createSuccess: 'Tạo thành công',
+  dashboard: {
+    new: 'Tin tức',
+    openNew: {
+      error: 'Lỗi',
+      errorMessage: 'Không thể mở tin này',
+    },
   },
 };

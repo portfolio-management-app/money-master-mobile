@@ -21,54 +21,56 @@ export const TransactionItem = ({ item }: IProps) => {
       <View style={styles.info}>
         <View>
           <View style={styleProvider.centerHorizontal}>
-            <Icon.Entypo
-              name="arrow-long-right"
-              color={colorScheme.green400}
-              size={20}
-            />
-            <TextContainer ml={MARGIN} semiBold type="small">
-              {APP_CONTENT.transactionDetail.in}
-            </TextContainer>
+            {item.isIngoing ? (
+              <>
+                <Icon.Entypo
+                  name="arrow-long-right"
+                  color={colorScheme.green400}
+                  size={20}
+                />
+                <TextContainer ml={MARGIN} semiBold type="small">
+                  {APP_CONTENT.transactionDetail.in}
+                </TextContainer>
+              </>
+            ) : (
+              <>
+                <Icon.Entypo
+                  name="arrow-long-left"
+                  color={colorScheme.red500}
+                  size={20}
+                />
+                <TextContainer ml={MARGIN} semiBold type="small">
+                  {APP_CONTENT.transactionDetail.out}
+                </TextContainer>
+              </>
+            )}
           </View>
           <Source item={item} />
         </View>
-        <TextContainer color={colorScheme.green400}>
-          +{formatCurrency(item.amount, item.currencyCode)}
-        </TextContainer>
+        {item.isIngoing ? (
+          <TextContainer color={colorScheme.green400}>
+            +{formatCurrency(item.amount, item.currencyCode)}
+          </TextContainer>
+        ) : (
+          <TextContainer color={colorScheme.red500}>
+            -{formatCurrency(item.amount, item.currencyCode)}
+          </TextContainer>
+        )}
       </View>
     </View>
   );
 };
 
 const Source = ({ item }: IProps) => {
-  switch (item.referentialAssetType) {
-    case 'crypto':
-      return (
-        <TextContainer mt={10} type="small">
-          {APP_CONTENT.transactionDetail.from}: {item.referentialAssetName}
-        </TextContainer>
-      );
-    case 'bankSaving':
-      return (
-        <TextContainer mt={10} type="small">
-          {APP_CONTENT.transactionDetail.from}: {item.referentialAssetName}
-        </TextContainer>
-      );
-    case 'realEstate':
-      return (
-        <TextContainer mt={10} type="small">
-          {APP_CONTENT.transactionDetail.from}: {item.referentialAssetName}
-        </TextContainer>
-      );
-    case 'stock':
-      return (
-        <TextContainer mt={10} type="small">
-          {APP_CONTENT.transactionDetail.from}: {item.referentialAssetName}
-        </TextContainer>
-      );
-    default:
-      return <></>;
-  }
+  const text = item.isIngoing
+    ? APP_CONTENT.transactionDetail.from
+    : APP_CONTENT.transactionDetail.to;
+
+  return (
+    <TextContainer mt={10} type="small">
+      {text}: {item.referentialAssetName}
+    </TextContainer>
+  );
 };
 
 const styles = StyleSheet.create({

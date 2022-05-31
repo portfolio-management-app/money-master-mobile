@@ -1,4 +1,5 @@
 import { Formik } from 'formik';
+import { observer } from 'mobx-react-lite';
 import React from 'react';
 import { StyleSheet } from 'react-native';
 import { View } from 'react-native-ui-lib';
@@ -8,9 +9,10 @@ import {
   CurrencyPicker,
   CustomTextField,
   DatePicker,
-  InvestFundBuy,
   renderPickerForPortfolio,
 } from 'shared/components';
+import { APP_CONTENT } from 'shared/constants';
+import { SourceBuyStore } from 'shared/stores';
 import { CreateRealEstateAssetBody } from 'shared/stores/types';
 import { CreateAssetSchema } from './validator';
 
@@ -19,8 +21,7 @@ interface IProps {
   onClose: () => void;
 }
 const FORM_CONTENT = SCREEN_CONTENT.realEstateModal;
-const Component = ({ onSubmit, onClose }: IProps) => {
-  const [buyFromFund, setBuyFromFund] = React.useState(false);
+export const CreateForm = observer(({ onSubmit, onClose }: IProps) => {
   return (
     <Formik
       validationSchema={CreateAssetSchema}
@@ -32,18 +33,25 @@ const Component = ({ onSubmit, onClose }: IProps) => {
         buyPrice: 0,
         currentPrice: 0,
         description: '',
-        isUsingInvestFund: false,
+        isUsingInvestFund: SourceBuyStore.usingFund,
+        isUsingCash: SourceBuyStore.usingCash,
+        usingCashId: SourceBuyStore.cashId,
+        fee: 0,
+        tax: 0,
       }}
       onSubmit={(values) => {
-        values.buyPrice = 1 * values.buyPrice;
-        values.currentPrice = 1 * values.currentPrice;
-        values.inputMoneyAmount = values.buyPrice;
-        values.isUsingInvestFund = buyFromFund;
+        values.inputMoneyAmount = 1 * values.inputMoneyAmount;
         onSubmit(values);
-        onClose();
       }}
     >
-      {({ errors, touched, handleBlur, handleChange, handleSubmit }) => {
+      {({
+        errors,
+        touched,
+        handleBlur,
+        handleChange,
+        handleSubmit,
+        values,
+      }) => {
         return (
           <>
             <CreateModalHeader
@@ -72,21 +80,37 @@ const Component = ({ onSubmit, onClose }: IProps) => {
                 placeholder={FORM_CONTENT.currentPrice}
               />
               <CustomTextField
-                onChangeText={handleChange('buyPrice')}
-                onBlur={handleBlur('buyPrice')}
-                errorMessage={touched.buyPrice ? errors.buyPrice : ''}
+                onChangeText={handleChange('inputMoneyAmount')}
+                onBlur={handleBlur('inputMoneyAmount')}
+                errorMessage={
+                  touched.inputMoneyAmount ? errors.inputMoneyAmount : ''
+                }
                 keyBoardType="decimal-pad"
                 placeholder={FORM_CONTENT.buyPrice}
               />
-              <InvestFundBuy
-                buy={buyFromFund}
-                onToggle={() => setBuyFromFund(!buyFromFund)}
+              <CustomTextField
+                onChangeText={handleChange('fee')}
+                onBlur={handleBlur('fee')}
+                keyBoardType="decimal-pad"
+                placeholder={`${APP_CONTENT.fee} (%)`}
+                value={values.fee.toString()}
+                errorMessage={touched.fee ? errors.fee : ''}
               />
+              <CustomTextField
+                onChangeText={handleChange('tax')}
+                onBlur={handleBlur('tax')}
+                keyBoardType="decimal-pad"
+                placeholder={`${APP_CONTENT.tax} (%)`}
+                value={values.tax.toString()}
+                errorMessage={touched.tax ? errors.tax : ''}
+              />
+
               <CurrencyPicker
                 errorMessage={touched.inputCurrency ? errors.inputCurrency : ''}
                 onChange={handleChange('inputCurrency')}
                 renderPicker={renderPickerForPortfolio}
               />
+
               <DatePicker
                 label={FORM_CONTENT.startDate}
                 onISOStringChange={handleChange('inputDay')}
@@ -97,9 +121,7 @@ const Component = ({ onSubmit, onClose }: IProps) => {
       }}
     </Formik>
   );
-};
-
-export const CreateForm = React.memo(Component);
+});
 
 const styles = StyleSheet.create({
   formContainer: {

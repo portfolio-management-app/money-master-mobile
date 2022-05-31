@@ -9,6 +9,10 @@ export type CreateOtherAssetBody = {
   interestRate: number;
   termRange: number;
   isUsingInvestFund: boolean;
+  isUsingCash: boolean;
+  usingCashId: number;
+  fee: number;
+  tax: number;
 };
 
 export type AuthenResponse = {
@@ -25,6 +29,10 @@ export type CreateCryptoAssetBody = {
   currencyCode: string;
   cryptoCoinCode: string;
   isUsingInvestFund: boolean;
+  isUsingCash: boolean;
+  usingCashId: number;
+  fee: number;
+  tax: number;
 };
 
 export type CreateStockAssetBody = {
@@ -37,6 +45,10 @@ export type CreateStockAssetBody = {
   purchasePrice: number;
   currencyCode: string;
   isUsingInvestFund: boolean;
+  isUsingCash: boolean;
+  usingCashId: number;
+  fee: number;
+  tax: number;
 };
 
 export type CreateCurrencyAssetBody = {
@@ -46,6 +58,10 @@ export type CreateCurrencyAssetBody = {
   inputDay: string;
   description: string;
   isUsingInvestFund: boolean;
+  isUsingCash: boolean;
+  usingCashId: number;
+  fee: number;
+  tax: number;
 };
 
 export type CreateBankAssetBody = {
@@ -59,6 +75,10 @@ export type CreateBankAssetBody = {
   interestRate: number;
   termRange: number;
   isUsingInvestFund: boolean;
+  isUsingCash: boolean;
+  usingCashId: number;
+  fee: number;
+  tax: number;
 };
 
 export type CreateRealEstateAssetBody = {
@@ -70,6 +90,10 @@ export type CreateRealEstateAssetBody = {
   currentPrice: number;
   description: string;
   isUsingInvestFund: boolean;
+  isUsingCash: boolean;
+  usingCashId: number;
+  fee: number;
+  tax: number;
 };
 export type TransferToInvestFundBody = {
   referentialAssetId: number;
@@ -79,13 +103,18 @@ export type TransferToInvestFundBody = {
   isTransferringAll: boolean;
 };
 
-export type TransferToOtherAssetBody = {
+export type SellToCashBody = {
+  amount: number;
+  amountInDestinationAssetUnit: number;
+  currencyCode: string;
+  transactionType: TransactionType;
   destinationAssetId: number;
   destinationAssetType: ApiAssetType;
-  amount: number;
-  currencyCode: string;
+  referentialAssetId: number;
+  referentialAssetType: ApiAssetType;
   isTransferringAll: boolean;
-  transactionType: TransactionType;
+  fee: number;
+  tax: number;
 };
 
 export type EditPortfolioBody = {

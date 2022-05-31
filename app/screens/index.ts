@@ -1,3 +1,5 @@
+import { DrawCustom } from './DrawScreen/DrawCustom/index';
+import { ChooseBuySource } from './ChooseBuySource/index';
 import { EditPortfolio } from './EditPortfolio/index';
 import { DrawRealEstate } from './DrawScreen/DrawRealEstate/index';
 import { DrawBank } from './DrawScreen/DrawBank/index';
@@ -14,13 +16,7 @@ import { RealEstateTransfer } from './Transfer/RealEstateTransfer/index';
 import { CustomTransfer } from './Transfer/CustomTransfer/index';
 import { BankTransfer } from './Transfer/BankTransfer/index';
 import { StockTransfer, CryptoTransfer } from './Transfer';
-import {
-  BuyCurrency,
-  BuyCrypto,
-  BuyStock,
-  BuyGold,
-  BuySilver,
-} from './BuyScreen';
+import { BuyCurrency, BuyCrypto, BuyStock } from './BuyScreen';
 import { PortfolioPicker } from './PortfolioPicker';
 import { CurrencyDetail } from './CurrencyDetail';
 import { StockDetail } from './StockDetail';
@@ -50,9 +46,7 @@ export {
   CurrencyAssetDetail,
   RealEstateTransfer,
   BuyStock,
-  BuyGold,
   CashAssetPicker,
-  BuySilver,
   SellCrypto,
   SellStock,
   SellCurrency,
@@ -86,5 +80,7 @@ export {
   DrawCash,
   DrawStock,
   DrawBank,
+  DrawCustom,
   DrawRealEstate,
+  ChooseBuySource,
 };

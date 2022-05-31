@@ -6,7 +6,6 @@ import { StatusBar } from 'react-native';
 import { PlatformView } from 'shared/components';
 import { InvestFundStore, PortfolioDetailStore } from 'shared/stores';
 import { colorScheme, styleProvider } from 'shared/styles';
-import { assignPortfolioIdToAssetStore } from 'utils/store';
 import { Header, TabBarView } from './components';
 
 export const PortfolioDetail = observer(() => {
@@ -24,7 +23,6 @@ export const PortfolioDetail = observer(() => {
     assignInfo(routeProps.params.info);
     getAllAsset();
     InvestFundStore.assignPortfolioId(id);
-    assignPortfolioIdToAssetStore(id);
     return () => cleanUp();
   }, [routeProps, assignInfo, cleanUp, getAllAsset]);
 

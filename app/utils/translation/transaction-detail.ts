@@ -5,13 +5,15 @@ export const translateTransactionType = (
   type: ITransactionItem['singleAssetTransactionType']
 ) => {
   switch (type) {
-    case 'newAsset':
+    case 'buyFromOutside':
+      return TRANSACTION_DETAIL_CONTENT.newAsset;
+    case 'buyFromCash':
       return TRANSACTION_DETAIL_CONTENT.newAsset;
     case 'addValue':
       return TRANSACTION_DETAIL_CONTENT.add;
-    case 'sellAsset':
+    case 'withdrawToCash':
       return TRANSACTION_DETAIL_CONTENT.sell;
-    case 'withdrawValue':
+    case 'withdrawToOutside':
       return TRANSACTION_DETAIL_CONTENT.draw;
     case 'moveToFund':
       return TRANSACTION_DETAIL_CONTENT.moveToFund;

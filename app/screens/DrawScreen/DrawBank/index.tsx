@@ -5,37 +5,46 @@ import { RootStackScreenProps } from 'navigation/types';
 import React from 'react';
 import {
   BankInformationCard,
-  BaseButton,
   ConfirmSheet,
   CustomToast,
   PlatformView,
+  SellForm,
 } from 'shared/components';
 import { APP_CONTENT } from 'shared/constants';
 import { useConfirmSheet } from 'shared/hooks';
 import { BankAssetStore } from 'shared/stores';
-import { colorScheme, styleProvider } from 'shared/styles';
+import { styleProvider } from 'shared/styles';
+import { SellDataCallBack } from 'shared/types';
 
 export const DrawBank = observer(() => {
   const routeProps = useRoute<RootStackScreenProps<'DrawBank'>['route']>();
+  const [apiData, setApiData] = React.useState<SellDataCallBack>({
+    amount: 0,
+    fee: 0,
+    tax: 0,
+  });
   const { show, toggle } = useConfirmSheet();
-  const { transferAsset, transactionResponse } = BankAssetStore;
+  const { sellToCash, transactionResponse, information } = BankAssetStore;
 
   const handleTransfer = () => {
     toggle();
-    transferAsset(
-      {
-        destinationAssetId: routeProps.params.cashDestination.id,
-        destinationAssetType: 'cash',
-        isTransferringAll: true,
-        amount: routeProps.params.source.inputMoneyAmount,
-        currencyCode: routeProps.params.cashDestination.currencyCode,
-        transactionType: 'withdrawValue',
-      },
-      routeProps.params.source.id
-    );
+    sellToCash({
+      destinationAssetId: routeProps.params.cashDestination.id,
+      destinationAssetType: 'cash',
+      referentialAssetId: information.id,
+      referentialAssetType: 'bankSaving',
+      isTransferringAll: true,
+      amountInDestinationAssetUnit: 0,
+      amount: routeProps.params.source.inputMoneyAmount,
+      currencyCode: information.inputCurrency,
+      transactionType: 'withdrawToCash',
+      fee: apiData.fee,
+      tax: apiData.tax,
+    });
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = (data: SellDataCallBack) => {
+    setApiData(data);
     toggle();
   };
   return (
@@ -44,11 +53,12 @@ export const DrawBank = observer(() => {
         title={`${routeProps.params.source.name} ${APP_CONTENT.drawScreen.header} ${routeProps.params.cashDestination.name}`}
       />
       <BankInformationCard asset={routeProps.params.source} />
-      <BaseButton
-        style={{ marginHorizontal: 20, marginTop: 20 }}
-        backgroundColor={colorScheme.theme}
-        onPress={handleSubmit}
-        label={APP_CONTENT.drawScreen.buttonContent}
+      <SellForm
+        buttonContent={APP_CONTENT.drawScreen.buttonContent}
+        inputPlaceHolder={APP_CONTENT.drawScreen.inputPlaceHolder}
+        haveAmountField={false}
+        onSell={handleSubmit}
+        initAmount={information.inputMoneyAmount}
       />
       <ConfirmSheet
         show={show}

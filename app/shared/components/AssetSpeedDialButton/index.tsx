@@ -7,19 +7,19 @@ import { SpeedDial } from '../SpeedDial';
 import { TextContainer } from '../TextContainer';
 
 interface IProps {
-  onImport?: () => void;
   onExport?: () => void;
   onBuy?: () => void;
   onTransfer?: () => void;
   onDraw?: () => void;
+  onSell?: () => void;
 }
 
 export const AssetSpeedDialButton = ({
   onBuy,
   onDraw,
   onExport,
-  onImport,
   onTransfer,
+  onSell,
 }: IProps) => {
   const [show, setShow] = React.useState(false);
   const onToggle = React.useCallback(() => {
@@ -37,12 +37,7 @@ export const AssetSpeedDialButton = ({
       onBuy();
     }
   }, [onBuy, onToggle]);
-  const handleImport = React.useCallback(() => {
-    onToggle();
-    if (onImport) {
-      onImport();
-    }
-  }, [onImport, onToggle]);
+
   const handleExport = React.useCallback(() => {
     onToggle();
     if (onExport) {
@@ -55,6 +50,12 @@ export const AssetSpeedDialButton = ({
       onDraw();
     }
   }, [onDraw, onToggle]);
+  const handleSell = React.useCallback(() => {
+    onToggle();
+    if (onSell) {
+      onSell();
+    }
+  }, [onSell, onToggle]);
   return (
     <SpeedDial
       show={show}
@@ -64,32 +65,17 @@ export const AssetSpeedDialButton = ({
           onBuy={handleBuy}
           onDraw={handleDraw}
           onExport={handleExport}
-          onImport={handleImport}
           onTransfer={handleTransfer}
+          onSell={handleSell}
         />
       )}
     />
   );
 };
 
-const SpeedDialItems = ({ onBuy, onExport, onImport, onTransfer }: IProps) => {
+const SpeedDialItems = ({ onBuy, onExport, onSell, onTransfer }: IProps) => {
   return (
     <>
-      <View style={styleProvider.speedDialWrapper}>
-        <View style={styleProvider.speedDialTooltip}>
-          <TextContainer>{ASSET_DETAIL_CONTENT.import}</TextContainer>
-        </View>
-        <TouchableOpacity
-          onPress={onImport}
-          style={styleProvider.speedDialButton}
-        >
-          <Icon.MaterialCommunity
-            size={20}
-            color={colorScheme.white}
-            name="file-import"
-          />
-        </TouchableOpacity>
-      </View>
       <View style={styleProvider.speedDialWrapper}>
         <View style={styleProvider.speedDialTooltip}>
           <TextContainer>{ASSET_DETAIL_CONTENT.export}</TextContainer>
@@ -117,6 +103,21 @@ const SpeedDialItems = ({ onBuy, onExport, onImport, onTransfer }: IProps) => {
             size={25}
             color={colorScheme.white}
             name="transfer"
+          />
+        </TouchableOpacity>
+      </View>
+      <View style={styleProvider.speedDialWrapper}>
+        <View style={styleProvider.speedDialTooltip}>
+          <TextContainer>{ASSET_DETAIL_CONTENT.sell}</TextContainer>
+        </View>
+        <TouchableOpacity
+          onPress={onSell}
+          style={styleProvider.speedDialButton}
+        >
+          <Icon.MaterialCommunity
+            size={25}
+            color={colorScheme.white}
+            name="bank-minus"
           />
         </TouchableOpacity>
       </View>

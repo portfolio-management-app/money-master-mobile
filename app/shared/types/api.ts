@@ -8,8 +8,16 @@ export type ApiAssetType =
   | 'fund';
 
 export type TransactionType =
-  | 'newAsset'
-  | 'addValue'
-  | 'withdrawValue'
-  | 'sellAsset'
-  | 'moveToFund';
+  | 'buyFromFund'
+  | 'buyFromCash'
+  | 'buyFromOutside'
+  | 'withdrawToCash'
+  | 'withdrawToOutside'
+  | 'moveToFund'
+  | 'addValue';
+
+export type SellDataCallBack = {
+  amount: number;
+  fee: number;
+  tax: number;
+};

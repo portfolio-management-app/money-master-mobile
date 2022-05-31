@@ -1,3 +1,4 @@
+import { PortfolioListStore } from 'shared/stores';
 import { Config } from 'config';
 import { HttpError } from 'errors/base';
 import { cast, flow, types } from 'mobx-state-tree';
@@ -451,6 +452,7 @@ export const PortfolioDetailStore = types
     };
 
     const editPortfolio = flow(function* (body: EditPortfolioBody, id: number) {
+      self.loading = true;
       const res = yield httpRequest.sendPut(
         `${Config.BASE_URL}/portfolio/${id}`,
         body,
@@ -466,6 +468,8 @@ export const PortfolioDetailStore = types
           initialCurrency: body.newCurrency,
         };
       }
+      PortfolioListStore.getPortfolioList();
+      self.loading = false;
     });
 
     return {

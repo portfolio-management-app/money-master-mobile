@@ -24,7 +24,7 @@ import {
   IRealEstateAsset,
   IStockAsset,
 } from 'shared/models';
-import { PortfolioDetailStore } from 'shared/stores';
+import { PortfolioDetailStore, SourceBuyStore } from 'shared/stores';
 import { styleProvider } from 'shared/styles';
 
 export const CashAssetPicker = observer(() => {
@@ -37,7 +37,7 @@ export const CashAssetPicker = observer(() => {
   const filteredCash = useMemo(() => {
     if (routeProps.params.type === 'CASH') {
       return currencyAssetList.filter(
-        (e) => e.id !== routeProps.params.source.id
+        (e) => e.id !== routeProps.params.source?.id
       );
     }
     return currencyAssetList;
@@ -48,49 +48,66 @@ export const CashAssetPicker = observer(() => {
   }, [getCurrencyAsset]);
 
   const handleCashPress = (cash: ICurrencyAsset) => {
-    switch (routeProps.params.type) {
-      case 'CRYPTO':
-        navigation.navigate('DrawCrypto', {
-          source: routeProps.params.source as ICryptoAsset,
-          cashDestination: cash,
-        });
-        break;
-      case 'STOCK':
-        navigation.navigate('DrawStock', {
-          source: routeProps.params.source as IStockAsset,
-          cashDestination: cash,
-        });
-        break;
-      case 'CASH':
-        navigation.navigate('DrawCash', {
-          source: routeProps.params.source as ICurrencyAsset,
-          cashDestination: cash,
-        });
-        break;
-      case 'BANKING':
-        navigation.navigate('DrawBank', {
-          source: routeProps.params.source as IBankAsset,
-          cashDestination: cash,
-        });
-        break;
-      case 'REAL-ESTATE':
-        navigation.navigate('DrawRealEstate', {
-          source: routeProps.params.source as IRealEstateAsset,
-          cashDestination: cash,
-        });
-        break;
-      case 'OTHER':
-        navigation.navigate('DrawOtherAsset', {
-          source: routeProps.params.source as ICustomAsset,
-          cashDestination: cash,
-        });
-        break;
+    if (routeProps.params.actionType === 'SELL') {
+      switch (routeProps.params.type) {
+        case 'CRYPTO':
+          navigation.navigate('DrawCrypto', {
+            source: routeProps.params.source as ICryptoAsset,
+            cashDestination: cash,
+          });
+          break;
+        case 'STOCK':
+          navigation.navigate('DrawStock', {
+            source: routeProps.params.source as IStockAsset,
+            cashDestination: cash,
+          });
+          break;
+        case 'CASH':
+          navigation.navigate('DrawCash', {
+            source: routeProps.params.source as ICurrencyAsset,
+            cashDestination: cash,
+          });
+          break;
+        case 'BANKING':
+          navigation.navigate('DrawBank', {
+            source: routeProps.params.source as IBankAsset,
+            cashDestination: cash,
+          });
+          break;
+        case 'REAL-ESTATE':
+          navigation.navigate('DrawRealEstate', {
+            source: routeProps.params.source as IRealEstateAsset,
+            cashDestination: cash,
+          });
+          break;
+        case 'OTHER':
+          navigation.navigate('DrawCustomAsset', {
+            source: routeProps.params.source as ICustomAsset,
+            cashDestination: cash,
+          });
+          break;
+      }
+      return;
     }
+    SourceBuyStore.changeSource(false, true, cash.id);
+    navigation.navigate('CreateAsset', {
+      props: {
+        type: routeProps.params.type,
+        name: routeProps.params.otherAssetInfo?.name || '',
+        id: routeProps.params.otherAssetInfo?.id || 0,
+      },
+    });
   };
 
   return (
     <PlatformView style={styleProvider.body}>
-      <NavigationHeader title={APP_CONTENT.cashAssetPicker.title} />
+      <NavigationHeader
+        title={
+          routeProps.params.actionType === 'SELL'
+            ? APP_CONTENT.cashAssetPicker.title
+            : APP_CONTENT.cashAssetPicker.titleBuy
+        }
+      />
       <SkeletonLoadable
         loading={!doneLoadingCurrencyAsset}
         isDataEmpty={filteredCash.length === 0}

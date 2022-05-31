@@ -43,12 +43,11 @@ export type RootStackParamList = {
   BuyCrypto: undefined;
   BuyStock: undefined;
   BuyCurrency: undefined;
-  BuyGold: undefined;
-  BuySilver: undefined;
   SellCrypto: undefined;
   SellStock: undefined;
   SellCurrency: undefined;
   CashAssetPicker: {
+    actionType: 'BUY' | 'SELL';
     type: AssetType;
     source:
       | ICryptoAsset
@@ -56,7 +55,9 @@ export type RootStackParamList = {
       | IStockAsset
       | IBankAsset
       | IRealEstateAsset
-      | ICustomAsset;
+      | ICustomAsset
+      | undefined;
+    otherAssetInfo?: { name: string; id: number };
   };
   CryptoTransfer: { info: ICryptoAsset };
   StockTransfer: { info: IStockAsset };
@@ -69,7 +70,7 @@ export type RootStackParamList = {
   DrawCash: { source: ICurrencyAsset; cashDestination: ICurrencyAsset };
   DrawBank: { source: IBankAsset; cashDestination: ICurrencyAsset };
   DrawRealEstate: { source: IRealEstateAsset; cashDestination: ICurrencyAsset };
-  DrawOtherAsset: { source: ICustomAsset; cashDestination: ICurrencyAsset };
+  DrawCustomAsset: { source: ICustomAsset; cashDestination: ICurrencyAsset };
   EditPortfolio: {
     portfolio: IPortfolio;
     editFrom: 'PortfolioList' | 'PortfolioDetail';
@@ -83,6 +84,10 @@ export type RootStackParamList = {
       | IRealEstateAsset
       | ICustomAsset;
     type: AssetType;
+  };
+  ChooseBuySource: {
+    type: AssetType;
+    otherAssetInfo: { name: string; id: number };
   };
 };
 

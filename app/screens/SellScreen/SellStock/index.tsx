@@ -7,7 +7,6 @@ import { TouchableOpacity } from 'react-native-ui-lib';
 import {
   Empty,
   PlatformView,
-  SellOptions,
   Skeleton,
   SkeletonLoadable,
   TextContainer,
@@ -20,10 +19,6 @@ import { styleProvider } from 'shared/styles';
 const CONTENT = APP_CONTENT.sellScreen;
 
 export const SellStock = observer(() => {
-  const [showSellOption, setShowSellOption] = React.useState(false);
-  const [selectedAsset, setSelectedAsset] = React.useState<IStockAsset | null>(
-    null
-  );
   const navigation = useNavigation<MainStackNavigationProp>();
   const { symbol } = StockDetailStore;
   const { getStockBySymbol, getStockAsset, doneLoadingStockAsset } =
@@ -34,23 +29,14 @@ export const SellStock = observer(() => {
     getStockAsset();
   }, [getStockAsset]);
 
-  const handleSellToCash = () => {
-    if (selectedAsset)
-      navigation.navigate('CashAssetPicker', {
-        type: 'CASH',
-        sourceId: selectedAsset.id,
-      });
+  const handleSellToCash = (asset: IStockAsset) => {
+    navigation.navigate('CashAssetPicker', {
+      actionType: 'SELL',
+      type: 'CASH',
+      source: asset,
+    });
   };
 
-  const handleSellToFund = () => {
-    if (selectedAsset)
-      navigation.navigate('StockTransfer', { info: selectedAsset });
-  };
-
-  const handleAssetPress = (asset: IStockAsset) => {
-    setSelectedAsset(asset);
-    setShowSellOption(!showSellOption);
-  };
   return (
     <PlatformView style={styleProvider.body}>
       <NavigationHeader title={CONTENT.title} />
@@ -62,7 +48,7 @@ export const SellStock = observer(() => {
           <>
             {filteredStock.map((stock) => (
               <TouchableOpacity
-                onPress={() => handleAssetPress(stock)}
+                onPress={() => handleSellToCash(stock)}
                 style={styleProvider.card}
                 key={stock.id}
               >
@@ -72,13 +58,6 @@ export const SellStock = observer(() => {
           </>
         }
         emptyComponent={<Empty message={CONTENT.noAsset} />}
-      />
-
-      <SellOptions
-        onSellToCash={handleSellToCash}
-        onSellToInvestFund={handleSellToFund}
-        onClose={() => setShowSellOption(!showSellOption)}
-        show={showSellOption}
       />
     </PlatformView>
   );

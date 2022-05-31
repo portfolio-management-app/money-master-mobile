@@ -1,100 +1,64 @@
 import React from 'react';
 import { StyleSheet } from 'react-native';
-import { TouchableOpacity, View } from 'react-native-ui-lib';
-import { Icon, TextContainer } from 'shared/components';
-import { APP_CONTENT, TRANSACTION_DETAIL_CONTENT } from 'shared/constants';
+import { TouchableOpacity } from 'react-native-ui-lib';
+import { APP_CONTENT } from 'shared/constants';
 import { ITransactionItem } from 'shared/models';
-import { styleProvider, colorScheme } from 'shared/styles';
-import { parseToString } from 'utils/date';
-import { formatCurrency } from 'utils/number';
+import { colorScheme } from 'shared/styles';
+import { InTransaction } from './InTransaction';
+import { OutTransaction } from './OutTransaction';
 
 interface IProps {
   info: ITransactionItem;
   onPress?: () => void;
 }
 
-const MARGIN = 10;
-
 export const TransactionDetail = ({ info, onPress }: IProps) => {
   switch (info.singleAssetTransactionType) {
-    case 'newAsset':
+    case 'buyFromOutside':
       return (
         <TouchableOpacity onPress={onPress} style={styles.transactionItem}>
-          <TextContainer mb={MARGIN}>
-            {parseToString(new Date(info.createdAt))}
-          </TextContainer>
-          <View style={styles.info}>
-            <View style={styleProvider.centerHorizontal}>
-              <Icon.Entypo
-                name="arrow-long-right"
-                color={colorScheme.green300}
-                size={20}
-              />
-              <TextContainer ml={MARGIN} semiBold type="small">
-                {APP_CONTENT.buy}
-              </TextContainer>
-            </View>
-            <TextContainer color={colorScheme.green300}>
-              +{formatCurrency(info.amount, info.currencyCode)}
-            </TextContainer>
-          </View>
+          <InTransaction info={info} inContent={APP_CONTENT.buy} />
         </TouchableOpacity>
       );
-    case 'withdrawValue':
+    case 'buyFromCash':
       return (
         <TouchableOpacity onPress={onPress} style={styles.transactionItem}>
-          <TextContainer mb={MARGIN}>
-            {parseToString(new Date(info.createdAt))}
-          </TextContainer>
-          <View style={styles.info}>
-            <View>
-              <View style={styleProvider.centerHorizontal}>
-                <Icon.Entypo
-                  name="arrow-long-left"
-                  color={colorScheme.red500}
-                  size={20}
-                />
-                <TextContainer ml={MARGIN} semiBold type="small">
-                  {APP_CONTENT.draw}
-                </TextContainer>
-              </View>
-              <TextContainer mt={10} type="small">
-                {APP_CONTENT.transactionDetail.to}: {info.destinationAssetName}
-              </TextContainer>
-            </View>
-            <TextContainer color={colorScheme.red500}>
-              -{formatCurrency(info.amount, info.currencyCode)}
-            </TextContainer>
-          </View>
+          <InTransaction
+            info={info}
+            inContent={APP_CONTENT.buy}
+            toFromContent={`${APP_CONTENT.transactionDetail.from}: ${info.referentialAssetName}`}
+          />
+        </TouchableOpacity>
+      );
+    case 'buyFromFund':
+      return (
+        <TouchableOpacity onPress={onPress} style={styles.transactionItem}>
+          <InTransaction
+            info={info}
+            inContent={APP_CONTENT.buy}
+            toFromContent={`${APP_CONTENT.transactionDetail.from}: ${APP_CONTENT.transactionDetail.fund}`}
+          />
+        </TouchableOpacity>
+      );
+    case 'withdrawToCash':
+      return (
+        <TouchableOpacity onPress={onPress} style={styles.transactionItem}>
+          <OutTransaction
+            info={info}
+            outContent={APP_CONTENT.sell}
+            toFromContent={`${APP_CONTENT.transactionDetail.to}: ${info.destinationAssetName}`}
+          />
         </TouchableOpacity>
       );
     case 'moveToFund':
       return (
         <TouchableOpacity onPress={onPress} style={styles.transactionItem}>
-          <TextContainer mb={MARGIN}>
-            {parseToString(new Date(info.createdAt))}
-          </TextContainer>
-          <View style={styles.info}>
-            <View>
-              <View style={styleProvider.centerHorizontal}>
-                <Icon.Entypo
-                  name="arrow-long-left"
-                  color={colorScheme.red500}
-                  size={20}
-                />
-                <TextContainer ml={MARGIN} semiBold type="small">
-                  {APP_CONTENT.draw}
-                </TextContainer>
-              </View>
-              <TextContainer mt={10} type="small">
-                {APP_CONTENT.transactionDetail.to}:{' '}
-                {TRANSACTION_DETAIL_CONTENT.fund}
-              </TextContainer>
-            </View>
-            <TextContainer color={colorScheme.red500}>
-              -{formatCurrency(info.amount, info.currencyCode)}
-            </TextContainer>
-          </View>
+          <OutTransaction
+            info={info}
+            outContent={APP_CONTENT.draw}
+            haveTaxAndFee={false}
+            toFromContent={`${APP_CONTENT.transactionDetail.to}: ${APP_CONTENT.transactionDetail.fund}`}
+          />
         </TouchableOpacity>
       );
 

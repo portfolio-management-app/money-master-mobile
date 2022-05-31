@@ -4,7 +4,7 @@ import { observer } from 'mobx-react-lite';
 import { NavigationHeader } from 'navigation/header';
 import { RootStackScreenProps } from 'navigation/types';
 import {
-  BaseButton,
+  SellForm,
   ConfirmSheet,
   CustomToast,
   PlatformView,
@@ -12,31 +12,41 @@ import {
 } from 'shared/components';
 import { APP_CONTENT } from 'shared/constants';
 import { useConfirmSheet } from 'shared/hooks';
-import { colorScheme, styleProvider } from 'shared/styles';
+import { styleProvider } from 'shared/styles';
 import { RealEstateAssetStore } from 'shared/stores';
+import { SellDataCallBack } from 'shared/types';
 
 export const DrawRealEstate = observer(() => {
+  const [apiData, setApiData] = React.useState<SellDataCallBack>({
+    amount: 0,
+    fee: 0,
+    tax: 0,
+  });
   const routeProps =
     useRoute<RootStackScreenProps<'DrawRealEstate'>['route']>();
   const { show, toggle } = useConfirmSheet();
-  const { transferAsset, transactionResponse } = RealEstateAssetStore;
+  const { sellToCash, transactionResponse, information } = RealEstateAssetStore;
 
   const handleTransfer = () => {
     toggle();
-    transferAsset(
-      {
-        destinationAssetId: routeProps.params.cashDestination.id,
-        destinationAssetType: 'cash',
-        isTransferringAll: true,
-        amount: routeProps.params.source.inputMoneyAmount,
-        currencyCode: routeProps.params.cashDestination.currencyCode,
-        transactionType: 'withdrawValue',
-      },
-      routeProps.params.source.id
-    );
+    sellToCash({
+      destinationAssetId: routeProps.params.cashDestination.id,
+      destinationAssetType: 'cash',
+      referentialAssetId: information.id,
+      referentialAssetType: 'crypto',
+      isTransferringAll: true,
+      amountInDestinationAssetUnit: 0,
+      amount: routeProps.params.source.inputMoneyAmount,
+      currencyCode: information.inputCurrency,
+      transactionType: 'withdrawToCash',
+
+      fee: apiData.fee,
+      tax: apiData.tax,
+    });
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = (data: SellDataCallBack) => {
+    setApiData(data);
     toggle();
   };
   return (
@@ -45,11 +55,11 @@ export const DrawRealEstate = observer(() => {
         title={`${routeProps.params.source.name} ${APP_CONTENT.drawScreen.header} ${routeProps.params.cashDestination.name}`}
       />
       <RealEstateInformationCard asset={routeProps.params.source} />
-      <BaseButton
-        style={{ marginHorizontal: 20, marginTop: 20 }}
-        backgroundColor={colorScheme.theme}
-        onPress={handleSubmit}
-        label={APP_CONTENT.drawScreen.buttonContent}
+      <SellForm
+        buttonContent={APP_CONTENT.drawScreen.buttonContent}
+        inputPlaceHolder={APP_CONTENT.drawScreen.inputPlaceHolder}
+        haveAmountField={false}
+        onSell={handleSubmit}
       />
       <ConfirmSheet
         show={show}

@@ -14,7 +14,6 @@ import {
   CustomToast,
   PlatformView,
   PopoverMenuSetting,
-  TransferOptions,
   TransparentLoading,
 } from 'shared/components';
 import { APP_CONTENT, ASSET_DETAIL_CONTENT } from 'shared/constants';
@@ -31,10 +30,12 @@ export const RealEstateAssetDetail = observer(() => {
   const [showModal, setShowModal] = React.useState(false);
   const [showConfirm, setShowConfirm] = React.useState(false);
   const [showConfirmTransfer, setShowConfirmTransfer] = React.useState(false);
-  const [showTransferOption, setShowTransferOption] = React.useState(false);
-  const { deleteResponse, deleteRealEstateAsset, information } =
-    PortfolioDetailStore;
-  const { transferToFund, transactionResponse } = RealEstateAssetStore;
+  const { deleteResponse, deleteRealEstateAsset } = PortfolioDetailStore;
+  const {
+    transferToFund,
+    transactionResponse,
+    information: assetInformation,
+  } = RealEstateAssetStore;
 
   React.useEffect(() => {
     RealEstateAssetStore.assignInfo(routeProps.params.info);
@@ -57,7 +58,7 @@ export const RealEstateAssetDetail = observer(() => {
   };
 
   const handleTransferToFund = () => {
-    transferToFund(information.id, {
+    transferToFund({
       referentialAssetId: routeProps.params.info.id,
       referentialAssetType: 'realEstate',
       isTransferringAll: true,
@@ -79,7 +80,6 @@ export const RealEstateAssetDetail = observer(() => {
   };
 
   const handleCancelTransfer = () => {
-    setShowTransferOption(false);
     setShowConfirmTransfer(!showConfirmTransfer);
   };
 
@@ -87,6 +87,7 @@ export const RealEstateAssetDetail = observer(() => {
     navigation.navigate('CashAssetPicker', {
       type: 'REAL-ESTATE',
       source: routeProps.params.info,
+      actionType: 'SELL',
     });
   };
 
@@ -103,25 +104,21 @@ export const RealEstateAssetDetail = observer(() => {
     <PlatformView style={styleProvider.body}>
       <StatusBar backgroundColor={colorScheme.bg} barStyle="dark-content" />
       <NavigationHeader
-        title={routeProps.params.info.name}
+        title={assetInformation.name}
         renderRightItem={<PopoverMenuSetting onPress={handleMenuItemPress} />}
       />
       <TabBarView />
       <EditModal
         onEdit={handleEditInformation}
-        item={routeProps.params.info}
+        item={assetInformation}
         open={showModal}
         onClose={() => setShowModal(!showModal)}
       />
-      <TransferOptions
-        onTransferToFund={handleCancelTransfer}
-        onTransferToCash={handleTransferToCash}
-        show={showTransferOption}
-        onClose={() => setShowTransferOption(!showTransferOption)}
-      />
+
       <AssetSpeedDialButton
         onExport={handleExportFile}
-        onTransfer={() => setShowTransferOption(!showTransferOption)}
+        onTransfer={() => setShowConfirmTransfer(!showConfirmTransfer)}
+        onSell={handleTransferToCash}
       />
       <ConfirmSheet
         title={ASSET_DETAIL_CONTENT.deleteTitle}

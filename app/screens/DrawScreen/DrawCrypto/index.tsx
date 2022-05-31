@@ -8,36 +8,48 @@ import {
   CryptoInformationCard,
   CustomToast,
   PlatformView,
-  TransferForm,
+  SellForm,
 } from 'shared/components';
 import { APP_CONTENT } from 'shared/constants';
 import { useConfirmSheet } from 'shared/hooks';
 import { CryptoAssetStore } from 'shared/stores';
 import { styleProvider } from 'shared/styles';
+import { SellDataCallBack } from 'shared/types';
 
 export const DrawCrypto = observer(() => {
-  const [amount, setAmount] = React.useState(0);
+  const [apiData, setApiData] = React.useState<SellDataCallBack>({
+    amount: 0,
+    fee: 0,
+    tax: 0,
+  });
   const routeProps = useRoute<RootStackScreenProps<'DrawCrypto'>['route']>();
   const { show, toggle } = useConfirmSheet();
-  const { transferAsset, transactionResponse } = CryptoAssetStore;
+  const { sellToCash, transactionResponse, information, assignInfo } =
+    CryptoAssetStore;
+
+  React.useEffect(() => {
+    assignInfo(routeProps.params.source);
+  }, [routeProps.params.source, assignInfo]);
 
   const handleTransfer = () => {
     toggle();
-    transferAsset(
-      {
-        destinationAssetId: routeProps.params.cashDestination.id,
-        destinationAssetType: 'cash',
-        isTransferringAll: false,
-        amount: amount,
-        currencyCode: routeProps.params.cashDestination.currencyCode,
-        transactionType: 'withdrawValue',
-      },
-      routeProps.params.source.id
-    );
+    sellToCash({
+      destinationAssetId: routeProps.params.cashDestination.id,
+      destinationAssetType: 'cash',
+      referentialAssetId: information.id,
+      referentialAssetType: 'crypto',
+      isTransferringAll: false,
+      amountInDestinationAssetUnit: 0,
+      amount: apiData.amount,
+      currencyCode: information.currencyCode,
+      transactionType: 'withdrawToCash',
+      fee: apiData.fee,
+      tax: apiData.tax,
+    });
   };
 
-  const handleSubmit = (amount: number) => {
-    setAmount(amount);
+  const handleSubmit = (data: SellDataCallBack) => {
+    setApiData(data);
     toggle();
   };
   return (
@@ -46,10 +58,10 @@ export const DrawCrypto = observer(() => {
         title={`${routeProps.params.source.name} ${APP_CONTENT.drawScreen.header} ${routeProps.params.cashDestination.name}`}
       />
       <CryptoInformationCard asset={routeProps.params.source} />
-      <TransferForm
+      <SellForm
         buttonContent={APP_CONTENT.drawScreen.buttonContent}
         inputPlaceHolder={APP_CONTENT.drawScreen.inputPlaceHolder}
-        onTransfer={handleSubmit}
+        onSell={handleSubmit}
       />
       <ConfirmSheet
         show={show}

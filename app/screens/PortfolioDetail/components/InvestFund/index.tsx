@@ -25,6 +25,7 @@ export const InvestFund = observer(() => {
       <TextContainer ml={20} mt={20} mb={20} bold>
         {ASSET_DETAIL_CONTENT.transaction}
       </TextContainer>
+
       <TransactionList />
     </>
   );

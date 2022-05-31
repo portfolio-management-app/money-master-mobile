@@ -14,7 +14,6 @@ import {
   CustomToast,
   PlatformView,
   PopoverMenuSetting,
-  TransferOptions,
   TransparentLoading,
 } from 'shared/components';
 import { APP_CONTENT } from 'shared/constants';
@@ -32,7 +31,6 @@ export const StockAssetDetail = observer(() => {
   const navigation = useNavigation<MainStackNavigationProp>();
   const [showModal, setShowModal] = React.useState(false);
   const [showConfirm, setShowConfirm] = React.useState(false);
-  const [showTransferOption, setShowTransferOption] = React.useState(false);
 
   const { deleteResponse, deleteStockAsset } = PortfolioDetailStore;
 
@@ -56,6 +54,7 @@ export const StockAssetDetail = observer(() => {
     navigation.navigate('CashAssetPicker', {
       type: 'STOCK',
       source: routeProps.params.info,
+      actionType: 'SELL',
     });
   };
   const handleEditInformation = (newData: any) => {
@@ -102,14 +101,10 @@ export const StockAssetDetail = observer(() => {
       />
       <AssetSpeedDialButton
         onExport={handleExportFile}
-        onTransfer={() => setShowTransferOption(!showTransferOption)}
+        onTransfer={handleTransferToInvestFund}
+        onSell={handleTransferToCash}
       />
-      <TransferOptions
-        onTransferToCash={handleTransferToCash}
-        onTransferToFund={handleTransferToInvestFund}
-        show={showTransferOption}
-        onClose={() => setShowTransferOption(!showTransferOption)}
-      />
+
       <ConfirmSheet
         title={CONTENT.deleteTitle}
         onConfirm={handleConfirmDelete}

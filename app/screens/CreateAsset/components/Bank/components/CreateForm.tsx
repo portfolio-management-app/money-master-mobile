@@ -1,4 +1,5 @@
 import { Formik } from 'formik';
+import { observer } from 'mobx-react-lite';
 import React from 'react';
 import { ScrollView, StyleSheet } from 'react-native';
 import { SCREEN_CONTENT } from 'screens/PortfolioDetail/constants';
@@ -8,9 +9,9 @@ import {
   CustomTextField,
   DatePicker,
   renderPickerForPortfolio,
-  ReinStateCheckBox,
-  InvestFundBuy,
 } from 'shared/components';
+import { APP_CONTENT } from 'shared/constants';
+import { SourceBuyStore } from 'shared/stores';
 import { CreateBankAssetBody } from 'shared/stores/types';
 
 import { CreateAssetSchema } from './validator';
@@ -21,9 +22,7 @@ interface IProps {
 }
 const FORM_CONTENT = SCREEN_CONTENT.createOtherModal;
 
-const Component = ({ onSubmit, onClose }: IProps) => {
-  const [reinState, setReinState] = React.useState(false);
-  const [buyFromFund, setBuyFromFund] = React.useState(false);
+export const CreateForm = observer(({ onSubmit, onClose }: IProps) => {
   return (
     <Formik
       validationSchema={CreateAssetSchema}
@@ -37,19 +36,29 @@ const Component = ({ onSubmit, onClose }: IProps) => {
         description: '',
         interestRate: 0,
         termRange: 0,
-        isUsingInvestFund: false,
+        isUsingInvestFund: SourceBuyStore.usingFund,
+        isUsingCash: SourceBuyStore.usingCash,
+        usingCashId: SourceBuyStore.cashId,
+        fee: 0,
+        tax: 0,
       }}
       onSubmit={(values) => {
+        values.fee = 1 * values.fee;
+        values.tax = 1 * values.tax;
         values.inputMoneyAmount = 1 * values.inputMoneyAmount;
         values.interestRate = 1 * values.interestRate;
         values.termRange = 1 * values.termRange;
-        values.isGoingToReinState = reinState;
-        values.isUsingInvestFund = buyFromFund;
         onSubmit(values);
-        onClose();
       }}
     >
-      {({ errors, touched, handleBlur, handleChange, handleSubmit }) => {
+      {({
+        errors,
+        touched,
+        handleBlur,
+        handleChange,
+        handleSubmit,
+        values,
+      }) => {
         return (
           <>
             <CreateModalHeader
@@ -100,14 +109,23 @@ const Component = ({ onSubmit, onClose }: IProps) => {
                 placeholder={FORM_CONTENT.termRange}
                 errorMessage={touched.termRange ? errors.termRange : ''}
               />
-              <ReinStateCheckBox
-                reinState={reinState}
-                onToggle={() => setReinState(!reinState)}
+              <CustomTextField
+                onChangeText={handleChange('fee')}
+                onBlur={handleBlur('fee')}
+                keyBoardType="decimal-pad"
+                placeholder={`${APP_CONTENT.fee} (%)`}
+                value={values.fee.toString()}
+                errorMessage={touched.fee ? errors.fee : ''}
               />
-              <InvestFundBuy
-                buy={buyFromFund}
-                onToggle={() => setBuyFromFund(!buyFromFund)}
+              <CustomTextField
+                onChangeText={handleChange('tax')}
+                onBlur={handleBlur('tax')}
+                keyBoardType="decimal-pad"
+                placeholder={`${APP_CONTENT.tax} (%)`}
+                value={values.tax.toString()}
+                errorMessage={touched.tax ? errors.tax : ''}
               />
+
               <DatePicker
                 onISOStringChange={handleChange('inputDay')}
                 label={FORM_CONTENT.startDate}
@@ -118,9 +136,7 @@ const Component = ({ onSubmit, onClose }: IProps) => {
       }}
     </Formik>
   );
-};
-
-export const CreateForm = React.memo(Component);
+});
 
 const styles = StyleSheet.create({
   formContainer: {

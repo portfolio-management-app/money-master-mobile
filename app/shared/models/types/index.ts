@@ -1,6 +1,6 @@
 import { InvestFundInformation } from './../invest-fund';
 import { TransactionItem, InvestFundTransactionItem } from './../transaction';
-import { SnapshotOut } from 'mobx-state-tree';
+import { SnapshotIn, SnapshotOut } from 'mobx-state-tree';
 import {
   CurrencyTimeSeries,
   CurrencyInformation,
@@ -44,6 +44,6 @@ export type ITransactionItem = SnapshotOut<typeof TransactionItem>;
 
 export type IInvestFundInformation = SnapshotOut<typeof InvestFundInformation>;
 
-export type IInvestFundTransactionItem = SnapshotOut<
+export type IInvestFundTransactionItem = SnapshotIn<
   typeof InvestFundTransactionItem
 >;
