@@ -26,7 +26,7 @@ const Component = ({ onClose }: ModalProps) => {
     setLoading(true);
     await StockDetailStore.getStockInfo(symbol);
     setLoading(false);
-    navigation.navigate('BuyStock');
+    navigation.navigate('BuyStock', { transactionType: 'buyFromOutside' });
   };
   return (
     <>

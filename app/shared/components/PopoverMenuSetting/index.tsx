@@ -14,9 +14,14 @@ import { AssetActionType } from 'shared/types';
 interface IProps {
   onPress: (type: AssetActionType) => void;
   buttonColor?: string;
+  haveNotificationSetting?: boolean;
 }
 
-const Component = ({ onPress, buttonColor = colorScheme.black200 }: IProps) => {
+const Component = ({
+  onPress,
+  buttonColor = colorScheme.black200,
+  haveNotificationSetting = false,
+}: IProps) => {
   return (
     <Menu>
       <MenuTrigger>
@@ -51,6 +56,21 @@ const Component = ({ onPress, buttonColor = colorScheme.black200 }: IProps) => {
           />
           <TextContainer ml={10}>{ASSET_DETAIL_CONTENT.delete}</TextContainer>
         </MenuOption>
+        {haveNotificationSetting && (
+          <MenuOption
+            onSelect={() => onPress('notification-setting')}
+            style={styles.menuItem}
+          >
+            <Icon.Material
+              color={colorScheme.black200}
+              size={20}
+              name="notifications"
+            />
+            <TextContainer ml={10}>
+              {ASSET_DETAIL_CONTENT.notification}
+            </TextContainer>
+          </MenuOption>
+        )}
       </MenuOptions>
     </Menu>
   );

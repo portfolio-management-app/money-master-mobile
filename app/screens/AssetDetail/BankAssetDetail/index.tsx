@@ -38,6 +38,7 @@ export const BankAssetDetail = observer(() => {
     transactionList,
     transactionResponse,
     transferToFund,
+    getInformation,
     editAsset,
     information: assetInformation,
   } = BankAssetStore;
@@ -45,7 +46,8 @@ export const BankAssetDetail = observer(() => {
   React.useEffect(() => {
     assignInfo(routeProps.params.info);
     getTransactionList();
-  }, [routeProps, assignInfo, getTransactionList]);
+    getInformation();
+  }, [routeProps, assignInfo, getTransactionList, getInformation]);
 
   const handleMenuItemPress = (type: AssetActionType) => {
     switch (type) {
@@ -92,6 +94,8 @@ export const BankAssetDetail = observer(() => {
       type: 'BANKING',
       source: routeProps.params.info,
       actionType: 'SELL',
+      transactionType: 'withdrawToCash',
+      fromScreen: 'ASSET_DETAIL',
     });
   };
   const handleExportFile = () => {
@@ -108,7 +112,12 @@ export const BankAssetDetail = observer(() => {
       <StatusBar backgroundColor={colorScheme.bg} barStyle="dark-content" />
       <NavigationHeader
         title={assetInformation.name}
-        renderRightItem={<PopoverMenuSetting onPress={handleMenuItemPress} />}
+        renderRightItem={
+          <PopoverMenuSetting
+            haveNotificationSetting
+            onPress={handleMenuItemPress}
+          />
+        }
       />
       <TabBarView />
       <EditModal

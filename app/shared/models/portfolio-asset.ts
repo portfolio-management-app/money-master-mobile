@@ -57,7 +57,7 @@ export const StockAsset = types.model('StockAsset', {
   currentAmountInCurrency: types.number,
 });
 
-export const CurrencyAsset = types.model('CurrencyAsset', {
+export const CashAsset = types.model('CashAsset', {
   id: types.number,
   amount: types.number,
   currencyCode: types.string,

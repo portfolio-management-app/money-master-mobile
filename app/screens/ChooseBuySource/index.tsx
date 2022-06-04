@@ -20,34 +20,82 @@ export const ChooseBuySource = observer(() => {
   const navigation = useNavigation<MainStackNavigationProp>();
   const routeProps =
     useRoute<RootStackScreenProps<'ChooseBuySource'>['route']>();
-  const handleBuyFromOutSide = () => {
-    SourceBuyStore.changeSource(false, false, 0);
-    navigation.navigate('CreateAsset', {
-      props: {
-        type: routeProps.params.type,
-        name: routeProps.params.otherAssetInfo.name,
-        id: routeProps.params.otherAssetInfo.id,
-      },
-    });
-  };
-  const handleBuyFromFund = () => {
-    SourceBuyStore.changeSource(true, false, 0);
-    navigation.navigate('CreateAsset', {
-      props: {
-        type: routeProps.params.type,
-        name: routeProps.params.otherAssetInfo.name,
-        id: routeProps.params.otherAssetInfo.id,
-      },
-    });
-  };
-  const handleBuyFromCash = () => {
+  const navigateToCash = () => {
     navigation.navigate('CashAssetPicker', {
       actionType: 'BUY',
       source: undefined,
       type: routeProps.params.type,
-      otherAssetInfo: routeProps.params.otherAssetInfo,
+      transactionType: 'buyFromCash',
+      fromScreen: routeProps.params.fromScreen,
     });
   };
+
+  const navigateToCreate = () => {
+    navigation.navigate('CreateAsset', {
+      props: {
+        type: routeProps.params.type,
+        name: routeProps.params.customAssetInfo?.name || '',
+        id: routeProps.params.customAssetInfo?.id || 0,
+      },
+      transactionType: 'buyFromOutside',
+    });
+  };
+
+  const handleNavigationFromMarketCap = (isFromOutSide: boolean) => {
+    if (!isFromOutSide) {
+      navigateToCash();
+      return;
+    }
+    switch (routeProps.params.type) {
+      case 'CRYPTO':
+        navigation.navigate('BuyCrypto', {
+          transactionType: SourceBuyStore.singleAssetTransactionType,
+        });
+
+        break;
+      case 'STOCK':
+        navigation.navigate('BuyStock', {
+          transactionType: SourceBuyStore.singleAssetTransactionType,
+        });
+        break;
+      case 'CASH':
+        navigation.navigate('BuyCash', {
+          transactionType: SourceBuyStore.singleAssetTransactionType,
+        });
+        break;
+      default:
+        break;
+    }
+  };
+  const handleBuyFromOutSide = () => {
+    SourceBuyStore.changeSource(false, false, 0);
+    SourceBuyStore.changeTransactionType('buyFromOutside');
+    dispatchAction(true);
+  };
+  const handleBuyFromFund = () => {
+    SourceBuyStore.changeSource(true, false, 0);
+    SourceBuyStore.changeTransactionType('buyFromFund');
+    dispatchAction(true);
+  };
+  const handleBuyFromCash = () => {
+    SourceBuyStore.changeTransactionType('buyFromCash');
+    dispatchAction(false);
+  };
+  const dispatchAction = (isFromOutSide: boolean) => {
+    switch (routeProps.params.fromScreen) {
+      case 'CREATE_NEW':
+        if (isFromOutSide) {
+          navigateToCreate();
+        } else {
+          navigateToCash();
+        }
+        break;
+      case 'MARKET_CAP':
+        handleNavigationFromMarketCap(isFromOutSide);
+        break;
+    }
+  };
+
   return (
     <PlatformView style={styleProvider.body}>
       <NavigationHeader title={CONTENT.header} />

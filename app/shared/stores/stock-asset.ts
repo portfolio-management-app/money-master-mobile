@@ -89,6 +89,7 @@ export const StockAssetStore = types
       } else {
         self.transactionResponse.makeSuccess();
         getTransactionList();
+        getInformation();
       }
     });
     const transferToFund = flow(function* (body: TransferToInvestFundBody) {
@@ -105,7 +106,23 @@ export const StockAssetStore = types
       } else {
         self.transactionResponse.stopPending();
         self.transactionResponse.makeSuccess();
+        getTransactionList();
+        getInformation();
       }
+    });
+
+    const getInformation = flow(function* () {
+      self.loading = true;
+      const res = yield httpRequest.sendGet(
+        `${Config.BASE_URL}/portfolio/${self.information.portfolioId}/stock/${self.information.id}`,
+        UserStore.user.token
+      );
+      if (res instanceof HttpError) {
+        log('Error when get stock information', res);
+      } else {
+        self.information = res;
+      }
+      self.loading = false;
     });
 
     return {
@@ -114,6 +131,7 @@ export const StockAssetStore = types
       getTransactionList,
       sellToCash,
       transferToFund,
+      getInformation,
     };
   })
   .create({

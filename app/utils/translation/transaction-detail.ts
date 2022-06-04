@@ -14,7 +14,7 @@ export const translateTransactionType = (
     case 'withdrawToCash':
       return TRANSACTION_DETAIL_CONTENT.sell;
     case 'withdrawToOutside':
-      return TRANSACTION_DETAIL_CONTENT.draw;
+      return TRANSACTION_DETAIL_CONTENT.out;
     case 'moveToFund':
       return TRANSACTION_DETAIL_CONTENT.moveToFund;
     default:

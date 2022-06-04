@@ -1,3 +1,4 @@
+import { translateBuyAssetError } from './buy-asset-reponse';
 import {
   translateTransactionType,
   translateAssetType,
@@ -7,4 +8,5 @@ export {
   translateInvestFundError,
   translateTransactionType,
   translateAssetType,
+  translateBuyAssetError,
 };

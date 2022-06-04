@@ -19,7 +19,7 @@ import { APP_CONTENT } from 'shared/constants';
 import {
   IBankAsset,
   ICryptoAsset,
-  ICurrencyAsset,
+  ICashAsset,
   ICustomAsset,
   IRealEstateAsset,
   IStockAsset,
@@ -47,56 +47,96 @@ export const CashAssetPicker = observer(() => {
     getCurrencyAsset();
   }, [getCurrencyAsset]);
 
-  const handleCashPress = (cash: ICurrencyAsset) => {
-    if (routeProps.params.actionType === 'SELL') {
-      switch (routeProps.params.type) {
-        case 'CRYPTO':
-          navigation.navigate('DrawCrypto', {
-            source: routeProps.params.source as ICryptoAsset,
-            cashDestination: cash,
-          });
-          break;
-        case 'STOCK':
-          navigation.navigate('DrawStock', {
-            source: routeProps.params.source as IStockAsset,
-            cashDestination: cash,
-          });
-          break;
-        case 'CASH':
-          navigation.navigate('DrawCash', {
-            source: routeProps.params.source as ICurrencyAsset,
-            cashDestination: cash,
-          });
-          break;
-        case 'BANKING':
-          navigation.navigate('DrawBank', {
-            source: routeProps.params.source as IBankAsset,
-            cashDestination: cash,
-          });
-          break;
-        case 'REAL-ESTATE':
-          navigation.navigate('DrawRealEstate', {
-            source: routeProps.params.source as IRealEstateAsset,
-            cashDestination: cash,
-          });
-          break;
-        case 'OTHER':
-          navigation.navigate('DrawCustomAsset', {
-            source: routeProps.params.source as ICustomAsset,
-            cashDestination: cash,
-          });
-          break;
-      }
-      return;
-    }
-    SourceBuyStore.changeSource(false, true, cash.id);
+  const navigateToCreate = () => {
     navigation.navigate('CreateAsset', {
       props: {
         type: routeProps.params.type,
-        name: routeProps.params.otherAssetInfo?.name || '',
-        id: routeProps.params.otherAssetInfo?.id || 0,
+        name: routeProps.params.customAssetInfo?.name || '',
+        id: routeProps.params.customAssetInfo?.id || 0,
       },
+      transactionType: routeProps.params.transactionType,
     });
+  };
+  const navigateToSell = (cash: ICashAsset) => {
+    switch (routeProps.params.type) {
+      case 'CRYPTO':
+        navigation.navigate('CryptoSellToCash', {
+          source: routeProps.params.source as ICryptoAsset,
+          cashDestination: cash,
+        });
+        break;
+      case 'STOCK':
+        navigation.navigate('StockSellToCash', {
+          source: routeProps.params.source as IStockAsset,
+          cashDestination: cash,
+        });
+        break;
+      case 'CASH':
+        navigation.navigate('CashSellToCash', {
+          source: routeProps.params.source as ICashAsset,
+          cashDestination: cash,
+        });
+        break;
+      case 'BANKING':
+        navigation.navigate('BankSellToCash', {
+          source: routeProps.params.source as IBankAsset,
+          cashDestination: cash,
+        });
+        break;
+      case 'REAL-ESTATE':
+        navigation.navigate('RealEstateSellToCash', {
+          source: routeProps.params.source as IRealEstateAsset,
+          cashDestination: cash,
+        });
+        break;
+      case 'OTHER':
+        navigation.navigate('CustomSellToCash', {
+          source: routeProps.params.source as ICustomAsset,
+          cashDestination: cash,
+        });
+        break;
+    }
+  };
+
+  const navigateToBuy = () => {
+    switch (routeProps.params.type) {
+      case 'CRYPTO':
+        navigation.navigate('BuyCrypto', {
+          transactionType: SourceBuyStore.singleAssetTransactionType,
+        });
+
+        break;
+      case 'STOCK':
+        navigation.navigate('BuyStock', {
+          transactionType: SourceBuyStore.singleAssetTransactionType,
+        });
+        break;
+      case 'CASH':
+        navigation.navigate('BuyCash', {
+          transactionType: SourceBuyStore.singleAssetTransactionType,
+        });
+        break;
+      default:
+        break;
+    }
+  };
+
+  const handleCashPress = (cash: ICashAsset) => {
+    if (routeProps.params.actionType === 'SELL') {
+      navigateToSell(cash);
+      return;
+    }
+    SourceBuyStore.changeSource(false, true, cash.id);
+    switch (routeProps.params.fromScreen) {
+      case 'MARKET_CAP':
+        navigateToBuy();
+        break;
+      case 'CREATE_NEW':
+        navigateToCreate();
+        break;
+      default:
+        break;
+    }
   };
 
   return (

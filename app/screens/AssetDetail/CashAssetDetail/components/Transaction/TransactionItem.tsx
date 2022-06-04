@@ -3,13 +3,13 @@ import { StyleSheet } from 'react-native';
 import { TouchableOpacity } from 'react-native-ui-lib';
 import { InTransaction, OutTransaction } from 'shared/components';
 import { APP_CONTENT } from 'shared/constants';
-import { ICurrencyAsset, ITransactionItem } from 'shared/models';
+import { ICashAsset, ITransactionItem } from 'shared/models';
 import { colorScheme } from 'shared/styles';
 
 interface IProps {
   info: ITransactionItem;
   onPress?: () => void;
-  currentAsset: ICurrencyAsset;
+  currentAsset: ICashAsset;
 }
 
 export const TransactionItem = ({ info, onPress, currentAsset }: IProps) => {

@@ -58,7 +58,8 @@ export const AssetPicker = () => {
     }
     navigation.navigate('ChooseBuySource', {
       type: param.type,
-      otherAssetInfo: { name: param.name, id: param.id },
+      customAssetInfo: { name: param.name, id: param.id },
+      fromScreen: 'CREATE_NEW',
     });
   };
 

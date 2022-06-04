@@ -32,16 +32,37 @@ export const PortfolioPicker = observer(() => {
     const { actionType } = routeProps.params;
     switch (routeProps.params.type) {
       case 'CRYPTO':
-        if (actionType === 'BUY') navigation.navigate('BuyCrypto');
-        else navigation.navigate('SellCrypto');
+        if (actionType === 'BUY')
+          navigation.navigate('ChooseBuySource', {
+            type: 'CRYPTO',
+            fromScreen: 'MARKET_CAP',
+          });
+        else
+          navigation.navigate('SellCrypto', {
+            transactionType: 'withdrawToCash',
+          });
         break;
       case 'STOCK':
-        if (actionType === 'BUY') navigation.navigate('BuyStock');
-        else navigation.navigate('SellStock');
+        if (actionType === 'BUY')
+          navigation.navigate('ChooseBuySource', {
+            type: 'STOCK',
+            fromScreen: 'MARKET_CAP',
+          });
+        else
+          navigation.navigate('SellStock', {
+            transactionType: 'withdrawToCash',
+          });
         break;
-      case 'CURRENCY':
-        if (actionType === 'BUY') navigation.navigate('BuyCurrency');
-        else navigation.navigate('SellCurrency');
+      case 'CASH':
+        if (actionType === 'BUY')
+          navigation.navigate('ChooseBuySource', {
+            type: 'CASH',
+            fromScreen: 'MARKET_CAP',
+          });
+        else
+          navigation.navigate('SellCurrency', {
+            transactionType: 'withdrawToCash',
+          });
         break;
     }
   };

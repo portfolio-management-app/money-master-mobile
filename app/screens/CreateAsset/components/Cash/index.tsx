@@ -29,7 +29,7 @@ const Component = ({ onClose }: ModalProps) => {
     setLoading(true);
     await CurrencyDetailStore.getCurrencyInfo(symbol);
     setLoading(false);
-    navigation.navigate('BuyCurrency');
+    navigation.navigate('BuyCash', { transactionType: 'buyFromOutside' });
   };
 
   return (

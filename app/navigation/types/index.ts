@@ -2,7 +2,7 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import {
   IBankAsset,
   ICryptoAsset,
-  ICurrencyAsset,
+  ICashAsset,
   ICustomAsset,
   IPortfolio,
   IRealEstateAsset,
@@ -10,11 +10,13 @@ import {
 } from 'shared/models';
 import {
   AssetType,
-  BuyScreenRouteProps,
   CreateAssetRouteProps,
   MetalDetailScreenProps,
+  TransactionType,
 } from 'shared/types';
 import type { StackScreenProps } from '@react-navigation/stack';
+
+type FromScreen = 'MARKET_CAP' | 'CREATE_NEW' | 'ASSET_DETAIL';
 
 export type RootStackParamList = {
   Start: undefined;
@@ -28,49 +30,57 @@ export type RootStackParamList = {
   CoinAssetDetail: { info: ICryptoAsset };
   StockAssetDetail: { info: IStockAsset };
   CustomAssetDetail: { info: ICustomAsset };
-  CurrencyAssetDetail: { info: ICurrencyAsset };
+  CurrencyAssetDetail: { info: ICashAsset };
   AssetTypePicker: undefined;
-  CreateAsset: { props: CreateAssetRouteProps };
+  CreateAsset: {
+    props: CreateAssetRouteProps;
+    transactionType: TransactionType;
+  };
   StockDetail: { symbol: string };
   CoinDetail: { id: string; name: string; currency: string };
   CurrencyDetail: undefined;
   MetalDetail: { type: MetalDetailScreenProps };
   PortfolioPicker: {
-    type: BuyScreenRouteProps;
+    type: AssetType;
     metalType?: 'gold' | 'silver';
     actionType: 'BUY' | 'SELL';
   };
-  BuyCrypto: undefined;
-  BuyStock: undefined;
-  BuyCurrency: undefined;
-  SellCrypto: undefined;
-  SellStock: undefined;
-  SellCurrency: undefined;
+  BuyCrypto: { transactionType: TransactionType };
+  BuyStock: { transactionType: TransactionType };
+  BuyCash: { transactionType: TransactionType };
+  SellCrypto: { transactionType: TransactionType };
+  SellStock: { transactionType: TransactionType };
+  SellCurrency: { transactionType: TransactionType };
   CashAssetPicker: {
     actionType: 'BUY' | 'SELL';
     type: AssetType;
     source:
       | ICryptoAsset
-      | ICurrencyAsset
+      | ICashAsset
       | IStockAsset
       | IBankAsset
       | IRealEstateAsset
       | ICustomAsset
       | undefined;
-    otherAssetInfo?: { name: string; id: number };
+    transactionType: TransactionType;
+    customAssetInfo?: { name: string; id: number };
+    fromScreen: FromScreen;
   };
   CryptoTransfer: { info: ICryptoAsset };
   StockTransfer: { info: IStockAsset };
   CustomTransfer: { info: ICustomAsset };
   BankTransfer: { info: IBankAsset };
-  CurrencyTransfer: { info: ICurrencyAsset };
+  CurrencyTransfer: { info: ICashAsset };
   RealEstateTransfer: { info: IRealEstateAsset };
-  DrawCrypto: { source: ICryptoAsset; cashDestination: ICurrencyAsset };
-  DrawStock: { source: IStockAsset; cashDestination: ICurrencyAsset };
-  DrawCash: { source: ICurrencyAsset; cashDestination: ICurrencyAsset };
-  DrawBank: { source: IBankAsset; cashDestination: ICurrencyAsset };
-  DrawRealEstate: { source: IRealEstateAsset; cashDestination: ICurrencyAsset };
-  DrawCustomAsset: { source: ICustomAsset; cashDestination: ICurrencyAsset };
+  CryptoSellToCash: { source: ICryptoAsset; cashDestination: ICashAsset };
+  StockSellToCash: { source: IStockAsset; cashDestination: ICashAsset };
+  CashSellToCash: { source: ICashAsset; cashDestination: ICashAsset };
+  BankSellToCash: { source: IBankAsset; cashDestination: ICashAsset };
+  RealEstateSellToCash: {
+    source: IRealEstateAsset;
+    cashDestination: ICashAsset;
+  };
+  CustomSellToCash: { source: ICustomAsset; cashDestination: ICashAsset };
   EditPortfolio: {
     portfolio: IPortfolio;
     editFrom: 'PortfolioList' | 'PortfolioDetail';
@@ -78,7 +88,7 @@ export type RootStackParamList = {
   NotificationSetting: {
     asset:
       | ICryptoAsset
-      | ICurrencyAsset
+      | ICashAsset
       | IStockAsset
       | IBankAsset
       | IRealEstateAsset
@@ -87,7 +97,15 @@ export type RootStackParamList = {
   };
   ChooseBuySource: {
     type: AssetType;
-    otherAssetInfo: { name: string; id: number };
+    customAssetInfo?: { name: string; id: number };
+    asset?:
+      | ICryptoAsset
+      | ICashAsset
+      | IStockAsset
+      | IBankAsset
+      | IRealEstateAsset
+      | ICustomAsset;
+    fromScreen: FromScreen;
   };
 };
 

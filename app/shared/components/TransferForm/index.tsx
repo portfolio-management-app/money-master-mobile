@@ -24,7 +24,7 @@ export const TransferForm = ({
       validationSchema={TransferToFundAssetSchema}
       initialValues={{ amount: 0 }}
       onSubmit={(values) => {
-        onTransfer && onTransfer(values.amount);
+        onTransfer && onTransfer(1 * values.amount);
       }}
     >
       {({ errors, touched, handleBlur, handleChange, handleSubmit }) => {

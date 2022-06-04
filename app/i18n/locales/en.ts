@@ -204,6 +204,8 @@ export const en = {
       transaction: 'Transaction',
       profit: 'Profit',
     },
+    notification: 'Notification',
+    add: 'Add',
   },
 
   confirmModal: {
@@ -312,6 +314,10 @@ export const en = {
     startDate: 'Buy date',
     purchasePrice: 'Purchase price',
     createSuccess: 'Transaction success',
+    error: {
+      notEnoughMoney: "Source money don't have enough money",
+      serverError: 'Something wrong happened try again later',
+    },
   },
   metalDetailScreen: {
     gold: 'Gold',
@@ -363,6 +369,7 @@ export const en = {
     currentHolding: 'Current holding',
     error: {
       notEnoughMoney: 'Insufficient value left in asset',
+      serverError: 'Something wrong happened try again later',
     },
     success: 'Transfer success',
   },
@@ -486,5 +493,12 @@ export const en = {
       error: 'Error',
       errorMessage: "Can't open this new now",
     },
+  },
+  assetNotificationSetting: {
+    navigationHeader: 'Notification setting',
+    notificationAssetValue: 'Receive notification when asset reach:',
+    notificationNew: 'Receive notification of news relate to this asset',
+    amountPlaceHolder: 'Amount',
+    save: 'Save',
   },
 };

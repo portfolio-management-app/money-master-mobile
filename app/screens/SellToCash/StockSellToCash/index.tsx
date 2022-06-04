@@ -8,38 +8,40 @@ import {
   CustomToast,
   PlatformView,
   SellForm,
+  StockInformationCard,
 } from 'shared/components';
 import { APP_CONTENT } from 'shared/constants';
 import { useConfirmSheet } from 'shared/hooks';
-import { CashAssetStore } from 'shared/stores';
+import { StockAssetStore } from 'shared/stores';
 import { styleProvider } from 'shared/styles';
 import { SellDataCallBack } from 'shared/types';
 
-export const DrawCash = observer(() => {
+export const StockSellToCash = observer(() => {
   const [apiData, setApiData] = React.useState<SellDataCallBack>({
     amount: 0,
     fee: 0,
     tax: 0,
   });
-  const routeProps = useRoute<RootStackScreenProps<'DrawCash'>['route']>();
+  const routeProps =
+    useRoute<RootStackScreenProps<'StockSellToCash'>['route']>();
   const { show, toggle } = useConfirmSheet();
   const { sellToCash, transactionResponse, information, assignInfo } =
-    CashAssetStore;
+    StockAssetStore;
 
   React.useEffect(() => {
     assignInfo(routeProps.params.source);
   }, [routeProps.params.source, assignInfo]);
 
-  const handleTransfer = () => {
+  const handleSellToCash = () => {
     toggle();
     sellToCash({
       destinationAssetId: routeProps.params.cashDestination.id,
       destinationAssetType: 'cash',
       referentialAssetId: information.id,
-      referentialAssetType: 'cash',
+      referentialAssetType: 'crypto',
       isTransferringAll: false,
       amountInDestinationAssetUnit: 0,
-      amount: apiData.amount,
+      amount: apiData.fee,
       currencyCode: information.currencyCode,
       transactionType: 'withdrawToCash',
       fee: apiData.fee,
@@ -54,8 +56,9 @@ export const DrawCash = observer(() => {
   return (
     <PlatformView style={styleProvider.body}>
       <NavigationHeader
-        title={`${APP_CONTENT.drawScreen.header} ${routeProps.params.cashDestination.name}`}
+        title={`${routeProps.params.source.name} ${APP_CONTENT.drawScreen.header} ${routeProps.params.cashDestination.name}`}
       />
+      <StockInformationCard asset={routeProps.params.source} />
       <SellForm
         buttonContent={APP_CONTENT.drawScreen.buttonContent}
         inputPlaceHolder={APP_CONTENT.drawScreen.inputPlaceHolder}
@@ -65,19 +68,8 @@ export const DrawCash = observer(() => {
         show={show}
         onCancel={toggle}
         onClose={toggle}
-        onConfirm={handleTransfer}
+        onConfirm={handleSellToCash}
         title={APP_CONTENT.drawScreen.drawConfirm.title}
-      />
-      <CustomToast
-        show={transactionResponse.isError}
-        variant="error"
-        message={transactionResponse.errorMessage}
-        onDismiss={transactionResponse.deleteError}
-      />
-      <CustomToast
-        show={transactionResponse.isSuccess}
-        message={APP_CONTENT.transferToFund.success}
-        onDismiss={transactionResponse.deleteSuccess}
       />
       <CustomToast
         show={transactionResponse.isError}

@@ -6,10 +6,7 @@ import { ITransactionItem } from 'shared/models';
 import { dimensionProvider, colorScheme } from 'shared/styles';
 import { parseToString } from 'utils/date';
 import { formatCurrency } from 'utils/number';
-import {
-  translateAssetType,
-  translateTransactionType,
-} from 'utils/translation';
+import { translateTransactionType } from 'utils/translation';
 
 interface IProps {
   open: boolean;

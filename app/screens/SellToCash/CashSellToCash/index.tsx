@@ -1,31 +1,35 @@
-import React from 'react';
 import { useRoute } from '@react-navigation/native';
 import { observer } from 'mobx-react-lite';
 import { NavigationHeader } from 'navigation/header';
 import { RootStackScreenProps } from 'navigation/types';
+import React from 'react';
 import {
-  SellForm,
   ConfirmSheet,
   CustomToast,
   PlatformView,
-  RealEstateInformationCard,
+  SellForm,
 } from 'shared/components';
 import { APP_CONTENT } from 'shared/constants';
 import { useConfirmSheet } from 'shared/hooks';
+import { CashAssetStore } from 'shared/stores';
 import { styleProvider } from 'shared/styles';
-import { RealEstateAssetStore } from 'shared/stores';
 import { SellDataCallBack } from 'shared/types';
 
-export const DrawRealEstate = observer(() => {
+export const CashSellToCash = observer(() => {
   const [apiData, setApiData] = React.useState<SellDataCallBack>({
     amount: 0,
     fee: 0,
     tax: 0,
   });
   const routeProps =
-    useRoute<RootStackScreenProps<'DrawRealEstate'>['route']>();
+    useRoute<RootStackScreenProps<'CashSellToCash'>['route']>();
   const { show, toggle } = useConfirmSheet();
-  const { sellToCash, transactionResponse, information } = RealEstateAssetStore;
+  const { sellToCash, transactionResponse, information, assignInfo } =
+    CashAssetStore;
+
+  React.useEffect(() => {
+    assignInfo(routeProps.params.source);
+  }, [routeProps.params.source, assignInfo]);
 
   const handleTransfer = () => {
     toggle();
@@ -33,13 +37,12 @@ export const DrawRealEstate = observer(() => {
       destinationAssetId: routeProps.params.cashDestination.id,
       destinationAssetType: 'cash',
       referentialAssetId: information.id,
-      referentialAssetType: 'crypto',
-      isTransferringAll: true,
+      referentialAssetType: 'cash',
+      isTransferringAll: false,
       amountInDestinationAssetUnit: 0,
-      amount: routeProps.params.source.inputMoneyAmount,
-      currencyCode: information.inputCurrency,
+      amount: apiData.amount,
+      currencyCode: information.currencyCode,
       transactionType: 'withdrawToCash',
-
       fee: apiData.fee,
       tax: apiData.tax,
     });
@@ -52,13 +55,11 @@ export const DrawRealEstate = observer(() => {
   return (
     <PlatformView style={styleProvider.body}>
       <NavigationHeader
-        title={`${routeProps.params.source.name} ${APP_CONTENT.drawScreen.header} ${routeProps.params.cashDestination.name}`}
+        title={`${APP_CONTENT.drawScreen.header} ${routeProps.params.cashDestination.name}`}
       />
-      <RealEstateInformationCard asset={routeProps.params.source} />
       <SellForm
         buttonContent={APP_CONTENT.drawScreen.buttonContent}
         inputPlaceHolder={APP_CONTENT.drawScreen.inputPlaceHolder}
-        haveAmountField={false}
         onSell={handleSubmit}
       />
       <ConfirmSheet
@@ -67,6 +68,17 @@ export const DrawRealEstate = observer(() => {
         onClose={toggle}
         onConfirm={handleTransfer}
         title={APP_CONTENT.drawScreen.drawConfirm.title}
+      />
+      <CustomToast
+        show={transactionResponse.isError}
+        variant="error"
+        message={transactionResponse.errorMessage}
+        onDismiss={transactionResponse.deleteError}
+      />
+      <CustomToast
+        show={transactionResponse.isSuccess}
+        message={APP_CONTENT.transferToFund.success}
+        onDismiss={transactionResponse.deleteSuccess}
       />
       <CustomToast
         show={transactionResponse.isError}

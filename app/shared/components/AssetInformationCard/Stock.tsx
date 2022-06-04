@@ -1,3 +1,4 @@
+import { observer } from 'mobx-react-lite';
 import React from 'react';
 import { View } from 'react-native';
 import { ASSET_DETAIL_CONTENT } from 'shared/constants';
@@ -10,7 +11,7 @@ interface IProps {
   asset: IStockAsset;
 }
 
-export const StockInformationCard = ({ asset }: IProps) => {
+export const StockInformationCard = observer(({ asset }: IProps) => {
   const percent = calcPercent(asset.currentPrice, asset.purchasePrice);
   return (
     <View style={styleProvider.centerVertical}>
@@ -55,4 +56,4 @@ export const StockInformationCard = ({ asset }: IProps) => {
       </View>
     </View>
   );
-};
+});

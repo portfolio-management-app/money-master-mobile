@@ -16,8 +16,9 @@ import { BankAssetStore } from 'shared/stores';
 import { styleProvider } from 'shared/styles';
 import { SellDataCallBack } from 'shared/types';
 
-export const DrawBank = observer(() => {
-  const routeProps = useRoute<RootStackScreenProps<'DrawBank'>['route']>();
+export const BankSellToCash = observer(() => {
+  const routeProps =
+    useRoute<RootStackScreenProps<'BankSellToCash'>['route']>();
   const [apiData, setApiData] = React.useState<SellDataCallBack>({
     amount: 0,
     fee: 0,

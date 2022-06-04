@@ -3,12 +3,12 @@ import { MainStackNavigationProp } from 'navigation/types';
 import React from 'react';
 import { TouchableOpacity, View } from 'react-native-ui-lib';
 import { TextContainer } from 'shared/components';
-import { ICurrencyAsset } from 'shared/models';
+import { ICashAsset } from 'shared/models';
 import { colorScheme, styleProvider } from 'shared/styles';
 import { formatCurrency } from 'utils/number';
 
 interface IProps {
-  info: ICurrencyAsset;
+  info: ICashAsset;
 }
 
 export const CashCard = ({ info }: IProps) => {

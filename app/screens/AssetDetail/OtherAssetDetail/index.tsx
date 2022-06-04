@@ -31,11 +31,12 @@ export const CustomAssetDetail = observer(() => {
   const [showConfirm, setShowConfirm] = React.useState(false);
 
   const { deleteResponse, deleteCustomAsset } = PortfolioDetailStore;
-
+  const { assignInfo, getInformation, getTransactionList } = CustomAssetStore;
   React.useEffect(() => {
-    CustomAssetStore.assignInfo(routeProps.params.info);
-    CustomAssetStore.getTransactionList();
-  }, [routeProps]);
+    assignInfo(routeProps.params.info);
+    getTransactionList();
+    getInformation();
+  }, [routeProps, assignInfo, getTransactionList, getInformation]);
 
   const handleMenuItemPress = (type: AssetActionType) => {
     switch (type) {
@@ -71,6 +72,8 @@ export const CustomAssetDetail = observer(() => {
       type: 'OTHER',
       source: routeProps.params.info,
       actionType: 'SELL',
+      transactionType: 'withdrawToCash',
+      fromScreen: 'ASSET_DETAIL',
     });
   };
 
@@ -87,8 +90,13 @@ export const CustomAssetDetail = observer(() => {
     <PlatformView style={styleProvider.body}>
       <StatusBar backgroundColor={colorScheme.bg} barStyle="dark-content" />
       <NavigationHeader
-        title={routeProps.params.info.name}
-        renderRightItem={<PopoverMenuSetting onPress={handleMenuItemPress} />}
+        title={CustomAssetStore.information.name}
+        renderRightItem={
+          <PopoverMenuSetting
+            haveNotificationSetting
+            onPress={handleMenuItemPress}
+          />
+        }
       />
       <TabBarView />
       <EditModal

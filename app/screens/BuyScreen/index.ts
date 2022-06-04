@@ -1,4 +1,4 @@
 import { BuyStock } from './BuyStock';
-import { BuyCurrency } from './BuyCurrency';
+import { BuyCash } from './BuyCash';
 import { BuyCrypto } from './BuyCrypto';
-export { BuyCrypto, BuyCurrency, BuyStock };
+export { BuyCrypto, BuyCash, BuyStock };

@@ -1,6 +1,6 @@
 import React from 'react';
 import { FlatList, RefreshControl } from 'react-native';
-import { ICurrencyAsset, ITransactionItem } from 'shared/models';
+import { ICashAsset, ITransactionItem } from 'shared/models';
 import { TransactionItem } from './TransactionItem';
 
 interface IProps {
@@ -8,7 +8,7 @@ interface IProps {
   onRefresh?: () => void;
   refreshing: boolean;
   onItemPress?: (item: ITransactionItem) => void;
-  currentAsset: ICurrencyAsset;
+  currentAsset: ICashAsset;
 }
 
 const Component = ({

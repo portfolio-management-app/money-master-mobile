@@ -197,6 +197,8 @@ export const vn = {
       transaction: 'Giao dịch',
       profit: 'Lợi nhuận',
     },
+    notification: 'Thông báo',
+    add: 'Thêm',
   },
   confirmModal: {
     confirm: 'OK',
@@ -304,6 +306,10 @@ export const vn = {
     startDate: 'Ngày mua',
     purchasePrice: 'Giá mua',
     createSuccess: 'Giao dịch thành công',
+    error: {
+      notEnoughMoney: "Source money don't have enough money",
+      serverError: 'Something wrong happened try again later',
+    },
   },
   metalDetailScreen: {
     gold: 'Vàng',
@@ -347,6 +353,7 @@ export const vn = {
     currentHolding: 'Sở hữu',
     error: {
       notEnoughMoney: 'Số tiền còn lại của tài sản không đủ',
+      serverError: 'Lỗi, vui lòng thử lại sau',
     },
     success: 'Chuyển thành công',
   },
@@ -478,5 +485,12 @@ export const vn = {
       error: 'Lỗi',
       errorMessage: 'Không thể mở tin này',
     },
+  },
+  assetNotificationSetting: {
+    navigationHeader: 'Notification setting',
+    notificationAssetValue: 'Receive notification when asset reach:',
+    notificationNew: 'Receive notification of news relate to this asset',
+    amountPlaceHolder: 'Amount',
+    save: 'Save',
   },
 };

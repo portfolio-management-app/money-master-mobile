@@ -35,12 +35,16 @@ export const RealEstateAssetDetail = observer(() => {
     transferToFund,
     transactionResponse,
     information: assetInformation,
+    assignInfo,
+    getTransactionList,
+    getInformation,
   } = RealEstateAssetStore;
 
   React.useEffect(() => {
-    RealEstateAssetStore.assignInfo(routeProps.params.info);
-    RealEstateAssetStore.getTransactionList();
-  }, [routeProps]);
+    assignInfo(routeProps.params.info);
+    getTransactionList();
+    getInformation();
+  }, [routeProps, assignInfo, getTransactionList, getInformation]);
 
   const handleMenuItemPress = (type: AssetActionType) => {
     switch (type) {
@@ -88,6 +92,8 @@ export const RealEstateAssetDetail = observer(() => {
       type: 'REAL-ESTATE',
       source: routeProps.params.info,
       actionType: 'SELL',
+      transactionType: 'withdrawToCash',
+      fromScreen: 'ASSET_DETAIL',
     });
   };
 
@@ -105,7 +111,12 @@ export const RealEstateAssetDetail = observer(() => {
       <StatusBar backgroundColor={colorScheme.bg} barStyle="dark-content" />
       <NavigationHeader
         title={assetInformation.name}
-        renderRightItem={<PopoverMenuSetting onPress={handleMenuItemPress} />}
+        renderRightItem={
+          <PopoverMenuSetting
+            haveNotificationSetting
+            onPress={handleMenuItemPress}
+          />
+        }
       />
       <TabBarView />
       <EditModal

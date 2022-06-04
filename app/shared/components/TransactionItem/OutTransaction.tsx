@@ -47,7 +47,7 @@ export const OutTransaction = ({
         <>
           {haveTaxAndFee && (
             <TextContainer type="small">
-              {APP_CONTENT.fee}: {info.fee} {APP_CONTENT.tax}: {info.tax}
+              {APP_CONTENT.fee}: {info.fee} % {APP_CONTENT.tax}: {info.tax} %
             </TextContainer>
           )}
         </>

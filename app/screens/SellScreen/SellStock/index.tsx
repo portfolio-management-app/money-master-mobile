@@ -34,6 +34,8 @@ export const SellStock = observer(() => {
       actionType: 'SELL',
       type: 'CASH',
       source: asset,
+      transactionType: 'withdrawToCash',
+      fromScreen: 'MARKET_CAP',
     });
   };
 

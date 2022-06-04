@@ -1,35 +1,31 @@
+import React from 'react';
 import { useRoute } from '@react-navigation/native';
 import { observer } from 'mobx-react-lite';
 import { NavigationHeader } from 'navigation/header';
 import { RootStackScreenProps } from 'navigation/types';
-import React from 'react';
 import {
+  SellForm,
   ConfirmSheet,
-  CryptoInformationCard,
   CustomToast,
   PlatformView,
-  SellForm,
+  CustomAssetInformationCard,
 } from 'shared/components';
 import { APP_CONTENT } from 'shared/constants';
 import { useConfirmSheet } from 'shared/hooks';
-import { CryptoAssetStore } from 'shared/stores';
 import { styleProvider } from 'shared/styles';
+import { CustomAssetStore } from 'shared/stores';
 import { SellDataCallBack } from 'shared/types';
 
-export const DrawCrypto = observer(() => {
+export const CustomSellToCash = observer(() => {
   const [apiData, setApiData] = React.useState<SellDataCallBack>({
     amount: 0,
     fee: 0,
     tax: 0,
   });
-  const routeProps = useRoute<RootStackScreenProps<'DrawCrypto'>['route']>();
+  const routeProps =
+    useRoute<RootStackScreenProps<'CustomSellToCash'>['route']>();
   const { show, toggle } = useConfirmSheet();
-  const { sellToCash, transactionResponse, information, assignInfo } =
-    CryptoAssetStore;
-
-  React.useEffect(() => {
-    assignInfo(routeProps.params.source);
-  }, [routeProps.params.source, assignInfo]);
+  const { sellToCash, transactionResponse, information } = CustomAssetStore;
 
   const handleTransfer = () => {
     toggle();
@@ -37,11 +33,11 @@ export const DrawCrypto = observer(() => {
       destinationAssetId: routeProps.params.cashDestination.id,
       destinationAssetType: 'cash',
       referentialAssetId: information.id,
-      referentialAssetType: 'crypto',
+      referentialAssetType: 'custom',
       isTransferringAll: false,
       amountInDestinationAssetUnit: 0,
       amount: apiData.amount,
-      currencyCode: information.currencyCode,
+      currencyCode: information.inputCurrency,
       transactionType: 'withdrawToCash',
       fee: apiData.fee,
       tax: apiData.tax,
@@ -57,7 +53,7 @@ export const DrawCrypto = observer(() => {
       <NavigationHeader
         title={`${routeProps.params.source.name} ${APP_CONTENT.drawScreen.header} ${routeProps.params.cashDestination.name}`}
       />
-      <CryptoInformationCard asset={routeProps.params.source} />
+      <CustomAssetInformationCard asset={routeProps.params.source} />
       <SellForm
         buttonContent={APP_CONTENT.drawScreen.buttonContent}
         inputPlaceHolder={APP_CONTENT.drawScreen.inputPlaceHolder}

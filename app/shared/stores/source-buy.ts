@@ -1,3 +1,4 @@
+import { TransactionType } from 'shared/types';
 import { types } from 'mobx-state-tree';
 //Source of an asset buy from
 export const SourceBuyStore = types
@@ -5,6 +6,15 @@ export const SourceBuyStore = types
     usingFund: types.boolean,
     usingCash: types.boolean,
     cashId: types.number,
+    singleAssetTransactionType: types.union(
+      types.literal('buyFromFund'),
+      types.literal('buyFromCash'),
+      types.literal('buyFromOutside'),
+      types.literal('withdrawToCash'),
+      types.literal('withdrawToOutside'),
+      types.literal('moveToFund'),
+      types.literal('addValue')
+    ),
   })
   .actions((self) => {
     const changeSource = (
@@ -16,10 +26,15 @@ export const SourceBuyStore = types
       self.usingCash = usingCash;
       self.cashId = cashId;
     };
-    return { changeSource };
+
+    const changeTransactionType = (type: TransactionType) => {
+      self.singleAssetTransactionType = type;
+    };
+    return { changeSource, changeTransactionType };
   })
   .create({
     usingCash: false,
     usingFund: false,
     cashId: 0,
+    singleAssetTransactionType: 'addValue',
   });

@@ -1,3 +1,4 @@
+import { observer } from 'mobx-react-lite';
 import React from 'react';
 import { View } from 'react-native';
 import { ASSET_DETAIL_CONTENT } from 'shared/constants';
@@ -8,7 +9,7 @@ import { TextContainer } from '../TextContainer';
 interface IProps {
   asset: ICustomAsset;
 }
-export const CustomAssetInformationCard = ({ asset }: IProps) => {
+export const CustomAssetInformationCard = observer(({ asset }: IProps) => {
   return (
     <View style={styleProvider.centerVertical}>
       <View>
@@ -27,4 +28,4 @@ export const CustomAssetInformationCard = ({ asset }: IProps) => {
       </View>
     </View>
   );
-};
+});

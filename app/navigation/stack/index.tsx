@@ -17,7 +17,7 @@ import {
   PortfolioPicker,
   BuyCrypto,
   BuyStock,
-  BuyCurrency,
+  BuyCash,
   RealEstateAssetDetail,
   CryptoAssetDetail,
   StockAssetDetail,
@@ -33,14 +33,15 @@ import {
   SellStock,
   SellCurrency,
   CashAssetPicker,
-  DrawCrypto,
-  DrawCash,
-  DrawStock,
-  DrawBank,
-  DrawRealEstate,
+  CryptoSellToCash,
+  CashSellToCash,
+  StockSellToCash,
+  BankSellToCash,
+  RealEstateSellToCash,
   EditPortfolio,
   ChooseBuySource,
-  DrawCustom,
+  CustomSellToCash,
+  AssetNotificationSetting,
 } from 'screens';
 import { StatusBar } from 'react-native';
 import { colorScheme } from 'shared/styles';
@@ -54,35 +55,32 @@ export const NavigationStack = () => {
       <StatusBar backgroundColor={colorScheme.white} barStyle="dark-content" />
       <Stack.Navigator
         screenOptions={{ headerShown: false }}
-        initialRouteName={'Start'}
+        initialRouteName="Start"
       >
-        <Stack.Screen name={'Start'} component={Start} />
-        <Stack.Screen name={'Home'} component={Home} />
-        <Stack.Screen name={'Login'} component={Login} />
-        <Stack.Screen name={'Register'} component={Register} />
-        <Stack.Screen name={'ForgetPassword'} component={ForgetPassword} />
-        <Stack.Screen name={'PortfolioDetail'} component={PortfolioDetail} />
-        <Stack.Screen name={'BankAssetDetail'} component={BankAssetDetail} />
-        <Stack.Screen name={'CoinDetail'} component={CoinDetail} />
-        <Stack.Screen name={'AssetTypePicker'} component={AssetPicker} />
-        <Stack.Screen name={'CreateAsset'} component={CreateAsset} />
-        <Stack.Screen name={'StockDetail'} component={StockDetail} />
-        <Stack.Screen name={'CurrencyDetail'} component={CurrencyDetail} />
-        <Stack.Screen name={'PortfolioPicker'} component={PortfolioPicker} />
-        <Stack.Screen name={'BuyCrypto'} component={BuyCrypto} />
-        <Stack.Screen name={'BuyStock'} component={BuyStock} />
-        <Stack.Screen name={'BuyCurrency'} component={BuyCurrency} />
+        <Stack.Screen name="Start" component={Start} />
+        <Stack.Screen name="Home" component={Home} />
+        <Stack.Screen name="Login" component={Login} />
+        <Stack.Screen name="Register" component={Register} />
+        <Stack.Screen name="ForgetPassword" component={ForgetPassword} />
+        <Stack.Screen name="PortfolioDetail" component={PortfolioDetail} />
+        <Stack.Screen name="BankAssetDetail" component={BankAssetDetail} />
+        <Stack.Screen name="CoinDetail" component={CoinDetail} />
+        <Stack.Screen name="AssetTypePicker" component={AssetPicker} />
+        <Stack.Screen name="CreateAsset" component={CreateAsset} />
+        <Stack.Screen name="StockDetail" component={StockDetail} />
+        <Stack.Screen name="CurrencyDetail" component={CurrencyDetail} />
+        <Stack.Screen name="PortfolioPicker" component={PortfolioPicker} />
+        <Stack.Screen name="BuyCrypto" component={BuyCrypto} />
+        <Stack.Screen name="BuyStock" component={BuyStock} />
+        <Stack.Screen name="BuyCash" component={BuyCash} />
 
         <Stack.Screen
-          name={'RealEstateAssetDetail'}
+          name="RealEstateAssetDetail"
           component={RealEstateAssetDetail}
         />
-        <Stack.Screen name={'CoinAssetDetail'} component={CryptoAssetDetail} />
-        <Stack.Screen name={'StockAssetDetail'} component={StockAssetDetail} />
-        <Stack.Screen
-          name={'CustomAssetDetail'}
-          component={CustomAssetDetail}
-        />
+        <Stack.Screen name="CoinAssetDetail" component={CryptoAssetDetail} />
+        <Stack.Screen name="StockAssetDetail" component={StockAssetDetail} />
+        <Stack.Screen name="CustomAssetDetail" component={CustomAssetDetail} />
         <Stack.Screen
           name="CurrencyAssetDetail"
           component={CurrencyAssetDetail}
@@ -101,14 +99,21 @@ export const NavigationStack = () => {
         <Stack.Screen name="SellStock" component={SellStock} />
         <Stack.Screen name="SellCurrency" component={SellCurrency} />
         <Stack.Screen name="CashAssetPicker" component={CashAssetPicker} />
-        <Stack.Screen name="DrawCrypto" component={DrawCrypto} />
-        <Stack.Screen name="DrawCash" component={DrawCash} />
-        <Stack.Screen name="DrawStock" component={DrawStock} />
-        <Stack.Screen name="DrawBank" component={DrawBank} />
-        <Stack.Screen name="DrawCustomAsset" component={DrawCustom} />
-        <Stack.Screen name="DrawRealEstate" component={DrawRealEstate} />
+        <Stack.Screen name="CryptoSellToCash" component={CryptoSellToCash} />
+        <Stack.Screen name="CashSellToCash" component={CashSellToCash} />
+        <Stack.Screen name="StockSellToCash" component={StockSellToCash} />
+        <Stack.Screen name="BankSellToCash" component={BankSellToCash} />
+        <Stack.Screen name="CustomSellToCash" component={CustomSellToCash} />
+        <Stack.Screen
+          name="RealEstateSellToCash"
+          component={RealEstateSellToCash}
+        />
         <Stack.Screen name="EditPortfolio" component={EditPortfolio} />
         <Stack.Screen name="ChooseBuySource" component={ChooseBuySource} />
+        <Stack.Screen
+          name="NotificationSetting"
+          component={AssetNotificationSetting}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );

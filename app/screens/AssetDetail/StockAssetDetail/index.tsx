@@ -33,11 +33,13 @@ export const StockAssetDetail = observer(() => {
   const [showConfirm, setShowConfirm] = React.useState(false);
 
   const { deleteResponse, deleteStockAsset } = PortfolioDetailStore;
+  const { assignInfo, getTransactionList, getInformation } = StockAssetStore;
 
   React.useEffect(() => {
-    StockAssetStore.assignInfo(routeProps.params.info);
-    StockAssetStore.getTransactionList();
-  }, [routeProps]);
+    assignInfo(routeProps.params.info);
+    getTransactionList();
+    getInformation();
+  }, [routeProps, assignInfo, getTransactionList, getInformation]);
 
   const handleMenuItemPress = (type: AssetActionType) => {
     switch (type) {
@@ -55,6 +57,8 @@ export const StockAssetDetail = observer(() => {
       type: 'STOCK',
       source: routeProps.params.info,
       actionType: 'SELL',
+      transactionType: 'withdrawToCash',
+      fromScreen: 'ASSET_DETAIL',
     });
   };
   const handleEditInformation = (newData: any) => {
@@ -90,7 +94,12 @@ export const StockAssetDetail = observer(() => {
       <StatusBar backgroundColor={colorScheme.bg} barStyle="dark-content" />
       <NavigationHeader
         title={routeProps.params.info.name}
-        renderRightItem={<PopoverMenuSetting onPress={handleMenuItemPress} />}
+        renderRightItem={
+          <PopoverMenuSetting
+            haveNotificationSetting
+            onPress={handleMenuItemPress}
+          />
+        }
       />
       <TabBarView />
       <EditModal

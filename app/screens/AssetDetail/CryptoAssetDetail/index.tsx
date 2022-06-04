@@ -39,13 +39,15 @@ export const CryptoAssetDetail = observer(() => {
     getExcelData,
     information,
     editAsset,
+    getInformation,
   } = CryptoAssetStore;
   const { deleteResponse, deleteCryptoAsset } = PortfolioDetailStore;
 
   React.useEffect(() => {
     assignInfo(routeProps.params.info);
     getTransactionList();
-  }, [assignInfo, getTransactionList, routeProps]);
+    getInformation();
+  }, [routeProps, assignInfo, getTransactionList, getInformation]);
 
   const handleMenuItemPress = (type: AssetActionType) => {
     switch (type) {
@@ -54,6 +56,12 @@ export const CryptoAssetDetail = observer(() => {
         break;
       case 'delete':
         setShowConfirm(!showConfirm);
+        break;
+      case 'notification-setting':
+        navigation.navigate('NotificationSetting', {
+          asset: information,
+          type: 'CRYPTO',
+        });
         break;
     }
   };
@@ -82,6 +90,8 @@ export const CryptoAssetDetail = observer(() => {
       type: 'CRYPTO',
       source: routeProps.params.info,
       actionType: 'SELL',
+      transactionType: 'withdrawToCash',
+      fromScreen: 'ASSET_DETAIL',
     });
   };
   const handleExportFile = () => {
@@ -92,12 +102,25 @@ export const CryptoAssetDetail = observer(() => {
     );
   };
 
+  const handleAddValue = () => {
+    navigation.navigate('ChooseBuySource', {
+      type: 'CRYPTO',
+      asset: information,
+      fromScreen: 'ASSET_DETAIL',
+    });
+  };
+
   return (
     <PlatformView style={styleProvider.body}>
       <StatusBar backgroundColor={colorScheme.bg} barStyle="dark-content" />
       <NavigationHeader
         title={information.name}
-        renderRightItem={<PopoverMenuSetting onPress={handleMenuItemPress} />}
+        renderRightItem={
+          <PopoverMenuSetting
+            haveNotificationSetting
+            onPress={handleMenuItemPress}
+          />
+        }
       />
       <EditModal
         onEdit={handleEditInformation}
@@ -106,6 +129,7 @@ export const CryptoAssetDetail = observer(() => {
         onClose={() => setShowModal(!showModal)}
       />
       <AssetSpeedDialButton
+        onBuy={handleAddValue}
         onExport={handleExportFile}
         onTransfer={handleTransferToInvestFund}
         onSell={handleTransferToCash}

@@ -1,7 +1,7 @@
 import { translateInvestFundError } from 'utils/translation';
 import {
-  CurrencyAsset,
-  ICurrencyAsset,
+  CashAsset,
+  ICashAsset,
   Response,
   TransactionItem,
 } from 'shared/models';
@@ -17,7 +17,7 @@ import { parseToString } from 'utils/date';
 
 export const CashAssetStore = types
   .model({
-    information: CurrencyAsset,
+    information: CashAsset,
     transactionList: types.array(TransactionItem),
     loading: types.boolean,
     transactionResponse: Response,
@@ -71,7 +71,7 @@ export const CashAssetStore = types
       self.loading = false;
     });
 
-    const assignInfo = (info: ICurrencyAsset) => {
+    const assignInfo = (info: ICashAsset) => {
       self.information = { ...info };
     };
 
@@ -84,11 +84,27 @@ export const CashAssetStore = types
       if (res instanceof HttpError) {
         log('Error when transfer cash asset', res);
         res.setMessage(translateInvestFundError(res));
+
         self.transactionResponse.makeError(res);
       } else {
         self.transactionResponse.makeSuccess();
         getTransactionList();
+        getInformation();
       }
+    });
+
+    const getInformation = flow(function* () {
+      self.loading = true;
+      const res = yield httpRequest.sendGet(
+        `${Config.BASE_URL}/portfolio/${self.information.portfolioId}/cash/${self.information.id}`,
+        UserStore.user.token
+      );
+      if (res instanceof HttpError) {
+        log('Error when get cash information', res);
+      } else {
+        self.information = res;
+      }
+      self.loading = false;
     });
 
     const transferToFund = flow(function* (body: TransferToInvestFundBody) {
@@ -105,6 +121,8 @@ export const CashAssetStore = types
       } else {
         self.transactionResponse.stopPending();
         self.transactionResponse.makeSuccess();
+        getTransactionList();
+        getInformation();
       }
     });
 
@@ -114,6 +132,7 @@ export const CashAssetStore = types
       getTransactionList,
       sellToCash,
       transferToFund,
+      getInformation,
     };
   })
   .create({

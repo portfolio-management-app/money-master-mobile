@@ -50,4 +50,4 @@ export type HttpRequestResponse = {
   response: HttpError | any;
 };
 
-export type AssetActionType = 'edit' | 'delete';
+export type AssetActionType = 'edit' | 'delete' | 'notification-setting';

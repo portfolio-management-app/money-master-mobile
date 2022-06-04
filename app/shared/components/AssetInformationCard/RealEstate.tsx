@@ -1,3 +1,4 @@
+import { observer } from 'mobx-react-lite';
 import React from 'react';
 import { View } from 'react-native';
 import { APP_CONTENT, ASSET_DETAIL_CONTENT } from 'shared/constants';
@@ -10,7 +11,7 @@ import { TextContainer } from '../TextContainer';
 interface IProps {
   asset: IRealEstateAsset;
 }
-export const RealEstateInformationCard = ({ asset }: IProps) => {
+export const RealEstateInformationCard = observer(({ asset }: IProps) => {
   return (
     <View style={styleProvider.centerVertical}>
       <View>
@@ -39,4 +40,4 @@ export const RealEstateInformationCard = ({ asset }: IProps) => {
       </View>
     </View>
   );
-};
+});

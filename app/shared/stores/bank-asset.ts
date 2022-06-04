@@ -90,7 +90,11 @@ export const BankAssetStore = types
       } else {
         self.transactionResponse.stopPending();
         self.transactionResponse.makeSuccess();
+        const temp = { ...self.information };
+        temp.inputMoneyAmount = 0;
+        self.information = temp;
         getTransactionList();
+        getInformation();
       }
     });
 
@@ -108,7 +112,22 @@ export const BankAssetStore = types
       } else {
         self.transactionResponse.stopPending();
         self.transactionResponse.makeSuccess();
+        getTransactionList();
+        getInformation();
       }
+    });
+    const getInformation = flow(function* () {
+      self.loading = true;
+      const res = yield httpRequest.sendGet(
+        `${Config.BASE_URL}/portfolio/${self.information.portfolioId}/bankSaving/${self.information.id}`,
+        UserStore.user.token
+      );
+      if (res instanceof HttpError) {
+        log('Error when get bank information', res);
+      } else {
+        self.information = res;
+      }
+      self.loading = false;
     });
 
     return {
@@ -117,6 +136,7 @@ export const BankAssetStore = types
       getTransactionList,
       sellToCash,
       transferToFund,
+      getInformation,
     };
   })
   .create({

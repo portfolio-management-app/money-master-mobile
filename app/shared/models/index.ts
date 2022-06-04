@@ -18,7 +18,7 @@ import {
   BankAsset,
   CryptoAsset,
   StockAsset,
-  CurrencyAsset,
+  CashAsset,
 } from './portfolio-asset';
 import { PortfolioInformation } from './portfolio-information';
 import { StockInformation, StockTimeSeries } from './stock-information';
@@ -34,7 +34,7 @@ import {
   ICurrencyTimeSeries,
   ICryptoAsset,
   IStockAsset,
-  ICurrencyAsset,
+  ICashAsset,
 } from './types';
 import { Response } from './response';
 export {
@@ -49,7 +49,7 @@ export {
   CurrencyInformation,
   CurrencyTimeSeries,
   StockAsset,
-  CurrencyAsset,
+  CashAsset,
   CategoryAssetList,
   PieChartItem,
   TransactionItem,
@@ -69,7 +69,7 @@ export type {
   ICurrencyTimeSeries,
   ICryptoAsset,
   IStockAsset,
-  ICurrencyAsset,
+  ICashAsset,
   ICustomAsset,
   IPieChartItem,
   ITransactionItem,

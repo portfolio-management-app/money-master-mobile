@@ -1,17 +1,18 @@
+import { observer } from 'mobx-react-lite';
 import React from 'react';
 import { View } from 'react-native-ui-lib';
 import { ASSET_DETAIL_CONTENT } from 'shared/constants';
-import { ICurrencyAsset } from 'shared/models';
+import { ICashAsset } from 'shared/models';
 import { styleProvider, colorScheme } from 'shared/styles';
 import { parseToString } from 'utils/date';
 import { formatCurrency } from 'utils/number';
 import { TextContainer } from '../TextContainer';
 
 interface IProps {
-  asset: ICurrencyAsset;
+  asset: ICashAsset;
 }
 
-export const CashInformationCard = ({ asset }: IProps) => {
+export const CashInformationCard = observer(({ asset }: IProps) => {
   return (
     <View style={styleProvider.centerVertical}>
       <View>
@@ -37,4 +38,4 @@ export const CashInformationCard = ({ asset }: IProps) => {
       </View>
     </View>
   );
-};
+});

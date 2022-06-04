@@ -1,3 +1,4 @@
+import { observer } from 'mobx-react-lite';
 import React from 'react';
 import { View } from 'react-native';
 import { ASSET_DETAIL_CONTENT } from 'shared/constants';
@@ -11,7 +12,7 @@ interface IProps {
   asset: IBankAsset;
 }
 
-export const BankInformationCard = ({ asset }: IProps) => {
+export const BankInformationCard = observer(({ asset }: IProps) => {
   return (
     <View style={styleProvider.centerVertical}>
       <TextContainer mb={10} color={colorScheme.theme} bold type="h1">
@@ -36,4 +37,4 @@ export const BankInformationCard = ({ asset }: IProps) => {
       </View>
     </View>
   );
-};
+});

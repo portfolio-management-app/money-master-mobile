@@ -25,7 +25,7 @@ import { formatCurrency } from 'utils/number';
 
 const CONTENT = APP_CONTENT.buyScreen;
 
-export const BuyCurrency = observer(() => {
+export const BuyCash = observer(() => {
   const navigation = useNavigation();
   const { currencyInformation } = CurrencyDetailStore;
   const { createCurrencyAsset, loadingCreateCurrencyAsset, createResponse } =

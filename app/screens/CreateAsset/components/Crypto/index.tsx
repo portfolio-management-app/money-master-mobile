@@ -25,7 +25,7 @@ const Component = ({ onClose }: ModalProps) => {
 
   const handleCoinPress = async (id: string) => {
     await CoinDetailStore.getCoinInfo(id);
-    navigation.navigate('BuyCrypto');
+    navigation.navigate('BuyCrypto', { transactionType: 'buyFromOutside' });
   };
   return (
     <PlatformView style={styleProvider.body}>

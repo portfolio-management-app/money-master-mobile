@@ -1,7 +1,10 @@
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import { observer } from 'mobx-react-lite';
 import { NavigationHeader } from 'navigation/header';
-import { MainStackNavigationProp } from 'navigation/types';
+import {
+  MainStackNavigationProp,
+  RootStackScreenProps,
+} from 'navigation/types';
 import React from 'react';
 import { TouchableOpacity } from 'react-native-ui-lib';
 import {
@@ -12,7 +15,7 @@ import {
   TextContainer,
 } from 'shared/components';
 import { APP_CONTENT } from 'shared/constants';
-import { ICurrencyAsset } from 'shared/models';
+import { ICashAsset } from 'shared/models';
 import { CurrencyDetailStore, PortfolioDetailStore } from 'shared/stores';
 import { styleProvider } from 'shared/styles';
 
@@ -31,11 +34,13 @@ export const SellCurrency = observer(() => {
     getCurrencyAsset();
   }, [getCurrencyAsset]);
 
-  const handleSellToCash = (asset: ICurrencyAsset) => {
+  const handleSellToCash = (asset: ICashAsset) => {
     navigation.navigate('CashAssetPicker', {
       actionType: 'SELL',
       type: 'CASH',
       source: asset,
+      transactionType: 'withdrawToCash',
+      fromScreen: 'MARKET_CAP',
     });
   };
 

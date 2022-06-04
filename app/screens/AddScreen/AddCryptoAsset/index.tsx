@@ -5,47 +5,68 @@ import { RootStackScreenProps } from 'navigation/types';
 import React from 'react';
 import {
   ConfirmSheet,
+  CryptoInformationCard,
   CustomToast,
   PlatformView,
   SellForm,
-  StockInformationCard,
 } from 'shared/components';
 import { APP_CONTENT } from 'shared/constants';
 import { useConfirmSheet } from 'shared/hooks';
-import { StockAssetStore } from 'shared/stores';
+import { CryptoAssetStore, SourceBuyStore } from 'shared/stores';
 import { styleProvider } from 'shared/styles';
 import { SellDataCallBack } from 'shared/types';
 
-export const DrawStock = observer(() => {
+export const AddCryptoAsset = observer(() => {
   const [apiData, setApiData] = React.useState<SellDataCallBack>({
     amount: 0,
     fee: 0,
     tax: 0,
   });
-  const routeProps = useRoute<RootStackScreenProps<'DrawStock'>['route']>();
+  const routeProps =
+    useRoute<RootStackScreenProps<'CryptoSellToCash'>['route']>();
   const { show, toggle } = useConfirmSheet();
   const { sellToCash, transactionResponse, information, assignInfo } =
-    StockAssetStore;
+    CryptoAssetStore;
+  const { usingCash, usingFund, cashId } = SourceBuyStore;
 
   React.useEffect(() => {
     assignInfo(routeProps.params.source);
   }, [routeProps.params.source, assignInfo]);
 
-  const handleSellToCash = () => {
+  const handleTransfer = () => {
     toggle();
-    sellToCash({
-      destinationAssetId: routeProps.params.cashDestination.id,
-      destinationAssetType: 'cash',
-      referentialAssetId: information.id,
-      referentialAssetType: 'crypto',
-      isTransferringAll: false,
-      amountInDestinationAssetUnit: 0,
-      amount: apiData.fee,
-      currencyCode: information.currencyCode,
-      transactionType: 'withdrawToCash',
-      fee: apiData.fee,
-      tax: apiData.tax,
-    });
+    if (usingCash) {
+      sellToCash({
+        destinationAssetId: information.id,
+        destinationAssetType: 'crypto',
+        referentialAssetId: routeProps.params.cashDestination.id,
+        referentialAssetType: 'cash',
+        isTransferringAll: false,
+        amountInDestinationAssetUnit: 0,
+        amount: apiData.amount,
+        currencyCode: information.currencyCode,
+        transactionType: 'addValue',
+        fee: apiData.fee,
+        tax: apiData.tax,
+      });
+      return;
+    }
+    if (usingFund) {
+      sellToCash({
+        destinationAssetId: information.id,
+        destinationAssetType: 'crypto',
+        referentialAssetId: routeProps.params.cashDestination.id,
+        referentialAssetType: 'cash',
+        isTransferringAll: false,
+        amountInDestinationAssetUnit: 0,
+        amount: apiData.amount,
+        currencyCode: information.currencyCode,
+        transactionType: 'addValue',
+        fee: apiData.fee,
+        tax: apiData.tax,
+      });
+      return;
+    }
   };
 
   const handleSubmit = (data: SellDataCallBack) => {
@@ -57,7 +78,7 @@ export const DrawStock = observer(() => {
       <NavigationHeader
         title={`${routeProps.params.source.name} ${APP_CONTENT.drawScreen.header} ${routeProps.params.cashDestination.name}`}
       />
-      <StockInformationCard asset={routeProps.params.source} />
+      <CryptoInformationCard asset={routeProps.params.source} />
       <SellForm
         buttonContent={APP_CONTENT.drawScreen.buttonContent}
         inputPlaceHolder={APP_CONTENT.drawScreen.inputPlaceHolder}
@@ -67,7 +88,7 @@ export const DrawStock = observer(() => {
         show={show}
         onCancel={toggle}
         onClose={toggle}
-        onConfirm={handleSellToCash}
+        onConfirm={handleTransfer}
         title={APP_CONTENT.drawScreen.drawConfirm.title}
       />
       <CustomToast

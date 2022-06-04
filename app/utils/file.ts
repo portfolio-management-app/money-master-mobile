@@ -9,9 +9,10 @@ export const buildTransactionJSONForExcelFile = (
   transactionList: Array<ITransactionItem>
 ) => {
   const result: Array<any> = [];
+  let index = 1;
   for (const transaction of transactionList) {
     const data: any = {};
-    data[columns.id] = transaction.id;
+    data[columns.id] = index++;
     data[columns.from] = transaction.referentialAssetName;
     data[columns.to] = transaction.destinationAssetName
       ? transaction.destinationAssetName

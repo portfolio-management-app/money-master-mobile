@@ -88,6 +88,7 @@ export const RealEstateAssetStore = types
         log('Error when transfer real estate asset', res);
       } else {
         self.transactionResponse.makeSuccess();
+        getInformation();
         getTransactionList();
       }
     });
@@ -105,7 +106,23 @@ export const RealEstateAssetStore = types
       } else {
         self.transactionResponse.stopPending();
         self.transactionResponse.makeSuccess();
+        getTransactionList();
+        getInformation();
       }
+    });
+
+    const getInformation = flow(function* () {
+      self.loading = true;
+      const res = yield httpRequest.sendGet(
+        `${Config.BASE_URL}/portfolio/${self.information.portfolioId}/realEstate/${self.information.id}`,
+        UserStore.user.token
+      );
+      if (res instanceof HttpError) {
+        log('Error when get real estate information', res);
+      } else {
+        self.information = res;
+      }
+      self.loading = false;
     });
 
     return {
@@ -114,6 +131,7 @@ export const RealEstateAssetStore = types
       getTransactionList,
       sellToCash,
       transferToFund,
+      getInformation,
     };
   })
   .create({

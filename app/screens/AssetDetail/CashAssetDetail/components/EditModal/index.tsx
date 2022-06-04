@@ -12,14 +12,14 @@ import {
   TransparentLoading,
 } from 'shared/components';
 import { APP_CONTENT } from 'shared/constants';
-import { ICurrencyAsset } from 'shared/models';
+import { ICashAsset } from 'shared/models';
 import { CashAssetStore } from 'shared/stores';
 import { styleProvider } from 'shared/styles';
 import { EditCashAssetSchema } from 'shared/validator';
 
 interface IProps {
   open: boolean;
-  item: ICurrencyAsset;
+  item: ICashAsset;
   onClose: () => void;
   onEdit: (data: any) => void;
 }

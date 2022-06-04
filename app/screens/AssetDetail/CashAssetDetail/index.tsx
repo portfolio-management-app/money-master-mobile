@@ -31,11 +31,14 @@ export const CurrencyAssetDetail = observer(() => {
   const [showConfirm, setShowConfirm] = React.useState(false);
 
   const { deleteResponse, deleteCashAsset } = PortfolioDetailStore;
+  const { information, assignInfo, getTransactionList, getInformation } =
+    CashAssetStore;
 
   React.useEffect(() => {
-    CashAssetStore.assignInfo(routeProps.params.info);
-    CashAssetStore.getTransactionList();
-  }, [routeProps]);
+    assignInfo(routeProps.params.info);
+    getTransactionList();
+    getInformation();
+  }, [routeProps, assignInfo, getTransactionList, getInformation]);
 
   const handleMenuItemPress = (type: AssetActionType) => {
     switch (type) {
@@ -71,6 +74,8 @@ export const CurrencyAssetDetail = observer(() => {
       type: 'CASH',
       source: routeProps.params.info,
       actionType: 'SELL',
+      transactionType: 'withdrawToCash',
+      fromScreen: 'ASSET_DETAIL',
     });
   };
 
@@ -87,13 +92,18 @@ export const CurrencyAssetDetail = observer(() => {
     <PlatformView style={styleProvider.body}>
       <StatusBar backgroundColor={colorScheme.bg} barStyle="dark-content" />
       <NavigationHeader
-        title={CashAssetStore.information.name}
-        renderRightItem={<PopoverMenuSetting onPress={handleMenuItemPress} />}
+        title={information.name}
+        renderRightItem={
+          <PopoverMenuSetting
+            haveNotificationSetting
+            onPress={handleMenuItemPress}
+          />
+        }
       />
       <TabBarView />
       <EditModal
         onEdit={handleEditInformation}
-        item={CashAssetStore.information}
+        item={information}
         open={showModal}
         onClose={() => setShowModal(!showModal)}
       />

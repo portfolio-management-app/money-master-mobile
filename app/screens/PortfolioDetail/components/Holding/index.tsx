@@ -21,9 +21,6 @@ export const Holding = observer(() => {
     navigation.navigate('AssetTypePicker');
   };
 
-  React.useEffect(() => {
-    console.log('res', deleteResponse);
-  }, [deleteResponse]);
   return (
     <PlatformView style={[styleProvider.body]}>
       <AssetGroup />

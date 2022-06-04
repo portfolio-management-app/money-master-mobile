@@ -11,7 +11,7 @@ import {
   RealEstateAsset,
   CryptoAsset,
   StockAsset,
-  CurrencyAsset,
+  CashAsset,
 } from '../portfolio-asset';
 import { PortfolioInformation } from '../portfolio-information';
 import { PieChartItem } from '../portfolio-report';
@@ -34,7 +34,7 @@ export type IBankAsset = SnapshotOut<typeof BankAsset>;
 export type ICryptoAsset = SnapshotOut<typeof CryptoAsset>;
 
 export type IStockAsset = SnapshotOut<typeof StockAsset>;
-export type ICurrencyAsset = SnapshotOut<typeof CurrencyAsset>;
+export type ICashAsset = SnapshotOut<typeof CashAsset>;
 
 export type ICustomAsset = SnapshotOut<typeof CustomAsset>;
 
