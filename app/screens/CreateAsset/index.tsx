@@ -19,37 +19,37 @@ export const CreateAsset = () => {
   const { id, name, type } = routeProps.params.props;
 
   switch (type) {
-    case 'OTHER':
+    case 'custom':
       return (
         <PlatformView style={styleProvider.body}>
           <Other header={name} id={id} onClose={() => navigation.goBack()} />
         </PlatformView>
       );
-    case 'BANKING':
+    case 'bankSaving':
       return (
         <PlatformView style={styleProvider.body}>
           <Bank onClose={() => navigation.goBack()} />
         </PlatformView>
       );
-    case 'CASH':
+    case 'cash':
       return (
         <PlatformView style={styleProvider.body}>
           <Cash onClose={() => navigation.goBack()} />
         </PlatformView>
       );
-    case 'CRYPTO':
+    case 'crypto':
       return (
         <PlatformView style={styleProvider.body}>
           <Crypto onClose={() => navigation.goBack()} />
         </PlatformView>
       );
-    case 'STOCK':
+    case 'stock':
       return (
         <PlatformView style={styleProvider.body}>
           <Stock onClose={() => navigation.goBack()} />
         </PlatformView>
       );
-    case 'REAL-ESTATE':
+    case 'realEstate':
       return (
         <PlatformView style={styleProvider.body}>
           <RealEstate onClose={() => navigation.goBack()} />

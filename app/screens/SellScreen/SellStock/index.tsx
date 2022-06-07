@@ -32,7 +32,7 @@ export const SellStock = observer(() => {
   const handleSellToCash = (asset: IStockAsset) => {
     navigation.navigate('CashAssetPicker', {
       actionType: 'SELL',
-      type: 'CASH',
+      type: 'cash',
       source: asset,
       transactionType: 'withdrawToCash',
       fromScreen: 'MARKET_CAP',

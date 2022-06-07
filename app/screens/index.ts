@@ -39,6 +39,7 @@ import { Setting } from './Setting';
 import { Start } from './Start';
 import { Home } from './Home';
 import { ForgetPassword, Login, Register } from './Authentication';
+import { UserNotification } from './UserNotification';
 
 export {
   BankTransfer,
@@ -85,4 +86,5 @@ export {
   RealEstateSellToCash,
   ChooseBuySource,
   AssetNotificationSetting,
+  UserNotification,
 };

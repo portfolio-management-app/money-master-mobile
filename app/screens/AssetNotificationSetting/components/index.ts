@@ -1,5 +1,5 @@
+import { PriceLowSetting } from './PriceLowSetting';
 import { NotiPriceInfo } from './NotiPriceInfo';
-import { PriceInputModal } from './PriceInputModal';
-import { PriceSetting } from './PriceSetting';
+import { PriceHighSetting } from './PriceHighSetting';
 import { NewSetting } from './NewSetting';
-export { NewSetting, PriceSetting, PriceInputModal,NotiPriceInfo };
+export { NewSetting, PriceHighSetting, NotiPriceInfo, PriceLowSetting };

@@ -9,7 +9,8 @@ import {
   IStockAsset,
 } from 'shared/models';
 import {
-  AssetType,
+  ApiAssetType,
+  CombinationAsset,
   CreateAssetRouteProps,
   MetalDetailScreenProps,
   TransactionType,
@@ -41,7 +42,7 @@ export type RootStackParamList = {
   CurrencyDetail: undefined;
   MetalDetail: { type: MetalDetailScreenProps };
   PortfolioPicker: {
-    type: AssetType;
+    type: ApiAssetType;
     metalType?: 'gold' | 'silver';
     actionType: 'BUY' | 'SELL';
   };
@@ -53,15 +54,8 @@ export type RootStackParamList = {
   SellCurrency: { transactionType: TransactionType };
   CashAssetPicker: {
     actionType: 'BUY' | 'SELL';
-    type: AssetType;
-    source:
-      | ICryptoAsset
-      | ICashAsset
-      | IStockAsset
-      | IBankAsset
-      | IRealEstateAsset
-      | ICustomAsset
-      | undefined;
+    type: ApiAssetType;
+    source: CombinationAsset | undefined;
     transactionType: TransactionType;
     customAssetInfo?: { name: string; id: number };
     fromScreen: FromScreen;
@@ -86,27 +80,16 @@ export type RootStackParamList = {
     editFrom: 'PortfolioList' | 'PortfolioDetail';
   };
   NotificationSetting: {
-    asset:
-      | ICryptoAsset
-      | ICashAsset
-      | IStockAsset
-      | IBankAsset
-      | IRealEstateAsset
-      | ICustomAsset;
-    type: AssetType;
+    asset: CombinationAsset;
+    type: ApiAssetType;
   };
   ChooseBuySource: {
-    type: AssetType;
+    type: ApiAssetType;
     customAssetInfo?: { name: string; id: number };
-    asset?:
-      | ICryptoAsset
-      | ICashAsset
-      | IStockAsset
-      | IBankAsset
-      | IRealEstateAsset
-      | ICustomAsset;
+    asset?: CombinationAsset;
     fromScreen: FromScreen;
   };
+  UserNotification: undefined;
 };
 
 export type BottomStackParamStack = {

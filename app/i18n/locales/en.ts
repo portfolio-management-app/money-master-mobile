@@ -463,6 +463,8 @@ export const en = {
     startDate: 'Start date',
     stockCode: 'Stock code',
     currentPrice: 'Current price',
+    fee: 'Fee (%)',
+    tax: 'Tax (%)',
   },
   transactionRecord: 'Asset record of',
   exportInfo: {
@@ -493,12 +495,29 @@ export const en = {
       error: 'Error',
       errorMessage: "Can't open this new now",
     },
+    today: 'Today',
   },
   assetNotificationSetting: {
     navigationHeader: 'Notification setting',
-    notificationAssetValue: 'Receive notification when asset reach:',
+    notificationAssetHighValue: 'Receive notification when asset increase to:',
+    notificationAssetLowValue: 'Receive notification when asset decrease to:',
     notificationNew: 'Receive notification of news relate to this asset',
     amountPlaceHolder: 'Amount',
     save: 'Save',
+    currentPrice: 'Current price',
+    error: {
+      low: 'Cannot set the amount higher or equal than current price',
+      high: 'Cannot set the amount lower or equal than current price',
+    },
+  },
+  notificationContent: {
+    title: 'Asset reach value',
+    reach: 'reach',
+    body: 'check it out now',
+  },
+  userNotification: {
+    title: 'Notifications',
+    reach: 'reach value',
+    see: 'See asset',
   },
 };

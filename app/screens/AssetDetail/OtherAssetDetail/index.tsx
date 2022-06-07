@@ -69,7 +69,7 @@ export const CustomAssetDetail = observer(() => {
 
   const handleTransferToCash = () => {
     navigation.navigate('CashAssetPicker', {
-      type: 'OTHER',
+      type: 'custom',
       source: routeProps.params.info,
       actionType: 'SELL',
       transactionType: 'withdrawToCash',

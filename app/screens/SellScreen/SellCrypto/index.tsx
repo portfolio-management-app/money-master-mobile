@@ -35,7 +35,7 @@ export const SellCrypto = observer(() => {
   const handleSellToCash = (asset: ICryptoAsset) => {
     navigation.navigate('CashAssetPicker', {
       actionType: 'SELL',
-      type: 'CRYPTO',
+      type: 'crypto',
       source: asset,
       transactionType: 'withdrawToCash',
       fromScreen: 'MARKET_CAP',

@@ -19,9 +19,16 @@ const ValidateSchema = Yup.object().shape({
 interface IProps {
   show: boolean;
   onClose: () => void;
+  initAmount: number;
+  onSubmit: (amount: number) => void;
 }
 
-export const PriceInputModal = ({ show, onClose }: IProps) => {
+export const PriceLowInputModal = ({
+  show,
+  onClose,
+  onSubmit,
+  initAmount,
+}: IProps) => {
   return (
     <Dialog visible={show} onDismiss={onClose}>
       <View
@@ -30,20 +37,25 @@ export const PriceInputModal = ({ show, onClose }: IProps) => {
       >
         <Formik
           validationSchema={ValidateSchema}
-          onSubmit={(values) => console.log(values)}
-          initialValues={{ amount: 0 }}
+          onSubmit={(values) => {
+            onSubmit(1 * values.amount);
+            onClose();
+          }}
+          initialValues={{ amount: initAmount }}
         >
-          {({ handleChange, handleBlur }) => {
+          {({ handleChange, handleBlur, handleSubmit, values }) => {
             return (
               <>
                 <CustomTextField
                   onChangeText={handleChange('amount')}
                   onBlur={handleBlur('amount')}
                   placeholder={CONTENT.amountPlaceHolder}
+                  value={values.amount.toString()}
                 />
                 <BaseButton
                   backgroundColor={colorScheme.theme}
                   label={CONTENT.save}
+                  onPress={handleSubmit}
                 />
               </>
             );

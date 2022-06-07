@@ -11,7 +11,11 @@ import {
   ICryptoAsset,
 } from 'shared/models';
 import { log } from 'services/log';
-import { TransferToInvestFundBody, SellToCashBody } from './types';
+import {
+  TransferToInvestFundBody,
+  SellToCashBody,
+  RegisterAssetNotificationBody,
+} from './types';
 import { translateInvestFundError } from 'utils/translation';
 import { EXCEL_COLUMNS } from 'shared/constants';
 
@@ -127,6 +131,22 @@ export const CryptoAssetStore = types
       self.information = { ...info };
     };
 
+    const registerPriceNotification = flow(function* (
+      body: RegisterAssetNotificationBody
+    ) {
+      const res = yield httpRequest.sendPost(
+        `${Config.BASE_URL}/portfolio/${self.information.portfolioId}/notification`,
+        body,
+        UserStore.user.token
+      );
+
+      if (res instanceof HttpError) {
+        log('Error when register notification', res);
+      } else {
+        log('Register notification success', res);
+      }
+    });
+
     return {
       editAsset,
       assignInfo,
@@ -134,6 +154,7 @@ export const CryptoAssetStore = types
       sellToCash,
       transferToFund,
       getInformation,
+      registerPriceNotification,
     };
   })
   .create({

@@ -46,7 +46,7 @@ export const BuyStock = observer(() => {
           values.fee = 1 * values.fee;
           values.tax = 1 * values.tax;
           values.currentAmountHolding = 1 * values.currentAmountHolding;
-          values.purchasePrice = 1 * values.currentAmountHolding;
+          values.purchasePrice = 1 * values.purchasePrice;
           handleCreate(values);
         }}
         initialValues={{

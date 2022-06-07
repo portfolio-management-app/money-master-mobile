@@ -16,14 +16,14 @@ export const ButtonGroup = () => {
   const handleBuyPress = () => {
     PortfolioListStore.getPortfolioList();
     navigation.navigate('PortfolioPicker', {
-      type: 'CASH',
+      type: 'cash',
       actionType: 'BUY',
     });
   };
 
   const handleOnSellPress = () => {
     navigation.navigate('PortfolioPicker', {
-      type: 'CASH',
+      type: 'cash',
       actionType: 'SELL',
     });
   };

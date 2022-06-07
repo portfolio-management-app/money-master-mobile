@@ -89,7 +89,7 @@ export const RealEstateAssetDetail = observer(() => {
 
   const handleTransferToCash = () => {
     navigation.navigate('CashAssetPicker', {
-      type: 'REAL-ESTATE',
+      type: 'realEstate',
       source: routeProps.params.info,
       actionType: 'SELL',
       transactionType: 'withdrawToCash',

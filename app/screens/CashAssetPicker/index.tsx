@@ -35,7 +35,7 @@ export const CashAssetPicker = observer(() => {
     PortfolioDetailStore;
 
   const filteredCash = useMemo(() => {
-    if (routeProps.params.type === 'CASH') {
+    if (routeProps.params.type === 'cash') {
       return currencyAssetList.filter(
         (e) => e.id !== routeProps.params.source?.id
       );
@@ -59,37 +59,37 @@ export const CashAssetPicker = observer(() => {
   };
   const navigateToSell = (cash: ICashAsset) => {
     switch (routeProps.params.type) {
-      case 'CRYPTO':
+      case 'crypto':
         navigation.navigate('CryptoSellToCash', {
           source: routeProps.params.source as ICryptoAsset,
           cashDestination: cash,
         });
         break;
-      case 'STOCK':
+      case 'stock':
         navigation.navigate('StockSellToCash', {
           source: routeProps.params.source as IStockAsset,
           cashDestination: cash,
         });
         break;
-      case 'CASH':
+      case 'cash':
         navigation.navigate('CashSellToCash', {
           source: routeProps.params.source as ICashAsset,
           cashDestination: cash,
         });
         break;
-      case 'BANKING':
+      case 'bankSaving':
         navigation.navigate('BankSellToCash', {
           source: routeProps.params.source as IBankAsset,
           cashDestination: cash,
         });
         break;
-      case 'REAL-ESTATE':
+      case 'realEstate':
         navigation.navigate('RealEstateSellToCash', {
           source: routeProps.params.source as IRealEstateAsset,
           cashDestination: cash,
         });
         break;
-      case 'OTHER':
+      case 'custom':
         navigation.navigate('CustomSellToCash', {
           source: routeProps.params.source as ICustomAsset,
           cashDestination: cash,
@@ -100,18 +100,18 @@ export const CashAssetPicker = observer(() => {
 
   const navigateToBuy = () => {
     switch (routeProps.params.type) {
-      case 'CRYPTO':
+      case 'crypto':
         navigation.navigate('BuyCrypto', {
           transactionType: SourceBuyStore.singleAssetTransactionType,
         });
 
         break;
-      case 'STOCK':
+      case 'stock':
         navigation.navigate('BuyStock', {
           transactionType: SourceBuyStore.singleAssetTransactionType,
         });
         break;
-      case 'CASH':
+      case 'cash':
         navigation.navigate('BuyCash', {
           transactionType: SourceBuyStore.singleAssetTransactionType,
         });

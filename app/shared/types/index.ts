@@ -20,7 +20,7 @@ import {
   CreateAssetRouteProps,
   BuyScreenRouteProps,
   MetalDetailScreenProps,
-  AssetType,
+  CombinationAsset,
 } from './route-props';
 
 export type {
@@ -38,11 +38,11 @@ export type {
   MetalDetailScreenProps,
   ApiAssetType,
   TransactionType,
-  AssetType,
   HorizontalBarChartProps,
   IPieData,
   SceneRoute,
   SellDataCallBack,
+  CombinationAsset,
 };
 
 export type HttpRequestResponse = {
@@ -51,3 +51,5 @@ export type HttpRequestResponse = {
 };
 
 export type AssetActionType = 'edit' | 'delete' | 'notification-setting';
+
+export type NotificationType = 'assetReachValueHigh' | 'assetReachValueLow';

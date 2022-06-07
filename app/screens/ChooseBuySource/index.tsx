@@ -47,18 +47,18 @@ export const ChooseBuySource = observer(() => {
       return;
     }
     switch (routeProps.params.type) {
-      case 'CRYPTO':
+      case 'crypto':
         navigation.navigate('BuyCrypto', {
           transactionType: SourceBuyStore.singleAssetTransactionType,
         });
 
         break;
-      case 'STOCK':
+      case 'stock':
         navigation.navigate('BuyStock', {
           transactionType: SourceBuyStore.singleAssetTransactionType,
         });
         break;
-      case 'CASH':
+      case 'cash':
         navigation.navigate('BuyCash', {
           transactionType: SourceBuyStore.singleAssetTransactionType,
         });

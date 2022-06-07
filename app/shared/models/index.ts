@@ -1,3 +1,5 @@
+import { UserNotification } from './user-notification';
+import { NotificationSetting } from './notification-setting';
 import { InvestFundInformation } from './invest-fund';
 import { TransactionItem, InvestFundTransactionItem } from './transaction';
 import { PieChartItem } from './portfolio-report';
@@ -7,6 +9,8 @@ import {
   ITransactionItem,
   IInvestFundInformation,
   IInvestFundTransactionItem,
+  INotificationSetting,
+  IUserNotification,
 } from './types/index';
 import { CategoryAssetList, CustomAsset } from './custom-asset';
 import {
@@ -57,6 +61,8 @@ export {
   Response,
   InvestFundTransactionItem,
   CustomAsset,
+  NotificationSetting,
+  UserNotification,
 };
 
 export type {
@@ -75,4 +81,6 @@ export type {
   ITransactionItem,
   IInvestFundInformation,
   IInvestFundTransactionItem,
+  INotificationSetting,
+  IUserNotification,
 };

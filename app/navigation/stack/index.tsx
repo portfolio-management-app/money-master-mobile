@@ -42,6 +42,7 @@ import {
   ChooseBuySource,
   CustomSellToCash,
   AssetNotificationSetting,
+  UserNotification,
 } from 'screens';
 import { StatusBar } from 'react-native';
 import { colorScheme } from 'shared/styles';
@@ -114,6 +115,7 @@ export const NavigationStack = () => {
           name="NotificationSetting"
           component={AssetNotificationSetting}
         />
+        <Stack.Screen name="UserNotification" component={UserNotification} />
       </Stack.Navigator>
     </NavigationContainer>
   );

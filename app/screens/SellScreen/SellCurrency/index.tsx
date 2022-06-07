@@ -37,7 +37,7 @@ export const SellCurrency = observer(() => {
   const handleSellToCash = (asset: ICashAsset) => {
     navigation.navigate('CashAssetPicker', {
       actionType: 'SELL',
-      type: 'CASH',
+      type: 'cash',
       source: asset,
       transactionType: 'withdrawToCash',
       fromScreen: 'MARKET_CAP',

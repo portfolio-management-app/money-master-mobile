@@ -18,7 +18,7 @@ export const ActionBottomSheet = ({ show, onClose, coinId }: IProps) => {
       CoinDetailStore.getCoinInfo(coinId),
     ]);
     navigation.navigate('PortfolioPicker', {
-      type: 'CRYPTO',
+      type: 'crypto',
       actionType: 'BUY',
     });
   };

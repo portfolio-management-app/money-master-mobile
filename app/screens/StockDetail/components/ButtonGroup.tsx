@@ -16,7 +16,7 @@ export const ButtonGroup = () => {
   const handleBuyPress = () => {
     PortfolioListStore.getPortfolioList();
     navigation.navigate('PortfolioPicker', {
-      type: 'STOCK',
+      type: 'stock',
       actionType: 'BUY',
     });
   };
@@ -24,7 +24,7 @@ export const ButtonGroup = () => {
   const handleSellPress = () => {
     PortfolioListStore.getPortfolioList();
     navigation.navigate('PortfolioPicker', {
-      type: 'STOCK',
+      type: 'stock',
       actionType: 'SELL',
     });
   };

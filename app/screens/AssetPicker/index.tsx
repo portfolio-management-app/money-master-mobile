@@ -37,23 +37,23 @@ export const AssetPicker = () => {
   }, []);
 
   const navigateToCreate = (id: number, name: string) => {
-    const param: CreateAssetRouteProps = { type: 'OTHER', name: name, id: id };
+    const param: CreateAssetRouteProps = { type: 'custom', name: name, id: id };
     switch (id) {
       case -1:
-        param.type = 'CRYPTO';
+        param.type = 'crypto';
         break;
       case -2:
-        param.type = 'STOCK';
+        param.type = 'stock';
         break;
       case -3:
-        param.type = 'BANKING';
+        param.type = 'bankSaving';
 
         break;
       case -4:
-        param.type = 'REAL-ESTATE';
+        param.type = 'realEstate';
         break;
       case -5:
-        param.type = 'CASH';
+        param.type = 'cash';
         break;
     }
     navigation.navigate('ChooseBuySource', {

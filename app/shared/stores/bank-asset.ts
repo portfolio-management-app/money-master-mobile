@@ -10,7 +10,11 @@ import { types, flow } from 'mobx-state-tree';
 import { httpRequest } from 'services/http';
 import { UserStore } from 'shared/stores';
 import { log } from 'services/log';
-import { TransferToInvestFundBody, SellToCashBody } from './types';
+import {
+  TransferToInvestFundBody,
+  SellToCashBody,
+  RegisterAssetNotificationBody,
+} from './types';
 import { EXCEL_COLUMNS } from 'shared/constants';
 import { parseToString } from 'utils/date';
 
@@ -130,6 +134,22 @@ export const BankAssetStore = types
       self.loading = false;
     });
 
+    const registerPriceNotification = flow(function* (
+      body: RegisterAssetNotificationBody
+    ) {
+      const res = yield httpRequest.sendPost(
+        `${Config.BASE_URL}/portfolio/${self.information.portfolioId}/notification`,
+        body,
+        UserStore.user.token
+      );
+
+      if (res instanceof HttpError) {
+        log('Error when register notification', res);
+      } else {
+        log('Register notification success', res);
+      }
+    });
+
     return {
       editAsset,
       assignInfo,
@@ -137,6 +157,7 @@ export const BankAssetStore = types
       sellToCash,
       transferToFund,
       getInformation,
+      registerPriceNotification,
     };
   })
   .create({

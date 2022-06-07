@@ -447,6 +447,8 @@ export const vn = {
     startDate: 'Ngày bắt đầu',
     stockCode: 'Mã cổ phiếu',
     currentPrice: 'Gía hiện tại',
+    fee: 'Phí (%)',
+    tax: 'Thuế (%)',
   },
   transactionRecord: 'Thông tin tài sản của',
   exportInfo: {
@@ -485,12 +487,29 @@ export const vn = {
       error: 'Lỗi',
       errorMessage: 'Không thể mở tin này',
     },
+    today: 'Hôm nay',
   },
   assetNotificationSetting: {
-    navigationHeader: 'Notification setting',
-    notificationAssetValue: 'Receive notification when asset reach:',
-    notificationNew: 'Receive notification of news relate to this asset',
-    amountPlaceHolder: 'Amount',
-    save: 'Save',
+    navigationHeader: 'Cài đặt thông báo',
+    notificationAssetHighValue: 'Nhận thông báo khi tài sản tăng đến giá trị: ',
+    notificationAssetLowValue: 'Nhận thông báo khi tài sản giảm đến giá trị: ',
+    notificationNew: 'Nhận thông báo tin tức liên quan đến tài sản',
+    amountPlaceHolder: 'Giá trị',
+    save: 'Lưu',
+    currentPrice: 'Giá hiện tại',
+    error: {
+      low: 'Không thể đặt giá trị lớn hơn hoặc bằng giá hiện tại của tài sản',
+      high: 'Không thể đặt giá trị bé hơn hoặc bằng giá hiện tại của tài sản',
+    },
+  },
+  notificationContent: {
+    title: 'Tài sản đã đạt đến giá trị',
+    reach: 'đạt tới',
+    body: 'kiểm tra ngay',
+  },
+  userNotification: {
+    title: 'Thông báo',
+    reach: 'đạt đến giá trị',
+    see: 'Xem tài sản',
   },
 };

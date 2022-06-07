@@ -4,9 +4,11 @@ import {
   translateAssetType,
 } from './transaction-detail';
 import { translateInvestFundError } from './invest-fund-response';
+import { translateNotificationMessage } from './translate-notification';
 export {
   translateInvestFundError,
   translateTransactionType,
   translateAssetType,
   translateBuyAssetError,
+  translateNotificationMessage,
 };

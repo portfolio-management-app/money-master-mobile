@@ -91,7 +91,7 @@ export const BankAssetDetail = observer(() => {
 
   const handleTransferToCash = () => {
     navigation.navigate('CashAssetPicker', {
-      type: 'BANKING',
+      type: 'bankSaving',
       source: routeProps.params.info,
       actionType: 'SELL',
       transactionType: 'withdrawToCash',

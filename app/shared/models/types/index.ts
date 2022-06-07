@@ -1,3 +1,4 @@
+import { NotificationSetting } from './../notification-setting';
 import { InvestFundInformation } from './../invest-fund';
 import { TransactionItem, InvestFundTransactionItem } from './../transaction';
 import { SnapshotIn, SnapshotOut } from 'mobx-state-tree';
@@ -16,6 +17,7 @@ import {
 import { PortfolioInformation } from '../portfolio-information';
 import { PieChartItem } from '../portfolio-report';
 import { StockInformation, StockTimeSeries } from '../stock-information';
+import { UserNotification } from '../user-notification';
 
 export type IStockTimeSeries = SnapshotOut<typeof StockTimeSeries>;
 
@@ -47,3 +49,7 @@ export type IInvestFundInformation = SnapshotOut<typeof InvestFundInformation>;
 export type IInvestFundTransactionItem = SnapshotIn<
   typeof InvestFundTransactionItem
 >;
+
+export type INotificationSetting = SnapshotOut<typeof NotificationSetting>;
+
+export type IUserNotification = SnapshotIn<typeof UserNotification>;

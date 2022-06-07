@@ -1,6 +1,7 @@
 import { log } from 'services/log';
 
 export const formatCurrency = (value: number | bigint, currency: string) => {
+  currency = currency.toLowerCase();
   try {
     return new Intl.NumberFormat('en-US', {
       style: 'currency',

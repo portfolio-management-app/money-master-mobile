@@ -33,7 +33,8 @@ export const StockAssetDetail = observer(() => {
   const [showConfirm, setShowConfirm] = React.useState(false);
 
   const { deleteResponse, deleteStockAsset } = PortfolioDetailStore;
-  const { assignInfo, getTransactionList, getInformation } = StockAssetStore;
+  const { assignInfo, getTransactionList, getInformation, information } =
+    StockAssetStore;
 
   React.useEffect(() => {
     assignInfo(routeProps.params.info);
@@ -49,12 +50,18 @@ export const StockAssetDetail = observer(() => {
       case 'delete':
         setShowConfirm(!showConfirm);
         break;
+      case 'notification-setting':
+        navigation.navigate('NotificationSetting', {
+          asset: information,
+          type: 'stock',
+        });
+        break;
     }
   };
 
   const handleTransferToCash = () => {
     navigation.navigate('CashAssetPicker', {
-      type: 'STOCK',
+      type: 'stock',
       source: routeProps.params.info,
       actionType: 'SELL',
       transactionType: 'withdrawToCash',

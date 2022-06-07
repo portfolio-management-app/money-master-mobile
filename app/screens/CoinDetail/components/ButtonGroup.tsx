@@ -15,14 +15,14 @@ export const ButtonGroup = () => {
   const handleBuyPress = () => {
     PortfolioListStore.getPortfolioList();
     navigation.navigate('PortfolioPicker', {
-      type: 'CRYPTO',
+      type: 'crypto',
       actionType: 'BUY',
     });
   };
   const handleSellPress = () => {
     PortfolioListStore.getPortfolioList();
     navigation.navigate('PortfolioPicker', {
-      type: 'CRYPTO',
+      type: 'crypto',
       actionType: 'SELL',
     });
   };

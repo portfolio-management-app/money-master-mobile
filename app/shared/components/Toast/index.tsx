@@ -45,9 +45,9 @@ export const CustomToast = ({
       >
         <View style={styles.leftContainer}>
           {icon}
-          <View style={{ marginLeft: 10 }}>
+          <View style={{ marginLeft: 10, flex: 1 }}>
             <TextContainer bold>{toastHeader}</TextContainer>
-            <TextContainer>{message}</TextContainer>
+            <TextContainer style={{ flex: 1 }}>{message}</TextContainer>
           </View>
         </View>
 
@@ -71,6 +71,7 @@ const styles = StyleSheet.create({
   leftContainer: {
     flexDirection: 'row',
     alignItems: 'center',
+    flex: 1,
   },
 });
 

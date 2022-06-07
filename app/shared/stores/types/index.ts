@@ -121,3 +121,22 @@ export type EditPortfolioBody = {
   newName: string;
   newCurrency: string;
 };
+
+export type RegisterAssetNotificationBody = {
+  assetId: number;
+  assetName: string;
+  assetType: ApiAssetType;
+  currency: string;
+  coinCode: string | null;
+  stockCode: string | null;
+  highThreadHoldAmount: number;
+  lowThreadHoldAmount: number;
+  isHigh: boolean;
+};
+
+export type EditNotificationBody = {
+  highThreadHoldAmount: number;
+  lowThreadHoldAmount: number;
+  isHighOn: boolean;
+  isLowOn: boolean;
+};

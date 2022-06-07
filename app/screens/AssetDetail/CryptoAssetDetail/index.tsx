@@ -60,7 +60,7 @@ export const CryptoAssetDetail = observer(() => {
       case 'notification-setting':
         navigation.navigate('NotificationSetting', {
           asset: information,
-          type: 'CRYPTO',
+          type: 'crypto',
         });
         break;
     }
@@ -87,7 +87,7 @@ export const CryptoAssetDetail = observer(() => {
 
   const handleTransferToCash = () => {
     navigation.navigate('CashAssetPicker', {
-      type: 'CRYPTO',
+      type: 'crypto',
       source: routeProps.params.info,
       actionType: 'SELL',
       transactionType: 'withdrawToCash',
@@ -104,7 +104,7 @@ export const CryptoAssetDetail = observer(() => {
 
   const handleAddValue = () => {
     navigation.navigate('ChooseBuySource', {
-      type: 'CRYPTO',
+      type: 'crypto',
       asset: information,
       fromScreen: 'ASSET_DETAIL',
     });

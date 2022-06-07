@@ -31,10 +31,10 @@ export const PortfolioPicker = observer(() => {
     PortfolioDetailStore.assignInfo(portfolio);
     const { actionType } = routeProps.params;
     switch (routeProps.params.type) {
-      case 'CRYPTO':
+      case 'crypto':
         if (actionType === 'BUY')
           navigation.navigate('ChooseBuySource', {
-            type: 'CRYPTO',
+            type: 'crypto',
             fromScreen: 'MARKET_CAP',
           });
         else
@@ -42,10 +42,10 @@ export const PortfolioPicker = observer(() => {
             transactionType: 'withdrawToCash',
           });
         break;
-      case 'STOCK':
+      case 'stock':
         if (actionType === 'BUY')
           navigation.navigate('ChooseBuySource', {
-            type: 'STOCK',
+            type: 'stock',
             fromScreen: 'MARKET_CAP',
           });
         else
@@ -53,10 +53,10 @@ export const PortfolioPicker = observer(() => {
             transactionType: 'withdrawToCash',
           });
         break;
-      case 'CASH':
+      case 'cash':
         if (actionType === 'BUY')
           navigation.navigate('ChooseBuySource', {
-            type: 'CASH',
+            type: 'cash',
             fromScreen: 'MARKET_CAP',
           });
         else
