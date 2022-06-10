@@ -1,12 +1,9 @@
-import { useNavigation, useRoute } from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
 import { observer } from 'mobx-react-lite';
 import { NavigationHeader } from 'navigation/header';
-import {
-  MainStackNavigationProp,
-  RootStackScreenProps,
-} from 'navigation/types';
+import { MainStackNavigationProp } from 'navigation/types';
 import React from 'react';
-import { TouchableOpacity } from 'react-native-ui-lib';
+import { TouchableOpacity, View } from 'react-native-ui-lib';
 import {
   Empty,
   PlatformView,
@@ -62,7 +59,11 @@ export const SellCrypto = observer(() => {
             ))}
           </>
         }
-        emptyComponent={<Empty message={CONTENT.noAsset} />}
+        emptyComponent={
+          <View style={styleProvider.flexCenter}>
+            <Empty message={CONTENT.noAsset} />
+          </View>
+        }
       />
     </PlatformView>
   );

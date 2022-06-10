@@ -386,6 +386,7 @@ export const vn = {
     date: 'Ngày giao dịch',
     assetType: 'Loại tài sản',
     newAsset: 'Mua',
+    transfer: 'Chuyển',
     sell: 'Bán',
     add: 'Thêm mới',
     draw: 'Rút',
@@ -401,12 +402,13 @@ export const vn = {
     cash: 'Tiền mặt',
     in: 'Vào',
     out: 'Ra',
+    buy: 'Mua',
   },
   cashAssetPicker: {
     title: 'Chọn tài sản để bán về',
     titleBuy: 'Chọn tài sản để rút ra',
   },
-  drawScreen: {
+  sellToCashScreen: {
     header: 'tới',
     buttonContent: 'Bán',
     inputPlaceHolder: 'Số tiền bán',
@@ -457,7 +459,7 @@ export const vn = {
     transaction: 'Lịch sử giao dịch',
     assetInformation: 'Thông tin tài sản',
   },
-  sellToCash: {
+  createTransaction: {
     fee: 'Phí(%)',
     tax: 'Thuế(%)',
     sell: 'Bán',
@@ -511,5 +513,23 @@ export const vn = {
     title: 'Thông báo',
     reach: 'đạt đến giá trị',
     see: 'Xem tài sản',
+  },
+  drawScreen: {
+    header: 'Rút',
+    buttonContent: 'Rút',
+    inputPlaceHolder: 'Số tiền rút',
+    drawConfirm: {
+      title: 'Rút tài sản này?',
+    },
+  },
+  addScreen: {
+    header: 'Mua thêm',
+    buttonContent: 'Mua',
+    inputPlaceHolder: 'Số tiền mua thêm',
+    inputPlaceHolderForCrypto: 'Số coin mua thêm',
+    inputPlaceHolderForStock: 'Số cổ phiếu mua thêm',
+    drawConfirm: {
+      title: 'Mua thêm vào tài sản này?',
+    },
   },
 };

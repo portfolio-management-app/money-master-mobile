@@ -13,7 +13,7 @@ import {
 import { log } from 'services/log';
 import {
   TransferToInvestFundBody,
-  SellToCashBody,
+  CreateTransactionBody,
   RegisterAssetNotificationBody,
 } from './types';
 import { translateInvestFundError } from 'utils/translation';
@@ -80,7 +80,7 @@ export const CryptoAssetStore = types
       self.loading = false;
     });
 
-    const sellToCash = flow(function* (body: SellToCashBody) {
+    const createTransaction = flow(function* (body: CreateTransactionBody) {
       const res = yield httpRequest.sendPost(
         `${Config.BASE_URL}/portfolio/${self.information.portfolioId}/transactions`,
         body,
@@ -151,7 +151,7 @@ export const CryptoAssetStore = types
       editAsset,
       assignInfo,
       getTransactionList,
-      sellToCash,
+      createTransaction,
       transferToFund,
       getInformation,
       registerPriceNotification,

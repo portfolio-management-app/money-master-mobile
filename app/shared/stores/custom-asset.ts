@@ -10,7 +10,7 @@ import { types, flow } from 'mobx-state-tree';
 import { httpRequest } from 'services/http';
 import { UserStore } from 'shared/stores';
 import { log } from 'services/log';
-import { SellToCashBody, TransferToInvestFundBody } from './types';
+import { CreateTransactionBody, TransferToInvestFundBody } from './types';
 import { translateInvestFundError } from 'utils/translation';
 import { EXCEL_COLUMNS } from 'shared/constants';
 import { parseToString } from 'utils/date';
@@ -77,7 +77,7 @@ export const CustomAssetStore = types
       self.information = { ...info };
     };
 
-    const sellToCash = flow(function* (body: SellToCashBody) {
+    const createTransaction = flow(function* (body: CreateTransactionBody) {
       self.transactionResponse.makePending();
       const res = yield httpRequest.sendPost(
         `${Config.BASE_URL}/portfolio/${self.information.portfolioId}/transactions`,
@@ -132,7 +132,7 @@ export const CustomAssetStore = types
       transferToFund,
       assignInfo,
       getTransactionList,
-      sellToCash,
+      createTransaction,
       getInformation,
     };
   })

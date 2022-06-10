@@ -103,18 +103,19 @@ export type TransferToInvestFundBody = {
   isTransferringAll: boolean;
 };
 
-export type SellToCashBody = {
+export type CreateTransactionBody = {
   amount: number;
   amountInDestinationAssetUnit: number;
   currencyCode: string;
   transactionType: TransactionType;
-  destinationAssetId: number;
-  destinationAssetType: ApiAssetType;
-  referentialAssetId: number;
-  referentialAssetType: ApiAssetType;
+  destinationAssetId: number | null;
+  destinationAssetType: ApiAssetType | null;
+  referentialAssetId: number | null;
+  referentialAssetType: ApiAssetType | null;
   isTransferringAll: boolean;
   fee: number;
   tax: number;
+  isUsingFundAsSource: boolean;
 };
 
 export type EditPortfolioBody = {

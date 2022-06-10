@@ -78,6 +78,11 @@ export const CurrencyAssetDetail = observer(() => {
       fromScreen: 'ASSET_DETAIL',
     });
   };
+  const handleDraw = () => {
+    navigation.navigate('DrawCash', {
+      source: routeProps.params.info,
+    });
+  };
 
   const handleExportFile = () => {
     console.log('export');
@@ -86,6 +91,14 @@ export const CurrencyAssetDetail = observer(() => {
       CashAssetStore.getExcelData(),
       `${APP_CONTENT.transactionRecord} ${routeProps.params.info.name}`
     );
+  };
+
+  const handleAddValue = () => {
+    navigation.navigate('ChooseBuySource', {
+      type: 'cash',
+      asset: information,
+      fromScreen: 'ASSET_DETAIL',
+    });
   };
 
   return (
@@ -111,6 +124,8 @@ export const CurrencyAssetDetail = observer(() => {
         onExport={handleExportFile}
         onTransfer={handleTransferToInvestFund}
         onSell={handleTransferToCash}
+        onDraw={handleDraw}
+        onBuy={handleAddValue}
       />
 
       <ConfirmSheet

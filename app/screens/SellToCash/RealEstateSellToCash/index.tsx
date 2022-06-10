@@ -25,21 +25,22 @@ export const RealEstateSellToCash = observer(() => {
   const routeProps =
     useRoute<RootStackScreenProps<'RealEstateSellToCash'>['route']>();
   const { show, toggle } = useConfirmSheet();
-  const { sellToCash, transactionResponse, information } = RealEstateAssetStore;
+  const { createTransaction, transactionResponse, information } =
+    RealEstateAssetStore;
 
   const handleTransfer = () => {
     toggle();
-    sellToCash({
+    createTransaction({
       destinationAssetId: routeProps.params.cashDestination.id,
       destinationAssetType: 'cash',
       referentialAssetId: information.id,
-      referentialAssetType: 'crypto',
+      referentialAssetType: 'realEstate',
       isTransferringAll: true,
       amountInDestinationAssetUnit: 0,
       amount: routeProps.params.source.inputMoneyAmount,
       currencyCode: information.inputCurrency,
       transactionType: 'withdrawToCash',
-
+      isUsingFundAsSource: false,
       fee: apiData.fee,
       tax: apiData.tax,
     });
@@ -52,12 +53,12 @@ export const RealEstateSellToCash = observer(() => {
   return (
     <PlatformView style={styleProvider.body}>
       <NavigationHeader
-        title={`${routeProps.params.source.name} ${APP_CONTENT.drawScreen.header} ${routeProps.params.cashDestination.name}`}
+        title={`${routeProps.params.source.name} ${APP_CONTENT.sellToCashScreen.header} ${routeProps.params.cashDestination.name}`}
       />
       <RealEstateInformationCard asset={routeProps.params.source} />
       <SellForm
-        buttonContent={APP_CONTENT.drawScreen.buttonContent}
-        inputPlaceHolder={APP_CONTENT.drawScreen.inputPlaceHolder}
+        buttonContent={APP_CONTENT.sellToCashScreen.buttonContent}
+        inputPlaceHolder={APP_CONTENT.sellToCashScreen.inputPlaceHolder}
         haveAmountField={false}
         onSell={handleSubmit}
       />
@@ -66,7 +67,7 @@ export const RealEstateSellToCash = observer(() => {
         onCancel={toggle}
         onClose={toggle}
         onConfirm={handleTransfer}
-        title={APP_CONTENT.drawScreen.drawConfirm.title}
+        title={APP_CONTENT.sellToCashScreen.drawConfirm.title}
       />
       <CustomToast
         show={transactionResponse.isError}

@@ -23,9 +23,9 @@ export const AddCryptoAsset = observer(() => {
     tax: 0,
   });
   const routeProps =
-    useRoute<RootStackScreenProps<'CryptoSellToCash'>['route']>();
+    useRoute<RootStackScreenProps<'AddCryptoAsset'>['route']>();
   const { show, toggle } = useConfirmSheet();
-  const { sellToCash, transactionResponse, information, assignInfo } =
+  const { createTransaction, transactionResponse, information, assignInfo } =
     CryptoAssetStore;
   const { usingCash, usingFund, cashId } = SourceBuyStore;
 
@@ -36,10 +36,10 @@ export const AddCryptoAsset = observer(() => {
   const handleTransfer = () => {
     toggle();
     if (usingCash) {
-      sellToCash({
+      createTransaction({
         destinationAssetId: information.id,
         destinationAssetType: 'crypto',
-        referentialAssetId: routeProps.params.cashDestination.id,
+        referentialAssetId: cashId,
         referentialAssetType: 'cash',
         isTransferringAll: false,
         amountInDestinationAssetUnit: 0,
@@ -48,25 +48,25 @@ export const AddCryptoAsset = observer(() => {
         transactionType: 'addValue',
         fee: apiData.fee,
         tax: apiData.tax,
+        isUsingFundAsSource: false,
       });
       return;
     }
-    if (usingFund) {
-      sellToCash({
-        destinationAssetId: information.id,
-        destinationAssetType: 'crypto',
-        referentialAssetId: routeProps.params.cashDestination.id,
-        referentialAssetType: 'cash',
-        isTransferringAll: false,
-        amountInDestinationAssetUnit: 0,
-        amount: apiData.amount,
-        currencyCode: information.currencyCode,
-        transactionType: 'addValue',
-        fee: apiData.fee,
-        tax: apiData.tax,
-      });
-      return;
-    }
+
+    createTransaction({
+      destinationAssetId: information.id,
+      destinationAssetType: 'crypto',
+      referentialAssetId: null,
+      referentialAssetType: null,
+      isTransferringAll: false,
+      amountInDestinationAssetUnit: apiData.amount,
+      amount: apiData.amount * information.currentPrice,
+      currencyCode: information.currencyCode,
+      transactionType: 'addValue',
+      fee: apiData.fee,
+      tax: apiData.tax,
+      isUsingFundAsSource: usingFund,
+    });
   };
 
   const handleSubmit = (data: SellDataCallBack) => {
@@ -76,12 +76,12 @@ export const AddCryptoAsset = observer(() => {
   return (
     <PlatformView style={styleProvider.body}>
       <NavigationHeader
-        title={`${routeProps.params.source.name} ${APP_CONTENT.drawScreen.header} ${routeProps.params.cashDestination.name}`}
+        title={`${APP_CONTENT.addScreen.header} ${routeProps.params.source.name}`}
       />
       <CryptoInformationCard asset={routeProps.params.source} />
       <SellForm
-        buttonContent={APP_CONTENT.drawScreen.buttonContent}
-        inputPlaceHolder={APP_CONTENT.drawScreen.inputPlaceHolder}
+        buttonContent={APP_CONTENT.addScreen.buttonContent}
+        inputPlaceHolder={APP_CONTENT.addScreen.inputPlaceHolderForCrypto}
         onSell={handleSubmit}
       />
       <ConfirmSheet
@@ -89,7 +89,7 @@ export const AddCryptoAsset = observer(() => {
         onCancel={toggle}
         onClose={toggle}
         onConfirm={handleTransfer}
-        title={APP_CONTENT.drawScreen.drawConfirm.title}
+        title={APP_CONTENT.addScreen.drawConfirm.title}
       />
       <CustomToast
         show={transactionResponse.isError}

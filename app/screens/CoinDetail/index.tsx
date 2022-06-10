@@ -17,7 +17,7 @@ const Component = () => {
   return (
     <PlatformView style={styleProvider.body}>
       <NavigationHeader
-        renderRightItem={() => <RangeMenu />}
+        renderRightItem={<RangeMenu />}
         title={routeProps.params.name}
       />
       <Header />

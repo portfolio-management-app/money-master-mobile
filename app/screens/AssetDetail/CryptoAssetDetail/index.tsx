@@ -110,6 +110,12 @@ export const CryptoAssetDetail = observer(() => {
     });
   };
 
+  const handleDraw = () => {
+    navigation.navigate('DrawCrypto', {
+      source: routeProps.params.info,
+    });
+  };
+
   return (
     <PlatformView style={styleProvider.body}>
       <StatusBar backgroundColor={colorScheme.bg} barStyle="dark-content" />
@@ -133,6 +139,7 @@ export const CryptoAssetDetail = observer(() => {
         onExport={handleExportFile}
         onTransfer={handleTransferToInvestFund}
         onSell={handleTransferToCash}
+        onDraw={handleDraw}
       />
       <TabBarView />
 

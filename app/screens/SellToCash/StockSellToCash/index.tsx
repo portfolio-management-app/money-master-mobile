@@ -25,7 +25,7 @@ export const StockSellToCash = observer(() => {
   const routeProps =
     useRoute<RootStackScreenProps<'StockSellToCash'>['route']>();
   const { show, toggle } = useConfirmSheet();
-  const { sellToCash, transactionResponse, information, assignInfo } =
+  const { createTransaction, transactionResponse, information, assignInfo } =
     StockAssetStore;
 
   React.useEffect(() => {
@@ -34,7 +34,7 @@ export const StockSellToCash = observer(() => {
 
   const handleSellToCash = () => {
     toggle();
-    sellToCash({
+    createTransaction({
       destinationAssetId: routeProps.params.cashDestination.id,
       destinationAssetType: 'cash',
       referentialAssetId: information.id,
@@ -46,6 +46,7 @@ export const StockSellToCash = observer(() => {
       transactionType: 'withdrawToCash',
       fee: apiData.fee,
       tax: apiData.tax,
+      isUsingFundAsSource: false,
     });
   };
 
@@ -56,12 +57,12 @@ export const StockSellToCash = observer(() => {
   return (
     <PlatformView style={styleProvider.body}>
       <NavigationHeader
-        title={`${routeProps.params.source.name} ${APP_CONTENT.drawScreen.header} ${routeProps.params.cashDestination.name}`}
+        title={`${routeProps.params.source.name} ${APP_CONTENT.sellToCashScreen.header} ${routeProps.params.cashDestination.name}`}
       />
       <StockInformationCard asset={routeProps.params.source} />
       <SellForm
-        buttonContent={APP_CONTENT.drawScreen.buttonContent}
-        inputPlaceHolder={APP_CONTENT.drawScreen.inputPlaceHolder}
+        buttonContent={APP_CONTENT.sellToCashScreen.buttonContent}
+        inputPlaceHolder={APP_CONTENT.sellToCashScreen.inputPlaceHolder}
         onSell={handleSubmit}
       />
       <ConfirmSheet
@@ -69,7 +70,7 @@ export const StockSellToCash = observer(() => {
         onCancel={toggle}
         onClose={toggle}
         onConfirm={handleSellToCash}
-        title={APP_CONTENT.drawScreen.drawConfirm.title}
+        title={APP_CONTENT.sellToCashScreen.drawConfirm.title}
       />
       <CustomToast
         show={transactionResponse.isError}

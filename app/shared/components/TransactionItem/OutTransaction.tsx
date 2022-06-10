@@ -15,7 +15,7 @@ interface IProps {
   info: ITransactionItem;
   outContent: string;
   haveTaxAndFee?: boolean;
-  toFromContent: string;
+  toFromContent?: string;
 }
 
 export const OutTransaction = ({
@@ -52,10 +52,11 @@ export const OutTransaction = ({
           )}
         </>
       </View>
-
-      <TextContainer mt={10} type="small">
-        {toFromContent}
-      </TextContainer>
+      {toFromContent && (
+        <TextContainer mt={10} type="small">
+          {toFromContent}
+        </TextContainer>
+      )}
     </View>
   );
 };

@@ -9,6 +9,14 @@ import React from 'react';
 import { TouchableOpacity } from 'react-native-ui-lib';
 import { Icon, PlatformView, TextContainer } from 'shared/components';
 import { APP_CONTENT } from 'shared/constants';
+import {
+  IBankAsset,
+  ICashAsset,
+  ICryptoAsset,
+  ICustomAsset,
+  IRealEstateAsset,
+  IStockAsset,
+} from 'shared/models';
 import { SourceBuyStore } from 'shared/stores';
 import { colorScheme, styleProvider } from 'shared/styles';
 
@@ -23,7 +31,7 @@ export const ChooseBuySource = observer(() => {
   const navigateToCash = () => {
     navigation.navigate('CashAssetPicker', {
       actionType: 'BUY',
-      source: undefined,
+      source: routeProps.params.asset,
       type: routeProps.params.type,
       transactionType: 'buyFromCash',
       fromScreen: routeProps.params.fromScreen,
@@ -39,6 +47,48 @@ export const ChooseBuySource = observer(() => {
       },
       transactionType: 'buyFromOutside',
     });
+  };
+
+  const handleNavigationFromAssetDetail = (isFromOutSide: boolean) => {
+    if (!isFromOutSide) {
+      navigateToCash();
+      return;
+    }
+    switch (routeProps.params.type) {
+      case 'crypto':
+        navigation.navigate('AddCryptoAsset', {
+          source: routeProps.params.asset as ICryptoAsset,
+        });
+        break;
+      case 'stock':
+        navigation.navigate('AddStockAsset', {
+          source: routeProps.params.asset as IStockAsset,
+        });
+        break;
+      case 'cash':
+        navigation.navigate('AddCashAsset', {
+          source: routeProps.params.asset as ICashAsset,
+        });
+        break;
+      case 'bankSaving':
+        navigation.navigate('AddBankAsset', {
+          source: routeProps.params.asset as IBankAsset,
+        });
+        break;
+      case 'custom':
+        navigation.navigate('AddCustomAsset', {
+          source: routeProps.params.asset as ICustomAsset,
+        });
+        break;
+      case 'realEstate':
+        navigation.navigate('AddRealEstateAsset', {
+          source: routeProps.params.asset as IRealEstateAsset,
+        });
+        break;
+
+      default:
+        break;
+    }
   };
 
   const handleNavigationFromMarketCap = (isFromOutSide: boolean) => {
@@ -89,6 +139,9 @@ export const ChooseBuySource = observer(() => {
         } else {
           navigateToCash();
         }
+        break;
+      case 'ASSET_DETAIL':
+        handleNavigationFromAssetDetail(isFromOutSide);
         break;
       case 'MARKET_CAP':
         handleNavigationFromMarketCap(isFromOutSide);

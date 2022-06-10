@@ -90,6 +90,20 @@ export type RootStackParamList = {
     fromScreen: FromScreen;
   };
   UserNotification: undefined;
+  DrawCrypto: { source: ICryptoAsset };
+  DrawStock: { source: IStockAsset };
+  DrawCash: { source: ICashAsset };
+  DrawBank: { source: IBankAsset };
+  DrawRealEstate: {
+    source: IRealEstateAsset;
+  };
+  DrawCustom: { source: ICustomAsset };
+  AddCryptoAsset: { source: ICryptoAsset };
+  AddStockAsset: { source: IStockAsset };
+  AddCustomAsset: { source: ICustomAsset };
+  AddBankAsset: { source: IBankAsset };
+  AddRealEstateAsset: { source: IRealEstateAsset };
+  AddCashAsset: { source: ICashAsset };
 };
 
 export type BottomStackParamStack = {

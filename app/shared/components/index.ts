@@ -1,3 +1,4 @@
+import { AmountForm } from './AmountForm/index';
 import { OutTransaction } from './TransactionItem/OutTransaction';
 import { InTransaction } from './TransactionItem/InTransaction';
 import { SellForm } from './SellForm/index';
@@ -125,4 +126,5 @@ export {
   CustomAssetInformationCard,
   InTransaction,
   OutTransaction,
+  AmountForm,
 };

@@ -18,7 +18,7 @@ export const CurrencyDetail = observer(() => {
   return (
     <PlatformView style={styleProvider.body}>
       <NavigationHeader
-        renderRightItem={() => <RangeMenu />}
+        renderRightItem={<RangeMenu />}
         title={currencyInformation.s}
       />
       <ScrollView>

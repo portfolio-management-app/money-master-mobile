@@ -13,7 +13,7 @@ import { UserStore } from 'shared/stores';
 import { log } from 'services/log';
 import {
   TransferToInvestFundBody,
-  SellToCashBody,
+  CreateTransactionBody,
   RegisterAssetNotificationBody,
 } from './types';
 import { EXCEL_COLUMNS } from 'shared/constants';
@@ -79,7 +79,7 @@ export const CashAssetStore = types
       self.information = { ...info };
     };
 
-    const sellToCash = flow(function* (body: SellToCashBody) {
+    const createTransaction = flow(function* (body: CreateTransactionBody) {
       const res = yield httpRequest.sendPost(
         `${Config.BASE_URL}/portfolio/${self.information.portfolioId}/transactions`,
         body,
@@ -150,7 +150,7 @@ export const CashAssetStore = types
       editAsset,
       assignInfo,
       getTransactionList,
-      sellToCash,
+      createTransaction,
       transferToFund,
       getInformation,
       registerPriceNotification,

@@ -7,7 +7,7 @@ import { colorScheme, styleProvider } from 'shared/styles';
 import { SellDataCallBack } from 'shared/types';
 import { SellAssetSchema } from 'shared/validator';
 
-const CONTENT = APP_CONTENT.sellToCash;
+const CONTENT = APP_CONTENT.createTransaction;
 
 interface IProps {
   onSell?: (data: SellDataCallBack) => void;
@@ -80,6 +80,7 @@ export const SellForm = ({
                 onPress={handleSubmit}
                 backgroundColor={colorScheme.theme}
                 label={buttonContent}
+                style={{ marginTop: 20 }}
               />
             </View>
           </>

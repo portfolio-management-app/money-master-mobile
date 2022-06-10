@@ -106,6 +106,20 @@ export const RealEstateAssetDetail = observer(() => {
     );
   };
 
+  const handleDraw = () => {
+    navigation.navigate('DrawRealEstate', {
+      source: routeProps.params.info,
+    });
+  };
+
+  const handleAddValue = () => {
+    navigation.navigate('ChooseBuySource', {
+      type: 'realEstate',
+      asset: assetInformation,
+      fromScreen: 'ASSET_DETAIL',
+    });
+  };
+
   return (
     <PlatformView style={styleProvider.body}>
       <StatusBar backgroundColor={colorScheme.bg} barStyle="dark-content" />
@@ -130,6 +144,8 @@ export const RealEstateAssetDetail = observer(() => {
         onExport={handleExportFile}
         onTransfer={() => setShowConfirmTransfer(!showConfirmTransfer)}
         onSell={handleTransferToCash}
+        onDraw={handleDraw}
+        onBuy={handleAddValue}
       />
       <ConfirmSheet
         title={ASSET_DETAIL_CONTENT.deleteTitle}

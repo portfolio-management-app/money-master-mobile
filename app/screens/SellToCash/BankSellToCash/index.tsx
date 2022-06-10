@@ -25,11 +25,12 @@ export const BankSellToCash = observer(() => {
     tax: 0,
   });
   const { show, toggle } = useConfirmSheet();
-  const { sellToCash, transactionResponse, information } = BankAssetStore;
+  const { createTransaction, transactionResponse, information } =
+    BankAssetStore;
 
   const handleTransfer = () => {
     toggle();
-    sellToCash({
+    createTransaction({
       destinationAssetId: routeProps.params.cashDestination.id,
       destinationAssetType: 'cash',
       referentialAssetId: information.id,
@@ -41,6 +42,7 @@ export const BankSellToCash = observer(() => {
       transactionType: 'withdrawToCash',
       fee: apiData.fee,
       tax: apiData.tax,
+      isUsingFundAsSource: false,
     });
   };
 
@@ -51,12 +53,12 @@ export const BankSellToCash = observer(() => {
   return (
     <PlatformView style={styleProvider.body}>
       <NavigationHeader
-        title={`${routeProps.params.source.name} ${APP_CONTENT.drawScreen.header} ${routeProps.params.cashDestination.name}`}
+        title={`${routeProps.params.source.name} ${APP_CONTENT.sellToCashScreen.header} ${routeProps.params.cashDestination.name}`}
       />
       <BankInformationCard asset={routeProps.params.source} />
       <SellForm
-        buttonContent={APP_CONTENT.drawScreen.buttonContent}
-        inputPlaceHolder={APP_CONTENT.drawScreen.inputPlaceHolder}
+        buttonContent={APP_CONTENT.sellToCashScreen.buttonContent}
+        inputPlaceHolder={APP_CONTENT.sellToCashScreen.inputPlaceHolder}
         haveAmountField={false}
         onSell={handleSubmit}
         initAmount={information.inputMoneyAmount}
@@ -66,7 +68,7 @@ export const BankSellToCash = observer(() => {
         onCancel={toggle}
         onClose={toggle}
         onConfirm={handleTransfer}
-        title={APP_CONTENT.drawScreen.drawConfirm.title}
+        title={APP_CONTENT.sellToCashScreen.drawConfirm.title}
       />
       <CustomToast
         show={transactionResponse.isError}

@@ -17,7 +17,7 @@ export const StockDetail = observer(() => {
   const { stockInformation, timeSeries, loading, symbol } = StockDetailStore;
   return (
     <PlatformView style={styleProvider.body}>
-      <NavigationHeader renderRightItem={() => <RangeMenu />} title={symbol} />
+      <NavigationHeader renderRightItem={<RangeMenu />} title={symbol} />
       <TextContainer bold textAl="center" type="h2" color={colorScheme.blue200}>
         {formatCurrency(stockInformation.c, 'USD')}
       </TextContainer>

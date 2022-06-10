@@ -98,6 +98,26 @@ export const CashAssetPicker = observer(() => {
     }
   };
 
+  const navigateToAdd = () => {
+    switch (routeProps.params.type) {
+      case 'crypto':
+        navigation.navigate('AddCryptoAsset', {
+          source: routeProps.params.source as ICryptoAsset,
+        });
+        break;
+      case 'stock':
+        break;
+      case 'cash':
+        break;
+      case 'bankSaving':
+        break;
+      case 'realEstate':
+        break;
+      case 'custom':
+        break;
+    }
+  };
+
   const navigateToBuy = () => {
     switch (routeProps.params.type) {
       case 'crypto':
@@ -130,6 +150,9 @@ export const CashAssetPicker = observer(() => {
     switch (routeProps.params.fromScreen) {
       case 'MARKET_CAP':
         navigateToBuy();
+        break;
+      case 'ASSET_DETAIL':
+        navigateToAdd();
         break;
       case 'CREATE_NEW':
         navigateToCreate();

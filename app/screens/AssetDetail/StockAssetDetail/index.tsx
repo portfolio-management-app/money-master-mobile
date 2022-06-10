@@ -96,6 +96,20 @@ export const StockAssetDetail = observer(() => {
     );
   };
 
+  const handleDraw = () => {
+    navigation.navigate('DrawStock', {
+      source: routeProps.params.info,
+    });
+  };
+
+  const handleAddValue = () => {
+    navigation.navigate('ChooseBuySource', {
+      type: 'stock',
+      asset: information,
+      fromScreen: 'ASSET_DETAIL',
+    });
+  };
+
   return (
     <PlatformView style={styleProvider.body}>
       <StatusBar backgroundColor={colorScheme.bg} barStyle="dark-content" />
@@ -119,6 +133,8 @@ export const StockAssetDetail = observer(() => {
         onExport={handleExportFile}
         onTransfer={handleTransferToInvestFund}
         onSell={handleTransferToCash}
+        onDraw={handleDraw}
+        onBuy={handleAddValue}
       />
 
       <ConfirmSheet

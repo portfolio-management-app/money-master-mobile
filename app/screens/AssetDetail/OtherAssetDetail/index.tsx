@@ -31,7 +31,8 @@ export const CustomAssetDetail = observer(() => {
   const [showConfirm, setShowConfirm] = React.useState(false);
 
   const { deleteResponse, deleteCustomAsset } = PortfolioDetailStore;
-  const { assignInfo, getInformation, getTransactionList } = CustomAssetStore;
+  const { assignInfo, getInformation, getTransactionList, information } =
+    CustomAssetStore;
   React.useEffect(() => {
     assignInfo(routeProps.params.info);
     getTransactionList();
@@ -86,6 +87,20 @@ export const CustomAssetDetail = observer(() => {
     );
   };
 
+  const handleDraw = () => {
+    navigation.navigate('DrawCustom', {
+      source: routeProps.params.info,
+    });
+  };
+
+  const handleAddValue = () => {
+    navigation.navigate('ChooseBuySource', {
+      type: 'custom',
+      asset: information,
+      fromScreen: 'ASSET_DETAIL',
+    });
+  };
+
   return (
     <PlatformView style={styleProvider.body}>
       <StatusBar backgroundColor={colorScheme.bg} barStyle="dark-content" />
@@ -109,6 +124,8 @@ export const CustomAssetDetail = observer(() => {
         onExport={handleExportFile}
         onTransfer={handleTransferToInvestFund}
         onSell={handleTransferToCash}
+        onDraw={handleDraw}
+        onBuy={handleAddValue}
       />
 
       <ConfirmSheet

@@ -43,6 +43,18 @@ import {
   CustomSellToCash,
   AssetNotificationSetting,
   UserNotification,
+  DrawBank,
+  DrawCrypto,
+  DrawRealEstate,
+  DrawCustom,
+  DrawStock,
+  DrawCash,
+  AddCryptoAsset,
+  AddBankAsset,
+  AddCashAsset,
+  AddRealEstateAsset,
+  AddCustomAsset,
+  AddStockAsset,
 } from 'screens';
 import { StatusBar } from 'react-native';
 import { colorScheme } from 'shared/styles';
@@ -109,6 +121,21 @@ export const NavigationStack = () => {
           name="RealEstateSellToCash"
           component={RealEstateSellToCash}
         />
+        <Stack.Screen name="DrawBank" component={DrawBank} />
+        <Stack.Screen name="DrawCrypto" component={DrawCrypto} />
+        <Stack.Screen name="DrawRealEstate" component={DrawRealEstate} />
+        <Stack.Screen name="DrawCustom" component={DrawCustom} />
+        <Stack.Screen name="DrawStock" component={DrawStock} />
+        <Stack.Screen name="DrawCash" component={DrawCash} />
+        <Stack.Screen name="AddCryptoAsset" component={AddCryptoAsset} />
+        <Stack.Screen name="AddBankAsset" component={AddBankAsset} />
+        <Stack.Screen name="AddCashAsset" component={AddCashAsset} />
+        <Stack.Screen
+          name="AddRealEstateAsset"
+          component={AddRealEstateAsset}
+        />
+        <Stack.Screen name="AddCustomAsset" component={AddCustomAsset} />
+        <Stack.Screen name="AddStockAsset" component={AddStockAsset} />
         <Stack.Screen name="EditPortfolio" component={EditPortfolio} />
         <Stack.Screen name="ChooseBuySource" component={ChooseBuySource} />
         <Stack.Screen

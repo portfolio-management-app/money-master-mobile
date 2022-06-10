@@ -55,13 +55,28 @@ export const TransactionDetail = ({ info, onPress }: IProps) => {
         <TouchableOpacity onPress={onPress} style={styles.transactionItem}>
           <OutTransaction
             info={info}
-            outContent={APP_CONTENT.draw}
+            outContent={APP_CONTENT.transactionDetail.transfer}
             haveTaxAndFee={false}
             toFromContent={`${APP_CONTENT.transactionDetail.to}: ${APP_CONTENT.transactionDetail.fund}`}
           />
         </TouchableOpacity>
       );
-
+    case 'withdrawToOutside':
+      return (
+        <TouchableOpacity onPress={onPress} style={styles.transactionItem}>
+          <OutTransaction
+            info={info}
+            outContent={APP_CONTENT.draw}
+            haveTaxAndFee={false}
+          />
+        </TouchableOpacity>
+      );
+    case 'addValue':
+      return (
+        <TouchableOpacity onPress={onPress} style={styles.transactionItem}>
+          <InTransaction info={info} inContent={APP_CONTENT.buy} />
+        </TouchableOpacity>
+      );
     default:
       return <></>;
   }

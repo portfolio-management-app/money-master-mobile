@@ -98,6 +98,7 @@ export const BankAssetDetail = observer(() => {
       fromScreen: 'ASSET_DETAIL',
     });
   };
+
   const handleExportFile = () => {
     console.log('export');
     fileService.saveAssetDataFile(
@@ -105,6 +106,18 @@ export const BankAssetDetail = observer(() => {
       [],
       `${APP_CONTENT.transactionRecord} ${routeProps.params.info.name}`
     );
+  };
+  const handleDraw = () => {
+    navigation.navigate('DrawBank', {
+      source: routeProps.params.info,
+    });
+  };
+  const handleAddValue = () => {
+    navigation.navigate('ChooseBuySource', {
+      type: 'bankSaving',
+      asset: assetInformation,
+      fromScreen: 'ASSET_DETAIL',
+    });
   };
 
   return (
@@ -130,6 +143,8 @@ export const BankAssetDetail = observer(() => {
         onSell={handleTransferToCash}
         onTransfer={() => setShowConfirmTransfer(!showConfirmTransfer)}
         onExport={handleExportFile}
+        onDraw={handleDraw}
+        onBuy={handleAddValue}
       />
       <ConfirmSheet
         title={ASSET_DETAIL_CONTENT.deleteTitle}

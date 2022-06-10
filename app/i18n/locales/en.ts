@@ -406,6 +406,7 @@ export const en = {
     add: 'Add',
     draw: 'Draw',
     to: 'To',
+    transfer: 'Transfer',
     destinationAssetType: 'Destination asset type',
     from: 'From',
     moveToFund: 'Move to fund',
@@ -417,12 +418,13 @@ export const en = {
     cash: 'Cash',
     in: 'In',
     out: 'Out',
+    buy: 'Buy',
   },
   cashAssetPicker: {
     title: 'Choose cash asset to sell',
     titleBuy: 'Choose cash asset to draw',
   },
-  drawScreen: {
+  sellToCashScreen: {
     header: 'to',
     buttonContent: 'Sell',
     inputPlaceHolder: 'Money amount to sell',
@@ -473,7 +475,7 @@ export const en = {
     transaction: 'Transaction record',
     assetInformation: 'Asset information',
   },
-  sellToCash: {
+  createTransaction: {
     fee: 'Fee(%)',
     tax: 'Tax(%)',
     sell: 'Sell',
@@ -519,5 +521,23 @@ export const en = {
     title: 'Notifications',
     reach: 'reach value',
     see: 'See asset',
+  },
+  drawScreen: {
+    header: 'Draw',
+    buttonContent: 'Draw',
+    inputPlaceHolder: 'Money amount to draw',
+    drawConfirm: {
+      title: 'Draw this asset?',
+    },
+  },
+  addScreen: {
+    header: 'Add',
+    buttonContent: 'Add',
+    inputPlaceHolder: 'Money amount to add',
+    inputPlaceHolderForCrypto: 'Number of coin to add',
+    inputPlaceHolderForStock: 'Number of stock to add',
+    drawConfirm: {
+      title: 'Add amount this asset?',
+    },
   },
 };
