@@ -8,7 +8,7 @@ export const translateTransactionType = (
     case 'buyFromOutside':
       return TRANSACTION_DETAIL_CONTENT.buy;
     case 'buyFromCash':
-      return TRANSACTION_DETAIL_CONTENT.newAsset;
+      return TRANSACTION_DETAIL_CONTENT.buy;
     case 'addValue':
       return TRANSACTION_DETAIL_CONTENT.add;
     case 'withdrawToCash':

@@ -1,9 +1,10 @@
 import React from 'react';
 import { StyleSheet } from 'react-native';
 import { TouchableOpacity } from 'react-native-ui-lib';
-import { APP_CONTENT } from 'shared/constants';
+import { APP_CONTENT, TRANSACTION_DETAIL_CONTENT } from 'shared/constants';
 import { ITransactionItem } from 'shared/models';
 import { colorScheme } from 'shared/styles';
+import { getFrom } from 'utils/file';
 import { InTransaction } from './InTransaction';
 import { OutTransaction } from './OutTransaction';
 
@@ -17,7 +18,11 @@ export const TransactionDetail = ({ info, onPress }: IProps) => {
     case 'buyFromOutside':
       return (
         <TouchableOpacity onPress={onPress} style={styles.transactionItem}>
-          <InTransaction info={info} inContent={APP_CONTENT.buy} />
+          <InTransaction
+            info={info}
+            inContent={APP_CONTENT.buy}
+            toFromContent={`${APP_CONTENT.transactionDetail.from}: ${TRANSACTION_DETAIL_CONTENT.outSide}`}
+          />
         </TouchableOpacity>
       );
     case 'buyFromCash':
@@ -68,13 +73,20 @@ export const TransactionDetail = ({ info, onPress }: IProps) => {
             info={info}
             outContent={APP_CONTENT.draw}
             haveTaxAndFee={false}
+            toFromContent={`${APP_CONTENT.transactionDetail.to}: ${TRANSACTION_DETAIL_CONTENT.outSide}`}
           />
         </TouchableOpacity>
       );
     case 'addValue':
       return (
         <TouchableOpacity onPress={onPress} style={styles.transactionItem}>
-          <InTransaction info={info} inContent={APP_CONTENT.buy} />
+          <InTransaction
+            info={info}
+            inContent={APP_CONTENT.buy}
+            toFromContent={`${APP_CONTENT.transactionDetail.from}: ${getFrom(
+              info
+            )}`}
+          />
         </TouchableOpacity>
       );
     default:

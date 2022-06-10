@@ -419,6 +419,7 @@ export const en = {
     in: 'In',
     out: 'Out',
     buy: 'Buy',
+    outSide: 'Outside money source',
   },
   cashAssetPicker: {
     title: 'Choose cash asset to sell',

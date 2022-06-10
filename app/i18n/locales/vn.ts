@@ -403,6 +403,7 @@ export const vn = {
     in: 'Vào',
     out: 'Ra',
     buy: 'Mua',
+    outSide: 'Nguồn tiền bên ngoài',
   },
   cashAssetPicker: {
     title: 'Chọn tài sản để bán về',
