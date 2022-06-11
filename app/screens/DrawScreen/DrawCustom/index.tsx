@@ -54,6 +54,7 @@ export const DrawCustom = observer(() => {
         buttonContent={APP_CONTENT.drawScreen.buttonContent}
         inputPlaceHolder={APP_CONTENT.drawScreen.inputPlaceHolder}
         onSubmit={handleSubmit}
+        currency={information.inputCurrency}
       />
       <ConfirmSheet
         show={show}

@@ -7,7 +7,6 @@ export const BankAsset = types.model('BankAsset', {
   inputDay: types.string,
   inputMoneyAmount: types.number,
   inputCurrency: types.string,
-  lastChanged: types.string,
   description: types.string,
   interestRate: types.number,
   termRange: types.number,
@@ -21,7 +20,6 @@ export const RealEstateAsset = types.model('RealEstateAsset', {
   inputDay: types.string,
   inputMoneyAmount: types.number,
   inputCurrency: types.string,
-  lastChanged: types.string,
   description: types.string,
   currentPrice: types.number,
 });

@@ -466,7 +466,7 @@ export const en = {
     startDate: 'Start date',
     stockCode: 'Stock code',
     currentPrice: 'Current price',
-    fee: 'Fee (%)',
+    fee: 'Fee',
     tax: 'Tax (%)',
   },
   transactionRecord: 'Asset record of',

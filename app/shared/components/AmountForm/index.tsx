@@ -23,6 +23,7 @@ interface IProps {
   inputPlaceHolder?: string;
   haveAmountField?: boolean;
   initAmount?: number;
+  currency?: string;
 }
 
 export const AmountForm = ({
@@ -31,6 +32,7 @@ export const AmountForm = ({
   inputPlaceHolder = CONTENT.amount,
   haveAmountField = true,
   initAmount = 0,
+  currency,
 }: IProps) => {
   return (
     <Formik
@@ -50,7 +52,9 @@ export const AmountForm = ({
                   onBlur={handleBlur('amount')}
                   keyBoardType="decimal-pad"
                   errorMessage={touched.amount ? errors.amount : ''}
-                  placeholder={inputPlaceHolder}
+                  placeholder={`${inputPlaceHolder} ${
+                    currency && `(${currency})`
+                  }`}
                 />
               )}
               <BaseButton

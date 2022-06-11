@@ -62,6 +62,7 @@ export const CashSellToCash = observer(() => {
         buttonContent={APP_CONTENT.sellToCashScreen.buttonContent}
         inputPlaceHolder={APP_CONTENT.sellToCashScreen.inputPlaceHolder}
         onSell={handleSubmit}
+        currency={information.currencyCode}
       />
       <ConfirmSheet
         show={show}

@@ -10,6 +10,6 @@ export const translateBuyAssetError = (error: HttpError) => {
     case 500:
       return ERROR_MESSAGE.serverError;
     default:
-      return error.getMessage();
+      return ERROR_MESSAGE.serverError;
   }
 };

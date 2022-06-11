@@ -134,7 +134,7 @@ export const BuyCrypto = observer(() => {
                     onChangeText={handleChange('fee')}
                     onBlur={handleBlur('fee')}
                     keyBoardType="decimal-pad"
-                    placeholder={`${APP_CONTENT.fee} (%)`}
+                    placeholder={`${APP_CONTENT.fee} (${values.currencyCode})`}
                     value={values.fee.toString()}
                     errorMessage={touched.fee ? errors.fee : ''}
                   />

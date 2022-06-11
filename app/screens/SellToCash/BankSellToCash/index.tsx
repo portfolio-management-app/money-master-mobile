@@ -62,6 +62,7 @@ export const BankSellToCash = observer(() => {
         haveAmountField={false}
         onSell={handleSubmit}
         initAmount={information.inputMoneyAmount}
+        currency={information.inputCurrency}
       />
       <ConfirmSheet
         show={show}

@@ -92,7 +92,7 @@ export const CreateForm = observer(({ onSubmit, onClose }: IProps) => {
                 onChangeText={handleChange('fee')}
                 onBlur={handleBlur('fee')}
                 keyBoardType="decimal-pad"
-                placeholder={`${APP_CONTENT.fee} (%)`}
+                placeholder={`${APP_CONTENT.fee} (${values.inputCurrency})`}
                 value={values.fee.toString()}
                 errorMessage={touched.fee ? errors.fee : ''}
               />

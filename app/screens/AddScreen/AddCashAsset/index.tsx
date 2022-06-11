@@ -80,7 +80,7 @@ export const AddCashAsset = observer(() => {
       <CashInformationCard asset={routeProps.params.source} />
       <SellForm
         buttonContent={APP_CONTENT.addScreen.buttonContent}
-        inputPlaceHolder={APP_CONTENT.addScreen.inputPlaceHolderForCrypto}
+        inputPlaceHolder={APP_CONTENT.addScreen.inputPlaceHolder}
         onSell={handleSubmit}
       />
       <ConfirmSheet

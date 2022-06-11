@@ -15,6 +15,7 @@ interface IProps {
   inputPlaceHolder?: string;
   haveAmountField?: boolean;
   initAmount?: number;
+  currency?: string;
 }
 
 export const SellForm = ({
@@ -23,6 +24,7 @@ export const SellForm = ({
   inputPlaceHolder = CONTENT.amount,
   haveAmountField = true,
   initAmount = 0,
+  currency,
 }: IProps) => {
   const initValues = React.useMemo(() => {
     return { amount: initAmount, fee: 0, tax: 0 };
@@ -57,7 +59,9 @@ export const SellForm = ({
                   onBlur={handleBlur('amount')}
                   keyBoardType="decimal-pad"
                   errorMessage={touched.amount ? errors.amount : ''}
-                  placeholder={inputPlaceHolder}
+                  placeholder={`${inputPlaceHolder} ${
+                    currency && `(${currency})`
+                  }`}
                 />
               )}
               <CustomTextField
@@ -65,7 +69,7 @@ export const SellForm = ({
                 onBlur={handleBlur('fee')}
                 keyBoardType="decimal-pad"
                 errorMessage={touched.fee ? errors.fee : ''}
-                placeholder={CONTENT.fee}
+                placeholder={`${CONTENT.fee} ${currency && `(${currency})`}`}
                 value={values.fee.toString()}
               />
               <CustomTextField

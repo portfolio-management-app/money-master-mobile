@@ -47,7 +47,8 @@ export const InTransaction = ({
         <>
           {haveTaxAndFee && (
             <TextContainer textAl="center" type="small">
-              {APP_CONTENT.fee}: {info.fee} % {APP_CONTENT.tax}: {info.tax} %
+              {APP_CONTENT.fee}: {formatCurrency(info.fee, info.currencyCode)}{' '}
+              {APP_CONTENT.tax}: {info.tax} %
             </TextContainer>
           )}
         </>

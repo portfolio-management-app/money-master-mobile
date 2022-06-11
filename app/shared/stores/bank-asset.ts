@@ -168,7 +168,6 @@ export const BankAssetStore = types
       inputDay: '',
       inputMoneyAmount: 0,
       inputCurrency: 'USD',
-      lastChanged: '',
       description: '',
       interestRate: 0,
       termRange: 0,

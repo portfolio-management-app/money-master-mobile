@@ -61,6 +61,7 @@ export const RealEstateSellToCash = observer(() => {
         inputPlaceHolder={APP_CONTENT.sellToCashScreen.inputPlaceHolder}
         haveAmountField={false}
         onSell={handleSubmit}
+        currency={information.inputCurrency}
       />
       <ConfirmSheet
         show={show}
