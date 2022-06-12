@@ -4,6 +4,7 @@ import { NavigationHeader } from 'navigation/header';
 import { RootStackScreenProps } from 'navigation/types';
 import React from 'react';
 import {
+  ConfirmSheet,
   CustomAssetInformationCard,
   CustomToast,
   PlatformView,
@@ -11,55 +12,58 @@ import {
   TransparentLoading,
 } from 'shared/components';
 import { APP_CONTENT } from 'shared/constants';
-import { InvestFundStore, PortfolioDetailStore } from 'shared/stores';
+import { useConfirmSheet } from 'shared/hooks';
+import { CryptoAssetStore } from 'shared/stores';
 import { styleProvider } from 'shared/styles';
 
 const CONTENT = APP_CONTENT.transferToFund;
 
 export const CustomTransfer = observer(() => {
+  const [amount, setAmount] = React.useState(0);
   const routeProps =
     useRoute<RootStackScreenProps<'CustomTransfer'>['route']>();
+  const { info } = routeProps.params;
+  const { show, toggle } = useConfirmSheet();
+  const { transferToFund, transactionResponse } = CryptoAssetStore;
 
-  const {
-    transferToFund,
-    clearError,
-    dispatchSuccess,
-    errorMessage,
-    isSuccess,
-    isError,
-    loading,
-  } = InvestFundStore;
-
-  const handleTransfer = React.useCallback(
-    (amount: number) => {
-      const { id, inputCurrency } = routeProps.params.info;
-      transferToFund(PortfolioDetailStore.information.id, {
-        referentialAssetId: id,
-        amount: amount,
-        referentialAssetType: 'custom',
-        isTransferringAll: false,
-        currencyCode: inputCurrency,
-      });
-    },
-    [routeProps, transferToFund]
-  );
+  const handleTransfer = React.useCallback(() => {
+    transferToFund({
+      referentialAssetId: info.id,
+      amount: amount,
+      referentialAssetType: 'crypto',
+      isTransferringAll: false,
+      currencyCode: info.inputCurrency,
+    });
+  }, [amount, info.inputCurrency, info.id, transferToFund]);
+  const handleChangeAmount = (amount: number) => {
+    setAmount(amount);
+    toggle();
+  };
   return (
     <PlatformView style={styleProvider.body}>
       <NavigationHeader title={CONTENT.header} />
       <CustomAssetInformationCard asset={routeProps.params.info} />
-      <TransferForm onTransfer={handleTransfer} />
+      <TransferForm onTransfer={handleChangeAmount} />
       <CustomToast
-        show={isSuccess}
-        message={APP_CONTENT.transferToFund.success}
-        onDismiss={() => dispatchSuccess()}
+        show={transactionResponse.isSuccess}
+        message={CONTENT.success}
+        onDismiss={transactionResponse.deleteSuccess}
       />
       <CustomToast
         variant="error"
-        show={isError}
-        message={errorMessage}
-        onDismiss={() => clearError()}
+        show={transactionResponse.isError}
+        message={transactionResponse.errorMessage}
+        onDismiss={transactionResponse.deleteError}
       />
-      <TransparentLoading show={loading} />
+      <ConfirmSheet
+        show={show}
+        onCancel={toggle}
+        onClose={toggle}
+        onConfirm={handleTransfer}
+        title={CONTENT.confirm}
+      />
+
+      <TransparentLoading show={transactionResponse.pending} />
     </PlatformView>
   );
 });

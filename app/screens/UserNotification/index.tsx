@@ -3,8 +3,13 @@ import { observer } from 'mobx-react-lite';
 import { NavigationHeader } from 'navigation/header';
 import { MainStackNavigationProp } from 'navigation/types';
 import React from 'react';
-import { FlatList } from 'react-native';
-import { PlatformView } from 'shared/components';
+import { FlatList, View } from 'react-native';
+import {
+  Empty,
+  PlatformView,
+  Skeleton,
+  SkeletonLoadable,
+} from 'shared/components';
 import { APP_CONTENT } from 'shared/constants';
 import { IUserNotification } from 'shared/models';
 import {
@@ -14,11 +19,15 @@ import {
 } from 'shared/stores';
 import { styleProvider } from 'shared/styles';
 import { fetchCryptoAsset, fetchStockAsset } from 'utils/api';
-import { NotificationItem } from './components';
+import { NotificationItem, SkeletonNotification } from './components';
 
 export const UserNotification = observer(() => {
-  const { getNotificationList, notificationList, setNotificationIsRead } =
-    UserNotificationStore;
+  const {
+    getNotificationList,
+    notificationList,
+    setNotificationIsRead,
+    loading,
+  } = UserNotificationStore;
   const navigation = useNavigation<MainStackNavigationProp>();
   React.useEffect(() => {
     getNotificationList();
@@ -47,15 +56,27 @@ export const UserNotification = observer(() => {
   return (
     <PlatformView style={styleProvider.body}>
       <NavigationHeader title={APP_CONTENT.userNotification.title} />
-      <FlatList
-        data={notificationList}
-        keyExtractor={(data) => data.id.toString()}
-        renderItem={(data) => (
-          <NotificationItem
-            onPress={handleNotificationPress}
-            item={data.item}
+      <SkeletonLoadable
+        loading={loading}
+        skeleton={<SkeletonNotification />}
+        dataComponent={
+          <FlatList
+            data={notificationList}
+            keyExtractor={(data) => data.id.toString()}
+            renderItem={(data) => (
+              <NotificationItem
+                onPress={handleNotificationPress}
+                item={data.item}
+              />
+            )}
           />
-        )}
+        }
+        isDataEmpty={notificationList.length === 0}
+        emptyComponent={
+          <View style={styleProvider.flexCenter}>
+            <Empty />
+          </View>
+        }
       />
     </PlatformView>
   );

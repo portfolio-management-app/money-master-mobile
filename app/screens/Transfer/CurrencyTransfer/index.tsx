@@ -5,43 +5,48 @@ import { RootStackScreenProps } from 'navigation/types';
 import React from 'react';
 import {
   CashInformationCard,
+  ConfirmSheet,
   CustomToast,
   PlatformView,
   TransferForm,
   TransparentLoading,
 } from 'shared/components';
 import { APP_CONTENT } from 'shared/constants';
-import { CashAssetStore } from 'shared/stores';
+import { useConfirmSheet } from 'shared/hooks';
+import { CryptoAssetStore } from 'shared/stores';
 import { styleProvider } from 'shared/styles';
 
 const CONTENT = APP_CONTENT.transferToFund;
 
 export const CurrencyTransfer = observer(() => {
+  const [amount, setAmount] = React.useState(0);
   const routeProps =
     useRoute<RootStackScreenProps<'CurrencyTransfer'>['route']>();
+  const { info } = routeProps.params;
+  const { show, toggle } = useConfirmSheet();
+  const { transferToFund, transactionResponse } = CryptoAssetStore;
 
-  const { transferToFund, transactionResponse } = CashAssetStore;
-  const handleTransfer = React.useCallback(
-    (amount: number) => {
-      const { id, currencyCode } = routeProps.params.info;
-      transferToFund({
-        referentialAssetId: id,
-        amount: amount,
-        referentialAssetType: 'cash',
-        isTransferringAll: false,
-        currencyCode: currencyCode,
-      });
-    },
-    [routeProps, transferToFund]
-  );
+  const handleTransfer = React.useCallback(() => {
+    transferToFund({
+      referentialAssetId: info.id,
+      amount: amount,
+      referentialAssetType: 'cash',
+      isTransferringAll: false,
+      currencyCode: info.currencyCode,
+    });
+  }, [amount, info.currencyCode, info.id, transferToFund]);
+  const handleChangeAmount = (amount: number) => {
+    setAmount(amount);
+    toggle();
+  };
   return (
     <PlatformView style={styleProvider.body}>
       <NavigationHeader title={CONTENT.header} />
       <CashInformationCard asset={routeProps.params.info} />
-      <TransferForm onTransfer={handleTransfer} />
+      <TransferForm onTransfer={handleChangeAmount} />
       <CustomToast
         show={transactionResponse.isSuccess}
-        message={APP_CONTENT.transferToFund.success}
+        message={CONTENT.success}
         onDismiss={transactionResponse.deleteSuccess}
       />
       <CustomToast
@@ -50,6 +55,14 @@ export const CurrencyTransfer = observer(() => {
         message={transactionResponse.errorMessage}
         onDismiss={transactionResponse.deleteError}
       />
+      <ConfirmSheet
+        show={show}
+        onCancel={toggle}
+        onClose={toggle}
+        onConfirm={handleTransfer}
+        title={CONTENT.confirm}
+      />
+
       <TransparentLoading show={transactionResponse.pending} />
     </PlatformView>
   );

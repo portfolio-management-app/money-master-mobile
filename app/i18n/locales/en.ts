@@ -371,6 +371,7 @@ export const en = {
       notEnoughMoney: 'Insufficient value left in asset',
       serverError: 'Something wrong happened try again later',
     },
+    confirm: 'Transfer this asset?',
     success: 'Transfer success',
   },
   confirm: {

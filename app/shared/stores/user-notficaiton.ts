@@ -9,6 +9,7 @@ import { UserStore } from './user';
 export const UserNotificationStore = types
   .model('UserNotificationStore', {
     notificationList: types.array(UserNotification),
+    loading: types.boolean,
   })
   .views((self) => ({
     getNotReadNotification() {
@@ -23,6 +24,7 @@ export const UserNotificationStore = types
   }))
   .actions((self) => {
     const getNotificationList = flow(function* () {
+      self.loading = true;
       const res = yield httpRequest.sendGet(
         `${Config.BASE_URL}/userNotification`,
         UserStore.user.token
@@ -32,6 +34,7 @@ export const UserNotificationStore = types
       } else {
         self.notificationList = res;
       }
+      self.loading = false;
     });
 
     const setNotificationIsRead = flow(function* (id: number) {
@@ -50,4 +53,4 @@ export const UserNotificationStore = types
 
     return { getNotificationList, setNotificationIsRead };
   })
-  .create({});
+  .create({ loading: false });

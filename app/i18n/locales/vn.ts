@@ -356,6 +356,7 @@ export const vn = {
       serverError: 'Lỗi, vui lòng thử lại sau',
     },
     success: 'Chuyển thành công',
+    confirm: 'Chuyển tài sản này?',
   },
   confirm: {
     ok: 'Ok',
