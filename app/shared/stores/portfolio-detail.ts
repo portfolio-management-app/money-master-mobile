@@ -1,3 +1,4 @@
+import { translateCreateTransactionError } from './../../utils/translation/create-transaction-response';
 import { PortfolioListStore } from 'shared/stores';
 import { Config } from 'config';
 import { HttpError } from 'errors/base';
@@ -105,6 +106,7 @@ export const PortfolioDetailStore = types
       );
       if (res instanceof HttpError) {
         log('Error when create currency asset', res);
+        res.setMessage(translateCreateTransactionError(res));
         self.createResponse.makeError(res);
       } else {
         getCurrencyAsset();
@@ -126,6 +128,7 @@ export const PortfolioDetailStore = types
       );
       if (res instanceof HttpError) {
         log('Error when create crypto asset', res);
+        res.setMessage(translateCreateTransactionError(res));
         self.createResponse.makeError(res);
       } else {
         getCryptoAsset();
@@ -147,6 +150,7 @@ export const PortfolioDetailStore = types
       );
       if (res instanceof HttpError) {
         log('Error when create stock asset', res);
+        res.setMessage(translateCreateTransactionError(res));
         self.createResponse.makeError(res);
       } else {
         getStockAsset();
@@ -169,6 +173,7 @@ export const PortfolioDetailStore = types
       );
       if (res instanceof HttpError) {
         log('Error when create other asset', res);
+        res.setMessage(translateCreateTransactionError(res));
         self.createResponse.makeError(res);
       } else {
         getCustomAsset();
@@ -187,6 +192,7 @@ export const PortfolioDetailStore = types
       );
       if (res instanceof HttpError) {
         log('error when create bank', res);
+        res.setMessage(translateCreateTransactionError(res));
         self.createResponse.makeError(res);
       } else {
         getBankingAsset();
@@ -207,6 +213,7 @@ export const PortfolioDetailStore = types
       );
       if (res instanceof HttpError) {
         log('error when create real estate', res);
+        res.setMessage(translateCreateTransactionError(res));
         self.createResponse.makeError(res);
       } else {
         getRealEstateAsset();

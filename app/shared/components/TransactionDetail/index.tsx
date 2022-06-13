@@ -53,10 +53,9 @@ const Item = ({ info }: { info: ITransactionItem }) => {
         </TextContainer>
         {translateTransactionType(info.singleAssetTransactionType)}
       </TextContainer>
-
       <TextContainer mb={10}>
         <TextContainer semiBold>{APP_CONTENT.fee}: </TextContainer>
-        {info.fee} (%)
+        {formatCurrency(info.fee, info.currencyCode)}
       </TextContainer>
       <TextContainer mb={10}>
         <TextContainer semiBold>{APP_CONTENT.tax}: </TextContainer>

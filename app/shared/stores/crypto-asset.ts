@@ -16,7 +16,7 @@ import {
   CreateTransactionBody,
   RegisterAssetNotificationBody,
 } from './types';
-import { translateInvestFundError } from 'utils/translation';
+import { translateCreateTransactionError } from 'utils/translation';
 import { EXCEL_COLUMNS } from 'shared/constants';
 
 export const CryptoAssetStore = types
@@ -88,7 +88,7 @@ export const CryptoAssetStore = types
       );
       if (res instanceof HttpError) {
         log('Error when transfer crypto asset', res);
-        res.setMessage(translateInvestFundError(res));
+        res.setMessage(translateCreateTransactionError(res));
         self.transactionResponse.makeError(res);
       } else {
         self.transactionResponse.makeSuccess();

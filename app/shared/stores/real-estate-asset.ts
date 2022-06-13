@@ -11,9 +11,9 @@ import { httpRequest } from 'services/http';
 import { UserStore } from 'shared/stores';
 import { log } from 'services/log';
 import { TransferToInvestFundBody, CreateTransactionBody } from './types';
-import { translateInvestFundError } from 'utils/translation';
 import { EXCEL_COLUMNS } from 'shared/constants';
 import { parseToString } from 'utils/date';
+import { translateCreateTransactionError } from 'utils/translation';
 
 export const RealEstateAssetStore = types
   .model({
@@ -83,7 +83,7 @@ export const RealEstateAssetStore = types
         UserStore.user.token
       );
       if (res instanceof HttpError) {
-        res.setMessage(translateInvestFundError(res));
+        res.setMessage(translateCreateTransactionError(res));
         self.transactionResponse.makeError(res);
         log('Error when transfer real estate asset', res);
       } else {
@@ -141,7 +141,7 @@ export const RealEstateAssetStore = types
       inputDay: '',
       inputMoneyAmount: 0,
       inputCurrency: 'USD',
-      lastChanged: '',
+
       description: '',
       currentPrice: 0,
       portfolioId: 0,

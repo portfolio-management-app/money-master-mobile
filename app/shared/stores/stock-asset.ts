@@ -15,9 +15,9 @@ import {
   CreateTransactionBody,
   RegisterAssetNotificationBody,
 } from './types';
-import { translateInvestFundError } from 'utils/translation';
 import { EXCEL_COLUMNS } from 'shared/constants';
 import { parseToString } from 'utils/date';
+import { translateCreateTransactionError } from 'utils/translation';
 
 export const StockAssetStore = types
   .model({
@@ -88,7 +88,7 @@ export const StockAssetStore = types
       );
       if (res instanceof HttpError) {
         log('Error when transfer stock asset', res);
-        res.setMessage(translateInvestFundError(res));
+        res.setMessage(translateCreateTransactionError(res));
         self.transactionResponse.makeError(res);
       } else {
         self.transactionResponse.makeSuccess();

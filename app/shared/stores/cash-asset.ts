@@ -1,4 +1,4 @@
-import { translateInvestFundError } from 'utils/translation';
+import { translateCreateTransactionError } from 'utils/translation';
 import {
   CashAsset,
   ICashAsset,
@@ -87,7 +87,7 @@ export const CashAssetStore = types
       );
       if (res instanceof HttpError) {
         log('Error when transfer cash asset', res);
-        res.setMessage(translateInvestFundError(res));
+        res.setMessage(translateCreateTransactionError(res));
 
         self.transactionResponse.makeError(res);
       } else {

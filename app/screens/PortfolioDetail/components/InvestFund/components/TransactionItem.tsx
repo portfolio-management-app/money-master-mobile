@@ -1,6 +1,6 @@
 import React from 'react';
 import { View } from 'react-native-ui-lib';
-import { InTransaction } from 'shared/components';
+import { InTransaction, OutTransaction } from 'shared/components';
 import { TRANSACTION_DETAIL_CONTENT } from 'shared/constants';
 import { ITransactionItem } from 'shared/models';
 import { styleProvider } from 'shared/styles';
@@ -23,6 +23,15 @@ export const TransactionItem = ({ info }: IProps) => {
         </View>
       );
     default:
-      return <></>;
+      return (
+        <View style={styleProvider.transactionItem}>
+          <OutTransaction
+            info={info}
+            outContent={`${TRANSACTION_DETAIL_CONTENT.out}`}
+            haveTaxAndFee={false}
+            toFromContent={`${TRANSACTION_DETAIL_CONTENT.to} ${info.destinationAssetName}`}
+          />
+        </View>
+      );
   }
 };

@@ -11,9 +11,9 @@ import { httpRequest } from 'services/http';
 import { UserStore } from 'shared/stores';
 import { log } from 'services/log';
 import { CreateTransactionBody, TransferToInvestFundBody } from './types';
-import { translateInvestFundError } from 'utils/translation';
 import { EXCEL_COLUMNS } from 'shared/constants';
 import { parseToString } from 'utils/date';
+import { translateCreateTransactionError } from 'utils/translation';
 
 export const CustomAssetStore = types
   .model({
@@ -87,7 +87,7 @@ export const CustomAssetStore = types
       if (res instanceof HttpError) {
         log('Error when transfer custom asset', res);
         self.transactionResponse.stopPending();
-        res.setMessage(translateInvestFundError(res));
+        res.setMessage(translateCreateTransactionError(res));
         self.transactionResponse.makeError(res);
       } else {
         self.transactionResponse.makeSuccess();

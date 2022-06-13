@@ -17,6 +17,7 @@ import {
 } from './types';
 import { EXCEL_COLUMNS } from 'shared/constants';
 import { parseToString } from 'utils/date';
+import { translateCreateTransactionError } from 'utils/translation';
 
 export const BankAssetStore = types
   .model({
@@ -89,6 +90,7 @@ export const BankAssetStore = types
       );
       if (res instanceof HttpError) {
         self.transactionResponse.stopPending();
+        res.setMessage(translateCreateTransactionError(res));
         self.transactionResponse.makeError(res);
         log('Error when transfer bank asset', res);
       } else {

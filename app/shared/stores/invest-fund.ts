@@ -1,4 +1,3 @@
-import { translateInvestFundError } from 'utils/translation';
 import { Config } from 'config';
 import { HttpError } from 'errors/base';
 import { flow, types } from 'mobx-state-tree';
@@ -78,7 +77,7 @@ export const InvestFundStore = types
     };
 
     const makeError = (error: HttpError) => {
-      self.errorMessage = translateInvestFundError(error);
+      self.errorMessage = error.getMessage();
       self.isError = true;
     };
     const clearError = () => {

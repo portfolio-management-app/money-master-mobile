@@ -53,7 +53,10 @@ export const StockTransfer = observer(() => {
     <PlatformView style={styleProvider.body}>
       <NavigationHeader title={CONTENT.header} />
       <StockInformationCard asset={information} />
-      <TransferForm onTransfer={handleChangeAmount} />
+      <TransferForm
+        inputPlaceHolder={`${CONTENT.amount} (${information.currencyCode})`}
+        onTransfer={handleChangeAmount}
+      />
       <CustomToast
         show={transactionResponse.isSuccess}
         message={CONTENT.success}

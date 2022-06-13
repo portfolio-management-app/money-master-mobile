@@ -478,8 +478,8 @@ export const en = {
     assetInformation: 'Asset information',
   },
   createTransaction: {
-    fee: 'Fee(%)',
-    tax: 'Tax(%)',
+    fee: 'Fee',
+    tax: 'Tax (%)',
     sell: 'Sell',
     amount: 'Money amount to sell',
   },
@@ -541,6 +541,16 @@ export const en = {
     inputPlaceHolderForStock: 'Number of stock to add',
     drawConfirm: {
       title: 'Add amount this asset?',
+    },
+  },
+  createTransactionError: {
+    errors: {
+      investFund: 'Invest fund does not have enough money',
+      cash: 'Cash source does not have enough money',
+      serverError: 'Something wrong happened, please try again later',
+      assetDraw: 'Asset  does not have enough money to draw',
+      assetSell: 'Asset  does not have enough money to draw',
+      source: 'Money source not enough',
     },
   },
 };

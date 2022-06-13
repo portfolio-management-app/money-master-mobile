@@ -535,4 +535,14 @@ export const vn = {
       title: 'Mua thêm vào tài sản này?',
     },
   },
+  createTransactionError: {
+    errors: {
+      investFund: 'Quỹ đầu tư không đủ tiền',
+      cash: 'Nguồn tiền mặt không đủ',
+      serverError: 'Lỗi, vui lòng thử lại sau',
+      assetDraw: 'Tài sản không đủ rút',
+      assetSell: 'Tài sản không đủ để bán',
+      source: 'Nguồn tiền không đủ',
+    },
+  },
 };

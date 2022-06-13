@@ -3,10 +3,10 @@ import {
   translateTransactionType,
   translateAssetType,
 } from './transaction-detail';
-import { translateInvestFundError } from './invest-fund-response';
+import { translateCreateTransactionError } from './create-transaction-response';
 import { translateNotificationMessage } from './translate-notification';
 export {
-  translateInvestFundError,
+  translateCreateTransactionError,
   translateTransactionType,
   translateAssetType,
   translateBuyAssetError,

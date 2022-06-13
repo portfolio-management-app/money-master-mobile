@@ -53,7 +53,10 @@ export const CryptoTransfer = observer(() => {
     <PlatformView style={styleProvider.body}>
       <NavigationHeader title={CONTENT.header} />
       <CryptoInformationCard asset={information} />
-      <TransferForm onTransfer={handleChangeAmount} />
+      <TransferForm
+        inputPlaceHolder={`${CONTENT.amount} (${information.currencyCode})`}
+        onTransfer={handleChangeAmount}
+      />
       <CustomToast
         show={transactionResponse.isSuccess}
         message={CONTENT.success}
