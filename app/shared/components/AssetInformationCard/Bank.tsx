@@ -15,10 +15,10 @@ interface IProps {
 export const BankInformationCard = observer(({ asset }: IProps) => {
   return (
     <View style={styleProvider.centerVertical}>
-      <TextContainer mb={10} color={colorScheme.theme} bold type="h1">
-        {formatCurrency(asset.inputMoneyAmount, asset.inputCurrency)}
-      </TextContainer>
       <View>
+        <TextContainer mb={10} color={colorScheme.theme} bold type="h1">
+          {formatCurrency(asset.inputMoneyAmount, asset.inputCurrency)}
+        </TextContainer>
         <TextContainer mb={10} type="small">
           {ASSET_DETAIL_CONTENT.bankName}: {asset.name}
         </TextContainer>

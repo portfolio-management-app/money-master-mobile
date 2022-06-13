@@ -28,7 +28,12 @@ export const styleProvider = StyleSheet.create({
   container: {
     paddingHorizontal: 20,
   },
-
+  transactionItem: {
+    paddingHorizontal: 20,
+    paddingVertical: 10,
+    borderBottomWidth: 0.5,
+    borderBottomColor: colorScheme.gray400,
+  },
   createModalHeader: {
     flexDirection: 'row',
   },

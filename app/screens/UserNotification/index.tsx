@@ -4,12 +4,7 @@ import { NavigationHeader } from 'navigation/header';
 import { MainStackNavigationProp } from 'navigation/types';
 import React from 'react';
 import { FlatList, View } from 'react-native';
-import {
-  Empty,
-  PlatformView,
-  Skeleton,
-  SkeletonLoadable,
-} from 'shared/components';
+import { Empty, PlatformView, SkeletonLoadable } from 'shared/components';
 import { APP_CONTENT } from 'shared/constants';
 import { IUserNotification } from 'shared/models';
 import {
@@ -74,7 +69,7 @@ export const UserNotification = observer(() => {
         isDataEmpty={notificationList.length === 0}
         emptyComponent={
           <View style={styleProvider.flexCenter}>
-            <Empty />
+            <Empty message={APP_CONTENT.userNotification.noNotification} />
           </View>
         }
       />

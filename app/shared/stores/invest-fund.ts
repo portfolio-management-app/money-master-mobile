@@ -6,7 +6,7 @@ import { httpRequest } from 'services/http';
 import { log } from 'services/log';
 import { TransferToInvestFundBody } from './types';
 import { UserStore } from './user';
-import { InvestFundInformation, InvestFundTransactionItem } from './../models';
+import { InvestFundInformation, TransactionItem } from './../models';
 
 export const InvestFundStore = types
   .model('InvestFundStore', {
@@ -16,7 +16,7 @@ export const InvestFundStore = types
     isSuccess: types.boolean,
     portfolioId: types.number,
     information: InvestFundInformation,
-    transactionList: types.array(InvestFundTransactionItem),
+    transactionList: types.array(TransactionItem),
   })
   .actions((self) => {
     const transferToFund = flow(function* (

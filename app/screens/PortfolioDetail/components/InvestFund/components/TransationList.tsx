@@ -28,7 +28,7 @@ export const TransactionList = observer(() => {
           }
           data={transactionList}
           keyExtractor={(item) => item.id.toString()}
-          renderItem={(data) => <TransactionItem item={data.item} />}
+          renderItem={(data) => <TransactionItem info={data.item} />}
         />
       }
     />

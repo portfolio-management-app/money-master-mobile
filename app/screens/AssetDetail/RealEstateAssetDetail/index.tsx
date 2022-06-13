@@ -32,9 +32,9 @@ export const RealEstateAssetDetail = observer(() => {
   const [showConfirmTransfer, setShowConfirmTransfer] = React.useState(false);
   const { deleteResponse, deleteRealEstateAsset } = PortfolioDetailStore;
   const {
-    transferToFund,
+    createTransaction,
     transactionResponse,
-    information: assetInformation,
+    information,
     assignInfo,
     getTransactionList,
     getInformation,
@@ -62,14 +62,21 @@ export const RealEstateAssetDetail = observer(() => {
   };
 
   const handleTransferToFund = () => {
-    transferToFund({
-      referentialAssetId: routeProps.params.info.id,
-      referentialAssetType: 'realEstate',
-      isTransferringAll: true,
-      amount: 0,
-      currencyCode: routeProps.params.info.inputCurrency,
-    });
     setShowConfirmTransfer(!showConfirmTransfer);
+    createTransaction({
+      destinationAssetId: null,
+      destinationAssetType: 'fund',
+      referentialAssetId: information.id,
+      referentialAssetType: 'crypto',
+      isTransferringAll: false,
+      amountInDestinationAssetUnit: 0,
+      amount: information.inputMoneyAmount,
+      currencyCode: information.inputCurrency,
+      transactionType: 'moveToFund',
+      fee: 0,
+      tax: 0,
+      isUsingFundAsSource: false,
+    });
   };
 
   const handleConfirmDelete = async () => {
@@ -115,7 +122,7 @@ export const RealEstateAssetDetail = observer(() => {
   const handleAddValue = () => {
     navigation.navigate('ChooseBuySource', {
       type: 'realEstate',
-      asset: assetInformation,
+      asset: information,
       fromScreen: 'ASSET_DETAIL',
     });
   };
@@ -124,18 +131,13 @@ export const RealEstateAssetDetail = observer(() => {
     <PlatformView style={styleProvider.body}>
       <StatusBar backgroundColor={colorScheme.bg} barStyle="dark-content" />
       <NavigationHeader
-        title={assetInformation.name}
-        renderRightItem={
-          <PopoverMenuSetting
-            haveNotificationSetting
-            onPress={handleMenuItemPress}
-          />
-        }
+        title={information.name}
+        renderRightItem={<PopoverMenuSetting onPress={handleMenuItemPress} />}
       />
       <TabBarView />
       <EditModal
         onEdit={handleEditInformation}
-        item={assetInformation}
+        item={information}
         open={showModal}
         onClose={() => setShowModal(!showModal)}
       />

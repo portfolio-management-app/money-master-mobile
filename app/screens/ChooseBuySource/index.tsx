@@ -166,7 +166,7 @@ export const ChooseBuySource = observer(() => {
           size={ICON_SIZE}
           color={colorScheme.black200}
         />
-        <TextContainer ml={ML}>{CONTENT.cash}</TextContainer>
+        <TextContainer ml={ML + 5}>{CONTENT.cash}</TextContainer>
       </TouchableOpacity>
       <TouchableOpacity
         onPress={handleBuyFromOutSide}

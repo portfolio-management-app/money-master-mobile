@@ -37,10 +37,10 @@ export const BankAssetDetail = observer(() => {
     getTransactionList,
     transactionList,
     transactionResponse,
-    transferToFund,
     getInformation,
     editAsset,
-    information: assetInformation,
+    createTransaction,
+    information,
   } = BankAssetStore;
 
   React.useEffect(() => {
@@ -64,14 +64,21 @@ export const BankAssetDetail = observer(() => {
     editAsset(newData);
   };
   const handleTransferToFund = () => {
-    transferToFund({
-      referentialAssetId: routeProps.params.info.id,
+    setShowConfirmTransfer(!showConfirmTransfer);
+    createTransaction({
+      destinationAssetId: null,
+      destinationAssetType: 'fund',
+      referentialAssetId: information.id,
       referentialAssetType: 'bankSaving',
       isTransferringAll: true,
-      amount: 0,
-      currencyCode: routeProps.params.info.inputCurrency,
+      amountInDestinationAssetUnit: 0,
+      amount: information.inputMoneyAmount,
+      currencyCode: information.inputCurrency,
+      transactionType: 'moveToFund',
+      fee: 0,
+      tax: 0,
+      isUsingFundAsSource: false,
     });
-    setShowConfirmTransfer(!showConfirmTransfer);
   };
 
   const handleConfirmDelete = async () => {
@@ -115,7 +122,7 @@ export const BankAssetDetail = observer(() => {
   const handleAddValue = () => {
     navigation.navigate('ChooseBuySource', {
       type: 'bankSaving',
-      asset: assetInformation,
+      asset: information,
       fromScreen: 'ASSET_DETAIL',
     });
   };
@@ -124,18 +131,13 @@ export const BankAssetDetail = observer(() => {
     <PlatformView style={styleProvider.body}>
       <StatusBar backgroundColor={colorScheme.bg} barStyle="dark-content" />
       <NavigationHeader
-        title={assetInformation.name}
-        renderRightItem={
-          <PopoverMenuSetting
-            haveNotificationSetting
-            onPress={handleMenuItemPress}
-          />
-        }
+        title={information.name}
+        renderRightItem={<PopoverMenuSetting onPress={handleMenuItemPress} />}
       />
       <TabBarView />
       <EditModal
         onEdit={handleEditInformation}
-        item={assetInformation}
+        item={information}
         open={showModal}
         onClose={() => setShowModal(!showModal)}
       />

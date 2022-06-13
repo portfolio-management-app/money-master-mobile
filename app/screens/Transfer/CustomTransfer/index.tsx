@@ -1,7 +1,5 @@
-import { useRoute } from '@react-navigation/native';
 import { observer } from 'mobx-react-lite';
 import { NavigationHeader } from 'navigation/header';
-import { RootStackScreenProps } from 'navigation/types';
 import React from 'react';
 import {
   ConfirmSheet,
@@ -13,28 +11,40 @@ import {
 } from 'shared/components';
 import { APP_CONTENT } from 'shared/constants';
 import { useConfirmSheet } from 'shared/hooks';
-import { CryptoAssetStore } from 'shared/stores';
+import { CustomAssetStore } from 'shared/stores';
 import { styleProvider } from 'shared/styles';
 
 const CONTENT = APP_CONTENT.transferToFund;
 
 export const CustomTransfer = observer(() => {
   const [amount, setAmount] = React.useState(0);
-  const routeProps =
-    useRoute<RootStackScreenProps<'CustomTransfer'>['route']>();
-  const { info } = routeProps.params;
   const { show, toggle } = useConfirmSheet();
-  const { transferToFund, transactionResponse } = CryptoAssetStore;
+  const { createTransaction, transactionResponse, information } =
+    CustomAssetStore;
 
   const handleTransfer = React.useCallback(() => {
-    transferToFund({
-      referentialAssetId: info.id,
-      amount: amount,
+    toggle();
+    createTransaction({
+      destinationAssetId: null,
+      destinationAssetType: 'fund',
+      referentialAssetId: information.id,
       referentialAssetType: 'crypto',
       isTransferringAll: false,
-      currencyCode: info.inputCurrency,
+      amountInDestinationAssetUnit: 0,
+      amount: amount,
+      currencyCode: information.inputCurrency,
+      transactionType: 'moveToFund',
+      fee: 0,
+      tax: 0,
+      isUsingFundAsSource: false,
     });
-  }, [amount, info.inputCurrency, info.id, transferToFund]);
+  }, [
+    toggle,
+    createTransaction,
+    information.id,
+    information.inputCurrency,
+    amount,
+  ]);
   const handleChangeAmount = (amount: number) => {
     setAmount(amount);
     toggle();
@@ -42,7 +52,7 @@ export const CustomTransfer = observer(() => {
   return (
     <PlatformView style={styleProvider.body}>
       <NavigationHeader title={CONTENT.header} />
-      <CustomAssetInformationCard asset={routeProps.params.info} />
+      <CustomAssetInformationCard asset={information} />
       <TransferForm onTransfer={handleChangeAmount} />
       <CustomToast
         show={transactionResponse.isSuccess}

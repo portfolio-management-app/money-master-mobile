@@ -1,7 +1,5 @@
-import { useRoute } from '@react-navigation/native';
 import { observer } from 'mobx-react-lite';
 import { NavigationHeader } from 'navigation/header';
-import { RootStackScreenProps } from 'navigation/types';
 import React from 'react';
 import {
   ConfirmSheet,
@@ -20,21 +18,33 @@ const CONTENT = APP_CONTENT.transferToFund;
 
 export const CryptoTransfer = observer(() => {
   const [amount, setAmount] = React.useState(0);
-  const routeProps =
-    useRoute<RootStackScreenProps<'CryptoTransfer'>['route']>();
-  const { info } = routeProps.params;
   const { show, toggle } = useConfirmSheet();
-  const { transferToFund, transactionResponse } = CryptoAssetStore;
+  const { createTransaction, transactionResponse, information } =
+    CryptoAssetStore;
 
   const handleTransfer = React.useCallback(() => {
-    transferToFund({
-      referentialAssetId: info.id,
-      amount: amount,
+    toggle();
+    createTransaction({
+      destinationAssetId: null,
+      destinationAssetType: 'fund',
+      referentialAssetId: information.id,
       referentialAssetType: 'crypto',
       isTransferringAll: false,
-      currencyCode: info.currencyCode,
+      amountInDestinationAssetUnit: 0,
+      amount: amount,
+      currencyCode: information.currencyCode,
+      transactionType: 'moveToFund',
+      fee: 0,
+      tax: 0,
+      isUsingFundAsSource: false,
     });
-  }, [amount, info.currencyCode, info.id, transferToFund]);
+  }, [
+    toggle,
+    createTransaction,
+    information.id,
+    information.currencyCode,
+    amount,
+  ]);
   const handleChangeAmount = (amount: number) => {
     setAmount(amount);
     toggle();
@@ -42,7 +52,7 @@ export const CryptoTransfer = observer(() => {
   return (
     <PlatformView style={styleProvider.body}>
       <NavigationHeader title={CONTENT.header} />
-      <CryptoInformationCard asset={routeProps.params.info} />
+      <CryptoInformationCard asset={information} />
       <TransferForm onTransfer={handleChangeAmount} />
       <CustomToast
         show={transactionResponse.isSuccess}

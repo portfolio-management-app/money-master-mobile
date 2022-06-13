@@ -42,7 +42,7 @@ export type ICustomAsset = SnapshotOut<typeof CustomAsset>;
 
 export type IPieChartItem = SnapshotOut<typeof PieChartItem>;
 
-export type ITransactionItem = SnapshotOut<typeof TransactionItem>;
+export type ITransactionItem = SnapshotIn<typeof TransactionItem>;
 
 export type IInvestFundInformation = SnapshotOut<typeof InvestFundInformation>;
 

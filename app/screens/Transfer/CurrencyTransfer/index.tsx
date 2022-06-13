@@ -1,7 +1,5 @@
-import { useRoute } from '@react-navigation/native';
 import { observer } from 'mobx-react-lite';
 import { NavigationHeader } from 'navigation/header';
-import { RootStackScreenProps } from 'navigation/types';
 import React from 'react';
 import {
   CashInformationCard,
@@ -13,28 +11,40 @@ import {
 } from 'shared/components';
 import { APP_CONTENT } from 'shared/constants';
 import { useConfirmSheet } from 'shared/hooks';
-import { CryptoAssetStore } from 'shared/stores';
+import { CashAssetStore } from 'shared/stores';
 import { styleProvider } from 'shared/styles';
 
 const CONTENT = APP_CONTENT.transferToFund;
 
 export const CurrencyTransfer = observer(() => {
   const [amount, setAmount] = React.useState(0);
-  const routeProps =
-    useRoute<RootStackScreenProps<'CurrencyTransfer'>['route']>();
-  const { info } = routeProps.params;
   const { show, toggle } = useConfirmSheet();
-  const { transferToFund, transactionResponse } = CryptoAssetStore;
+  const { createTransaction, transactionResponse, information } =
+    CashAssetStore;
 
   const handleTransfer = React.useCallback(() => {
-    transferToFund({
-      referentialAssetId: info.id,
-      amount: amount,
-      referentialAssetType: 'cash',
+    toggle();
+    createTransaction({
+      destinationAssetId: null,
+      destinationAssetType: 'fund',
+      referentialAssetId: information.id,
+      referentialAssetType: 'stock',
       isTransferringAll: false,
-      currencyCode: info.currencyCode,
+      amountInDestinationAssetUnit: 0,
+      amount: amount,
+      currencyCode: information.currencyCode,
+      transactionType: 'moveToFund',
+      fee: 0,
+      tax: 0,
+      isUsingFundAsSource: false,
     });
-  }, [amount, info.currencyCode, info.id, transferToFund]);
+  }, [
+    toggle,
+    createTransaction,
+    information.id,
+    information.currencyCode,
+    amount,
+  ]);
   const handleChangeAmount = (amount: number) => {
     setAmount(amount);
     toggle();
@@ -42,7 +52,7 @@ export const CurrencyTransfer = observer(() => {
   return (
     <PlatformView style={styleProvider.body}>
       <NavigationHeader title={CONTENT.header} />
-      <CashInformationCard asset={routeProps.params.info} />
+      <CashInformationCard asset={information} />
       <TransferForm onTransfer={handleChangeAmount} />
       <CustomToast
         show={transactionResponse.isSuccess}

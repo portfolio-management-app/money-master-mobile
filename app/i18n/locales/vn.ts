@@ -396,7 +396,7 @@ export const vn = {
     from: 'Từ',
     moveToFund: 'Chuyển tới quỹ đầu tư',
     crypto: 'Tiền ảo',
-    fund: 'Vốn đầu tư',
+    fund: 'Quỹ đầu tư',
     stock: 'Cổ phiếu',
     bank: 'Ngân hàng',
     realEstate: 'Bất động sản',
@@ -515,6 +515,7 @@ export const vn = {
     title: 'Thông báo',
     reach: 'đạt đến giá trị',
     see: 'Xem tài sản',
+    noNotification: 'Không có thông báo nào',
   },
   drawScreen: {
     header: 'Rút',

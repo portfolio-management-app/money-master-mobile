@@ -523,6 +523,7 @@ export const en = {
     title: 'Notifications',
     reach: 'reach value',
     see: 'See asset',
+    noNotification: 'There are no notification',
   },
   drawScreen: {
     header: 'Draw',

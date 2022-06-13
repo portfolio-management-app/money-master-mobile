@@ -106,12 +106,7 @@ export const CurrencyAssetDetail = observer(() => {
       <StatusBar backgroundColor={colorScheme.bg} barStyle="dark-content" />
       <NavigationHeader
         title={information.name}
-        renderRightItem={
-          <PopoverMenuSetting
-            haveNotificationSetting
-            onPress={handleMenuItemPress}
-          />
-        }
+        renderRightItem={<PopoverMenuSetting onPress={handleMenuItemPress} />}
       />
       <TabBarView />
       <EditModal
