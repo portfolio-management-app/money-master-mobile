@@ -3,6 +3,7 @@ import { StyleSheet, TouchableOpacity, View } from 'react-native';
 import {
   BaseButton,
   CustomTextField,
+  CustomToast,
   Loading,
   PlatformView,
   TextContainer,
@@ -16,10 +17,11 @@ import { useSocialLogin } from '../hooks';
 import { Formik } from 'formik';
 import { log } from 'services/log';
 import { AuthenticationSchema } from '../validator';
-import { UserStore } from 'shared/stores';
+import { AccountStore, UserStore } from 'shared/stores';
 import { imageSource } from 'assets/images';
 import { APP_CONTENT } from 'shared/constants';
 import { MainStackNavigationProp } from 'navigation/types';
+import { Observer } from 'mobx-react-lite';
 
 const LOGIN_CONTENT = APP_CONTENT.loginPage;
 
@@ -154,6 +156,18 @@ export const Login = () => {
           </View>
         </View>
       </View>
+      <Observer>
+        {() => {
+          const { response } = AccountStore;
+          return (
+            <CustomToast
+              show={response.isSuccess}
+              message={APP_CONTENT.resetPassword.resetSuccess}
+              onDismiss={response.deleteSuccess}
+            />
+          );
+        }}
+      </Observer>
     </PlatformView>
   );
 };

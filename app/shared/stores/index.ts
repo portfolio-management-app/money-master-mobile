@@ -1,3 +1,4 @@
+import { AccountStore } from './account';
 import { UserNotificationStore } from './user-notficaiton';
 import { NotificationSettingStore } from './notificaiton-setting';
 import { SourceBuyStore } from './source-buy';
@@ -18,6 +19,7 @@ import { ScrollStore } from './scroll-store';
 import { UserStore } from './user';
 export {
   UserStore,
+  AccountStore,
   ScrollStore,
   SearchModalMarket,
   CoinDetailStore,

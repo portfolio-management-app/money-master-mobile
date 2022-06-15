@@ -141,3 +141,23 @@ export type EditNotificationBody = {
   isHighOn: boolean;
   isLowOn: boolean;
 };
+
+export type RequestForgetPasswordBody = {
+  email: string;
+  lang: string;
+};
+
+export type OTPVerifyBody = {
+  email: string;
+  otpCode: string;
+};
+
+export type ResetPasswordBody = {
+  email: string;
+  newPassword: string;
+};
+
+export type UpdatePasswordBody = {
+  newPassword: string;
+  oldPassword: string;
+};

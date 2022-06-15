@@ -3,6 +3,7 @@ import {
   Feedback,
   Language,
   Notification,
+  Security,
   ShareApp,
   SignOut,
 } from './components';
@@ -13,6 +14,7 @@ export const SettingList = () => {
       <Feedback />
       <Language />
       <Notification />
+      <Security />
       <ShareApp />
       <SignOut />
     </>

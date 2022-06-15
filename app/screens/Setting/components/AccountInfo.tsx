@@ -15,10 +15,6 @@ export const AccountInfo = observer(() => {
         <TextContainer bold>Email: </TextContainer>
         {user.email}
       </TextContainer>
-      <TextContainer>
-        <TextContainer bold>Join date: </TextContainer>
-        {parseToString(new Date())}
-      </TextContainer>
     </View>
   );
 });

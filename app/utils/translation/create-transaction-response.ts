@@ -6,7 +6,7 @@ const ERROR_MESSAGE = APP_CONTENT.createTransactionError.errors;
 export const translateCreateTransactionError = (error: HttpError) => {
   switch (error.code) {
     case 400: {
-      switch (error.getMessage()) {
+      switch (error.httpMessage) {
         case 'The specified cash does not have sufficient amount':
           return ERROR_MESSAGE.cash;
         case 'Insufficient money amount in fund':

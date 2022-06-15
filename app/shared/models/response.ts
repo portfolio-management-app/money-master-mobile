@@ -17,7 +17,7 @@ export const Response = types
     };
     const makeError = (res: HttpError) => {
       self.isError = true;
-      self.errorMessage = res.getMessage();
+      self.errorMessage = res.httpMessage;
     };
     const deleteError = () => {
       self.isError = false;

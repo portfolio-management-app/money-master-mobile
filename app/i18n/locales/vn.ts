@@ -42,7 +42,7 @@ export const vn = {
 
   forgetPasswordPage: {
     header: 'Đặt lại mật khẩu',
-    send: 'GỬI',
+    send: 'Tiếp tục',
   },
   bottomTab: {
     dashboard: 'Trang chủ',
@@ -54,8 +54,10 @@ export const vn = {
     mustBeANumber: 'Giá trị phải là số lớn hơn 0',
     requiredFiled: 'Trường này không được trống',
     email: 'Email không hợp lệ',
-    password: 'Mật khẩu từ 8-32 kí tự và chứa cả chữ cái và số',
+    password:
+      'Mật khẩu từ 8-32 kí tự và chứa cả số, chữ cái viết hoa và viết thường',
     lessThan100: 'Lãi suất phải lớn hơn 0 và bé hơn 100',
+    retypePassword: 'Mật khẩu không trùng',
   },
   searchBar: {
     placeholder: 'Tìm kiếm',
@@ -97,7 +99,19 @@ export const vn = {
       inApp: 'Thông báo trong ứng dụng',
       header: 'Cài đặt thông báo',
     },
+    updatePassword: 'Cập nhật mật khẩu',
     shareContent: 'Money master, ứng dụng đầu tư số một, tải ngay tại: ',
+  },
+  updatePasswordScreen: {
+    update: 'Cập nhật',
+    header: 'Cập nhật mật khẩu',
+    oldPassword: 'Mật khẩu cũ',
+    newPassword: 'Mật khẩu mới',
+    success: 'Cập nhật mật khẩu thành công',
+    error: {
+      oldPassNotMatch: 'Mật khẩu cũ không chính xác',
+      serverError: 'Lỗi hệ thống vui lòng thử lại sau',
+    },
   },
   portfolioDetail: {
     tabs: {
@@ -307,8 +321,8 @@ export const vn = {
     purchasePrice: 'Giá mua',
     createSuccess: 'Giao dịch thành công',
     error: {
-      notEnoughMoney: "Source money don't have enough money",
-      serverError: 'Something wrong happened try again later',
+      notEnoughMoney: 'Nguồn tiền không đủ',
+      serverError: 'Lỗi hệ thống vui lòng thử lại sau',
     },
   },
   metalDetailScreen: {
@@ -353,7 +367,7 @@ export const vn = {
     currentHolding: 'Sở hữu',
     error: {
       notEnoughMoney: 'Số tiền còn lại của tài sản không đủ',
-      serverError: 'Lỗi, vui lòng thử lại sau',
+      serverError: 'Lỗi hệ thống vui lòng thử lại sau',
     },
     success: 'Chuyển thành công',
     confirm: 'Chuyển tài sản này?',
@@ -539,10 +553,31 @@ export const vn = {
     errors: {
       investFund: 'Quỹ đầu tư không đủ tiền',
       cash: 'Nguồn tiền mặt không đủ',
-      serverError: 'Lỗi, vui lòng thử lại sau',
+      serverError: 'Lỗi hệ thống, vui lòng thử lại sau',
       assetDraw: 'Tài sản không đủ rút',
       assetSell: 'Tài sản không đủ để bán',
       source: 'Nguồn tiền không đủ',
+    },
+  },
+  resetPassword: {
+    resend: 'Gửi lại',
+    otpHeader: 'Xác thực OTP',
+    noti: 'Một mã xác thực gồm 6 chữ số đã được gửi tới email',
+    pleaseCheck: 'Vui lòng kiểm tra email của bạn',
+    notReceiveCode: 'Không nhận được mã ?',
+    resendSuccess: 'Gửi lại thành công',
+    resetHeader: 'Đặt lại mật khẩu',
+    password: 'Mật khẩu mới',
+    retypePass: 'Nhập lại mật khẩu mới',
+    reset: 'Đặt lại',
+    yourAccountEmail: 'Email tài khoản của bạn',
+    resetSuccess: 'Đặt lại mật khẩu thành công',
+    errors: {
+      cannotSendEmail: 'Không thể gửi mail, vui lòng thử lại sau',
+      emailNotExist: 'Email không tồn tại',
+      otpTimeOver: 'Thời gian xác thực đã hết',
+      otpNotCorrect: 'Mã OTP không chính xác',
+      serverError: 'Lỗi hệ thống, vui lòng thử lại sau',
     },
   },
 };

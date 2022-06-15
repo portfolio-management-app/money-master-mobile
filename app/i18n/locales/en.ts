@@ -45,7 +45,7 @@ export const en = {
   },
   forgetPasswordPage: {
     header: 'Reset password',
-    send: 'SEND',
+    send: 'Continue',
   },
   bottomTab: {
     dashboard: 'Dashboard',
@@ -59,7 +59,9 @@ export const en = {
     mustBeInteger: 'Interest value must be an integer',
     lessThan100: 'Interest rate must be less than or equal 100',
     email: 'Email invalid',
-    password: 'Password must contain character and number, len > 8',
+    password:
+      'Password length is from 8 to 32,  must contain number, both uppercase and lowercase character',
+    retypePassword: 'Password not match',
   },
   searchBar: {
     placeholder: 'Search...',
@@ -96,6 +98,7 @@ export const en = {
     reloadApp: 'Reload app to apply change?',
     later: 'Later',
     signOutConfirm: 'Sign out this account?',
+    updatePassword: 'Update password',
     notificationSetting: {
       email: 'Email',
       inApp: 'In app',
@@ -103,6 +106,18 @@ export const en = {
     },
     shareContent:
       'Money master, number one portfolio management application. Install now at: ',
+  },
+
+  updatePasswordScreen: {
+    update: 'Update',
+    header: 'Update password',
+    oldPassword: 'Old password',
+    newPassword: 'New password',
+    success: 'Update password successfully',
+    error: {
+      oldPassNotMatch: 'Old password incorrect',
+      serverError: 'System error, try again later',
+    },
   },
 
   portfolioDetail: {
@@ -316,7 +331,7 @@ export const en = {
     createSuccess: 'Transaction success',
     error: {
       notEnoughMoney: "Source money don't have enough money",
-      serverError: 'Something wrong happened try again later',
+      serverError: 'System error, try again later',
     },
   },
   metalDetailScreen: {
@@ -369,7 +384,7 @@ export const en = {
     currentHolding: 'Current holding',
     error: {
       notEnoughMoney: 'Insufficient value left in asset',
-      serverError: 'Something wrong happened try again later',
+      serverError: 'System error, try again later',
     },
     confirm: 'Transfer this asset?',
     success: 'Transfer success',
@@ -547,10 +562,31 @@ export const en = {
     errors: {
       investFund: 'Invest fund does not have enough money',
       cash: 'Cash source does not have enough money',
-      serverError: 'Something wrong happened, please try again later',
+      serverError: 'System error, try again later',
       assetDraw: 'Asset  does not have enough money to draw',
       assetSell: 'Asset  does not have enough money to draw',
       source: 'Money source not enough',
+    },
+  },
+  resetPassword: {
+    resend: 'Resend',
+    otpHeader: 'OTP verify',
+    notReceiveCode: 'Not received code ?',
+    noti: 'There was 6 digits code have been send to this email:',
+    pleaseCheck: 'Please check your email',
+    resendSuccess: 'Resend success',
+    resetHeader: 'Reset password',
+    password: 'New password',
+    retypePass: 'Re input new password ',
+    reset: 'Reset',
+    resetSuccess: 'Reset password success',
+    yourAccountEmail: 'Your account email',
+    errors: {
+      cannotSendEmail: 'Cannot send email now, try again later',
+      emailNotExist: 'Email not exist',
+      otpTimeOver: 'OTP verify time is over',
+      otpNotCorrect: 'OTP incorrect',
+      serverError: 'System error, try again later',
     },
   },
 };

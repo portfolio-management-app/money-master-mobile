@@ -77,7 +77,7 @@ export const InvestFundStore = types
     };
 
     const makeError = (error: HttpError) => {
-      self.errorMessage = error.getMessage();
+      self.errorMessage = error.httpMessage;
       self.isError = true;
     };
     const clearError = () => {

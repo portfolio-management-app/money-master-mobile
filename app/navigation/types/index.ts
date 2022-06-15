@@ -104,6 +104,9 @@ export type RootStackParamList = {
   AddBankAsset: { source: IBankAsset };
   AddRealEstateAsset: { source: IRealEstateAsset };
   AddCashAsset: { source: ICashAsset };
+  OTPVerify: { email: string };
+  ResetPassword: { email: string };
+  UpdatePassword: undefined;
 };
 
 export type BottomStackParamStack = {

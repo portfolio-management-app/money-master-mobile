@@ -9,7 +9,7 @@ class CryptoService {
       `${Config.COIN_API_URL}/coins/${coinId}/market_chart?vs_currency=${currency}&days=${day}`
     );
     if (res instanceof HttpError) {
-      console.log(res.getMessage());
+      console.log(res.httpMessage);
       return null;
     } else {
       return res.prices;
@@ -21,7 +21,7 @@ class CryptoService {
       `${Config.COIN_API_URL}/coins/${coinId}`
     );
     if (res instanceof HttpError) {
-      console.log(res.getMessage());
+      console.log(res.httpMessage);
       return null;
     } else {
       return res;

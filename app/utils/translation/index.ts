@@ -1,3 +1,5 @@
+import { translateUpdatePasswordMessage } from './update-password';
+import { translateResetPasswordMessage } from './reset-password';
 import { translateBuyAssetError } from './buy-asset-reponse';
 import {
   translateTransactionType,
@@ -11,4 +13,6 @@ export {
   translateAssetType,
   translateBuyAssetError,
   translateNotificationMessage,
+  translateResetPasswordMessage,
+  translateUpdatePasswordMessage,
 };

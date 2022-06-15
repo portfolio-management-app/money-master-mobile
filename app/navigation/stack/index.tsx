@@ -55,6 +55,9 @@ import {
   AddRealEstateAsset,
   AddCustomAsset,
   AddStockAsset,
+  OTPVerify,
+  ResetPassword,
+  UpdatePassword,
 } from 'screens';
 import { StatusBar } from 'react-native';
 import { colorScheme } from 'shared/styles';
@@ -143,6 +146,9 @@ export const NavigationStack = () => {
           component={AssetNotificationSetting}
         />
         <Stack.Screen name="UserNotification" component={UserNotification} />
+        <Stack.Screen name="OTPVerify" component={OTPVerify} />
+        <Stack.Screen name="ResetPassword" component={ResetPassword} />
+        <Stack.Screen name="UpdatePassword" component={UpdatePassword} />
       </Stack.Navigator>
     </NavigationContainer>
   );

@@ -11,7 +11,7 @@ export class HttpError {
     }
   }
 
-  getMessage() {
+  get httpMessage() {
     return this.message;
   }
   get code() {

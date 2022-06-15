@@ -1,3 +1,6 @@
+import { UpdatePassword } from './Authentication/UpdatePassword/index';
+import { ResetPassword } from './Authentication/ResetPassword/index';
+import { OTPVerify } from './Authentication/OTPVerify/index';
 import { AddCustomAsset } from './AddScreen/AddCustom/index';
 import { AddStockAsset } from './AddScreen/AddStockAsset/index';
 import { AddRealEstateAsset } from './AddScreen/AddRealEstateAsset/index';
@@ -111,4 +114,7 @@ export {
   AddRealEstateAsset,
   AddStockAsset,
   AddCustomAsset,
+  OTPVerify,
+  ResetPassword,
+  UpdatePassword,
 };
