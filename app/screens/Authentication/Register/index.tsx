@@ -114,7 +114,10 @@ export const Register = () => {
         </View>
 
         <View style={styles.textContainer}>
-          <TextContainer color={colorScheme.theme}>OR</TextContainer>
+          <TextContainer color={colorScheme.theme}>
+            {' '}
+            {APP_CONTENT.or}
+          </TextContainer>
         </View>
         <View style={styles.buttonContainer}>
           <BaseButton

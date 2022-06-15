@@ -9,7 +9,7 @@ export const vn = {
     google: 'ĐĂNG NHẬP VỚI GOOGLE',
     facebook: 'ĐĂNG NHẬP VỚI FACEBOOK',
     header: 'Đăng nhập',
-    register: 'Đăng kí',
+    register: 'Đăng ký',
     placeHolder: {
       email: 'Email',
       password: 'Mật khẩu',
@@ -18,8 +18,8 @@ export const vn = {
     signUpLink: 'Không có tài khoản ?',
   },
   registerPage: {
-    google: 'ĐĂNG KÍ VỚI GOOGLE',
-    facebook: 'ĐĂNG KÍ VỚI FACEBOOK',
+    google: 'ĐĂNG KÝ VỚI GOOGLE',
+    facebook: 'ĐĂNG KÝ VỚI FACEBOOK',
     header: 'Đăng ký',
     login: 'Đăng nhập',
     placeHolder: {
@@ -30,7 +30,7 @@ export const vn = {
   },
   authenError: {
     email: 'Email không hợp lệ',
-    password: 'Mật khẩu phải chứa ít nhất 8 kí tự bao gồm cả số và chữ cái',
+    password: 'Mật khẩu phải chứa ít nhất 8 ký tự bao gồm cả số và chữ cái',
     register: {
       existedEmail: 'Email đã tồn tại',
     },
@@ -55,7 +55,7 @@ export const vn = {
     requiredFiled: 'Trường này không được trống',
     email: 'Email không hợp lệ',
     password:
-      'Mật khẩu từ 8-32 kí tự và chứa cả số, chữ cái viết hoa và viết thường',
+      'Mật khẩu từ 8-32 ký tự và chứa cả số, chữ cái viết hoa và viết thường',
     lessThan100: 'Lãi suất phải lớn hơn 0 và bé hơn 100',
     retypePassword: 'Mật khẩu không trùng',
   },
@@ -80,6 +80,7 @@ export const vn = {
     currency: 'Tiền tệ',
     search: 'Tìm kiếm',
   },
+  or: 'Hoặc',
   setting: {
     appInfo: 'Thông tin ứng dụng',
     accountInfo: 'Thông tin tài khoản',
@@ -563,7 +564,7 @@ export const vn = {
     resend: 'Gửi lại',
     otpHeader: 'Xác thực OTP',
     noti: 'Một mã xác thực gồm 6 chữ số đã được gửi tới email',
-    pleaseCheck: 'Vui lòng kiểm tra email của bạn',
+    pleaseCheck: 'Vui lòng kiểm tra email của bạn: ',
     notReceiveCode: 'Không nhận được mã ?',
     resendSuccess: 'Gửi lại thành công',
     resetHeader: 'Đặt lại mật khẩu',
@@ -574,7 +575,7 @@ export const vn = {
     resetSuccess: 'Đặt lại mật khẩu thành công',
     errors: {
       cannotSendEmail: 'Không thể gửi mail, vui lòng thử lại sau',
-      emailNotExist: 'Email không tồn tại',
+      emailNotExist: 'Email không tồn tại trong hệ thống',
       otpTimeOver: 'Thời gian xác thực đã hết',
       otpNotCorrect: 'Mã OTP không chính xác',
       serverError: 'Lỗi hệ thống, vui lòng thử lại sau',

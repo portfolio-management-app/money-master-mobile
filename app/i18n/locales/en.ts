@@ -17,6 +17,7 @@ export const en = {
     forgetPassword: 'Forget password ?',
     signUpLink: "Don't have account ?",
   },
+  or: 'OR',
   registerPage: {
     google: 'SIGN UP WITH GOOGLE',
     facebook: 'SIGN UP WITH FACEBOOK',
@@ -572,8 +573,8 @@ export const en = {
     resend: 'Resend',
     otpHeader: 'OTP verify',
     notReceiveCode: 'Not received code ?',
-    noti: 'There was 6 digits code have been send to this email:',
-    pleaseCheck: 'Please check your email',
+    noti: 'There was 6 digits code have been sent to this email:',
+    pleaseCheck: 'Please check your email: ',
     resendSuccess: 'Resend success',
     resetHeader: 'Reset password',
     password: 'New password',
@@ -583,7 +584,7 @@ export const en = {
     yourAccountEmail: 'Your account email',
     errors: {
       cannotSendEmail: 'Cannot send email now, try again later',
-      emailNotExist: 'Email not exist',
+      emailNotExist: 'Email not exist in system',
       otpTimeOver: 'OTP verify time is over',
       otpNotCorrect: 'OTP incorrect',
       serverError: 'System error, try again later',
