@@ -23,7 +23,9 @@ export const DatePicker = ({
   initDate,
 }: IProps) => {
   const [date, setDate] = React.useState(new Date());
-  const [dateString, setDateString] = React.useState(parseToString(new Date()));
+  const [dateString, setDateString] = React.useState(
+    parseToString(new Date(), { withTime: false })
+  );
   const [showDatePicker, setShowDatePicker] = React.useState(false);
   const mounted = React.useRef<boolean>(false);
 
@@ -49,7 +51,7 @@ export const DatePicker = ({
         onISOStringChange(currentDate.toISOString());
       }
       setDate(currentDate);
-      setDateString(parseToString(currentDate));
+      setDateString(parseToString(currentDate, { withTime: false }));
     },
     [onChange, date, onISOStringChange]
   );

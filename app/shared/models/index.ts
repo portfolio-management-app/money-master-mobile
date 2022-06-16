@@ -1,3 +1,4 @@
+import { Pagination } from './pagination';
 import { UserNotification } from './user-notification';
 import { NotificationSetting } from './notification-setting';
 import { InvestFundInformation } from './invest-fund';
@@ -63,6 +64,7 @@ export {
   CustomAsset,
   NotificationSetting,
   UserNotification,
+  Pagination,
 };
 
 export type {

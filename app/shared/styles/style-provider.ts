@@ -34,6 +34,13 @@ export const styleProvider = StyleSheet.create({
     borderBottomWidth: 0.5,
     borderBottomColor: colorScheme.gray400,
   },
+  bottomDialog: {
+    backgroundColor: colorScheme.white,
+    paddingHorizontal: 20,
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20,
+    paddingVertical: 20,
+  },
   createModalHeader: {
     flexDirection: 'row',
   },

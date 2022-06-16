@@ -1,5 +1,9 @@
 import React from 'react';
-import { TransactionDetailModal, TransactionList } from 'shared/components';
+import {
+  AssetTransactionFilter,
+  TransactionDetailModal,
+  TransactionList,
+} from 'shared/components';
 import { ITransactionItem } from 'shared/models';
 import { observer } from 'mobx-react-lite';
 import { CryptoAssetStore } from 'shared/stores';
@@ -27,6 +31,7 @@ export const Transaction = observer(() => {
         info={selectedTransaction}
         open={openModal}
       />
+      <AssetTransactionFilter />
       <TransactionList
         onRefresh={() => getTransactionList()}
         data={transactionList}

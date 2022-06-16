@@ -11,11 +11,7 @@ import OTPInputView from '@twotalltotems/react-native-otp-input';
 import { StyleSheet } from 'react-native';
 import { observer } from 'mobx-react-lite';
 import { AccountStore } from 'shared/stores';
-import {
-  useFocusEffect,
-  useNavigation,
-  useRoute,
-} from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import {
   MainStackNavigationProp,
   RootStackScreenProps,

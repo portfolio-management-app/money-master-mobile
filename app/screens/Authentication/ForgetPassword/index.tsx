@@ -1,5 +1,5 @@
 import React from 'react';
-import { Image, KeyboardAvoidingView, StyleSheet, View } from 'react-native';
+import { Image, StyleSheet, View } from 'react-native';
 import { NavigationHeader } from 'navigation/header';
 import {
   BaseButton,

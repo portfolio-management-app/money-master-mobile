@@ -5,7 +5,6 @@ import { View } from 'react-native-ui-lib';
 import { TextContainer } from 'shared/components';
 import { UserStore } from 'shared/stores';
 import { colorScheme, styleProvider } from 'shared/styles';
-import { parseToString } from 'utils/date';
 
 export const AccountInfo = observer(() => {
   const { user } = UserStore;

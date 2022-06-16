@@ -1,3 +1,4 @@
+import { AssetTransactionFilter } from './AssetTransactionFilter/index';
 import { AmountForm } from './AmountForm/index';
 import { OutTransaction } from './TransactionItem/OutTransaction';
 import { InTransaction } from './TransactionItem/InTransaction';
@@ -64,6 +65,7 @@ import { EditDeleteActionSheet } from './EditDeleteActionSheet';
 
 export {
   PlatformView,
+  AssetTransactionFilter,
   EditDeleteActionSheet,
   Skeleton,
   SellOptions,

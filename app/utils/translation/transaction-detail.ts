@@ -6,9 +6,11 @@ export const translateTransactionType = (
 ) => {
   switch (type) {
     case 'buyFromOutside':
-      return TRANSACTION_DETAIL_CONTENT.buy;
+      return TRANSACTION_DETAIL_CONTENT.buyFromOutSide;
     case 'buyFromCash':
-      return TRANSACTION_DETAIL_CONTENT.buy;
+      return TRANSACTION_DETAIL_CONTENT.buyFromCash;
+    case 'buyFromFund':
+      return TRANSACTION_DETAIL_CONTENT.buyFromFund;
     case 'addValue':
       return TRANSACTION_DETAIL_CONTENT.add;
     case 'withdrawToCash':
@@ -16,7 +18,7 @@ export const translateTransactionType = (
     case 'withdrawToOutside':
       return TRANSACTION_DETAIL_CONTENT.draw;
     case 'moveToFund':
-      return TRANSACTION_DETAIL_CONTENT.transfer;
+      return TRANSACTION_DETAIL_CONTENT.moveToFund;
     default:
       return type;
   }
