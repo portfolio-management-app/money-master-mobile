@@ -3,6 +3,7 @@ import { Formik } from 'formik';
 import { observer } from 'mobx-react-lite';
 import React from 'react';
 import { ScrollView, View } from 'react-native';
+import { Checkbox } from 'react-native-ui-lib';
 import {
   CreateModalHeader,
   CustomTextField,
@@ -19,7 +20,7 @@ import {
   SourceBuyStore,
 } from 'shared/stores';
 import { CreateCurrencyAssetBody } from 'shared/stores/types';
-import { styleProvider } from 'shared/styles';
+import { colorScheme, styleProvider } from 'shared/styles';
 import { CreateCurrencyAssetSchema } from 'shared/validator';
 import { formatCurrency } from 'utils/number';
 
@@ -28,9 +29,10 @@ const CONTENT = APP_CONTENT.buyScreen;
 export const BuyCash = observer(() => {
   const navigation = useNavigation();
   const { currencyInformation } = CurrencyDetailStore;
+  const tokens = currencyInformation.s.split('/');
+  const [currencyCode, setCurrencyCode] = React.useState(tokens[0]);
   const { createCurrencyAsset, loadingCreateCurrencyAsset, createResponse } =
     PortfolioDetailStore;
-  const tokens = currencyInformation.s.split('/');
 
   const onCreate = React.useCallback(
     (values: CreateCurrencyAssetBody) => {
@@ -47,10 +49,11 @@ export const BuyCash = observer(() => {
           values.amount = 1 * values.amount;
           values.fee = 1 * values.fee;
           values.tax = 1 * values.tax;
+          values.currencyCode = currencyCode;
           onCreate(values);
         }}
         initialValues={{
-          currencyCode: currencyInformation.s.split('/')[0],
+          currencyCode: tokens[0],
           amount: 0,
           name: '',
           inputDay: new Date().toISOString(),
@@ -70,7 +73,6 @@ export const BuyCash = observer(() => {
           touched,
           errors,
         }) => {
-          console.log(errors);
           return (
             <>
               <CreateModalHeader
@@ -105,6 +107,20 @@ export const BuyCash = observer(() => {
                     onChangeText={handleChange('amount')}
                     placeholder={CONTENT.amount}
                     errorMessage={touched.amount ? errors.amount : ''}
+                  />
+                  <TextContainer mb={5}>{CONTENT.currencyCode}</TextContainer>
+                  <Checkbox
+                    color={colorScheme.theme}
+                    containerStyle={{ marginBottom: 5 }}
+                    onValueChange={() => setCurrencyCode(tokens[0])}
+                    value={currencyCode === tokens[0]}
+                    label={tokens[0]}
+                  />
+                  <Checkbox
+                    color={colorScheme.theme}
+                    onValueChange={() => setCurrencyCode(tokens[1])}
+                    value={currencyCode === tokens[1]}
+                    label={tokens[1]}
                   />
                   <CustomTextField
                     onBlur={handleBlur('description')}

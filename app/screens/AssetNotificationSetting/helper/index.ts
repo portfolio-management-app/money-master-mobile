@@ -11,7 +11,7 @@ export function getAssetCommonInfo(
       return {
         name: temp.name,
         id: temp.id,
-        currentPrice: temp.currentPrice,
+        currentPrice: temp.currentPrice * temp.currentAmountHolding,
         coinCode: temp.cryptoCoinCode,
         currencyCode: temp.currencyCode,
         stockCode: null,
@@ -22,7 +22,7 @@ export function getAssetCommonInfo(
       return {
         name: temp.name,
         id: temp.id,
-        currentPrice: temp.currentPrice,
+        currentPrice: temp.currentPrice * temp.currentAmountHolding,
         coinCode: null,
         stockCode: temp.stockCode,
         currencyCode: temp.currencyCode,

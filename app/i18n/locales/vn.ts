@@ -325,6 +325,7 @@ export const vn = {
       notEnoughMoney: 'Nguồn tiền không đủ',
       serverError: 'Lỗi hệ thống vui lòng thử lại sau',
     },
+    currencyCode: 'Chọn đơn vị tiền tệ',
   },
   metalDetailScreen: {
     gold: 'Vàng',
@@ -519,7 +520,7 @@ export const vn = {
     notificationNew: 'Nhận thông báo tin tức liên quan đến tài sản',
     amountPlaceHolder: 'Giá trị',
     save: 'Lưu',
-    currentPrice: 'Giá hiện tại',
+    currentPrice: 'Giá trị tài sản hiện tại',
     error: {
       low: 'Không thể đặt giá trị lớn hơn hoặc bằng giá hiện tại của tài sản',
       high: 'Không thể đặt giá trị bé hơn hoặc bằng giá hiện tại của tài sản',

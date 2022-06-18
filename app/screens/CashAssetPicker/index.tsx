@@ -25,7 +25,8 @@ import {
   IStockAsset,
 } from 'shared/models';
 import { PortfolioDetailStore, SourceBuyStore } from 'shared/stores';
-import { styleProvider } from 'shared/styles';
+import { colorScheme, styleProvider } from 'shared/styles';
+import { formatCurrency } from 'utils/number';
 
 export const CashAssetPicker = observer(() => {
   const routeProps =
@@ -183,7 +184,12 @@ export const CashAssetPicker = observer(() => {
                 style={styleProvider.card}
                 key={currency.id}
               >
-                <TextContainer>{currency.name}</TextContainer>
+                <View>
+                  <TextContainer>{currency.name}</TextContainer>
+                  <TextContainer color={colorScheme.green400}>
+                    {formatCurrency(currency.amount, currency.currencyCode)}
+                  </TextContainer>
+                </View>
               </TouchableOpacity>
             ))}
           </ScrollView>

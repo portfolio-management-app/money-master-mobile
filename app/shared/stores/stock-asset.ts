@@ -42,6 +42,11 @@ export const StockAssetStore = types
       );
       return [object];
     },
+    assetValue() {
+      return (
+        self.information.currentAmountHolding * self.information.currentPrice
+      );
+    },
   }))
   .actions((self) => {
     const editAsset = flow(function* (body: any) {

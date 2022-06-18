@@ -334,6 +334,7 @@ export const en = {
       notEnoughMoney: "Source money don't have enough money",
       serverError: 'System error, try again later',
     },
+    currencyCode: 'Pick currency code',
   },
   metalDetailScreen: {
     gold: 'Gold',
@@ -528,7 +529,7 @@ export const en = {
     notificationNew: 'Receive notification of news relate to this asset',
     amountPlaceHolder: 'Amount',
     save: 'Save',
-    currentPrice: 'Current price',
+    currentPrice: 'Current asset price',
     error: {
       low: 'Cannot set the amount higher or equal than current price',
       high: 'Cannot set the amount lower or equal than current price',
