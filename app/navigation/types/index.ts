@@ -107,6 +107,12 @@ export type RootStackParamList = {
   OTPVerify: { email: string };
   ResetPassword: { email: string };
   UpdatePassword: undefined;
+  CryptoAssetProfit: undefined;
+  StockAssetProfit: undefined;
+  CashAssetProfit: undefined;
+  RealEstateAssetProfit: undefined;
+  BankAssetProfit: undefined;
+  CustomAssetProfit: undefined;
 };
 
 export type BottomStackParamStack = {

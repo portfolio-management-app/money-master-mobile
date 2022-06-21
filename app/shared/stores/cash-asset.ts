@@ -4,10 +4,12 @@ import {
   ICashAsset,
   Response,
   TransactionItem,
+  TransactionQuery,
+  Profit,
 } from 'shared/models';
 import { HttpError } from 'errors/base';
 import { Config } from 'config';
-import { types, flow } from 'mobx-state-tree';
+import { types, flow, cast } from 'mobx-state-tree';
 import { httpRequest } from 'services/http';
 import { UserStore } from 'shared/stores';
 import { log } from 'services/log';
@@ -15,9 +17,11 @@ import {
   TransferToInvestFundBody,
   CreateTransactionBody,
   RegisterAssetNotificationBody,
+  ProfitPeriod,
 } from './types';
 import { EXCEL_COLUMNS } from 'shared/constants';
 import { parseToString } from 'utils/date';
+import { buildTransactionQueryString } from 'utils/api';
 
 export const CashAssetStore = types
   .model({
@@ -26,6 +30,8 @@ export const CashAssetStore = types
     loading: types.boolean,
     transactionResponse: Response,
     editResponse: Response,
+    transactionQuery: TransactionQuery,
+    profit: types.array(Profit),
   })
   .views((self) => ({
     getExcelData() {
@@ -64,13 +70,21 @@ export const CashAssetStore = types
     const getTransactionList = flow(function* () {
       self.loading = true;
       const res = yield httpRequest.sendGet(
-        `${Config.BASE_URL}/portfolio/${self.information.portfolioId}/cash/${self.information.id}/transactions`,
+        `${Config.BASE_URL}/portfolio/${self.information.portfolioId}/cash/${
+          self.information.id
+        }/transactions${buildTransactionQueryString(
+          self.transactionQuery.startDate,
+          self.transactionQuery.endDate,
+          self.transactionQuery.pageSize,
+          self.transactionQuery.pageNumber,
+          self.transactionQuery.type
+        )}`,
         UserStore.user.token
       );
       if (res instanceof HttpError) {
         log('Error when get cash transaction list', res);
       } else {
-        self.transactionList = res;
+        self.transactionList = cast([...self.transactionList, ...res]);
       }
       self.loading = false;
     });
@@ -146,6 +160,23 @@ export const CashAssetStore = types
       }
     });
 
+    const resetTransaction = () => {
+      self.transactionList = cast([]);
+    };
+
+    const getProfitLoss = flow(function* (period: ProfitPeriod) {
+      self.loading = true;
+      const res = yield httpRequest.sendGet(
+        `${Config.BASE_URL}/portfolio/${self.information.portfolioId}/cash/${self.information.id}/profitLoss?period=${period}`,
+        UserStore.user.token
+      );
+      if (res instanceof HttpError) {
+        log('Error when get profit in crypto', res);
+      } else {
+        self.profit = res;
+      }
+      self.loading = false;
+    });
     return {
       editAsset,
       assignInfo,
@@ -154,6 +185,8 @@ export const CashAssetStore = types
       transferToFund,
       getInformation,
       registerPriceNotification,
+      resetTransaction,
+      getProfitLoss,
     };
   })
   .create({
@@ -179,5 +212,12 @@ export const CashAssetStore = types
       isSuccess: false,
       errorMessage: '',
       pending: false,
+    },
+    transactionQuery: {
+      startDate: null,
+      endDate: null,
+      pageNumber: 1,
+      pageSize: 10,
+      type: 'all',
     },
   });

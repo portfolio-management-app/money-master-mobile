@@ -12,6 +12,7 @@ export const InvestFund = observer(() => {
   React.useEffect(() => {
     getFund();
   }, [getFund]);
+
   return (
     <>
       <View style={[styleProvider.centerVertical, { marginTop: 20 }]}>
@@ -22,9 +23,10 @@ export const InvestFund = observer(() => {
           )}
         </TextContainer>
       </View>
-      <TextContainer ml={20} mt={20} mb={20} bold>
+      <TextContainer ml={20} mt={20} mb={5} bold>
         {ASSET_DETAIL_CONTENT.transaction}
       </TextContainer>
+
       <TransactionList />
     </>
   );

@@ -4,7 +4,6 @@ import { ScrollTabView } from 'shared/components';
 import { ASSET_DETAIL_CONTENT } from 'shared/constants';
 import { colorScheme } from 'shared/styles';
 import { Information } from './Information';
-import { Profit } from './Profit';
 import { Transaction } from './Transaction';
 
 interface IProps {
@@ -15,12 +14,10 @@ const Component = ({ onViewChange }: IProps) => {
   const [routes] = React.useState([
     { key: 'information', title: ASSET_DETAIL_CONTENT.information },
     { key: 'transaction', title: ASSET_DETAIL_CONTENT.transaction },
-    { key: 'profit', title: ASSET_DETAIL_CONTENT.profit },
   ]);
   const renderScene = SceneMap({
     information: Information,
     transaction: Transaction,
-    profit: Profit,
   });
   return (
     <ScrollTabView
@@ -30,7 +27,6 @@ const Component = ({ onViewChange }: IProps) => {
       indicatorStyle={{ backgroundColor: colorScheme.theme }}
       enableScroll
       onChangeView={onViewChange}
-      tabWidth={150}
       renderScene={renderScene}
       routes={routes}
     />

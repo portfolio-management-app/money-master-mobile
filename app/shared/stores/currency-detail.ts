@@ -41,6 +41,7 @@ export const CurrencyDetailStore = types
 
     const getCurrencyInfo = flow(function* (symbol: string) {
       const res = yield currencyService.getCurrencyInfo(symbol);
+
       if (res) {
         self.currencyInformation = res;
       }

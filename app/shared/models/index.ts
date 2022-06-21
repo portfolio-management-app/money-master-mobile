@@ -1,4 +1,5 @@
-import { Pagination } from './pagination';
+import { Profit } from './profit';
+
 import { UserNotification } from './user-notification';
 import { NotificationSetting } from './notification-setting';
 import { InvestFundInformation } from './invest-fund';
@@ -12,6 +13,8 @@ import {
   IInvestFundTransactionItem,
   INotificationSetting,
   IUserNotification,
+  IProfit,
+  ITransactionFilterType,
 } from './types/index';
 import { CategoryAssetList, CustomAsset } from './custom-asset';
 import {
@@ -42,6 +45,7 @@ import {
   ICashAsset,
 } from './types';
 import { Response } from './response';
+import { TransactionQuery } from './transaction-query';
 export {
   User,
   CoinInformation,
@@ -64,7 +68,8 @@ export {
   CustomAsset,
   NotificationSetting,
   UserNotification,
-  Pagination,
+  TransactionQuery,
+  Profit,
 };
 
 export type {
@@ -85,4 +90,6 @@ export type {
   IInvestFundTransactionItem,
   INotificationSetting,
   IUserNotification,
+  IProfit,
+  ITransactionFilterType,
 };

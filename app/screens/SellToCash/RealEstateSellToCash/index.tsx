@@ -43,6 +43,8 @@ export const RealEstateSellToCash = observer(() => {
       isUsingFundAsSource: false,
       fee: apiData.fee,
       tax: apiData.tax,
+      valueOfReferentialAssetBeforeCreatingTransaction:
+        information.inputMoneyAmount,
     });
   };
 

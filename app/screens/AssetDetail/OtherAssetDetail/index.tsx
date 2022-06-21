@@ -31,13 +31,11 @@ export const CustomAssetDetail = observer(() => {
   const [showConfirm, setShowConfirm] = React.useState(false);
 
   const { deleteResponse, deleteCustomAsset } = PortfolioDetailStore;
-  const { assignInfo, getInformation, getTransactionList, information } =
-    CustomAssetStore;
+  const { assignInfo, getInformation, information } = CustomAssetStore;
   React.useEffect(() => {
     assignInfo(routeProps.params.info);
-    getTransactionList();
     getInformation();
-  }, [routeProps, assignInfo, getTransactionList, getInformation]);
+  }, [routeProps, assignInfo, getInformation]);
 
   const handleMenuItemPress = (type: AssetActionType) => {
     switch (type) {
@@ -101,6 +99,10 @@ export const CustomAssetDetail = observer(() => {
     });
   };
 
+  const handleViewProfit = () => {
+    navigation.navigate('CustomAssetProfit');
+  };
+
   return (
     <PlatformView style={styleProvider.body}>
       <StatusBar backgroundColor={colorScheme.bg} barStyle="dark-content" />
@@ -121,6 +123,7 @@ export const CustomAssetDetail = observer(() => {
         onSell={handleTransferToCash}
         onDraw={handleDraw}
         onBuy={handleAddValue}
+        onViewProfit={handleViewProfit}
       />
 
       <ConfirmSheet

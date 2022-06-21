@@ -106,6 +106,7 @@ export type TransferToInvestFundBody = {
 export type CreateTransactionBody = {
   amount: number;
   amountInDestinationAssetUnit: number;
+  valueOfReferentialAssetBeforeCreatingTransaction: number;
   currencyCode: string;
   transactionType: TransactionType;
   destinationAssetId: number | null;
@@ -161,3 +162,5 @@ export type UpdatePasswordBody = {
   newPassword: string;
   oldPassword: string;
 };
+
+export type ProfitPeriod = 'day' | 'week' | 'month';

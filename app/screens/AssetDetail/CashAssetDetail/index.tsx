@@ -31,14 +31,12 @@ export const CurrencyAssetDetail = observer(() => {
   const [showConfirm, setShowConfirm] = React.useState(false);
 
   const { deleteResponse, deleteCashAsset } = PortfolioDetailStore;
-  const { information, assignInfo, getTransactionList, getInformation } =
-    CashAssetStore;
+  const { information, assignInfo, getInformation } = CashAssetStore;
 
   React.useEffect(() => {
     assignInfo(routeProps.params.info);
-    getTransactionList();
     getInformation();
-  }, [routeProps, assignInfo, getTransactionList, getInformation]);
+  }, [routeProps, assignInfo, getInformation]);
 
   const handleMenuItemPress = (type: AssetActionType) => {
     switch (type) {
@@ -101,6 +99,10 @@ export const CurrencyAssetDetail = observer(() => {
     });
   };
 
+  const handleViewProfit = () => {
+    navigation.navigate('CashAssetProfit');
+  };
+
   return (
     <PlatformView style={styleProvider.body}>
       <StatusBar backgroundColor={colorScheme.bg} barStyle="dark-content" />
@@ -121,6 +123,7 @@ export const CurrencyAssetDetail = observer(() => {
         onSell={handleTransferToCash}
         onDraw={handleDraw}
         onBuy={handleAddValue}
+        onViewProfit={handleViewProfit}
       />
 
       <ConfirmSheet

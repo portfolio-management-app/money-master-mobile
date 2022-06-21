@@ -58,6 +58,12 @@ import {
   OTPVerify,
   ResetPassword,
   UpdatePassword,
+  CryptoAssetProfit,
+  StockAssetProfit,
+  BankAssetProfit,
+  RealEstateAssetProfit,
+  CustomAssetProfit,
+  CashAssetProfit,
 } from 'screens';
 import { StatusBar } from 'react-native';
 import { colorScheme } from 'shared/styles';
@@ -149,6 +155,15 @@ export const NavigationStack = () => {
         <Stack.Screen name="OTPVerify" component={OTPVerify} />
         <Stack.Screen name="ResetPassword" component={ResetPassword} />
         <Stack.Screen name="UpdatePassword" component={UpdatePassword} />
+        <Stack.Screen name="CryptoAssetProfit" component={CryptoAssetProfit} />
+        <Stack.Screen name="StockAssetProfit" component={StockAssetProfit} />
+        <Stack.Screen name="BankAssetProfit" component={BankAssetProfit} />
+        <Stack.Screen
+          name="RealEstateAssetProfit"
+          component={RealEstateAssetProfit}
+        />
+        <Stack.Screen name="CustomAssetProfit" component={CustomAssetProfit} />
+        <Stack.Screen name="CashAssetProfit" component={CashAssetProfit} />
       </Stack.Navigator>
     </NavigationContainer>
   );

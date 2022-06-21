@@ -76,6 +76,8 @@ export const RealEstateAssetDetail = observer(() => {
       fee: 0,
       tax: 0,
       isUsingFundAsSource: false,
+      valueOfReferentialAssetBeforeCreatingTransaction:
+        information.inputMoneyAmount,
     });
   };
 
@@ -127,6 +129,10 @@ export const RealEstateAssetDetail = observer(() => {
     });
   };
 
+  const handleViewProfit = () => {
+    navigation.navigate('RealEstateAssetProfit');
+  };
+
   return (
     <PlatformView style={styleProvider.body}>
       <StatusBar backgroundColor={colorScheme.bg} barStyle="dark-content" />
@@ -148,6 +154,7 @@ export const RealEstateAssetDetail = observer(() => {
         onSell={handleTransferToCash}
         onDraw={handleDraw}
         onBuy={handleAddValue}
+        onViewProfit={handleViewProfit}
       />
       <ConfirmSheet
         title={ASSET_DETAIL_CONTENT.deleteTitle}

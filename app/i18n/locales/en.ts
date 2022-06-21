@@ -605,4 +605,9 @@ export const en = {
     apply: 'Apply',
     reset: 'Reset',
   },
+  profit: {
+    day: 'DAY',
+    week: 'WEEK',
+    month: 'MONTH',
+  },
 };

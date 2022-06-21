@@ -34,7 +34,6 @@ export const BankAssetDetail = observer(() => {
   const { deleteResponse, deleteBankAsset } = PortfolioDetailStore;
   const {
     assignInfo,
-    getTransactionList,
     transactionList,
     transactionResponse,
     getInformation,
@@ -45,9 +44,8 @@ export const BankAssetDetail = observer(() => {
 
   React.useEffect(() => {
     assignInfo(routeProps.params.info);
-    getTransactionList();
     getInformation();
-  }, [routeProps, assignInfo, getTransactionList, getInformation]);
+  }, [routeProps, assignInfo, getInformation]);
 
   const handleMenuItemPress = (type: AssetActionType) => {
     switch (type) {
@@ -78,6 +76,8 @@ export const BankAssetDetail = observer(() => {
       fee: 0,
       tax: 0,
       isUsingFundAsSource: false,
+      valueOfReferentialAssetBeforeCreatingTransaction:
+        information.inputMoneyAmount,
     });
   };
 
@@ -127,6 +127,10 @@ export const BankAssetDetail = observer(() => {
     });
   };
 
+  const handleViewProfit = () => {
+    navigation.navigate('BankAssetProfit');
+  };
+
   return (
     <PlatformView style={styleProvider.body}>
       <StatusBar backgroundColor={colorScheme.bg} barStyle="dark-content" />
@@ -147,6 +151,7 @@ export const BankAssetDetail = observer(() => {
         onExport={handleExportFile}
         onDraw={handleDraw}
         onBuy={handleAddValue}
+        onViewProfit={handleViewProfit}
       />
       <ConfirmSheet
         title={ASSET_DETAIL_CONTENT.deleteTitle}

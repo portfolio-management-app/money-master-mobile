@@ -6,7 +6,7 @@ import {
   RootStackScreenProps,
 } from 'navigation/types';
 import React from 'react';
-import { RefreshControl, ScrollView } from 'react-native';
+import { RefreshControl, ScrollView, View } from 'react-native';
 import { TouchableOpacity } from 'react-native-ui-lib';
 import {
   Empty,
@@ -93,7 +93,11 @@ export const PortfolioPicker = observer(() => {
             ))}
           </ScrollView>
         }
-        emptyComponent={<Empty />}
+        emptyComponent={
+          <View style={styleProvider.flexCenter}>
+            <Empty />
+          </View>
+        }
       />
     </PlatformView>
   );

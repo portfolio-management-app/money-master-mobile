@@ -1,11 +1,16 @@
 import { Config } from 'config';
 import { HttpError } from 'errors/base';
-import { flow, types } from 'mobx-state-tree';
+import { cast, flow, types } from 'mobx-state-tree';
 import { httpRequest } from 'services/http';
 import { log } from 'services/log';
 import { TransferToInvestFundBody } from './types';
 import { UserStore } from './user';
-import { InvestFundInformation, TransactionItem } from './../models';
+import {
+  InvestFundInformation,
+  TransactionItem,
+  TransactionQuery,
+} from './../models';
+import { buildTransactionQueryString } from 'utils/api';
 
 export const InvestFundStore = types
   .model('InvestFundStore', {
@@ -16,6 +21,7 @@ export const InvestFundStore = types
     portfolioId: types.number,
     information: InvestFundInformation,
     transactionList: types.array(TransactionItem),
+    transactionQuery: TransactionQuery,
   })
   .actions((self) => {
     const transferToFund = flow(function* (
@@ -53,7 +59,15 @@ export const InvestFundStore = types
     const getTransactionList = flow(function* () {
       self.loading = true;
       const res = yield httpRequest.sendGet(
-        `${Config.BASE_URL}/portfolio/${self.portfolioId}/investFund/transactions`,
+        `${Config.BASE_URL}/portfolio/${
+          self.portfolioId
+        }/investFund/transactions${buildTransactionQueryString(
+          self.transactionQuery.startDate,
+          self.transactionQuery.endDate,
+          self.transactionQuery.pageSize,
+          self.transactionQuery.pageNumber,
+          self.transactionQuery.type
+        )}`,
         UserStore.user.token
       );
       if (res instanceof HttpError) {
@@ -84,6 +98,10 @@ export const InvestFundStore = types
       self.errorMessage = '';
       self.isError = false;
     };
+
+    const resetTransaction = () => {
+      self.transactionList = cast([]);
+    };
     return {
       transferToFund,
       dispatchSuccess,
@@ -92,6 +110,7 @@ export const InvestFundStore = types
       getFund,
       getTransactionList,
       getAllInformation,
+      resetTransaction,
     };
   })
   .create({
@@ -105,5 +124,12 @@ export const InvestFundStore = types
       currentAmount: 0,
       isDeleted: false,
       initialCurrency: 'USD',
+    },
+    transactionQuery: {
+      startDate: null,
+      endDate: null,
+      pageNumber: 1,
+      pageSize: 10,
+      type: 'all',
     },
   });

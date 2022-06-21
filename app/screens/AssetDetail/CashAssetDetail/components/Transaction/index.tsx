@@ -4,7 +4,7 @@ import {
   AssetTransactionFilter,
   TransactionDetailModal,
 } from 'shared/components';
-import { ITransactionItem } from 'shared/models';
+import { ITransactionFilterType, ITransactionItem } from 'shared/models';
 import { CashAssetStore } from 'shared/stores';
 import { TransactionList } from './TransactionList';
 
@@ -14,12 +14,51 @@ export const Transaction = observer(() => {
     ITransactionItem | undefined
   >(undefined);
 
-  const { transactionList, getTransactionList, loading, information } =
-    CashAssetStore;
+  const {
+    transactionList,
+    getTransactionList,
+    loading,
+    transactionQuery,
+    resetTransaction,
+    information,
+  } = CashAssetStore;
 
-  const handleTransactionPress = (transaction: ITransactionItem) => {
-    setSelectedTransaction(transaction);
+  React.useEffect(() => {
+    resetTransaction();
+    transactionQuery.reset();
+    getTransactionList();
+  }, [getTransactionList, resetTransaction, transactionQuery]);
+
+  const handleItemPress = (e: ITransactionItem) => {
+    setSelectedTransaction(e);
     setOpenModal(!openModal);
+  };
+
+  const handleStartChange = (date: string) => {
+    transactionQuery.setStartDate(date);
+    transactionQuery.restPageNumber();
+    resetTransaction();
+    getTransactionList();
+  };
+
+  const handleEndChange = (date: string) => {
+    transactionQuery.setEndDate(date);
+    transactionQuery.restPageNumber();
+    resetTransaction();
+    getTransactionList();
+  };
+
+  const handleReset = () => {
+    transactionQuery.reset();
+    resetTransaction();
+    getTransactionList();
+  };
+
+  const handleTypeChange = (type: ITransactionFilterType) => {
+    transactionQuery.setType(type);
+    transactionQuery.restPageNumber();
+    resetTransaction();
+    getTransactionList();
   };
 
   return (
@@ -31,13 +70,26 @@ export const Transaction = observer(() => {
         info={selectedTransaction}
         open={openModal}
       />
-      <AssetTransactionFilter />
+      <AssetTransactionFilter
+        onTransactionTypeChange={handleTypeChange}
+        onReset={handleReset}
+        onFromDateChange={handleStartChange}
+        onToDateChange={handleEndChange}
+      />
       <TransactionList
-        refreshing={loading}
-        data={transactionList}
-        onItemPress={handleTransactionPress}
         currentAsset={information}
-        onRefresh={() => getTransactionList()}
+        onRefresh={() => {
+          transactionQuery.restPageNumber();
+          resetTransaction();
+          getTransactionList();
+        }}
+        data={transactionList}
+        refreshing={loading}
+        onItemPress={handleItemPress}
+        onEndReached={() => {
+          transactionQuery.increasePageNumber();
+          getTransactionList();
+        }}
       />
     </>
   );

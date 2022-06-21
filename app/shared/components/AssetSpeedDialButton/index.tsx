@@ -12,6 +12,7 @@ interface IProps {
   onTransfer?: () => void;
   onDraw?: () => void;
   onSell?: () => void;
+  onViewProfit?: () => void;
 }
 
 export const AssetSpeedDialButton = ({
@@ -20,6 +21,7 @@ export const AssetSpeedDialButton = ({
   onExport,
   onTransfer,
   onSell,
+  onViewProfit,
 }: IProps) => {
   const [show, setShow] = React.useState(false);
   const onToggle = React.useCallback(() => {
@@ -56,6 +58,13 @@ export const AssetSpeedDialButton = ({
       onSell();
     }
   }, [onSell, onToggle]);
+
+  const handleViewProfit = React.useCallback(() => {
+    onToggle();
+    if (onViewProfit) {
+      onViewProfit();
+    }
+  }, [onToggle, onViewProfit]);
   return (
     <SpeedDial
       show={show}
@@ -67,6 +76,7 @@ export const AssetSpeedDialButton = ({
           onExport={handleExport}
           onTransfer={handleTransfer}
           onSell={handleSell}
+          onViewProfit={handleViewProfit}
         />
       )}
     />
@@ -79,6 +89,7 @@ const SpeedDialItems = ({
   onSell,
   onTransfer,
   onDraw,
+  onViewProfit,
 }: IProps) => {
   return (
     <>
@@ -95,6 +106,17 @@ const SpeedDialItems = ({
             color={colorScheme.white}
             name="file-export"
           />
+        </TouchableOpacity>
+      </View>
+      <View style={styleProvider.speedDialWrapper}>
+        <View style={styleProvider.speedDialTooltip}>
+          <TextContainer>{ASSET_DETAIL_CONTENT.profit}</TextContainer>
+        </View>
+        <TouchableOpacity
+          onPress={onViewProfit}
+          style={styleProvider.speedDialButton}
+        >
+          <Icon.Entypo size={20} color={colorScheme.white} name="eye" />
         </TouchableOpacity>
       </View>
       <View style={styleProvider.speedDialWrapper}>

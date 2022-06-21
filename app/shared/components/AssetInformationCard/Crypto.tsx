@@ -4,6 +4,7 @@ import { View } from 'react-native';
 import { ASSET_DETAIL_CONTENT } from 'shared/constants';
 import { ICryptoAsset } from 'shared/models';
 import { styleProvider, colorScheme } from 'shared/styles';
+import { parseToString } from 'utils/date';
 import { calcPercent, formatCurrency } from 'utils/number';
 import { TextContainer } from '../TextContainer';
 
@@ -51,6 +52,14 @@ export const CryptoInformationCard = observer(({ asset }: IProps) => {
           </TextContainer>
           <TextContainer type="small">
             {asset.currentAmountHolding}
+          </TextContainer>
+        </View>
+        <View style={[styleProvider.centerHorizontal, { marginTop: 10 }]}>
+          <TextContainer type="small">
+            {ASSET_DETAIL_CONTENT.buyDate}:{' '}
+          </TextContainer>
+          <TextContainer type="small">
+            {parseToString(new Date(asset.inputDay), { withTime: false })}
           </TextContainer>
         </View>
       </View>

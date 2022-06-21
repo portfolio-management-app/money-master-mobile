@@ -48,6 +48,7 @@ export const AddCashAsset = observer(() => {
         fee: apiData.fee,
         tax: apiData.tax,
         isUsingFundAsSource: false,
+        valueOfReferentialAssetBeforeCreatingTransaction: information.amount,
       });
       return;
     }
@@ -65,6 +66,7 @@ export const AddCashAsset = observer(() => {
       fee: apiData.fee,
       tax: apiData.tax,
       isUsingFundAsSource: usingFund,
+      valueOfReferentialAssetBeforeCreatingTransaction: information.amount,
     });
   };
 

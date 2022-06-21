@@ -46,7 +46,7 @@ export const vn = {
   },
   bottomTab: {
     dashboard: 'Trang chủ',
-    portfolio: 'Tài sản',
+    portfolio: 'Danh mục đầu tư',
     marketCap: 'Thị trường',
     setting: 'Cài đặt',
   },
@@ -595,5 +595,10 @@ export const vn = {
     all: 'Tất cả',
     apply: 'Áp dụng',
     reset: 'Đặt lại',
+  },
+  profit: {
+    day: 'NGÀY',
+    week: 'TUẦN ',
+    month: 'THÁNG',
   },
 };

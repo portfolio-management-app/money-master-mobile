@@ -47,6 +47,8 @@ export const StockSellToCash = observer(() => {
       fee: apiData.fee,
       tax: apiData.tax,
       isUsingFundAsSource: false,
+      valueOfReferentialAssetBeforeCreatingTransaction:
+        information.currentAmountHolding * information.currentPrice,
     });
   };
 

@@ -33,14 +33,12 @@ export const StockAssetDetail = observer(() => {
   const [showConfirm, setShowConfirm] = React.useState(false);
 
   const { deleteResponse, deleteStockAsset } = PortfolioDetailStore;
-  const { assignInfo, getTransactionList, getInformation, information } =
-    StockAssetStore;
+  const { assignInfo, getInformation, information } = StockAssetStore;
 
   React.useEffect(() => {
     assignInfo(routeProps.params.info);
-    getTransactionList();
     getInformation();
-  }, [routeProps, assignInfo, getTransactionList, getInformation]);
+  }, [routeProps, assignInfo, getInformation]);
 
   const handleMenuItemPress = (type: AssetActionType) => {
     switch (type) {
@@ -110,6 +108,10 @@ export const StockAssetDetail = observer(() => {
     });
   };
 
+  const handleViewProfit = () => {
+    navigation.navigate('StockAssetProfit');
+  };
+
   return (
     <PlatformView style={styleProvider.body}>
       <StatusBar backgroundColor={colorScheme.bg} barStyle="dark-content" />
@@ -130,6 +132,7 @@ export const StockAssetDetail = observer(() => {
         onClose={() => setShowModal(!showModal)}
       />
       <AssetSpeedDialButton
+        onViewProfit={handleViewProfit}
         onExport={handleExportFile}
         onTransfer={handleTransferToInvestFund}
         onSell={handleTransferToCash}

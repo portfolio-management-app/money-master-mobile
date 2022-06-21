@@ -2,8 +2,8 @@ import React from 'react';
 import { ScrollView, StyleSheet } from 'react-native';
 import { Badge, TouchableOpacity, View } from 'react-native-ui-lib';
 import { APP_CONTENT } from 'shared/constants';
+import { ITransactionFilterType } from 'shared/models';
 import { colorScheme } from 'shared/styles';
-import { TransactionType } from 'shared/types';
 import { Icon } from '../Icon';
 import { TextContainer } from '../TextContainer';
 import { FromDatePicker } from './FromDate';
@@ -11,36 +11,53 @@ import { ToDatePicker } from './ToDate';
 import { TransactionTypePicker } from './TransactionType';
 const CONTENT = APP_CONTENT.transactionFilter;
 const ICON_SIZE = 20;
-export const AssetTransactionFilter = () => {
+
+interface IProps {
+  onFromDateChange?: (date: string) => void;
+  onToDateChange?: (date: string) => void;
+  onTransactionTypeChange?: (type: ITransactionFilterType) => void;
+  onReset?: () => void;
+}
+export const AssetTransactionFilter = ({
+  onFromDateChange,
+  onToDateChange,
+  onTransactionTypeChange,
+  onReset,
+}: IProps) => {
   const [showTransactionType, setShowTransactionType] = React.useState(false);
   const [showFromDate, setShowFromDate] = React.useState(false);
   const [showToDate, setShowToDate] = React.useState(false);
-  const [transactionType, setTransactionType] = React.useState<
-    TransactionType | 'all'
-  >('all');
+  const [transactionType, setTransactionType] =
+    React.useState<ITransactionFilterType>('all');
 
   const [fromDate, setFromDate] = React.useState<null | string>(null);
   const [toDate, setToDate] = React.useState<null | string>(null);
 
-  const onApply = (type: TransactionType | 'all') => {
+  const onApply = (type: ITransactionFilterType) => {
     setTransactionType(type);
     setShowTransactionType(false);
+    if (onTransactionTypeChange) {
+      onTransactionTypeChange(type);
+    }
   };
 
   const reset = () => {
     setTransactionType('all');
     setFromDate(null);
     setToDate(null);
+    if (onReset) onReset();
   };
 
   const handleFromDateChange = (date: string | null) => {
     setFromDate(date);
     setShowFromDate(false);
+    if (onFromDateChange && date !== null) onFromDateChange(date);
   };
 
   const handleToDateChange = (date: string | null) => {
     setToDate(date);
     setShowToDate(false);
+    if (onToDateChange && date !== null) onToDateChange(date);
   };
   return (
     <>

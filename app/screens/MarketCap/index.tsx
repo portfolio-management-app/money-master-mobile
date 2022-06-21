@@ -21,7 +21,7 @@ const Component = () => {
       case 1:
         SearchModalMarket.toggleStockSearch();
         break;
-      case 3:
+      case 2:
         SearchModalMarket.toggleCurrencySearch();
     }
   };

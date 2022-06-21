@@ -43,6 +43,8 @@ export const BankSellToCash = observer(() => {
       fee: apiData.fee,
       tax: apiData.tax,
       isUsingFundAsSource: false,
+      valueOfReferentialAssetBeforeCreatingTransaction:
+        information.inputMoneyAmount,
     });
   };
 

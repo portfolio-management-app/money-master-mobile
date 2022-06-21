@@ -1,3 +1,5 @@
+import { ProfitRangeMenu } from './ProfitRangeMenu/index';
+import { ProfitChart } from './ProfitChart/index';
 import { AssetTransactionFilter } from './AssetTransactionFilter/index';
 import { AmountForm } from './AmountForm/index';
 import { OutTransaction } from './TransactionItem/OutTransaction';
@@ -129,4 +131,6 @@ export {
   InTransaction,
   OutTransaction,
   AmountForm,
+  ProfitChart,
+  ProfitRangeMenu,
 };

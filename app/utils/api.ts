@@ -2,6 +2,7 @@ import { Config } from 'config';
 import { HttpError } from 'errors/base';
 import { httpRequest } from 'services/http';
 import { log } from 'services/log';
+import { ITransactionFilterType } from 'shared/models';
 import { UserStore, CryptoAssetStore, StockAssetStore } from 'shared/stores';
 import { ApiAssetType } from 'shared/types';
 
@@ -45,4 +46,21 @@ export async function fetchStockAsset(assetId: number, portfolioId: number) {
   } else {
     StockAssetStore.assignInfo(res);
   }
+}
+
+export function buildTransactionQueryString(
+  from: string | null,
+  to: string | null,
+  pageSize: number,
+  pageNumber: number,
+  type: ITransactionFilterType
+) {
+  let queryString = `?pageSize=${pageSize}&pageNumber=${pageNumber}&type=${type}`;
+  if (from !== null) {
+    queryString += `&startDate=${from}`;
+  }
+  if (to !== null) {
+    queryString += `&endDate=${to}`;
+  }
+  return queryString;
 }

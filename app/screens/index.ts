@@ -1,3 +1,9 @@
+import { CashAssetProfit } from './AssetProfit/CashAssetProfit/index';
+import { CustomAssetProfit } from './AssetProfit/CustomAssetProfit/index';
+import { RealEstateAssetProfit } from './AssetProfit/RealEstateAssetProfit/index';
+import { BankAssetProfit } from './AssetProfit/BankAssetProfit/index';
+import { StockAssetProfit } from './AssetProfit/StockAssetProfit/index';
+import { CryptoAssetProfit } from './AssetProfit/CryptoAssetProfit/index';
 import { UpdatePassword } from './Authentication/UpdatePassword/index';
 import { ResetPassword } from './Authentication/ResetPassword/index';
 import { OTPVerify } from './Authentication/OTPVerify/index';
@@ -117,4 +123,10 @@ export {
   OTPVerify,
   ResetPassword,
   UpdatePassword,
+  CryptoAssetProfit,
+  StockAssetProfit,
+  BankAssetProfit,
+  RealEstateAssetProfit,
+  CustomAssetProfit,
+  CashAssetProfit,
 };

@@ -47,6 +47,8 @@ export const CryptoSellToCash = observer(() => {
       fee: apiData.fee,
       tax: apiData.tax,
       isUsingFundAsSource: false,
+      valueOfReferentialAssetBeforeCreatingTransaction:
+        information.currentPrice * information.currentAmountHolding,
     });
   };
 

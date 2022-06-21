@@ -46,6 +46,7 @@ export const CashSellToCash = observer(() => {
       fee: apiData.fee,
       tax: apiData.tax,
       isUsingFundAsSource: false,
+      valueOfReferentialAssetBeforeCreatingTransaction: information.amount,
     });
   };
 

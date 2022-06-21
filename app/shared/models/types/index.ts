@@ -18,6 +18,7 @@ import { PortfolioInformation } from '../portfolio-information';
 import { PieChartItem } from '../portfolio-report';
 import { StockInformation, StockTimeSeries } from '../stock-information';
 import { UserNotification } from '../user-notification';
+import { Profit } from '../profit';
 
 export type IStockTimeSeries = SnapshotOut<typeof StockTimeSeries>;
 
@@ -53,3 +54,7 @@ export type IInvestFundTransactionItem = SnapshotIn<
 export type INotificationSetting = SnapshotOut<typeof NotificationSetting>;
 
 export type IUserNotification = SnapshotIn<typeof UserNotification>;
+
+export type IProfit = SnapshotOut<typeof Profit>;
+
+export type ITransactionFilterType = 'all' | 'out' | 'in';

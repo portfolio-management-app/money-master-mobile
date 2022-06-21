@@ -33,7 +33,6 @@ export const CryptoAssetDetail = observer(() => {
   const [showConfirm, setShowConfirm] = React.useState(false);
 
   const {
-    getTransactionList,
     assignInfo,
     transactionList,
     getExcelData,
@@ -45,9 +44,8 @@ export const CryptoAssetDetail = observer(() => {
 
   React.useEffect(() => {
     assignInfo(routeProps.params.info);
-    getTransactionList();
     getInformation();
-  }, [routeProps, assignInfo, getTransactionList, getInformation]);
+  }, [routeProps, assignInfo, getInformation]);
 
   const handleMenuItemPress = (type: AssetActionType) => {
     switch (type) {
@@ -116,6 +114,10 @@ export const CryptoAssetDetail = observer(() => {
     });
   };
 
+  const handleViewProfit = () => {
+    navigation.navigate('CryptoAssetProfit');
+  };
+
   return (
     <PlatformView style={styleProvider.body}>
       <StatusBar backgroundColor={colorScheme.bg} barStyle="dark-content" />
@@ -140,6 +142,7 @@ export const CryptoAssetDetail = observer(() => {
         onTransfer={handleTransferToInvestFund}
         onSell={handleTransferToCash}
         onDraw={handleDraw}
+        onViewProfit={handleViewProfit}
       />
       <TabBarView />
 
