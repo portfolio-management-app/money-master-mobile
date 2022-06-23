@@ -1,7 +1,7 @@
 import { observer } from 'mobx-react-lite';
 import React from 'react';
 import { View } from 'react-native';
-import { ASSET_DETAIL_CONTENT } from 'shared/constants';
+import { APP_CONTENT, ASSET_DETAIL_CONTENT } from 'shared/constants';
 import { IBankAsset } from 'shared/models';
 import { styleProvider, colorScheme } from 'shared/styles';
 import { parseToString } from 'utils/date';
@@ -33,6 +33,23 @@ export const BankInformationCard = observer(({ asset }: IProps) => {
             {ASSET_DETAIL_CONTENT.startDate}:{' '}
           </TextContainer>
           {parseToString(new Date(asset.inputDay), { withTime: false })}
+        </TextContainer>
+        <TextContainer mb={10} type="small">
+          <TextContainer type="small">
+            {ASSET_DETAIL_CONTENT.interestRate}:{' '}
+          </TextContainer>
+          {asset.interestRate}%
+        </TextContainer>
+        <TextContainer mb={10} type="small">
+          <TextContainer type="small">
+            {ASSET_DETAIL_CONTENT.termRange}:{' '}
+          </TextContainer>
+          {asset.termRange}{' '}
+          {ASSET_DETAIL_CONTENT.month === 'month'
+            ? asset.termRange > 1
+              ? 'months'
+              : 'month'
+            : ASSET_DETAIL_CONTENT.month}
         </TextContainer>
       </View>
     </View>

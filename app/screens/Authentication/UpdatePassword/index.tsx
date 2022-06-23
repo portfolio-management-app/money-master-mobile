@@ -36,6 +36,14 @@ const ValidatorSchema = Yup.object({
     .minNumbers(1, FORM_ERRORS.password)
     .minLowercase(1, FORM_ERRORS.password)
     .minUppercase(1, FORM_ERRORS.password),
+  retypePassword: Yup.string()
+    .required(FORM_ERRORS.requiredFiled)
+    .min(8, FORM_ERRORS.password)
+    .max(32, FORM_ERRORS.password)
+    .minNumbers(1, FORM_ERRORS.password)
+    .minLowercase(1, FORM_ERRORS.password)
+    .minUppercase(1, FORM_ERRORS.password)
+    .oneOf([Yup.ref('password')], FORM_ERRORS.retypePassword),
 });
 
 export const UpdatePassword = observer(() => {
@@ -49,7 +57,11 @@ export const UpdatePassword = observer(() => {
       <View style={styleProvider.container}>
         <Formik
           validationSchema={ValidatorSchema}
-          initialValues={{ newPassword: '', oldPassword: '' }}
+          initialValues={{
+            newPassword: '',
+            oldPassword: '',
+            retypePassword: '',
+          }}
           onSubmit={(values) => {
             handleSubmit(values);
           }}
@@ -62,6 +74,15 @@ export const UpdatePassword = observer(() => {
                 onChangeText={handleChange('newPassword')}
                 placeholder={CONTENT.newPassword}
                 errorMessage={touched.newPassword ? errors.newPassword : ''}
+              />
+              <CustomTextField
+                onBlur={handleBlur('retypePassword')}
+                onChangeText={handleChange('retypePassword')}
+                placeholder={CONTENT.retypePass}
+                secureText
+                errorMessage={
+                  touched.retypePassword ? errors.retypePassword : ''
+                }
               />
               <CustomTextField
                 secureText

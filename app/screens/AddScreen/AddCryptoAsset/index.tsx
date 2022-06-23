@@ -82,8 +82,9 @@ export const AddCryptoAsset = observer(() => {
       <NavigationHeader
         title={`${APP_CONTENT.addScreen.header} ${routeProps.params.source.name}`}
       />
-      <CryptoInformationCard asset={routeProps.params.source} />
+      <CryptoInformationCard asset={information} />
       <SellForm
+        currency={information.currencyCode}
         buttonContent={APP_CONTENT.addScreen.buttonContent}
         inputPlaceHolder={APP_CONTENT.addScreen.inputPlaceHolderForCrypto}
         onSell={handleSubmit}

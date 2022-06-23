@@ -2,7 +2,7 @@ import React from 'react';
 import { SceneMap } from 'react-native-tab-view';
 import { ScrollTabView } from 'shared/components';
 import { ASSET_DETAIL_CONTENT } from 'shared/constants';
-import { colorScheme } from 'shared/styles';
+import { colorScheme, dimensionProvider } from 'shared/styles';
 import { Information } from './Information';
 import { Transaction } from './Transaction';
 
@@ -28,6 +28,7 @@ const Component = ({ onViewChange }: IProps) => {
       enableScroll
       onChangeView={onViewChange}
       renderScene={renderScene}
+      tabWidth={dimensionProvider.width / 2}
       routes={routes}
     />
   );

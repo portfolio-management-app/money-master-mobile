@@ -109,6 +109,7 @@ export const vn = {
     oldPassword: 'Mật khẩu cũ',
     newPassword: 'Mật khẩu mới',
     success: 'Cập nhật mật khẩu thành công',
+    retypePass: 'Xác nhận mật khẩu mới',
     error: {
       oldPassNotMatch: 'Mật khẩu cũ không chính xác',
       serverError: 'Lỗi hệ thống vui lòng thử lại sau',
@@ -213,7 +214,10 @@ export const vn = {
       profit: 'Lợi nhuận',
     },
     notification: 'Thông báo',
-    add: 'Thêm',
+    add: 'Thêm giá trị',
+    interestRate: 'Lãi suất (%)',
+    termRange: 'Thời hạn (tháng)',
+    month: 'tháng',
   },
   confirmModal: {
     confirm: 'OK',
@@ -287,7 +291,7 @@ export const vn = {
     amount: 'Số lương',
     price: 'Giá',
     currentPrice: 'Giá hiện tại',
-    add: 'Thêm',
+    add: 'Thêm giá trị',
   },
   currency: 'Ngoại tệ',
   currencyList: {
@@ -569,7 +573,7 @@ export const vn = {
     resend: 'Gửi lại',
     otpHeader: 'Xác thực OTP',
     noti: 'Một mã xác thực gồm 6 chữ số đã được gửi tới email',
-    pleaseCheck: 'Vui lòng kiểm tra email của bạn: ',
+    pleaseCheck: 'Vui lòng kiểm tra email của bạn',
     notReceiveCode: 'Không nhận được mã ?',
     resendSuccess: 'Gửi lại thành công',
     resetHeader: 'Đặt lại mật khẩu',
@@ -600,5 +604,10 @@ export const vn = {
     day: 'NGÀY',
     week: 'TUẦN ',
     month: 'THÁNG',
+    header: 'Lợi nhuận của',
+    actions: {
+      sell: 'BÁN TỚI TIỀN MẶT',
+      addValue: 'THÊM GIÁ TRỊ',
+    },
   },
 };

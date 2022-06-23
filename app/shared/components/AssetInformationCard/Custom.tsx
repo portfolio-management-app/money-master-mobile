@@ -25,6 +25,17 @@ export const CustomAssetInformationCard = observer(({ asset }: IProps) => {
             ? ASSET_DETAIL_CONTENT.none
             : asset.description}
         </TextContainer>
+        <TextContainer mb={10} type="small">
+          <TextContainer type="small">
+            {ASSET_DETAIL_CONTENT.termRange}:{' '}
+          </TextContainer>
+          {asset.termRange}{' '}
+          {ASSET_DETAIL_CONTENT.month === 'month'
+            ? asset.termRange > 1
+              ? 'months'
+              : 'month'
+            : ASSET_DETAIL_CONTENT.month}
+        </TextContainer>
       </View>
     </View>
   );

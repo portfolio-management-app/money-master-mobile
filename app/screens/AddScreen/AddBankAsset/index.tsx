@@ -83,6 +83,7 @@ export const AddBankAsset = observer(() => {
       />
       <BankInformationCard asset={routeProps.params.source} />
       <SellForm
+        currency={information.inputCurrency}
         buttonContent={APP_CONTENT.addScreen.buttonContent}
         inputPlaceHolder={APP_CONTENT.addScreen.inputPlaceHolder}
         onSell={handleSubmit}

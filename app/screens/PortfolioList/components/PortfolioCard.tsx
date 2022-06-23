@@ -34,9 +34,6 @@ export const PortfolioCard = ({ item }: IProps) => {
         style={styles.container}
       >
         <TextContainer>{item.name}</TextContainer>
-        <TextContainer color={colorScheme.theme} style={styles.textContainer}>
-          {formatCurrency(item.sum, item.initialCurrency)}
-        </TextContainer>
       </TouchableOpacity>
       <EditDeleteActionSheet
         onEditPress={handleEditPress}

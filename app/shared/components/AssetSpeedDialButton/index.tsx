@@ -116,7 +116,11 @@ const SpeedDialItems = ({
           onPress={onViewProfit}
           style={styleProvider.speedDialButton}
         >
-          <Icon.Entypo size={20} color={colorScheme.white} name="eye" />
+          <Icon.FontAwesome
+            size={20}
+            color={colorScheme.white}
+            name="area-chart"
+          />
         </TouchableOpacity>
       </View>
       <View style={styleProvider.speedDialWrapper}>
@@ -151,7 +155,7 @@ const SpeedDialItems = ({
       </View>
       <View style={styleProvider.speedDialWrapper}>
         <View style={styleProvider.speedDialTooltip}>
-          <TextContainer>{ASSET_DETAIL_CONTENT.buy}</TextContainer>
+          <TextContainer>{ASSET_DETAIL_CONTENT.add}</TextContainer>
         </View>
         <TouchableOpacity onPress={onBuy} style={styleProvider.speedDialButton}>
           <Icon.Material

@@ -1,3 +1,4 @@
+import { ProfitActionButtons } from './ProfitActionButtons/index';
 import { ProfitRangeMenu } from './ProfitRangeMenu/index';
 import { ProfitChart } from './ProfitChart/index';
 import { AssetTransactionFilter } from './AssetTransactionFilter/index';
@@ -67,6 +68,7 @@ import { EditDeleteActionSheet } from './EditDeleteActionSheet';
 
 export {
   PlatformView,
+  ProfitActionButtons,
   AssetTransactionFilter,
   EditDeleteActionSheet,
   Skeleton,

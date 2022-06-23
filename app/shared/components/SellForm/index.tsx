@@ -59,9 +59,8 @@ export const SellForm = ({
                   onBlur={handleBlur('amount')}
                   keyBoardType="decimal-pad"
                   errorMessage={touched.amount ? errors.amount : ''}
-                  placeholder={`${inputPlaceHolder} ${
-                    currency && `(${currency})`
-                  }`}
+                  placeholder={`${inputPlaceHolder}
+                  `}
                 />
               )}
               <CustomTextField

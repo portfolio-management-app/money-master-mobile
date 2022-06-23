@@ -9,10 +9,12 @@ import {
   PlatformView,
   Skeleton,
   SkeletonLoadable,
+  TextContainer,
 } from 'shared/components';
 import { ASSET_DETAIL_CONTENT } from 'shared/constants';
 import { PortfolioDetailStore } from 'shared/stores';
-import { styleProvider } from 'shared/styles';
+import { colorScheme, styleProvider } from 'shared/styles';
+import { formatCurrency } from 'utils/number';
 import { PieChartAsset } from './components';
 import { buildNewPieChartData, calculationPercent } from './helper';
 
@@ -25,6 +27,7 @@ export const Brief = observer(() => {
     information,
     loadingGetPieChart,
     pieChartCount,
+    getTotalMoney,
   } = PortfolioDetailStore;
 
   const pies = React.useMemo(() => {
@@ -43,6 +46,15 @@ export const Brief = observer(() => {
         onRefresh={() => getPieChart()}
       />
       <ScrollView>
+        <TextContainer
+          color={colorScheme.theme}
+          bold
+          type="h2"
+          mt={20}
+          textAl="center"
+        >
+          {formatCurrency(getTotalMoney(), information.initialCurrency)}
+        </TextContainer>
         <ExpandableSection
           expanded={showAllocation}
           onPress={() => setShowAllocation(!showAllocation)}

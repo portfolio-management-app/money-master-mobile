@@ -112,6 +112,7 @@ export const en = {
   updatePasswordScreen: {
     update: 'Update',
     header: 'Update password',
+    retypePass: 'Confirm new password ',
     oldPassword: 'Old password',
     newPassword: 'New password',
     success: 'Update password successfully',
@@ -221,7 +222,10 @@ export const en = {
       profit: 'Profit',
     },
     notification: 'Notification',
-    add: 'Add',
+    add: 'Add value',
+    interestRate: 'Interest rate',
+    termRange: 'Term range',
+    month: 'month',
   },
 
   confirmModal: {
@@ -296,7 +300,7 @@ export const en = {
     amount: 'Amount',
     price: 'Price',
     currentPrice: 'Current price',
-    add: 'Add',
+    add: 'Add value',
   },
   currency: 'Currency',
   currencyList: {
@@ -555,8 +559,8 @@ export const en = {
     },
   },
   addScreen: {
-    header: 'Add',
-    buttonContent: 'Add',
+    header: 'Add value to',
+    buttonContent: 'Add value',
     inputPlaceHolder: 'Money amount to add',
     inputPlaceHolderForCrypto: 'Number of coin to add',
     inputPlaceHolderForStock: 'Number of stock to add',
@@ -579,7 +583,7 @@ export const en = {
     otpHeader: 'OTP verify',
     notReceiveCode: 'Not received code ?',
     noti: 'There was 6 digits code have been sent to this email:',
-    pleaseCheck: 'Please check your email: ',
+    pleaseCheck: 'Please check your email',
     resendSuccess: 'Resend success',
     resetHeader: 'Reset password',
     password: 'New password',
@@ -609,5 +613,10 @@ export const en = {
     day: 'DAY',
     week: 'WEEK',
     month: 'MONTH',
+    header: 'Profit of',
+    actions: {
+      sell: 'SELL TO CASH',
+      addValue: 'ADD VALUE',
+    },
   },
 };

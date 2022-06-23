@@ -85,7 +85,7 @@ export const EditModal = observer(({ open, item, onClose, onEdit }: IProps) => {
                     touched.inputMoneyAmount ? errors.inputMoneyAmount : ''
                   }
                   keyBoardType="decimal-pad"
-                  placeholder={FORM_CONTENT.balance}
+                  placeholder={SCREEN_CONTENT.buyPrice}
                   value={values.inputMoneyAmount.toString()}
                 />
 
