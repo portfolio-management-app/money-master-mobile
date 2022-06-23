@@ -21,23 +21,16 @@ const Component = ({ onChangeView }: IProps) => {
     { key: 'holding', title: TAB_CONTENT.holding },
     { key: 'investFund', title: TAB_CONTENT.investFund },
     { key: 'brief', title: TAB_CONTENT.brief },
-    { key: 'report', title: TAB_CONTENT.report },
-    { key: 'payout', title: TAB_CONTENT.payout },
-    { key: 'note', title: TAB_CONTENT.note },
   ]);
   const renderScene = SceneMap({
     holding: Holding,
     brief: Brief,
     investFund: InvestFund,
-    note: Note,
-    payout: Payout,
-    report: Report,
   });
   return (
     <ScrollTabView
       onChangeView={onChangeView}
       enableScroll
-      tabWidth={110}
       indicatorStyle={{ backgroundColor: colorScheme.white }}
       style={{ backgroundColor: colorScheme.theme }}
       renderScene={renderScene}

@@ -47,7 +47,7 @@ export const CreateForm = observer(({ onSubmit, onClose }: IProps) => {
         values.tax = 1 * values.tax;
         values.inputMoneyAmount = 1 * values.inputMoneyAmount;
         values.interestRate = 1 * values.interestRate;
-        values.termRange = 1 * values.termRange;
+        values.termRange = 1 * values.termRange * 30;
         onSubmit(values);
       }}
     >

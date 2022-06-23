@@ -20,7 +20,13 @@ const Component = ({ chartData }: IProps) => {
   return (
     <>
       {renderData.length === 1 || renderData.length === 0 ? (
-        <View style={[styleProvider.flexCenter, { height: 200 }]}>
+        <View
+          style={{
+            height: 300,
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}
+        >
           <Empty />
         </View>
       ) : (

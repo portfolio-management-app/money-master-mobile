@@ -38,6 +38,7 @@ export const vn = {
       credentialFailed: 'Sai tên đăng nhập hoặc mật khẩu',
       notExist: 'Email không tồn tại',
     },
+    serverError: 'Lỗi hệ thống, vui lòng thử lại sau',
   },
 
   forgetPasswordPage: {
@@ -141,7 +142,7 @@ export const vn = {
       balance: 'Giá trị ban đầu',
       selectCurrency: 'Loại tiền tệ',
       rate: 'Lãi suất (%)',
-      termRange: 'Kì hạn (tháng)',
+      termRange: 'Kì hạn (ngày)',
       startDate: 'Ngày bắt đầu',
       description: 'Mô tả',
       update: 'Cập nhật',

@@ -35,6 +35,7 @@ export const ChooseBuySource = observer(() => {
       type: routeProps.params.type,
       transactionType: 'buyFromCash',
       fromScreen: routeProps.params.fromScreen,
+      customAssetInfo: routeProps.params.customAssetInfo,
     });
   };
 

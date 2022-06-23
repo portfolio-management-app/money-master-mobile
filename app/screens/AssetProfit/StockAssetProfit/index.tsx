@@ -27,7 +27,7 @@ export const StockAssetProfit = observer(() => {
     navigation.navigate('ChooseBuySource', {
       fromScreen: 'ASSET_DETAIL',
       asset: information,
-      type: 'crypto',
+      type: 'stock',
     });
   };
 
@@ -35,7 +35,7 @@ export const StockAssetProfit = observer(() => {
     navigation.navigate('CashAssetPicker', {
       source: information,
       actionType: 'SELL',
-      type: 'crypto',
+      type: 'stock',
       transactionType: 'withdrawToCash',
       fromScreen: 'ASSET_DETAIL',
     });

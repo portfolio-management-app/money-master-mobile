@@ -13,7 +13,6 @@ interface IProps {
 
 export const StockCard = ({ item }: IProps) => {
   const navigation = useNavigation<MainStackNavigationProp>();
-  const percent = calcPercent(item.currentPrice, item.purchasePrice);
   const gotoDetail = () => {
     navigation.navigate('StockAssetDetail', { info: item });
   };
@@ -29,12 +28,6 @@ export const StockCard = ({ item }: IProps) => {
         </TextContainer>
         <TextContainer textAl="right" color={colorScheme.green300}>
           {formatCurrency(item.currentPrice, item.currencyCode)}{' '}
-          <TextContainer
-            color={percent > 0 ? colorScheme.green300 : colorScheme.red500}
-          >
-            ({percent > 0 && '+'}
-            {percent}%)
-          </TextContainer>
         </TextContainer>
       </View>
     </TouchableOpacity>

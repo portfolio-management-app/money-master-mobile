@@ -26,7 +26,7 @@ export const BankAssetProfit = observer(() => {
     navigation.navigate('ChooseBuySource', {
       fromScreen: 'ASSET_DETAIL',
       asset: information,
-      type: 'crypto',
+      type: 'bankSaving',
     });
   };
 
@@ -34,7 +34,7 @@ export const BankAssetProfit = observer(() => {
     navigation.navigate('CashAssetPicker', {
       source: information,
       actionType: 'SELL',
-      type: 'crypto',
+      type: 'bankSaving',
       transactionType: 'withdrawToCash',
       fromScreen: 'ASSET_DETAIL',
     });

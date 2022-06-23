@@ -16,6 +16,9 @@ export const ErrorBounder = ({ show, res, onClose }: ErrorBounderProps) => {
           break;
         case 400:
           setMessage(ErrorLocale.notExist);
+          break;
+        default:
+          setMessage(APP_CONTENT.authenError.serverError);
       }
     }
   }, [res]);

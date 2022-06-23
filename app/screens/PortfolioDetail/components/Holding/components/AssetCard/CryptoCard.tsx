@@ -5,7 +5,7 @@ import { TouchableOpacity, View } from 'react-native-ui-lib';
 import { TextContainer } from 'shared/components';
 import { ICryptoAsset } from 'shared/models';
 import { colorScheme, styleProvider } from 'shared/styles';
-import { calcPercent, formatCurrency } from 'utils/number';
+import { formatCurrency } from 'utils/number';
 
 interface IProps {
   item: ICryptoAsset;
@@ -13,7 +13,6 @@ interface IProps {
 
 export const CryptoCard = ({ item }: IProps) => {
   const navigation = useNavigation<MainStackNavigationProp>();
-  const percent = calcPercent(item.currentPrice, item.purchasePrice);
   const gotoCryptoDetail = () => {
     navigation.navigate('CoinAssetDetail', { info: item });
   };
@@ -32,12 +31,6 @@ export const CryptoCard = ({ item }: IProps) => {
         </TextContainer>
         <TextContainer textAl="right" color={colorScheme.green300}>
           {formatCurrency(item.currentPrice, item.currencyCode)}{' '}
-          <TextContainer
-            color={percent > 0 ? colorScheme.green300 : colorScheme.red500}
-          >
-            ({percent > 0 && '+'}
-            {percent}%)
-          </TextContainer>
         </TextContainer>
       </View>
     </TouchableOpacity>

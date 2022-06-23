@@ -2,7 +2,7 @@ const production = {
   GoogleClientID:
     '440213221151-sq1vmgkg40rlmi1ib8cd51m9n55li747.apps.googleusercontent.com',
   FacebookAppID: '283259500459094',
-  BASE_URL: 'https://grade-book-backend.herokuapp.com',
+  BASE_URL: 'https://portfolio-management-3.herokuapp.com',
   COIN_API_URL: 'https://api.coingecko.com/api/v3',
   STOCK_API_URL: 'https://finnhub.io/api/v1',
   STOCK_API_KEY: 'c91frk2ad3if9n5lf930',
@@ -14,7 +14,7 @@ const dev = {
   GoogleClientID:
     '440213221151-sq1vmgkg40rlmi1ib8cd51m9n55li747.apps.googleusercontent.com',
   FacebookAppID: '283259500459094',
-  BASE_URL: 'https://bbe0-8-39-127-9.ngrok.io',
+  BASE_URL: 'https://0f46-14-183-0-112.ngrok.io',
   COIN_API_URL: 'https://api.coingecko.com/api/v3',
   STOCK_API_URL: 'https://finnhub.io/api/v1',
   STOCK_API_KEY: 'c8h21oiad3i9rgv9d1f0',

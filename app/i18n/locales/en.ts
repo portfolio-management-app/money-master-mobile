@@ -40,6 +40,7 @@ export const en = {
       credentialFailed: 'Credential failed',
       notExist: 'Email not exist',
     },
+    serverError: 'System error, try again later',
   },
   httpError: {
     default: 'An error occur',
@@ -149,7 +150,7 @@ export const en = {
       description: 'Description',
       selectCurrency: 'Selected currency',
       rate: 'Interest rate(%)',
-      termRange: 'Term range (month)',
+      termRange: 'Term range (day)',
       startDate: 'Start date',
       update: 'Update',
     },

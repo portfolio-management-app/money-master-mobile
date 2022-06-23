@@ -13,6 +13,9 @@ export const ErrorBounder = ({ show, res, onClose }: ErrorBounderProps) => {
       switch (res.code) {
         case 400:
           setMessage(ErrorLocale.existedEmail);
+          break;
+        default:
+          setMessage(APP_CONTENT.authenError.serverError);
       }
     }
   }, [res]);

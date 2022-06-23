@@ -27,7 +27,7 @@ export const RealEstateAssetProfit = observer(() => {
     navigation.navigate('ChooseBuySource', {
       fromScreen: 'ASSET_DETAIL',
       asset: information,
-      type: 'crypto',
+      type: 'realEstate',
     });
   };
 
@@ -35,7 +35,7 @@ export const RealEstateAssetProfit = observer(() => {
     navigation.navigate('CashAssetPicker', {
       source: information,
       actionType: 'SELL',
-      type: 'crypto',
+      type: 'realEstate',
       transactionType: 'withdrawToCash',
       fromScreen: 'ASSET_DETAIL',
     });
