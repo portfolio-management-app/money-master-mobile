@@ -75,6 +75,7 @@ export const vn = {
     name: 'Tên',
     balance: 'Vốn ban đầu',
     selectCurrency: 'Loại tiền tệ',
+    initCashDescription: 'Khoản tiền mặc định',
   },
 
   currencyPicker: {
@@ -170,6 +171,7 @@ export const vn = {
     headerCrypto: 'Thông tin tiền điện tử',
     headerStock: 'Thông tin cổ phiếu',
     headerRealEaster: 'Thông tin bất động sản',
+    inputAmount: 'Số tiền gửi',
     headerOther: 'Thông tin tài sản',
     buy: 'Mua',
     transfer: 'Chuyển tới quỹ đầu tư',
@@ -285,6 +287,7 @@ export const vn = {
   },
   bankAssetDetail: {
     editTitle: 'Chỉnh sửa tài sản',
+    termRange: 'Kỳ hạn (tháng)',
   },
   selectCurrency: 'Chọn đơn vị tiền tệ',
   statistic: 'Tổng quan',
@@ -614,4 +617,13 @@ export const vn = {
     },
     currentProfit: 'Lợi nhuận hiện tại',
   },
+  stockAssetDetail: {
+    editModal: {
+      title: 'Chỉnh sửa cổ phiếu',
+      name: 'Tên',
+      amount: 'Số lượng nắm giữ',
+      description: 'Mô tả',
+    },
+  },
+  day: 'ngày',
 };

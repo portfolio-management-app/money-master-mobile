@@ -32,11 +32,11 @@ export const CustomAssetInformationCard = observer(
               {ASSET_DETAIL_CONTENT.termRange}:{' '}
             </TextContainer>
             {asset.termRange}{' '}
-            {ASSET_DETAIL_CONTENT.month === 'month'
+            {APP_CONTENT.day === 'day'
               ? asset.termRange > 1
-                ? 'months'
-                : 'month'
-              : ASSET_DETAIL_CONTENT.month}
+                ? 'days'
+                : 'day'
+              : APP_CONTENT.day}
           </TextContainer>
           {profit && (
             <TextContainer mb={10} type="small">

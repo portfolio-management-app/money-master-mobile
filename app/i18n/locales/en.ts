@@ -80,6 +80,7 @@ export const en = {
     name: 'Name',
     balance: 'Initial balance',
     selectCurrency: 'Selected currency',
+    initCashDescription: 'Default cash',
   },
 
   currencyPicker: {
@@ -202,6 +203,7 @@ export const en = {
     buyDate: 'Buy date',
     amountHolding: 'Holding amount',
     stockCode: 'Stock symbol',
+    inputAmount: 'Input money amount',
     name: 'Name',
     transferOption: {
       title: 'Transfer to',
@@ -293,6 +295,7 @@ export const en = {
   },
   bankAssetDetail: {
     editTitle: 'Edit bank asset',
+    termRange: 'Term range (month)',
   },
   selectCurrency: 'Select currency',
   statistic: 'Statistic',
@@ -376,7 +379,15 @@ export const en = {
   cryptoAssetDetail: {
     header: 'Crypto asset information',
     editModal: {
-      title: 'Edit crypto estate',
+      title: 'Edit crypto asset',
+      name: 'Name',
+      amount: 'Current amount holding',
+      description: 'Description',
+    },
+  },
+  stockAssetDetail: {
+    editModal: {
+      title: 'Edit stock asset',
       name: 'Name',
       amount: 'Current amount holding',
       description: 'Description',
@@ -622,4 +633,5 @@ export const en = {
     },
     currentProfit: 'Current profit',
   },
+  day: 'day',
 };

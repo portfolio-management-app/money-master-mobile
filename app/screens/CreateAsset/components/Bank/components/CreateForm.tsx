@@ -46,7 +46,7 @@ export const CreateForm = observer(({ onSubmit, onClose }: IProps) => {
         values.fee = 1 * values.fee;
         values.tax = 1 * values.tax;
         values.inputMoneyAmount = 1 * values.inputMoneyAmount;
-        values.interestRate = 1 * values.interestRate;
+        values.interestRate = (1 * values.interestRate) / 100;
         values.termRange = 1 * values.termRange * 30;
         onSubmit(values);
       }}
@@ -106,7 +106,7 @@ export const CreateForm = observer(({ onSubmit, onClose }: IProps) => {
                 onChangeText={handleChange('termRange')}
                 onBlur={handleBlur('termRange')}
                 keyBoardType="decimal-pad"
-                placeholder={FORM_CONTENT.termRange}
+                placeholder={APP_CONTENT.bankAssetDetail.termRange}
                 errorMessage={touched.termRange ? errors.termRange : ''}
               />
               <CustomTextField

@@ -164,3 +164,11 @@ export type UpdatePasswordBody = {
 };
 
 export type ProfitPeriod = 'day' | 'week' | 'month';
+
+export type CreatePortfolioBody = {
+  name: string;
+  initialCash: number;
+  initialCashName: string;
+  initialCashDescription: string;
+  initialCurrency: string;
+};

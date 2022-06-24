@@ -208,6 +208,7 @@ export const BankAssetStore = types
       interestRate: 0,
       termRange: 0,
       isGoingToReinState: false,
+      currentMoneyAmount: 0,
     },
     loading: false,
 

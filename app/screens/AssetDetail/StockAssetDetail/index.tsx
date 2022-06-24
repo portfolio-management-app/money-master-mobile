@@ -33,7 +33,8 @@ export const StockAssetDetail = observer(() => {
   const [showConfirm, setShowConfirm] = React.useState(false);
 
   const { deleteResponse, deleteStockAsset } = PortfolioDetailStore;
-  const { assignInfo, getInformation, information } = StockAssetStore;
+  const { assignInfo, getInformation, information, editAsset } =
+    StockAssetStore;
 
   React.useEffect(() => {
     assignInfo(routeProps.params.info);
@@ -67,7 +68,7 @@ export const StockAssetDetail = observer(() => {
     });
   };
   const handleEditInformation = (newData: any) => {
-    console.log('edit stock asset', newData);
+    editAsset(newData);
   };
   const handleTransferToInvestFund = () => {
     navigation.navigate('StockTransfer', {
@@ -116,7 +117,7 @@ export const StockAssetDetail = observer(() => {
     <PlatformView style={styleProvider.body}>
       <StatusBar backgroundColor={colorScheme.bg} barStyle="dark-content" />
       <NavigationHeader
-        title={routeProps.params.info.name}
+        title={information.name}
         renderRightItem={
           <PopoverMenuSetting
             haveNotificationSetting

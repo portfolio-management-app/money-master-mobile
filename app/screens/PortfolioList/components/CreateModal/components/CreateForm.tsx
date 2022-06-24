@@ -8,11 +8,13 @@ import {
   CustomTextField,
   renderPickerForPortfolio,
 } from 'shared/components';
+import { APP_CONTENT } from 'shared/constants';
+import { CreatePortfolioBody } from 'shared/stores/types';
 import { SCREEN_CONTENT } from '../index';
 import { CreatePortfolioSchema } from '../validator';
 
 interface IProps {
-  onSubmit: (data: any) => void;
+  onSubmit: (data: CreatePortfolioBody) => void;
   onClose: () => void;
 }
 
@@ -22,7 +24,15 @@ export const CreateForm = ({ onSubmit, onClose }: IProps) => {
       validationSchema={CreatePortfolioSchema}
       initialValues={{ name: '', initBalance: 0, currency: '' }}
       onSubmit={(values) => {
-        onSubmit(values);
+        const data: CreatePortfolioBody = {
+          initialCash: values.initBalance,
+          name: values.name,
+          initialCurrency: values.currency,
+          initialCashDescription:
+            APP_CONTENT.portfolioCreateModal.initCashDescription,
+          initialCashName: values.currency,
+        };
+        onSubmit(data);
       }}
     >
       {({ errors, touched, handleBlur, handleChange, handleSubmit }) => {
@@ -41,7 +51,12 @@ export const CreateForm = ({ onSubmit, onClose }: IProps) => {
                 errorMessage={touched.name ? errors.name : ''}
                 placeholder={SCREEN_CONTENT.name}
               />
-
+              <CustomTextField
+                onChangeText={handleChange('initBalance')}
+                onBlur={handleBlur('initBalance')}
+                errorMessage={touched.initBalance ? errors.initBalance : ''}
+                placeholder={SCREEN_CONTENT.balance}
+              />
               <CurrencyPicker
                 errorMessage={touched.currency ? errors.currency : ''}
                 onChange={handleChange('currency')}

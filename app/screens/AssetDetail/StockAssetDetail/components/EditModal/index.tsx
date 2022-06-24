@@ -5,15 +5,15 @@ import { ScrollView } from 'react-native';
 import { Modal } from 'react-native-ui-lib';
 import {
   CreateModalHeader,
+  CustomTextField,
   CustomToast,
-  DatePicker,
   TransparentLoading,
 } from 'shared/components';
 import { APP_CONTENT } from 'shared/constants';
 import { IStockAsset } from 'shared/models';
 import { StockAssetStore } from 'shared/stores';
 import { styleProvider } from 'shared/styles';
-import { CreateRealEstateAssetSchema } from 'shared/validator';
+import { EditCryptoAssetSchema } from 'shared/validator';
 
 interface IProps {
   open: boolean;
@@ -23,21 +23,31 @@ interface IProps {
 }
 
 const FORM_CONTENT = APP_CONTENT.portfolioDetail.createOtherModal;
-const SCREEN_CONTENT = APP_CONTENT.cryptoAssetDetail.editModal;
+const SCREEN_CONTENT = APP_CONTENT.stockAssetDetail.editModal;
 
-export const EditModal = observer(({ open, item, onClose }: IProps) => {
+export const EditModal = observer(({ open, item, onClose, onEdit }: IProps) => {
   const { editResponse } = StockAssetStore;
   return (
     <Modal visible={open} animationType="fade">
       <Formik
-        validationSchema={CreateRealEstateAssetSchema}
-        initialValues={{}}
+        validationSchema={EditCryptoAssetSchema}
+        initialValues={{
+          name: item.name,
+          currentAmountHolding: item.currentAmountHolding,
+          description: item.description,
+        }}
         onSubmit={(values) => {
-          console.log(values);
-          onClose();
+          onEdit(values);
         }}
       >
-        {({ handleChange, handleSubmit }) => {
+        {({
+          handleChange,
+          handleSubmit,
+          touched,
+          errors,
+          values,
+          handleBlur,
+        }) => {
           return (
             <>
               <CreateModalHeader
@@ -47,7 +57,7 @@ export const EditModal = observer(({ open, item, onClose }: IProps) => {
                 title={SCREEN_CONTENT.title}
               />
               <ScrollView style={styleProvider.container}>
-                {/* <CustomTextField
+                <CustomTextField
                   onChangeText={handleChange('name')}
                   onBlur={handleBlur('name')}
                   errorMessage={touched.name ? errors.name : ''}
@@ -55,43 +65,16 @@ export const EditModal = observer(({ open, item, onClose }: IProps) => {
                   placeholder={SCREEN_CONTENT.name}
                 />
                 <CustomTextField
+                  onChangeText={handleChange('currentAmountHolding')}
+                  onBlur={handleBlur('currentAmountHolding')}
+                  value={values.currentAmountHolding.toString()}
+                  placeholder={SCREEN_CONTENT.amount}
+                />
+                <CustomTextField
                   onChangeText={handleChange('description')}
                   onBlur={handleBlur('description')}
-                  placeholder={FORM_CONTENT.description}
                   value={values.description}
-                />
-                <CustomTextField
-                  onChangeText={handleChange('inputMoneyAmount')}
-                  onBlur={handleBlur('inputMoneyAmount')}
-                  errorMessage={
-                    touched.inputMoneyAmount ? errors.inputMoneyAmount : ''
-                  }
-                  keyBoardType="decimal-pad"
-                  placeholder={FORM_CONTENT.balance}
-                  value={values.inputMoneyAmount.toString()}
-                />
-
-                <CustomTextField
-                  onChangeText={handleChange('currentPrice')}
-                  onBlur={handleBlur('currentPrice')}
-                  errorMessage={touched.currentPrice ? errors.currentPrice : ''}
-                  keyBoardType="decimal-pad"
-                  placeholder={SCREEN_CONTENT.currentPrice}
-                  value={values.currentPrice.toString()}
-                />
-                <CurrencyPicker
-                  errorMessage={
-                    touched.inputCurrency ? errors.inputCurrency : ''
-                  }
-                  initVal={item.inputCurrency}
-                  onChange={handleChange('inputCurrency')}
-                  renderPicker={renderPickerForPortfolio}
-                /> */}
-
-                <DatePicker
-                  initDate={new Date(item.inputDay)}
-                  onISOStringChange={handleChange('inputDay')}
-                  label={FORM_CONTENT.startDate}
+                  placeholder={SCREEN_CONTENT.description}
                 />
               </ScrollView>
             </>

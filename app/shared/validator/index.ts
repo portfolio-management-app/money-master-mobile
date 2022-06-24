@@ -20,12 +20,6 @@ export const CreateBankAssetSchema = Yup.object().shape({
     .transform(yupParserNumber)
     .required(FORM_ERROR.requiredFiled)
     .positive(FORM_ERROR.mustBeANumber),
-  fee: Yup.number()
-    .transform(yupParserNumber)
-    .required(FORM_ERROR.requiredFiled),
-  tax: Yup.number()
-    .transform(yupParserNumber)
-    .required(FORM_ERROR.requiredFiled),
 });
 
 export const CreateRealEstateAssetSchema = Yup.object().shape({
@@ -39,12 +33,6 @@ export const CreateRealEstateAssetSchema = Yup.object().shape({
     .transform(yupParserNumber)
     .required(FORM_ERROR.requiredFiled)
     .positive(FORM_ERROR.mustBeANumber),
-  fee: Yup.number()
-    .transform(yupParserNumber)
-    .required(FORM_ERROR.requiredFiled),
-  tax: Yup.number()
-    .transform(yupParserNumber)
-    .required(FORM_ERROR.requiredFiled),
 });
 
 export const PriceSchema = Yup.object().shape({
@@ -71,12 +59,6 @@ export const CreateCryptoAssetSchema = Yup.object().shape({
     .required(FORM_ERROR.requiredFiled)
     .positive(FORM_ERROR.mustBeANumber),
   currencyCode: Yup.string().required(FORM_ERROR.requiredFiled),
-  fee: Yup.number()
-    .transform(yupParserNumber)
-    .required(FORM_ERROR.requiredFiled),
-  tax: Yup.number()
-    .transform(yupParserNumber)
-    .required(FORM_ERROR.requiredFiled),
 });
 
 export const CreateStockAssetSchema = Yup.object().shape({
@@ -91,12 +73,6 @@ export const CreateStockAssetSchema = Yup.object().shape({
     .transform(yupParserNumber)
     .required(FORM_ERROR.requiredFiled)
     .positive(FORM_ERROR.mustBeANumber),
-  fee: Yup.number()
-    .transform(yupParserNumber)
-    .required(FORM_ERROR.requiredFiled),
-  tax: Yup.number()
-    .transform(yupParserNumber)
-    .required(FORM_ERROR.requiredFiled),
 });
 
 export const CreateCurrencyAssetSchema = Yup.object().shape({
@@ -107,12 +83,6 @@ export const CreateCurrencyAssetSchema = Yup.object().shape({
     .positive(FORM_ERROR.mustBeANumber),
   name: Yup.string().required(FORM_ERROR.requiredFiled),
   inputDay: Yup.string().required(FORM_ERROR.requiredFiled),
-  fee: Yup.number()
-    .transform(yupParserNumber)
-    .required(FORM_ERROR.requiredFiled),
-  tax: Yup.number()
-    .transform(yupParserNumber)
-    .required(FORM_ERROR.requiredFiled),
 });
 
 export const TransferToFundAssetSchema = Yup.object().shape({
@@ -127,12 +97,6 @@ export const SellAssetSchema = Yup.object().shape({
     .transform(yupParserNumber)
     .required(FORM_ERROR.requiredFiled)
     .positive(FORM_ERROR.mustBeANumber),
-  fee: Yup.number()
-    .transform(yupParserNumber)
-    .required(FORM_ERROR.requiredFiled),
-  tax: Yup.number()
-    .transform(yupParserNumber)
-    .required(FORM_ERROR.requiredFiled),
 });
 
 export const EditCryptoAssetSchema = Yup.object().shape({
@@ -149,4 +113,16 @@ export const EditCashAssetSchema = Yup.object().shape({
     .required(FORM_ERROR.requiredFiled)
     .positive(FORM_ERROR.mustBeANumber),
   currency: Yup.string().required(FORM_ERROR.requiredFiled),
+});
+
+export const EditStockAssetSchema = Yup.object().shape({
+  name: Yup.string().required(FORM_ERROR.requiredFiled),
+  currentAmountHolding: Yup.number()
+    .transform(yupParserNumber)
+    .required(FORM_ERROR.requiredFiled)
+    .positive(FORM_ERROR.mustBeANumber),
+});
+
+export const EditCustomAssetSchema = Yup.object().shape({
+  name: Yup.string().required(FORM_ERROR.requiredFiled),
 });

@@ -11,6 +11,7 @@ export const BankAsset = types.model('BankAsset', {
   interestRate: types.number,
   termRange: types.number,
   isGoingToReinState: types.boolean,
+  currentMoneyAmount: types.number,
 });
 
 export const RealEstateAsset = types.model('RealEstateAsset', {

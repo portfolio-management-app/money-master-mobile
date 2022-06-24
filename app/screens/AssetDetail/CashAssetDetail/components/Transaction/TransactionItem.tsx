@@ -17,7 +17,11 @@ export const TransactionItem = ({ info, onPress, currentAsset }: IProps) => {
     case 'buyFromOutside':
       return (
         <TouchableOpacity onPress={onPress} style={styles.transactionItem}>
-          <InTransaction info={info} inContent={APP_CONTENT.buy} />
+          <InTransaction
+            info={info}
+            inContent={APP_CONTENT.buy}
+            toFromContent={`${APP_CONTENT.transactionDetail.from}: ${APP_CONTENT.transactionDetail.buyFromOutSide}`}
+          />
         </TouchableOpacity>
       );
     case 'buyFromCash':
@@ -55,7 +59,7 @@ export const TransactionItem = ({ info, onPress, currentAsset }: IProps) => {
             <OutTransaction
               info={info}
               outContent={APP_CONTENT.sell}
-              toFromContent={''}
+              toFromContent={`${APP_CONTENT.transactionDetail.to}: ${info.destinationAssetName}`}
             />
           ) : (
             <InTransaction

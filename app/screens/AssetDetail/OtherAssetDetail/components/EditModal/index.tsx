@@ -16,7 +16,7 @@ import { APP_CONTENT } from 'shared/constants';
 import { ICustomAsset } from 'shared/models';
 import { CustomAssetStore } from 'shared/stores';
 import { styleProvider } from 'shared/styles';
-import { CreateBankAssetSchema } from 'shared/validator';
+import { EditCustomAssetSchema } from 'shared/validator';
 
 interface IProps {
   open: boolean;
@@ -33,21 +33,15 @@ export const EditModal = observer(({ open, item, onClose, onEdit }: IProps) => {
   return (
     <Modal visible={open} animationType="fade">
       <Formik
-        validationSchema={CreateBankAssetSchema}
+        validationSchema={EditCustomAssetSchema}
         initialValues={{
           name: item.name,
-          bankCode: '',
-          inputDay: item.inputDay,
-          inputCurrency: item.inputCurrency,
-          inputMoneyAmount: item.inputMoneyAmount,
-          description: item.description,
           interestRate: item.interestRate,
           termRange: item.termRange,
-          changeInterestRateType: 'CONTINUE_WITH_RATE',
+          description: item.description,
         }}
         onSubmit={(values) => {
-          values.inputMoneyAmount = 1 * values.inputMoneyAmount;
-          values.interestRate = 1 * values.interestRate;
+          values.interestRate = (1 * values.interestRate) / 100;
           values.termRange = 1 * values.termRange;
 
           onEdit(values);
@@ -83,31 +77,13 @@ export const EditModal = observer(({ open, item, onClose, onEdit }: IProps) => {
                   placeholder={FORM_CONTENT.description}
                   value={values.description}
                 />
-                <CustomTextField
-                  onChangeText={handleChange('inputMoneyAmount')}
-                  onBlur={handleBlur('inputMoneyAmount')}
-                  errorMessage={
-                    touched.inputMoneyAmount ? errors.inputMoneyAmount : ''
-                  }
-                  keyBoardType="decimal-pad"
-                  placeholder={FORM_CONTENT.balance}
-                  value={values.inputMoneyAmount.toString()}
-                />
-                <CurrencyPicker
-                  errorMessage={
-                    touched.inputCurrency ? errors.inputCurrency : ''
-                  }
-                  initVal={item.inputCurrency}
-                  onChange={handleChange('inputCurrency')}
-                  renderPicker={renderPickerForPortfolio}
-                />
+
                 <CustomTextField
                   onChangeText={handleChange('interestRate')}
                   onBlur={handleBlur('interestRate')}
                   keyBoardType="decimal-pad"
                   placeholder={FORM_CONTENT.rate}
                   value={values.interestRate.toString()}
-                  errorMessage={touched.interestRate ? errors.interestRate : ''}
                 />
                 <CustomTextField
                   onChangeText={handleChange('termRange')}
@@ -115,13 +91,6 @@ export const EditModal = observer(({ open, item, onClose, onEdit }: IProps) => {
                   keyBoardType="decimal-pad"
                   placeholder={FORM_CONTENT.termRange}
                   value={values.termRange.toString()}
-                  errorMessage={touched.termRange ? errors.termRange : ''}
-                />
-
-                <DatePicker
-                  initDate={new Date(item.inputDay)}
-                  onISOStringChange={handleChange('inputDay')}
-                  label={FORM_CONTENT.startDate}
                 />
               </ScrollView>
             </>

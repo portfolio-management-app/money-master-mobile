@@ -5,13 +5,7 @@ import { httpRequest } from 'services/http';
 import { UserStore } from './user';
 import { PortfolioInformation } from '../models';
 import { log } from 'services/log';
-import { EditPortfolioBody } from './types';
-
-export type AddNewBody = {
-  name: string;
-  initialCash: 0;
-  initialCurrency: string;
-};
+import { CreatePortfolioBody, EditPortfolioBody } from './types';
 
 export const PortfolioListStore = types
   .model({
@@ -19,7 +13,7 @@ export const PortfolioListStore = types
     loading: types.boolean,
   })
   .actions((self) => {
-    const addNewPortfolio = flow(function* (body: AddNewBody) {
+    const addNewPortfolio = flow(function* (body: CreatePortfolioBody) {
       const res = yield httpRequest.sendPost(
         `${Config.BASE_URL}/portfolio`,
         body,

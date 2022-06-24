@@ -31,7 +31,8 @@ export const CustomAssetDetail = observer(() => {
   const [showConfirm, setShowConfirm] = React.useState(false);
 
   const { deleteResponse, deleteCustomAsset } = PortfolioDetailStore;
-  const { assignInfo, getInformation, information } = CustomAssetStore;
+  const { assignInfo, getInformation, information, editAsset } =
+    CustomAssetStore;
   React.useEffect(() => {
     assignInfo(routeProps.params.info);
     getInformation();
@@ -49,7 +50,7 @@ export const CustomAssetDetail = observer(() => {
   };
 
   const handleEditInformation = (newData: any) => {
-    console.log('edit custom asset', newData);
+    editAsset(newData);
   };
   const handleTransferToInvestFund = () => {
     navigation.navigate('CustomTransfer', { info: routeProps.params.info });
@@ -107,7 +108,7 @@ export const CustomAssetDetail = observer(() => {
     <PlatformView style={styleProvider.body}>
       <StatusBar backgroundColor={colorScheme.bg} barStyle="dark-content" />
       <NavigationHeader
-        title={CustomAssetStore.information.name}
+        title={information.name}
         renderRightItem={<PopoverMenuSetting onPress={handleMenuItemPress} />}
       />
       <TabBarView />

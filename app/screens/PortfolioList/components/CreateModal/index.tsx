@@ -4,6 +4,7 @@ import { Modal } from 'react-native-ui-lib';
 import { FloatingButton, Icon } from 'shared/components';
 import { APP_CONTENT } from 'shared/constants';
 import { PortfolioListStore } from 'shared/stores';
+import { CreatePortfolioBody } from 'shared/stores/types';
 import { colorScheme, styleProvider } from 'shared/styles';
 import { CreateForm } from './components';
 
@@ -16,12 +17,8 @@ export const CreateModal = () => {
     setShowModal(!showModal);
   };
 
-  const onCreate = async (data: any) => {
-    await PortfolioListStore.addNewPortfolio({
-      initialCash: data.initBalance,
-      initialCurrency: data.currency,
-      name: data.name,
-    });
+  const onCreate = async (data: CreatePortfolioBody) => {
+    await PortfolioListStore.addNewPortfolio(data);
     toggle();
   };
   return (

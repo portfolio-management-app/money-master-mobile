@@ -18,7 +18,7 @@ export const BankInformationCard = observer(({ asset, profit }: IProps) => {
     <View style={styleProvider.centerVertical}>
       <View>
         <TextContainer mb={10} color={colorScheme.theme} bold type="h1">
-          {formatCurrency(asset.inputMoneyAmount, asset.inputCurrency)}
+          {formatCurrency(asset.currentMoneyAmount, asset.inputCurrency)}
         </TextContainer>
         <TextContainer mb={10} type="small">
           {ASSET_DETAIL_CONTENT.bankName}: {asset.name}
@@ -28,6 +28,10 @@ export const BankInformationCard = observer(({ asset, profit }: IProps) => {
           {asset.description === ''
             ? ASSET_DETAIL_CONTENT.none
             : asset.description}
+        </TextContainer>
+        <TextContainer mb={10} type="small">
+          {ASSET_DETAIL_CONTENT.inputAmount}:{' '}
+          {formatCurrency(asset.inputMoneyAmount, asset.inputCurrency)}
         </TextContainer>
         <TextContainer mb={10} type="small">
           <TextContainer type="small">
@@ -45,9 +49,9 @@ export const BankInformationCard = observer(({ asset, profit }: IProps) => {
           <TextContainer type="small">
             {ASSET_DETAIL_CONTENT.termRange}:{' '}
           </TextContainer>
-          {asset.termRange}{' '}
+          {asset.termRange / 30}{' '}
           {ASSET_DETAIL_CONTENT.month === 'month'
-            ? asset.termRange > 1
+            ? asset.termRange / 30 > 1
               ? 'months'
               : 'month'
             : ASSET_DETAIL_CONTENT.month}

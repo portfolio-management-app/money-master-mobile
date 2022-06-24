@@ -50,8 +50,8 @@ export const EditModal = observer(({ open, item, onClose, onEdit }: IProps) => {
         }}
         onSubmit={(values) => {
           values.inputMoneyAmount = 1 * values.inputMoneyAmount;
-          values.interestRate = 1 * values.interestRate;
-          values.termRange = 1 * values.termRange;
+          values.interestRate = (1 * values.interestRate) / 100;
+          values.termRange = 1 * values.termRange * 30;
           onEdit(values);
         }}
       >
@@ -63,6 +63,7 @@ export const EditModal = observer(({ open, item, onClose, onEdit }: IProps) => {
           handleSubmit,
           values,
         }) => {
+          console.log(errors);
           return (
             <>
               <CreateModalHeader
@@ -115,7 +116,7 @@ export const EditModal = observer(({ open, item, onClose, onEdit }: IProps) => {
                   onChangeText={handleChange('termRange')}
                   onBlur={handleBlur('termRange')}
                   keyBoardType="decimal-pad"
-                  placeholder={FORM_CONTENT.termRange}
+                  placeholder={APP_CONTENT.bankAssetDetail.termRange}
                   value={values.termRange.toString()}
                   errorMessage={touched.termRange ? errors.termRange : ''}
                 />
