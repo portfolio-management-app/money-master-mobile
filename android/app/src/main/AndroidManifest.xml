@@ -17,6 +17,9 @@
       android:usesCleartextTraffic="true">
       <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/facebook_app_id"/>
       <meta-data android:name="com.facebook.sdk.ClientToken" android:value="@string/facebook_client_token"/>
+      <meta-data
+        android:name="com.google.firebase.messaging.default_notification_icon"
+        android:resource="@drawable/noti" />
        <provider android:authorities="com.facebook.app.FacebookContentProvider283259500459094"
     android:name="com.facebook.FacebookContentProvider"
     android:exported="true" />

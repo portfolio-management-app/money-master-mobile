@@ -10,9 +10,10 @@ import { TextContainer } from '../TextContainer';
 
 interface IProps {
   asset: IBankAsset;
+  profit?: string;
 }
 
-export const BankInformationCard = observer(({ asset }: IProps) => {
+export const BankInformationCard = observer(({ asset, profit }: IProps) => {
   return (
     <View style={styleProvider.centerVertical}>
       <View>
@@ -51,6 +52,14 @@ export const BankInformationCard = observer(({ asset }: IProps) => {
               : 'month'
             : ASSET_DETAIL_CONTENT.month}
         </TextContainer>
+        {profit && (
+          <TextContainer mb={10} type="small">
+            <TextContainer type="small">
+              {APP_CONTENT.profit.currentProfit}:{' '}
+            </TextContainer>
+            <TextContainer type="small">{profit}</TextContainer>
+          </TextContainer>
+        )}
       </View>
     </View>
   );

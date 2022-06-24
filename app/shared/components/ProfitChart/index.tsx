@@ -1,13 +1,9 @@
 import React from 'react';
-import { View } from 'react-native';
-import { GestureHandlerRootView } from 'react-native-gesture-handler';
-import { LineChart, TLineChartDataProp } from 'react-native-wagmi-charts';
+import { ScrollView } from 'react-native';
 import { IProfit } from 'shared/models';
-import { colorScheme, fontProvider, styleProvider } from 'shared/styles';
+import { BarChart } from 'react-native-chart-kit';
+import { ChartData } from 'react-native-chart-kit/dist/HelperTypes';
 import { parseToString } from 'utils/date';
-import { formatCurrency } from 'utils/number';
-import { Empty } from '../Empty';
-import { TextContainer } from '../TextContainer';
 
 interface IProps {
   chartData: Array<IProfit>;
@@ -16,71 +12,52 @@ const Component = ({ chartData }: IProps) => {
   const renderData = React.useMemo(() => {
     return buildData(chartData);
   }, [chartData]);
-
   return (
-    <>
-      {renderData.length === 1 || renderData.length === 0 ? (
-        <View
-          style={{
-            height: 300,
-            justifyContent: 'center',
-            alignItems: 'center',
-          }}
-        >
-          <Empty />
-        </View>
-      ) : (
-        <GestureHandlerRootView>
-          <LineChart.Provider data={renderData}>
-            <LineChart height={200}>
-              <LineChart.Path width={2} color={colorScheme.red500}>
-                <LineChart.Gradient />
-              </LineChart.Path>
-              <LineChart.CursorCrosshair>
-                <LineChart.Tooltip
-                  textStyle={{
-                    backgroundColor: colorScheme.black200,
-                    borderRadius: 4,
-                    color: colorScheme.white,
-                    fontSize: 18,
-                    padding: 4,
-                  }}
-                />
-              </LineChart.CursorCrosshair>
-            </LineChart>
-
-            <View style={{ marginLeft: 10 }}>
-              <LineChart.PriceText
-                style={{
-                  fontFamily: fontProvider.openSans,
-                  fontSize: 18,
-                  color: colorScheme.black200,
-                  fontWeight: 'bold',
-                }}
-              />
-              <LineChart.DatetimeText
-                style={{
-                  fontFamily: fontProvider.openSans,
-                  fontSize: 16,
-                  color: colorScheme.black200,
-                }}
-              />
-            </View>
-          </LineChart.Provider>
-        </GestureHandlerRootView>
-      )}
-    </>
+    <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+      <BarChart
+        data={renderData}
+        height={400}
+        style={{ marginTop: 10, marginHorizontal: 20 }}
+        showValuesOnTopOfBars
+        withVerticalLabels
+        width={renderData.datasets[0].data.length * 100}
+        yAxisLabel={``}
+        yAxisSuffix=""
+        chartConfig={{
+          backgroundColor: '#ffff',
+          backgroundGradientFrom: '#ffff',
+          backgroundGradientTo: '#ffff',
+          decimalPlaces: 2, // optional, defaults to 2dp
+          color: (opacity = 1) => `rgba(255, 0,0, ${opacity})`,
+          labelColor: (opacity = 1) => `rgba(255, 0, 0, ${opacity})`,
+          propsForDots: {
+            r: '6',
+            strokeWidth: '2',
+            stroke: '#ffa726',
+          },
+          strokeWidth: 5,
+        }}
+        verticalLabelRotation={30}
+      />
+    </ScrollView>
   );
 };
 
 const buildData = (dataProps: Array<IProfit>) => {
-  const data: TLineChartDataProp = [];
+  const data: ChartData = {
+    labels: [],
+    datasets: [
+      {
+        data: [],
+      },
+    ],
+  };
 
   for (let i = 0; i < dataProps.length; i++) {
-    data.push({
-      timestamp: new Date(dataProps[i].startTime).getTime(),
-      value: dataProps[i].amount,
-    });
+    data.labels.push(
+      parseToString(new Date(dataProps[i].startTime), { withTime: false })
+    );
+    data.datasets[0].data.push(Math.round(dataProps[i].amount));
   }
 
   return data;

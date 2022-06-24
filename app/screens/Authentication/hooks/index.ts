@@ -14,7 +14,7 @@ export const useSocialLogin = () => {
     await facebookLogin();
     const profile = await getProfile();
     const accessToken = await getAccessToken();
-    console.log();
+    console.log(profile, accessToken);
     setIsLoading(false);
   }, []);
 

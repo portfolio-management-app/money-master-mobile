@@ -22,5 +22,23 @@ export const ActionBottomSheet = ({ show, onClose, coinId }: IProps) => {
       actionType: 'BUY',
     });
   };
-  return <AssetActionSheet show={show} onClose={onClose} onBuyPress={onBuy} />;
+
+  const onSell = async () => {
+    await Promise.all([
+      PortfolioListStore.getPortfolioList(),
+      CoinDetailStore.getCoinInfo(coinId),
+    ]);
+    navigation.navigate('PortfolioPicker', {
+      type: 'crypto',
+      actionType: 'SELL',
+    });
+  };
+  return (
+    <AssetActionSheet
+      onSellPress={onSell}
+      show={show}
+      onClose={onClose}
+      onBuyPress={onBuy}
+    />
+  );
 };

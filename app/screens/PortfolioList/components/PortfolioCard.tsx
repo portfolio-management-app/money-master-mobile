@@ -6,7 +6,6 @@ import { TouchableOpacity } from 'react-native-ui-lib';
 import { EditDeleteActionSheet, TextContainer } from 'shared/components';
 import { IPortfolio } from 'shared/models';
 import { colorScheme } from 'shared/styles';
-import { formatCurrency } from 'utils/number';
 
 interface IProps {
   item: IPortfolio;

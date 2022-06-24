@@ -10,34 +10,45 @@ import { TextContainer } from '../TextContainer';
 
 interface IProps {
   asset: IRealEstateAsset;
+  profit?: string;
 }
-export const RealEstateInformationCard = observer(({ asset }: IProps) => {
-  return (
-    <View style={styleProvider.centerVertical}>
-      <View>
-        <TextContainer mb={10} color={colorScheme.theme} bold type="h1">
-          {formatCurrency(asset.inputMoneyAmount, asset.inputCurrency)}
-        </TextContainer>
-        <TextContainer mb={10} type="small">
-          {ASSET_DETAIL_CONTENT.realEstateName}: {asset.name}
-        </TextContainer>
-        <TextContainer mb={10} type="small">
-          {ASSET_DETAIL_CONTENT.description}:{' '}
-          {asset.description === ''
-            ? ASSET_DETAIL_CONTENT.none
-            : asset.description}
-        </TextContainer>
-        <TextContainer mb={10} type="small">
-          {APP_CONTENT.realEstateAssetDetail.editModal.currentPrice}:{' '}
-          {formatCurrency(asset.currentPrice, asset.inputCurrency)}
-        </TextContainer>
-        <TextContainer mb={10} type="small">
-          <TextContainer type="small">
-            {ASSET_DETAIL_CONTENT.startDate}:{' '}
+export const RealEstateInformationCard = observer(
+  ({ asset, profit }: IProps) => {
+    return (
+      <View style={styleProvider.centerVertical}>
+        <View>
+          <TextContainer mb={10} color={colorScheme.theme} bold type="h1">
+            {formatCurrency(asset.inputMoneyAmount, asset.inputCurrency)}
           </TextContainer>
-          {parseToString(new Date(asset.inputDay), { withTime: false })}
-        </TextContainer>
+          <TextContainer mb={10} type="small">
+            {ASSET_DETAIL_CONTENT.realEstateName}: {asset.name}
+          </TextContainer>
+          <TextContainer mb={10} type="small">
+            {ASSET_DETAIL_CONTENT.description}:{' '}
+            {asset.description === ''
+              ? ASSET_DETAIL_CONTENT.none
+              : asset.description}
+          </TextContainer>
+          <TextContainer mb={10} type="small">
+            {APP_CONTENT.realEstateAssetDetail.editModal.currentPrice}:{' '}
+            {formatCurrency(asset.currentPrice, asset.inputCurrency)}
+          </TextContainer>
+          <TextContainer mb={10} type="small">
+            <TextContainer type="small">
+              {ASSET_DETAIL_CONTENT.startDate}:{' '}
+            </TextContainer>
+            {parseToString(new Date(asset.inputDay), { withTime: false })}
+          </TextContainer>
+          {profit && (
+            <TextContainer mb={10} type="small">
+              <TextContainer type="small">
+                {APP_CONTENT.profit.currentProfit}:{' '}
+              </TextContainer>
+              <TextContainer type="small">{profit}</TextContainer>
+            </TextContainer>
+          )}
+        </View>
       </View>
-    </View>
-  );
-});
+    );
+  }
+);

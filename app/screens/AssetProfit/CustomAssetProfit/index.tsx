@@ -1,13 +1,10 @@
-import { useNavigation } from '@react-navigation/native';
 import { observer } from 'mobx-react-lite';
 import { getSnapshot } from 'mobx-state-tree';
 import { NavigationHeader } from 'navigation/header';
-import { MainStackNavigationProp } from 'navigation/types';
 import React from 'react';
 import {
   CustomAssetInformationCard,
   PlatformView,
-  ProfitActionButtons,
   ProfitChart,
   ProfitRangeMenu,
   TransparentLoading,
@@ -15,33 +12,22 @@ import {
 import { APP_CONTENT } from 'shared/constants';
 import { CustomAssetStore } from 'shared/stores';
 import { styleProvider } from 'shared/styles';
+import { formatCurrency } from 'utils/number';
 
 export const CustomAssetProfit = observer(() => {
   const { getProfitLoss, profit, loading, information } = CustomAssetStore;
 
-  const navigation = useNavigation<MainStackNavigationProp>();
   React.useEffect(() => {
     getProfitLoss('day');
   }, [getProfitLoss]);
-  const handleAdd = () => {
-    navigation.navigate('ChooseBuySource', {
-      fromScreen: 'ASSET_DETAIL',
-      asset: information,
-      type: 'custom',
-      customAssetInfo: { id: information.id, name: information.name },
-    });
-  };
 
-  const handleSell = () => {
-    navigation.navigate('CashAssetPicker', {
-      source: information,
-      actionType: 'SELL',
-      type: 'custom',
-      transactionType: 'withdrawToCash',
-      fromScreen: 'ASSET_DETAIL',
-      customAssetInfo: { id: information.id, name: information.name },
-    });
-  };
+  const currentProfit =
+    profit.length > 0
+      ? formatCurrency(
+          profit[profit.length - 1].amount,
+          information.inputCurrency
+        )
+      : formatCurrency(0, information.inputCurrency);
   return (
     <PlatformView style={styleProvider.body}>
       <NavigationHeader
@@ -50,9 +36,9 @@ export const CustomAssetProfit = observer(() => {
           <ProfitRangeMenu onSelect={(range) => getProfitLoss(range)} />
         }
       />
-      <CustomAssetInformationCard asset={information} />
+      <CustomAssetInformationCard profit={currentProfit} asset={information} />
       <ProfitChart chartData={getSnapshot(profit)} />
-      <ProfitActionButtons onAddValue={handleAdd} onSell={handleSell} />
+
       <TransparentLoading show={loading} />
     </PlatformView>
   );

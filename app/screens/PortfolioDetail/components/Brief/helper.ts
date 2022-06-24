@@ -16,10 +16,7 @@ export const calculationPercent = (data: Array<IPieData>) => {
         res.push({
           value: data[i].value,
           label: data[i].name,
-          percent:
-            (data[i].value * 100) / sum > 1
-              ? Math.floor((data[i].value * 100) / sum)
-              : 1,
+          percent: Math.round((data[i].value * 100) / sum),
           color: data[i].svg.fill,
         });
       }
@@ -30,17 +27,38 @@ export const calculationPercent = (data: Array<IPieData>) => {
 
 export const buildNewPieChartData = (data: Array<IPieChartItem>) => {
   const res: Array<IPieData> = [];
-
+  let other = 0;
+  let sum = 0;
   for (let i = 0; i < data.length; i++) {
-    if (data[i].sumValue)
-      res.push({
-        value: data[i].sumValue,
-        svg: {
-          fill: randomColor(),
-        },
-        key: `pie-${i}`,
-        name: getLabel(data[i].assetType),
-      });
+    sum += data[i].sumValue;
+  }
+  for (let i = 0; i < data.length; i++) {
+    if (data[i].sumValue) {
+      const percent = (data[i].sumValue * 100) / sum;
+      console.log(percent);
+      if (percent > 5) {
+        res.push({
+          value: data[i].sumValue,
+          svg: {
+            fill: randomColor(),
+          },
+          key: `pie-${i}`,
+          name: getLabel(data[i].assetType),
+        });
+      } else {
+        other += data[i].sumValue;
+      }
+    }
+  }
+  if (other) {
+    res.push({
+      value: other,
+      svg: {
+        fill: randomColor(),
+      },
+      key: `pie-other`,
+      name: APP_CONTENT.otherAsset,
+    });
   }
 
   return res;

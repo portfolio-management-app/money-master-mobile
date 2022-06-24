@@ -1,19 +1,19 @@
 import { observer } from 'mobx-react-lite';
 import React from 'react';
 import { View } from 'react-native';
-import { ASSET_DETAIL_CONTENT } from 'shared/constants';
+import { APP_CONTENT, ASSET_DETAIL_CONTENT } from 'shared/constants';
 import { ICryptoAsset } from 'shared/models';
 import { styleProvider, colorScheme } from 'shared/styles';
 import { parseToString } from 'utils/date';
-import { calcPercent, formatCurrency } from 'utils/number';
+import { formatCurrency } from 'utils/number';
 import { TextContainer } from '../TextContainer';
 
 interface IProps {
   asset: ICryptoAsset;
+  profit?: string;
 }
 
-export const CryptoInformationCard = observer(({ asset }: IProps) => {
-  const percent = calcPercent(asset.currentPrice, asset.purchasePrice);
+export const CryptoInformationCard = observer(({ asset, profit }: IProps) => {
   return (
     <View style={styleProvider.centerVertical}>
       <View>
@@ -24,22 +24,11 @@ export const CryptoInformationCard = observer(({ asset }: IProps) => {
           <TextContainer type="small">
             {ASSET_DETAIL_CONTENT.buyPrice}:{' '}
           </TextContainer>
-          <TextContainer type="small" color={colorScheme.green300}>
+          <TextContainer type="small" color={colorScheme.green400}>
             {formatCurrency(asset.purchasePrice, asset.currencyCode)}
           </TextContainer>
         </View>
-        <View style={[styleProvider.centerHorizontal, { marginTop: 10 }]}>
-          <TextContainer type="small">
-            {ASSET_DETAIL_CONTENT.profit}:{' '}
-          </TextContainer>
-          <TextContainer
-            type="small"
-            color={percent > 0 ? colorScheme.green300 : colorScheme.red500}
-          >
-            {percent > 0 && '+'}
-            {percent}%
-          </TextContainer>
-        </View>
+
         <View style={[styleProvider.centerHorizontal, { marginTop: 10 }]}>
           <TextContainer type="small">
             {ASSET_DETAIL_CONTENT.description}:{' '}
@@ -62,6 +51,16 @@ export const CryptoInformationCard = observer(({ asset }: IProps) => {
             {parseToString(new Date(asset.inputDay), { withTime: false })}
           </TextContainer>
         </View>
+        {profit && (
+          <View style={[styleProvider.centerHorizontal, { marginTop: 10 }]}>
+            <TextContainer type="small">
+              {APP_CONTENT.profit.currentProfit}:{' '}
+            </TextContainer>
+            <TextContainer color={colorScheme.green400} type="small">
+              {profit}
+            </TextContainer>
+          </View>
+        )}
       </View>
     </View>
   );

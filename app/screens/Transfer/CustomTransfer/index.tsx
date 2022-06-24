@@ -26,9 +26,11 @@ export const CustomTransfer = observer(() => {
     toggle();
     createTransaction({
       destinationAssetId: null,
+      valueOfReferentialAssetBeforeCreatingTransaction:
+        information.inputMoneyAmount,
       destinationAssetType: 'fund',
       referentialAssetId: information.id,
-      referentialAssetType: 'crypto',
+      referentialAssetType: 'custom',
       isTransferringAll: false,
       amountInDestinationAssetUnit: 0,
       amount: amount,
@@ -41,6 +43,7 @@ export const CustomTransfer = observer(() => {
   }, [
     toggle,
     createTransaction,
+    information.inputMoneyAmount,
     information.id,
     information.inputCurrency,
     amount,

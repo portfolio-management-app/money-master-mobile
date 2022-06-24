@@ -70,7 +70,7 @@ export const Brief = observer(() => {
             skeleton={
               <View>
                 <View style={styleProvider.centerVertical}>
-                  <SkeletonView circle width={80} height={80} />
+                  <SkeletonView circle width={180} height={180} />
                 </View>
 
                 <Skeleton times={3} />

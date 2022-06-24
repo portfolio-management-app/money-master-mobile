@@ -27,6 +27,8 @@ export const StockTransfer = observer(() => {
     createTransaction({
       destinationAssetId: null,
       destinationAssetType: 'fund',
+      valueOfReferentialAssetBeforeCreatingTransaction:
+        information.currentAmountHolding * information.currentPrice,
       referentialAssetId: information.id,
       referentialAssetType: 'stock',
       isTransferringAll: false,
@@ -41,6 +43,8 @@ export const StockTransfer = observer(() => {
   }, [
     toggle,
     createTransaction,
+    information.currentAmountHolding,
+    information.currentPrice,
     information.id,
     information.currencyCode,
     amount,

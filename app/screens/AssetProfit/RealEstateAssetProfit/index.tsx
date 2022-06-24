@@ -1,12 +1,8 @@
-import { useNavigation } from '@react-navigation/native';
 import { observer } from 'mobx-react-lite';
-import { getSnapshot } from 'mobx-state-tree';
 import { NavigationHeader } from 'navigation/header';
-import { MainStackNavigationProp } from 'navigation/types';
 import React from 'react';
 import {
   PlatformView,
-  ProfitActionButtons,
   ProfitChart,
   ProfitRangeMenu,
   RealEstateInformationCard,
@@ -15,31 +11,23 @@ import {
 import { APP_CONTENT } from 'shared/constants';
 import { RealEstateAssetStore } from 'shared/stores';
 import { styleProvider } from 'shared/styles';
+import { formatCurrency } from 'utils/number';
 
 export const RealEstateAssetProfit = observer(() => {
   const { getProfitLoss, profit, loading, information } = RealEstateAssetStore;
 
-  const navigation = useNavigation<MainStackNavigationProp>();
   React.useEffect(() => {
     getProfitLoss('day');
   }, [getProfitLoss]);
-  const handleAdd = () => {
-    navigation.navigate('ChooseBuySource', {
-      fromScreen: 'ASSET_DETAIL',
-      asset: information,
-      type: 'realEstate',
-    });
-  };
 
-  const handleSell = () => {
-    navigation.navigate('CashAssetPicker', {
-      source: information,
-      actionType: 'SELL',
-      type: 'realEstate',
-      transactionType: 'withdrawToCash',
-      fromScreen: 'ASSET_DETAIL',
-    });
-  };
+  const currentProfit =
+    profit.length > 0
+      ? formatCurrency(
+          profit[profit.length - 1].amount,
+          information.inputCurrency
+        )
+      : formatCurrency(0, information.inputCurrency);
+  console.log(profit);
   return (
     <PlatformView style={styleProvider.body}>
       <NavigationHeader
@@ -48,9 +36,9 @@ export const RealEstateAssetProfit = observer(() => {
           <ProfitRangeMenu onSelect={(range) => getProfitLoss(range)} />
         }
       />
-      <RealEstateInformationCard asset={information} />
-      <ProfitChart chartData={getSnapshot(profit)} />
-      <ProfitActionButtons onAddValue={handleAdd} onSell={handleSell} />
+      <RealEstateInformationCard profit={currentProfit} asset={information} />
+      <ProfitChart chartData={profit} />
+
       <TransparentLoading show={loading} />
     </PlatformView>
   );

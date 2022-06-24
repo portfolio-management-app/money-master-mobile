@@ -135,6 +135,7 @@ export const vn = {
       cash: 'Tiền mặt',
       metal: 'Kim loại quý',
     },
+
     createOtherModal: {
       header: 'Tạo tài sản mới',
       create: 'Tạo',
@@ -163,6 +164,7 @@ export const vn = {
       create: 'Tạo',
     },
   },
+  otherAsset: 'Tài sản khác',
   assetDetail: {
     headerBanking: 'Thông tin ngân hàng',
     headerCrypto: 'Thông tin tiền điện tử',
@@ -610,5 +612,6 @@ export const vn = {
       sell: 'BÁN TỚI TIỀN MẶT',
       addValue: 'THÊM GIÁ TRỊ',
     },
+    currentProfit: 'Lợi nhuận hiện tại',
   },
 };

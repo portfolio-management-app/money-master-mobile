@@ -1,0 +1,6 @@
+Cài đặt nodejs: https://nodejs.org/en/download
+Cài đặt package manager: yarn hoặc npm
+Đối với yarn: https://yarnpkg.com/getting-started/install
+Đối với npm: npm đã tích hợp săn khi cài đặt nodejs
+Setup môi trường phát triển cho React Native theo hướng dẫn sau:
+https://reactnative.dev/docs/environment-setup

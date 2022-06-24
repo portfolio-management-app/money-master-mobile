@@ -48,7 +48,8 @@ export const DatePicker = ({
         onChange(currentDate);
       }
       if (onISOStringChange) {
-        onISOStringChange(currentDate.toISOString());
+        const [withoutTime] = currentDate.toISOString().split('T');
+        onISOStringChange(withoutTime);
       }
       setDate(currentDate);
       setDateString(parseToString(currentDate, { withTime: false }));

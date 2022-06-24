@@ -5,7 +5,7 @@ import { TouchableOpacity, View } from 'react-native-ui-lib';
 import { TextContainer } from 'shared/components';
 import { IStockAsset } from 'shared/models';
 import { colorScheme, styleProvider } from 'shared/styles';
-import { calcPercent, formatCurrency } from 'utils/number';
+import { formatCurrency } from 'utils/number';
 
 interface IProps {
   item: IStockAsset;

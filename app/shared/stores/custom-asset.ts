@@ -108,6 +108,7 @@ export const CustomAssetStore = types
         self.transactionResponse.makeError(res);
       } else {
         self.transactionResponse.makeSuccess();
+        self.transactionResponse.stopPending();
         getTransactionList();
         getInformation();
       }

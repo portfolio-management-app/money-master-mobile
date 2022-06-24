@@ -171,6 +171,7 @@ export const en = {
       create: 'Create',
     },
   },
+  otherAsset: 'Other',
   assetDetail: {
     headerBanking: 'Banking  information',
     headerCrypto: 'Crypto  information',
@@ -619,5 +620,6 @@ export const en = {
       sell: 'SELL TO CASH',
       addValue: 'ADD VALUE',
     },
+    currentProfit: 'Current profit',
   },
 };

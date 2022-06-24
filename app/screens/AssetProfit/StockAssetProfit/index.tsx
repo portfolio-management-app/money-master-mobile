@@ -1,12 +1,9 @@
-import { useNavigation } from '@react-navigation/native';
 import { observer } from 'mobx-react-lite';
 import { getSnapshot } from 'mobx-state-tree';
 import { NavigationHeader } from 'navigation/header';
-import { MainStackNavigationProp } from 'navigation/types';
 import React from 'react';
 import {
   PlatformView,
-  ProfitActionButtons,
   ProfitChart,
   ProfitRangeMenu,
   StockInformationCard,
@@ -15,31 +12,22 @@ import {
 import { APP_CONTENT } from 'shared/constants';
 import { StockAssetStore } from 'shared/stores';
 import { styleProvider } from 'shared/styles';
+import { formatCurrency } from 'utils/number';
 
 export const StockAssetProfit = observer(() => {
   const { getProfitLoss, profit, loading, information } = StockAssetStore;
 
-  const navigation = useNavigation<MainStackNavigationProp>();
   React.useEffect(() => {
     getProfitLoss('day');
   }, [getProfitLoss]);
-  const handleAdd = () => {
-    navigation.navigate('ChooseBuySource', {
-      fromScreen: 'ASSET_DETAIL',
-      asset: information,
-      type: 'stock',
-    });
-  };
 
-  const handleSell = () => {
-    navigation.navigate('CashAssetPicker', {
-      source: information,
-      actionType: 'SELL',
-      type: 'stock',
-      transactionType: 'withdrawToCash',
-      fromScreen: 'ASSET_DETAIL',
-    });
-  };
+  const currentProfit =
+    profit.length > 0
+      ? formatCurrency(
+          profit[profit.length - 1].amount,
+          information.currencyCode
+        )
+      : formatCurrency(0, information.currencyCode);
   return (
     <PlatformView style={styleProvider.body}>
       <NavigationHeader
@@ -48,9 +36,9 @@ export const StockAssetProfit = observer(() => {
           <ProfitRangeMenu onSelect={(range) => getProfitLoss(range)} />
         }
       />
-      <StockInformationCard asset={information} />
+      <StockInformationCard profit={currentProfit} asset={information} />
       <ProfitChart chartData={getSnapshot(profit)} />
-      <ProfitActionButtons onAddValue={handleAdd} onSell={handleSell} />
+
       <TransparentLoading show={loading} />
     </PlatformView>
   );

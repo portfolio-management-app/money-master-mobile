@@ -17,8 +17,7 @@ export const PieChartAsset = observer(({ data, renderLabels }: IProps) => {
         style={{ height: 200 }}
         data={data}
         innerRadius={20}
-        outerRadius={55}
-        labelRadius={80}
+        outerRadius={80}
       ></PieChart>
       <View style={styles.container}>
         {renderLabels.map((item) => (

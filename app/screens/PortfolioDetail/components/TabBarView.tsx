@@ -6,9 +6,6 @@ import { SCREEN_CONTENT } from '../constants';
 import { Brief } from './Brief';
 import { Holding } from './Holding';
 import { InvestFund } from './InvestFund';
-import { Note } from './Note';
-import { Payout } from './Payout';
-import { Report } from './Report';
 
 const TAB_CONTENT = SCREEN_CONTENT.tabs;
 

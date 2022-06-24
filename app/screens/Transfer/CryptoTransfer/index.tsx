@@ -37,12 +37,16 @@ export const CryptoTransfer = observer(() => {
       fee: 0,
       tax: 0,
       isUsingFundAsSource: false,
+      valueOfReferentialAssetBeforeCreatingTransaction:
+        information.currentAmountHolding * information.currentPrice,
     });
   }, [
     toggle,
     createTransaction,
     information.id,
     information.currencyCode,
+    information.currentAmountHolding,
+    information.currentPrice,
     amount,
   ]);
   const handleChangeAmount = (amount: number) => {
