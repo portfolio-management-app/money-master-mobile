@@ -19,7 +19,7 @@ export const Transaction = observer(() => {
     getTransactionList,
     loading,
     transactionQuery,
-    resetTransaction,
+    getMoreTransaction,
   } = CustomAssetStore;
 
   React.useEffect(() => {
@@ -34,27 +34,26 @@ export const Transaction = observer(() => {
   const handleStartChange = (date: string) => {
     transactionQuery.setStartDate(date);
     transactionQuery.restPageNumber();
-    resetTransaction();
+
     getTransactionList();
   };
 
   const handleEndChange = (date: string) => {
     transactionQuery.setEndDate(date);
     transactionQuery.restPageNumber();
-    resetTransaction();
+
     getTransactionList();
   };
 
   const handleReset = () => {
     transactionQuery.reset();
-    resetTransaction();
+
     getTransactionList();
   };
 
   const handleTypeChange = (type: ITransactionFilterType) => {
     transactionQuery.setType(type);
     transactionQuery.restPageNumber();
-    resetTransaction();
     getTransactionList();
   };
 
@@ -76,15 +75,14 @@ export const Transaction = observer(() => {
       <TransactionList
         onRefresh={() => {
           transactionQuery.restPageNumber();
-          resetTransaction();
+
           getTransactionList();
         }}
         data={transactionList}
         refreshing={loading}
         onItemPress={handleItemPress}
         onEndReached={() => {
-          transactionQuery.increasePageNumber();
-          getTransactionList();
+          getMoreTransaction();
         }}
       />
     </>

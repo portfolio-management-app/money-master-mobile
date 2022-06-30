@@ -85,9 +85,30 @@ export const CustomAssetStore = types
       if (res instanceof HttpError) {
         log('Error when get custom transaction list', res);
       } else {
-        self.transactionList = cast([...self.transactionList, ...res]);
+        self.transactionList = res;
       }
       self.loading = false;
+    });
+
+    const getMoreTransaction = flow(function* () {
+      self.transactionQuery.increasePageNumber();
+      const res = yield httpRequest.sendGet(
+        `${Config.BASE_URL}/portfolio/${self.information.portfolioId}/custom/${
+          self.information.id
+        }/transactions${buildTransactionQueryString(
+          self.transactionQuery.startDate,
+          self.transactionQuery.endDate,
+          self.transactionQuery.pageSize,
+          self.transactionQuery.pageNumber,
+          self.transactionQuery.type
+        )}`,
+        UserStore.user.token
+      );
+      if (res instanceof HttpError) {
+        log('Error when get custom transaction list', res);
+      } else {
+        self.transactionList = cast([...self.transactionList, ...res]);
+      }
     });
 
     const assignInfo = (info: ICustomAsset) => {
@@ -157,9 +178,6 @@ export const CustomAssetStore = types
       }
       self.loading = false;
     });
-    const resetTransaction = () => {
-      self.transactionList = cast([]);
-    };
 
     return {
       editAsset,
@@ -169,7 +187,7 @@ export const CustomAssetStore = types
       getTransactionList,
       createTransaction,
       getInformation,
-      resetTransaction,
+      getMoreTransaction,
     };
   })
   .create({

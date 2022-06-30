@@ -95,6 +95,27 @@ export const StockAssetStore = types
       self.loading = false;
     });
 
+    const getMoreTransaction = flow(function* () {
+      self.transactionQuery.increasePageNumber();
+      const res = yield httpRequest.sendGet(
+        `${Config.BASE_URL}/portfolio/${self.information.portfolioId}/stock/${
+          self.information.id
+        }/transactions${buildTransactionQueryString(
+          self.transactionQuery.startDate,
+          self.transactionQuery.endDate,
+          self.transactionQuery.pageSize,
+          self.transactionQuery.pageNumber,
+          self.transactionQuery.type
+        )}`,
+        UserStore.user.token
+      );
+      if (res instanceof HttpError) {
+        log('Error when get stock transaction list', res);
+      } else {
+        self.transactionList = cast([...self.transactionList, ...res]);
+      }
+    });
+
     const assignInfo = (info: IStockAsset) => {
       self.information = { ...info };
     };
@@ -164,10 +185,6 @@ export const StockAssetStore = types
       }
     });
 
-    const resetTransaction = () => {
-      self.transactionList = cast([]);
-    };
-
     const getProfitLoss = flow(function* (period: ProfitPeriod) {
       self.loading = true;
       const res = yield httpRequest.sendGet(
@@ -190,7 +207,7 @@ export const StockAssetStore = types
       transferToFund,
       getInformation,
       registerPriceNotification,
-      resetTransaction,
+      getMoreTransaction,
       getProfitLoss,
     };
   })

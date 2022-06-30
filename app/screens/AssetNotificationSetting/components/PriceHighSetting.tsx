@@ -35,10 +35,6 @@ export const PriceHighSetting = observer(({ setting, asset, type }: IProps) => {
     getAssetCommonInfo(asset, type);
 
   const handleSubmit = (amount: number) => {
-    if (amount < currentPrice) {
-      makeError(CONTENT.error.high);
-      return;
-    }
     setAmount(amount);
     if (setting.id !== 0)
       editSetting({
@@ -52,10 +48,6 @@ export const PriceHighSetting = observer(({ setting, asset, type }: IProps) => {
   const handleChangeCheck = (val: boolean) => {
     if (val === true) {
       if (setting.id === 0) {
-        if (currentPrice > amount) {
-          makeError(CONTENT.error.high);
-          return;
-        }
         registerPriceNotification({
           assetId: id,
           assetName: name,

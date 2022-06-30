@@ -5,6 +5,7 @@ export const UserNotification = types.model('UserNotification', {
   createDate: types.string,
   assetId: types.number,
   portfolioId: types.number,
+  portfolioName: types.string,
   assetName: types.string,
   assetType: types.union(
     types.literal('crypto'),

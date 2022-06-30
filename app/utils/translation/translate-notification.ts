@@ -12,7 +12,7 @@ export function translateNotificationMessage(payload: any) {
   temp['body'] = `${payload['assetName']} ${CONTENT.reach} ${formatCurrency(
     amount * 1,
     temp['currency']
-  )} ${CONTENT.body}`;
+  )} ${CONTENT.in} "${payload['portfolioName']}", ${CONTENT.body}`;
 
   return temp;
 }

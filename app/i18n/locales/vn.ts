@@ -490,6 +490,8 @@ export const vn = {
     message: 'File lưu tại',
     transaction: 'Lịch sử giao dịch',
     assetInformation: 'Thông tin tài sản',
+    errorTitle: 'Lỗi',
+    error: 'Không thể lưu file',
   },
   createTransaction: {
     fee: 'Phí',
@@ -539,6 +541,7 @@ export const vn = {
   notificationContent: {
     title: 'Tài sản đã đạt đến giá trị',
     reach: 'đạt tới',
+    in: 'trong danh mục đầu tư',
     body: 'kiểm tra ngay',
   },
   userNotification: {

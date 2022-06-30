@@ -514,6 +514,8 @@ export const en = {
     message: 'File save at',
     transaction: 'Transaction record',
     assetInformation: 'Asset information',
+    errorTitle: 'Error',
+    error: "Can't not save file",
   },
   createTransaction: {
     fee: 'Fee',
@@ -555,6 +557,7 @@ export const en = {
   notificationContent: {
     title: 'Asset reach value',
     reach: 'reach',
+    in: 'in portfolio',
     body: 'check it out now',
   },
   userNotification: {

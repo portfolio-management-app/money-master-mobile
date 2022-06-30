@@ -51,6 +51,7 @@ class FileService {
       })
       .catch((e) => {
         log('Error when save file', e);
+        Alert.alert(CONTENT.errorTitle, `${CONTENT.error}`);
       });
   }
 }

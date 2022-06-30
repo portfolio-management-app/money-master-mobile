@@ -32,11 +32,12 @@ const PriceNotification = ({ item, onPress }: IProps) => {
       style={[styles.item, !item.isRead && styles.readItem]}
     >
       <NotificationIcon item={item} />
-      <View style={{ marginLeft: 20 }}>
-        <TextContainer bold>
+      <View style={{ marginLeft: 20, flex: 1 }}>
+        <TextContainer style={{ flex: 1 }} bold>
           {item.assetName}{' '}
-          <TextContainer>
+          <TextContainer style={{ flex: 1 }}>
             {CONTENT.reach} <Price item={item} />{' '}
+            {APP_CONTENT.notificationContent.in} {`"${item.portfolioName}"`}
           </TextContainer>
         </TextContainer>
         <TextContainer mt={10}>

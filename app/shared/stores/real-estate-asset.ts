@@ -86,9 +86,32 @@ export const RealEstateAssetStore = types
       if (res instanceof HttpError) {
         log('Error when get real estate transaction list', res);
       } else {
-        self.transactionList = cast([...self.transactionList, ...res]);
+        self.transactionList = res;
       }
       self.loading = false;
+    });
+
+    const getMoreTransaction = flow(function* () {
+      self.transactionQuery.increasePageNumber();
+      const res = yield httpRequest.sendGet(
+        `${Config.BASE_URL}/portfolio/${
+          self.information.portfolioId
+        }/realEstate/${
+          self.information.id
+        }/transactions${buildTransactionQueryString(
+          self.transactionQuery.startDate,
+          self.transactionQuery.endDate,
+          self.transactionQuery.pageSize,
+          self.transactionQuery.pageNumber,
+          self.transactionQuery.type
+        )}`,
+        UserStore.user.token
+      );
+      if (res instanceof HttpError) {
+        log('Error when get real estate transaction list', res);
+      } else {
+        self.transactionList = cast([...self.transactionList, ...res]);
+      }
     });
 
     const assignInfo = (info: IRealEstateAsset) => {
@@ -144,10 +167,6 @@ export const RealEstateAssetStore = types
       self.loading = false;
     });
 
-    const resetTransaction = () => {
-      self.transactionList = cast([]);
-    };
-
     const getProfitLoss = flow(function* (period: ProfitPeriod) {
       const res = yield httpRequest.sendGet(
         `${Config.BASE_URL}/portfolio/${self.information.portfolioId}/realEstate/${self.information.id}/profitLoss?period=${period}`,
@@ -167,8 +186,9 @@ export const RealEstateAssetStore = types
       createTransaction,
       transferToFund,
       getInformation,
-      resetTransaction,
+
       getProfitLoss,
+      getMoreTransaction,
     };
   })
   .create({

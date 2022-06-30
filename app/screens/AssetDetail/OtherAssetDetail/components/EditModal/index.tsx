@@ -5,11 +5,8 @@ import { ScrollView } from 'react-native';
 import { Modal } from 'react-native-ui-lib';
 import {
   CreateModalHeader,
-  CurrencyPicker,
   CustomTextField,
   CustomToast,
-  DatePicker,
-  renderPickerForPortfolio,
   TransparentLoading,
 } from 'shared/components';
 import { APP_CONTENT } from 'shared/constants';
